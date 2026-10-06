@@ -1,0 +1,626 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fefcf5;color:#1a1714}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>琥珀蜜罐熊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+/* Layout: 树洞与琥珀蜜浆童话风 (琥珀金/松脂棕/蜜蜡黄) */
+:root{
+  --paper:#fcf8f0;
+  --ink:#1c1714;
+  --amber:#d97706;
+  --honey:#f59e0b;
+  --wax:#fef3c7;
+  --bark:#5c4033;
+  --moss:#4d7c0f;
+  --white:#ffffff;
+  --chunk:"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif;
+  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  background-color:var(--paper);
+  background-image:radial-gradient(rgba(28,23,20,.08) 1.2px,transparent 1.5px);
+  background-size:12px 12px;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.65;
+  padding-inline:16px;
+  padding-block:28px 56px;
+  transition:filter 0.3s ease;
+}
+.wrap{max-width:980px;margin-inline:auto;display:flex;flex-direction:column;gap:26px}
+.head{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.kicker{margin:0;background:var(--ink);color:var(--white);font-family:var(--mono);font-size:12px;letter-spacing:.14em;padding:3px 10px;transform:skewX(-8deg)}
+h1{
+  margin:0;font-family:var(--chunk);font-weight:400;
+  font-size:clamp(3.6rem,14vw,6.4rem);line-height:1;letter-spacing:.05em;
+  color:var(--amber);
+  -webkit-text-stroke:8px var(--ink);paint-order:stroke fill;
+  text-shadow:6px 6px 0 var(--ink);
+  transform:rotate(-1.5deg);transform-origin:left bottom;
+}
+.latin{margin:0;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--bark);letter-spacing:.06em}
+
+.film{display:flex;flex-direction:column;gap:16px;min-width:0}
+.stage{
+  position:relative;width:100%;aspect-ratio:16/10;
+  background:#ffe8a3;
+  border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);
+  cursor:crosshair;overflow:hidden;
+}
+canvas.main{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cap{
+  position:absolute;left:14px;top:14px;max-width:min(72%,26em);
+  background:#fef08a;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+  padding:6px 14px;display:flex;flex-direction:column;gap:0;pointer-events:none;z-index:10;
+}
+.cap b{font-family:var(--chunk);font-weight:400;font-size:1.25rem;letter-spacing:.12em;line-height:1.3;color:var(--amber)}
+.cap span{font-size:13.5px;line-height:1.5;color:var(--ink)}
+.gauge{
+  position:absolute;right:14px;bottom:14px;
+  background:var(--white);border:2px solid var(--ink);padding:2px 10px;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;z-index:10;box-shadow:2px 2px 0 var(--ink);
+}
+
+.ctl{display:flex;align-items:center;gap:12px;min-width:0;margin-top:2px}
+.ctl button{
+  flex:none;min-width:68px;
+  font:inherit;font-size:14px;font-weight:700;color:var(--ink);
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:3px 3px 0 var(--ink);padding:5px 14px;cursor:pointer;
+  transition:all 0.1s;
+}
+.ctl button:hover{background:#fef08a;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.ctl button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.ctl input[type=range]{flex:1;min-width:0;accent-color:var(--amber);cursor:pointer}
+.clock{flex:none;font-family:var(--mono);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+
+.chapters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.chapters button{
+  font:inherit;color:var(--ink);text-align:left;cursor:pointer;
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:4px 4px 0 var(--ink);padding:0;display:flex;flex-direction:column;min-width:0;
+  transition:all 0.15s;
+}
+.chapters button:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.chapters canvas{display:block;width:100%;aspect-ratio:4/3;border-bottom:3px solid var(--ink);background:#ffe8a3}
+.chapters .lab{display:flex;align-items:baseline;gap:8px;padding:5px 10px 6px}
+.chapters .lab b{font-family:var(--chunk);font-weight:400;font-size:1.15rem;letter-spacing:.12em}
+.chapters .lab small{font-family:var(--mono);font-size:11px;font-weight:700}
+.chapters button[aria-current=true] .lab{background:#fef08a}
+.chapters button[aria-current=true]{box-shadow:4px 4px 0 var(--amber)}
+
+.manga-control-bar{
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  background:var(--white);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+  padding:12px 16px;
+}
+.mode-selector{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mode-title{
+  font-family:var(--chunk);font-size:1.2rem;letter-spacing:.08em;
+  background:var(--ink);color:#fff;padding:2px 10px;transform:skewX(-8deg);
+}
+.stamp-btn{
+  font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em;
+  background:var(--paper);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:5px 12px;cursor:pointer;transition:all 0.15s;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.stamp-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);background:var(--wax)}
+.stamp-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.stamp-btn[aria-pressed=true]{background:var(--amber);color:#fff;box-shadow:3px 3px 0 var(--ink);transform:translateY(1px)}
+
+.tone-filters{display:flex;gap:8px;align-items:center}
+.filter-tag{font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em}
+.filter-btn{
+  font-family:var(--body);font-weight:700;font-size:12px;
+  border:2px solid var(--ink);background:#fff;padding:4px 10px;cursor:pointer;
+}
+.filter-btn.active{background:var(--ink);color:#fff}
+
+.guide{display:flex;flex-direction:column;gap:16px;background:var(--white);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:18px 20px 16px}
+.guide-header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.guide h2{margin:0;font-family:var(--chunk);font-weight:400;font-size:1.7rem;letter-spacing:.12em;line-height:1.2}
+.guide-num{font-family:var(--mono);font-size:12px;font-weight:700;color:#666}
+dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+.row{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:12px;padding:10px 0;border-top:2px dashed rgba(28,23,20,.25);align-items:start}
+dt{justify-self:start;background:#fef08a;border:2px solid var(--ink);padding:1px 7px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em}
+dd{margin:0;min-width:0;font-size:14px}
+.note{margin:0;font-family:var(--mono);font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:8px}
+.sfxload{position:absolute;left:-9999px;top:0;font-family:var(--chunk);white-space:nowrap}
+
+.mode-monochrome{filter:grayscale(100%) contrast(150%)}
+.mode-blueprint{filter:invert(100%) hue-rotate(190deg) contrast(140%) brightness(90%)}
+
+@media (max-width:640px){
+  .stage{aspect-ratio:4/5}
+  .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  dl{grid-template-columns:1fr}
+}
+</style>
+
+<main class="wrap" id="mainWrap">
+  <header class="head">
+    <p class="kicker">巨树林与琥珀蜜源 · 第 13 话 · 虚构哺乳纲物种</p>
+    <h1>琥珀蜜罐熊</h1>
+    <p class="latin">Melursus vitrina</p>
+  </header>
+
+  <section class="film" aria-label="琥珀蜜罐熊漫画短片">
+    <div class="stage" id="stageFrame">
+      <canvas class="main" id="c" role="img" aria-label="琥珀蜜罐熊在巨树林漫步、肚子琥珀蜜罐蓄蜜、舔食花蜜与团成蜜罐大球酣睡的动画"></canvas>
+      <div class="cap"><b id="capName">林行</b><span id="capText"></span></div>
+      <div class="gauge" id="gauge">体态 · 琥珀蜜腹 35% 饱满 · 散步</div>
+    </div>
+    
+    <div class="ctl">
+      <button id="play" type="button">暂停</button>
+      <input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="播放进度">
+      <span class="clock" id="clock">00:00 / 00:25</span>
+    </div>
+
+    <nav class="chapters" id="chapters" aria-label="章节"></nav>
+  </section>
+
+  <footer class="manga-control-bar">
+    <div class="mode-selector">
+      <span class="mode-title">蜜源指令印章</span>
+      <button class="stamp-btn" id="btnWalk" aria-pressed="true">
+        <span>🐾</span> 寻林漫步
+      </button>
+      <button class="stamp-btn" id="btnLick" aria-pressed="false">
+        <span>🍯</span> 吮吸花蜜
+      </button>
+      <button class="stamp-btn" id="btnGlow" aria-pressed="false">
+        <span>✨</span> 琥珀满溢
+      </button>
+      <button class="stamp-btn" id="btnSleep" aria-pressed="false">
+        <span>💤</span> 蜜罐酣睡
+      </button>
+    </div>
+
+    <div class="tone-filters">
+      <span class="filter-tag">连载印装：</span>
+      <button class="filter-btn active" id="fltColor">卷首全彩</button>
+      <button class="filter-btn" id="fltMono">黑白网点</button>
+      <button class="filter-btn" id="fltBlue">原稿蓝图</button>
+    </div>
+  </footer>
+
+  <section class="guide" aria-label="物种百科档案">
+    <div class="guide-header">
+      <h2>物种档案</h2>
+      <span class="guide-num">档案编号：BEAR-13-SPEC</span>
+    </div>
+    <dl>
+      <div class="row"><dt>体型</dt><dd>站立高 1.4 米，四足爬行体长 1.6 米，空腹体重 42 公斤，满腹时重达 85 公斤</dd></div>
+      <div class="row"><dt>生境</dt><dd>阳光充足的古老巨树林、流淌天然树脂的杉木林缘及野花盛开的灌木缓坡</dd></div>
+      <div class="row"><dt>琥珀蜜腹</dt><dd>腹部下端长有一层透明、富有弹性且隔热的半球形生物角质蜜囊，用于储存发酵花蜜</dd></div>
+      <div class="row"><dt>金丝长舌</dt><dd>拥有长达 45 厘米的金色伸缩舌，表面布满微型吸盘，能探入深邃花萼舔食花浆</dd></div>
+      <div class="row"><dt>食性</dt><dd>嗜食巨型向阳野花的花蜜、高山野生蜂巢蜜露与香甜松脂</dd></div>
+      <div class="row"><dt>习性</dt><dd>性格温顺贪吃；白天在林间慢步收集花蜜储存于腹部蜜罐中；入夜后盘成圆球在树根下散发淡淡蜜香安睡</dd></div>
+    </dl>
+    <p class="note">物种与拉丁学名皆为虚构。点击主画面可激起琥珀蜜滴与金色光晕，点击章节或印章即刻切换动效。</p>
+  </section>
+  <span class="sfxload" aria-hidden="true">啪嗒啪嗒舔吮咕嘟咕噜呼噜呼噜～！—</span>
+</main>
+
+<script>
+(function(){
+  var DUR=25;
+  var INK='#1c1714';
+  var SFXFONT='"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif';
+  var scenes=[
+    {t:0,key:3.0,name:'林行',text:'阳光穿透巨树林，它迈着沉甸甸的短腿四足漫步，挺着半透明的空蜜腹左右摇晃。'},
+    {t:6,key:8.5,name:'舔蜜',text:'遇见一朵挂满花蜜的巨型野花，它伸出金色长舌贪婪地吮吸，腹部蜜罐渐渐充盈发光。'},
+    {t:12,key:15.0,name:'饱胀',text:'蜜罐被灌得满满当当，犹如一颗透亮的金黄琥珀球，它挺着大肚子幸福地转圈。'},
+    {t:19,key:21.8,name:'酣睡',text:'暮色降临，它将四肢缩进巨大的琥珀蜜腹下，团成一颗温暖的蜜球发出香甜呼噜声。'}
+  ];
+  var cv=document.getElementById('c');
+  var mctx=cv.getContext('2d');
+  var ctx=mctx;
+  var W=800,H=500,dpr=1;
+  var playing=true,t=0,last=0,loops=0,sceneIdx=-1;
+  var honeyDrops=[];
+
+  var clamp=function(x,a,b){a=a===undefined?0:a;b=b===undefined?1:b;return Math.min(b,Math.max(a,x));};
+  var sm=function(a,b,x){x=clamp((x-a)/(b-a));return x*x*(3-2*x);};
+  var lerp=function(a,b,k){return a+(b-a)*k;};
+  var frac=function(v){return ((v%1)+1)%1;};
+  function mixc(a,b,k){return [Math.round(lerp(a[0],b[0],k)),Math.round(lerp(a[1],b[1],k)),Math.round(lerp(a[2],b[2],k))];}
+  function rgb(a,al){return al===undefined?'rgb('+a.join(',')+')':'rgba('+a.join(',')+','+al+')';}
+
+  function halftone(x0,y0,w,h,sp,col,rmax,flip){
+    ctx.save();ctx.beginPath();ctx.rect(x0,y0,w,h);ctx.clip();
+    ctx.fillStyle=col;ctx.beginPath();
+    var row=0;
+    for(var y=y0;y<y0+h+sp;y+=sp*0.866,row++){
+      var f=clamp((y-y0)/h);if(flip)f=1-f;
+      var r=rmax*Math.pow(f,0.9);if(r<0.4)continue;
+      for(var x=x0+(row%2?sp/2:0);x<x0+w+sp;x+=sp){ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,6.283);}
+    }
+    ctx.fill();ctx.restore();
+  }
+
+  function popv(tt,a,b){
+    if(tt<a||tt>b)return 0;
+    var age=tt-a,v=1;
+    if(age<0.22){var x=age/0.22,c1=1.70158,c3=c1+1;v=1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);}
+    if(b-tt<0.2)v*=(b-tt)/0.2;
+    return Math.max(0,v);
+  }
+
+  function sfx(txt,x,y,size,rot,fill,pop){
+    if(pop<=0)return;
+    ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(pop,pop);
+    ctx.font='900 '+size+'px '+SFXFONT;ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.lineJoin='round';ctx.lineWidth=size*0.22;ctx.strokeStyle=INK;ctx.strokeText(txt,0,0);
+    ctx.fillStyle=fill;ctx.fillText(txt,0,0);
+    ctx.restore();
+  }
+
+  // --- 独创生物结构：琥珀蜜罐熊 ---
+  function drawHoneyBear(tt,s,walk,lick,glow,sleep){
+    var OL=Math.max(2.2,2.8*s)/s;
+    ctx.lineJoin='round';ctx.lineCap='round';
+    var BEAR_BROWN='#8d5524',BEAR_DARK='#5c3818',HONEY_AMBER='#f59e0b',HONEY_LIGHT='#fef08a';
+
+    ctx.save();
+
+    // 4. 阶段：团成一颗大蜜球酣睡 (第4幕)
+    if(sleep>0.5){
+      var breathe = Math.sin(tt*3)*3;
+      ctx.beginPath();ctx.arc(0,10,38 + breathe*0.3,0,6.283);
+      ctx.fillStyle=HONEY_AMBER;ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
+
+      // 蜜球内部高光
+      ctx.beginPath();ctx.arc(-10,2,22,0,6.283);
+      ctx.fillStyle='rgba(254,240,138,0.5)';ctx.fill();
+
+      // 缩进去的熊头与圆耳朵
+      ctx.beginPath();ctx.arc(-24,-12,14,0,6.283);
+      ctx.fillStyle=BEAR_BROWN;ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
+      ctx.beginPath();ctx.arc(-30,-22,5,0,6.283);
+      ctx.fillStyle=BEAR_DARK;ctx.fill();ctx.stroke();
+
+      // 闭眼呼噜 Zzz
+      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.8;
+      ctx.beginPath();ctx.moveTo(-28,-14);ctx.lineTo(-20,-14);ctx.stroke();
+
+      ctx.restore();
+      return;
+    }
+
+    // 蓄蜜量（随时间从0.3增长到1.0）
+    var honeyFill = clamp((tt/25)*1.2 + (glow*0.5), 0.2, 1.0);
+
+    // 1. 四肢 (熊步前行 - 紧密锚定躯干底部)
+    function drawBearLeg(lx,ly,phase,far){
+      ctx.save();
+      var legX=lx, legY=ly;
+      if(walk>0.1){
+        legX += Math.sin(tt*8 + phase)*10*walk;
+        legY += -Math.max(0,Math.cos(tt*8 + phase))*8*walk;
+      }
+      ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(legX,legY+16);
+      ctx.strokeStyle=INK;ctx.lineWidth=12+OL;ctx.stroke();
+      ctx.strokeStyle=far?BEAR_DARK:BEAR_BROWN;ctx.lineWidth=12;ctx.stroke();
+      // 厚实熊掌
+      ctx.beginPath();ctx.ellipse(legX,legY+17,8,5,0,0,6.283);
+      ctx.fillStyle=far?'#3d2610':BEAR_DARK;ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.7;ctx.stroke();
+      ctx.restore();
+    }
+    // 调整远近足根基坐标，使其完美落在躯干底部轮廓（y约为22-26）
+    drawBearLeg(-28,24,Math.PI,true);
+    drawBearLeg(20,24,0,true);
+
+    // 2. 核心奇观：半球形透明琥珀蜜腹
+    ctx.save();ctx.translate(-4,14);
+    var bellyW = 34, bellyH = 28 * honeyFill;
+    // 蜜腹外壁 (半透明琥珀质感)
+    ctx.beginPath();ctx.ellipse(0,0,bellyW,bellyH,0,0,Math.PI);
+    ctx.fillStyle=HONEY_AMBER;ctx.fill();
+    ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
+
+    // 蜜腹内部流动的金色蜜浆与气泡
+    ctx.beginPath();ctx.ellipse(0,2,bellyW-5,bellyH-4,0,0,Math.PI);
+    ctx.fillStyle=HONEY_LIGHT;ctx.fill();
+    // 内部蜂蜜流动高光
+    ctx.strokeStyle='#fff';ctx.lineWidth=2;
+    ctx.beginPath();ctx.arc(-8,bellyH*0.4,6,Math.PI,Math.PI*2);ctx.stroke();
+    ctx.restore();
+
+    // 3. 熊躯干与背部棕毛
+    ctx.beginPath();
+    ctx.moveTo(42,-10);
+    ctx.bezierCurveTo(52,18,30,36,-25,30);
+    ctx.bezierCurveTo(-55,24,-65,-6,-48,-24);
+    ctx.bezierCurveTo(-32,-42,15,-38,42,-10);
+    ctx.closePath();
+    ctx.fillStyle=BEAR_BROWN;ctx.fill();
+    ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
+
+    // 前足 (紧贴躯干前侧底部)
+    drawBearLeg(-24,24,Math.PI,false);
+    drawBearLeg(28,24,0,false);
+
+    // 4. 熊头与金丝长舌 (第2幕舔蜜时伸出)
+    ctx.save();ctx.translate(38,-14);
+    // 圆脑袋
+    ctx.beginPath();ctx.arc(0,0,18,0,6.283);
+    ctx.fillStyle=BEAR_BROWN;ctx.fill();
+    ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
+
+    // 圆圆大耳朵
+    ctx.beginPath();ctx.arc(-8,-16,7,0,6.283);ctx.fillStyle=BEAR_DARK;ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.arc(8,-16,7,0,6.283);ctx.fillStyle=BEAR_DARK;ctx.fill();ctx.stroke();
+
+    // 眼睛
+    ctx.beginPath();ctx.arc(6,-2,4,0,6.283);ctx.fillStyle=INK;ctx.fill();
+    ctx.beginPath();ctx.arc(7.5,-3.5,1.4,0,6.283);ctx.fillStyle='#ffffff';ctx.fill();
+
+    // 胖鼻头与吻部
+    ctx.beginPath();ctx.ellipse(12,4,8,6,0.1,0,6.283);ctx.fillStyle='#fcedd4';ctx.fill();
+    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.7;ctx.stroke();
+    ctx.beginPath();ctx.arc(16,2,3.5,0,6.283);ctx.fillStyle=INK;ctx.fill();
+
+    // 金色长舌头 (舔蜜时伸向前方)
+    if(lick>0.1){
+      var tongueLen = 35 + Math.sin(tt*12)*15;
+      ctx.strokeStyle='#ffd54f';ctx.lineWidth=5;ctx.lineCap='round';
+      ctx.beginPath();ctx.moveTo(18,4);ctx.lineTo(18 + tongueLen, 4 + Math.sin(tt*8)*6);ctx.stroke();
+      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.8;ctx.stroke();
+    }
+    ctx.restore();
+
+    ctx.restore();
+  }
+
+  // --- 场景背景与道具渲染 ---
+  function scene(tt,live){
+    var s=Math.min(W/(W<H?400:480),H/260);
+    var sp=clamp(W/900,0.75,1.25)*11;
+    var base=Math.min(W,H*1.4)*0.1;
+    var i;
+
+    // 四幕状态转换
+    var isWalk  = sm(0,1,tt)*(1-sm(5.5,6.5,tt));
+    var isLick  = sm(5.8,7.0,tt)*(1-sm(11.5,12.5,tt));
+    var isGlow  = sm(12.0,13.2,tt)*(1-sm(18.5,19.5,tt));
+    var isSleep = sm(19.0,20.5,tt);
+
+    var walk  = isWalk;
+    var lick  = isLick;
+    var glow  = isGlow;
+    var sleep = isSleep;
+
+    // 森林色温：晨光蜜黄 -> 午后林间 -> 琥珀金光 -> 沉暮静夜
+    var bgMorning=[254,232,163],bgNoon=[253,224,115],bgAmber=[252,211,77],bgDusk=[217,119,6];
+    var curBg = mixc(bgMorning,bgNoon,sm(5.5,6.8,tt));
+    curBg = mixc(curBg,bgAmber,sm(11.8,13.0,tt));
+    curBg = mixc(curBg,bgDusk,sm(18.5,20.0,tt));
+
+    ctx.fillStyle=rgb(curBg);ctx.fillRect(0,0,W,H);
+    halftone(0,0,W,H*0.7,sp,rgb(mixc(curBg,[92,64,51],0.28)),sp*0.48,true);
+
+    // 背景：巨树林参天杉木巨干与垂挂藤蔓
+    ctx.fillStyle='#5c4033';
+    for(i=0;i<6;i++){
+      var bx=W*(0.08+i*0.16),bw=W*0.09,bh=H*0.85;
+      ctx.fillRect(bx,0,bw,bh);
+      ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.strokeRect(bx,0,bw,bh);
+    }
+
+    var groundY = H*0.78;
+
+    // 前景：林间松软落叶与苔藓大地
+    ctx.fillStyle='#4d7c0f';ctx.fillRect(0,groundY,W,H-groundY);
+    halftone(0,groundY,W,H-groundY,sp,'#365314',sp*0.5,false);
+    ctx.strokeStyle=INK;ctx.lineWidth=3.5;
+    ctx.beginPath();ctx.moveTo(0,groundY);ctx.lineTo(W,groundY);ctx.stroke();
+
+    // 场景道具：第2幕的巨型向阳野花
+    if(isLick>0.1 || isGlow>0.1){
+      ctx.save();
+      var flowerX = W*0.7, flowerY = groundY - 60*s;
+      // 花茎
+      ctx.strokeStyle=INK;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(flowerX,groundY);ctx.quadraticCurveTo(flowerX-20,flowerY+40,flowerX,flowerY);ctx.stroke();
+      // 花瓣
+      for(var fi=0;fi<6;fi++){
+        var fang = fi * Math.PI / 3;
+        ctx.beginPath();ctx.ellipse(flowerX+Math.cos(fang)*22,flowerY+Math.sin(fang)*22,18,10,fang,0,6.283);
+        ctx.fillStyle='#f59e0b';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.stroke();
+      }
+      // 花蕊蜜心
+      ctx.beginPath();ctx.arc(flowerX,flowerY,12,0,6.283);
+      ctx.fillStyle='#b45309';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.stroke();
+      ctx.restore();
+    }
+
+    // 蜜滴飞溅逻辑 (舔蜜时产生)
+    if(lick>0.2 && Math.random()<0.45){
+      honeyDrops.push({
+        x: W*0.58,
+        y: groundY - 45*s,
+        r: 4*s + Math.random()*5*s,
+        op: 1.0,
+        vy: -1 - Math.random()*2
+      });
+    }
+    for(i=honeyDrops.length-1;i>=0;i--){
+      var hd=honeyDrops[i];
+      hd.y+=hd.vy;hd.op-=0.03;
+      if(hd.op<=0){honeyDrops.splice(i,1);continue;}
+      ctx.beginPath();ctx.arc(hd.x,hd.y,hd.r,0,6.283);
+      ctx.fillStyle='rgba(245,158,11,'+hd.op+')';ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=1.2;ctx.stroke();
+    }
+
+    // 生物定位与漫步
+    var bearX = W*0.48;
+    var bearY = groundY - 22*s;
+
+    ctx.save();
+    ctx.translate(bearX,bearY);
+    ctx.scale(s,s);
+    drawHoneyBear(tt,s,walk,lick,glow,sleep);
+    ctx.restore();
+
+    // 拟声词
+    sfx('啪嗒啪嗒',bearX-W*0.22,groundY-H*0.18,base*0.85,-0.06,'#ffffff',popv(tt,0.8,5.0));
+    sfx('贪婪·舔吮～',bearX+W*0.12,groundY-H*0.24,base*1.35,0.12,'#f59e0b',popv(tt,6.2,8.8));
+    sfx('琥珀满溢！',bearX+W*0.08,groundY-H*0.28,base*1.4,-0.1,'#d97706',popv(tt,12.5,15.2));
+    sfx('呼噜呼噜～安眠',bearX-W*0.18,H*0.26,base*1.1,0.06,'#b45309',popv(tt,19.5,23.5));
+
+    if(live){
+      var fa=sm(24.2,25,tt);
+      if(loops>0)fa=Math.max(fa,1-sm(0,0.6,tt));
+      if(fa>0){ctx.fillStyle='rgba(28,23,20,'+fa+')';ctx.fillRect(0,0,W,H);}
+    }
+  }
+
+  function draw(tt){ctx=mctx;scene(tt,true);}
+
+  // ---- UI 绑定 ----
+  var elPlay=document.getElementById('play'),elSeek=document.getElementById('seek'),
+      elClock=document.getElementById('clock'),elGauge=document.getElementById('gauge'),
+      elName=document.getElementById('capName'),elText=document.getElementById('capText'),
+      elCh=document.getElementById('chapters'),stageFrame=document.getElementById('stageFrame'),
+      mainWrap=document.getElementById('mainWrap');
+
+  var chBtns=[],thumbs=[];
+  function fmt(v){var s=Math.floor(v);return '00:'+(s<10?'0':'')+s;}
+
+  scenes.forEach(function(sc,idx){
+    var b=document.createElement('button');b.type='button';
+    b.innerHTML='<canvas aria-hidden="true"></canvas><span class="lab"><b>'+sc.name+'</b><small>'+fmt(sc.t)+'</small></span>';
+    b.addEventListener('click',function(){t=sc.t;draw(t);ui();updateStamps(idx);});
+    elCh.appendChild(b);chBtns.push(b);thumbs.push(b.querySelector('canvas'));
+  });
+
+  function renderThumbs(){
+    var sW=W,sH=H,sCtx=ctx;
+    thumbs.forEach(function(el,n){
+      var r=el.getBoundingClientRect();if(!r.width||!r.height)return;
+      var d=Math.min(window.devicePixelRatio||1,2);
+      el.width=Math.round(r.width*d);el.height=Math.round(r.height*d);
+      var c=el.getContext('2d');c.setTransform(d,0,0,d,0,0);
+      W=r.width;H=r.height;ctx=c;
+      scene(scenes[n].key,false);
+    });
+    W=sW;H=sH;ctx=sCtx;
+  }
+
+  var stampBtns = [
+    document.getElementById('btnWalk'),
+    document.getElementById('btnLick'),
+    document.getElementById('btnGlow'),
+    document.getElementById('btnSleep')
+  ];
+
+  function updateStamps(idx){
+    stampBtns.forEach(function(b,i){b.setAttribute('aria-pressed',i===idx?'true':'false');});
+  }
+
+  stampBtns[0].addEventListener('click',function(){t=0;draw(t);ui();updateStamps(0);});
+  stampBtns[1].addEventListener('click',function(){t=6;draw(t);ui();updateStamps(1);});
+  stampBtns[2].addEventListener('click',function(){t=12;draw(t);ui();updateStamps(2);});
+  stampBtns[3].addEventListener('click',function(){t=19;draw(t);ui();updateStamps(3);});
+
+  var fltColor=document.getElementById('fltColor'),
+      fltMono=document.getElementById('fltMono'),
+      fltBlue=document.getElementById('fltBlue');
+  var fltBtns=[fltColor,fltMono,fltBlue];
+
+  function setFilter(cls,activeBtn){
+    mainWrap.classList.remove('mode-monochrome','mode-blueprint');
+    if(cls)mainWrap.classList.add(cls);
+    fltBtns.forEach(function(b){b.classList.remove('active');});
+    activeBtn.classList.add('active');
+  }
+  fltColor.addEventListener('click',function(){setFilter('',fltColor);});
+  fltMono.addEventListener('click',function(){setFilter('mode-monochrome',fltMono);});
+  fltBlue.addEventListener('click',function(){setFilter('mode-blueprint',fltBlue);});
+
+  stageFrame.addEventListener('click',function(e){
+    var rect=cv.getBoundingClientRect();
+    var clickX=(e.clientX-rect.left);
+    var clickY=(e.clientY-rect.top);
+    for(var k=0;k<6;k++){
+      honeyDrops.push({
+        x:clickX,y:clickY,r:10,op:1.0,
+        vy:-1 - Math.random()*3
+      });
+    }
+    stageFrame.style.transform='translate('+((Math.random()-0.5)*10)+'px,'+((Math.random()-0.5)*10)+'px)';
+    setTimeout(function(){stageFrame.style.transform='';},120);
+  });
+
+  function ui(){
+    var idx=0;for(var i=0;i<scenes.length;i++)if(t>=scenes[i].t)idx=i;
+    if(idx!==sceneIdx){
+      sceneIdx=idx;
+      elName.textContent=scenes[idx].name;elText.textContent=scenes[idx].text;
+      chBtns.forEach(function(b,n){b.setAttribute('aria-current',n===idx?'true':'false');});
+      updateStamps(idx);
+    }
+    elSeek.value=t;
+    elClock.textContent=fmt(t)+' / 00:25';
+
+    var gaugeTxt='体态 · 琥珀蜜腹 35% 饱满 · 散步';
+    if(t<6){
+      gaugeTxt='体态 · 琥珀蜜腹 '+Math.round(lerp(30,48,t/6))+'% 饱满 · 林间漫步';
+    }else if(t<12){
+      gaugeTxt='储蜜量 · 蜜腹 '+Math.round(lerp(50,85,(t-6)/6))+'% · 吮吸花蜜';
+    }else if(t<19){
+      gaugeTxt='储蜜量 · 蜜腹 100% (满载透亮琥珀金球)';
+    }else{
+      gaugeTxt='状态 · 蜜球团身 · 呼噜呼噜酣睡中';
+    }
+    elGauge.textContent=gaugeTxt;
+    elPlay.textContent=playing?'暂停':'播放';
+  }
+
+  elPlay.addEventListener('click',function(){playing=!playing;last=performance.now();ui();});
+  elSeek.addEventListener('input',function(){t=parseFloat(elSeek.value);draw(t);ui();});
+
+  function fit(){
+    var r=cv.getBoundingClientRect();
+    if(!r.width||!r.height)return;
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);
+    W=r.width;H=r.height;ctx=mctx;
+    mctx.setTransform(dpr,0,0,dpr,0,0);
+    draw(t);
+    renderThumbs();
+  }
+  if(window.ResizeObserver)new ResizeObserver(fit).observe(cv);
+  window.addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.load){
+    document.fonts.load('900 40px "ZCOOL QingKe HuangYou"','啪嗒啪嗒舔吮咕嘟咕噜呼噜呼噜～！—').then(function(){fit();ui();}).catch(function(){});
+  }
+
+  function frame(now){
+    var dt=Math.min(0.1,Math.max(0,(now-last)/1000));last=now;
+    if(playing){
+      t+=dt;
+      if(t>=DUR){t-=DUR;loops++;}
+      draw(t);ui();
+    }
+    requestAnimationFrame(frame);
+  }
+  fit();ui();
+  last=performance.now();
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body></html>

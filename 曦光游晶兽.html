@@ -1,0 +1,720 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#f5f8fc;color:#102236}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>曦光游晶兽</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+/* Layout: 经典漫画原稿布局 + 多境域交互控制 + 连载滤镜 */
+:root{
+  --paper:#eef5fc;
+  --ink:#102236;
+  --sun:#ffbc26;
+  --coral:#ff597b;
+  --sky:#48b5ff;
+  --sea:#0ea5e9;
+  --mint:#36cfa6;
+  --gold:#ffe600;
+  --white:#ffffff;
+  --chunk:"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif;
+  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  background-color:var(--paper);
+  background-image:radial-gradient(rgba(16,34,54,.09) 1.3px,transparent 1.6px);
+  background-size:12px 12px;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.65;
+  padding-inline:16px;
+  padding-block:28px 56px;
+  transition:filter 0.3s ease;
+}
+.wrap{max-width:980px;margin-inline:auto;display:flex;flex-direction:column;gap:26px}
+.head{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.kicker{margin:0;background:var(--ink);color:var(--white);font-family:var(--mono);font-size:12px;letter-spacing:.14em;padding:3px 10px;transform:skewX(-8deg)}
+h1{
+  margin:0;font-family:var(--chunk);font-weight:400;
+  font-size:clamp(3.6rem,14vw,6.4rem);line-height:1;letter-spacing:.05em;
+  color:var(--sun);
+  -webkit-text-stroke:8px var(--ink);paint-order:stroke fill;
+  text-shadow:6px 6px 0 var(--ink);
+  transform:rotate(-1.5deg);transform-origin:left bottom;
+}
+.latin{margin:0;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--coral);letter-spacing:.06em}
+
+.film{display:flex;flex-direction:column;gap:16px;min-width:0}
+.stage{
+  position:relative;width:100%;aspect-ratio:16/10;
+  background:var(--sky);
+  border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);
+  cursor:crosshair;overflow:hidden;
+  transition:transform 0.1s ease;
+}
+canvas.main{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cap{
+  position:absolute;left:14px;top:14px;max-width:min(72%,26em);
+  background:#ffe77d;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+  padding:6px 14px;display:flex;flex-direction:column;gap:0;pointer-events:none;z-index:10;
+}
+.cap b{font-family:var(--chunk);font-weight:400;font-size:1.25rem;letter-spacing:.12em;line-height:1.3;color:var(--coral)}
+.cap span{font-size:13.5px;line-height:1.5;color:var(--ink)}
+.gauge{
+  position:absolute;right:14px;bottom:14px;
+  background:var(--white);border:2px solid var(--ink);padding:2px 10px;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;z-index:10;box-shadow:2px 2px 0 var(--ink);
+}
+
+.ctl{display:flex;align-items:center;gap:12px;min-width:0;margin-top:2px}
+.ctl button{
+  flex:none;min-width:68px;
+  font:inherit;font-size:14px;font-weight:700;color:var(--ink);
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:3px 3px 0 var(--ink);padding:5px 14px;cursor:pointer;
+  transition:all 0.1s;
+}
+.ctl button:hover{background:#ffe77d;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.ctl button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.ctl input[type=range]{flex:1;min-width:0;accent-color:var(--coral);cursor:pointer}
+.clock{flex:none;font-family:var(--mono);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+button:focus-visible,input:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+
+.chapters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.chapters button{
+  font:inherit;color:var(--ink);text-align:left;cursor:pointer;
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:4px 4px 0 var(--ink);padding:0;display:flex;flex-direction:column;min-width:0;
+  transition:all 0.15s;
+}
+.chapters button:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.chapters canvas{display:block;width:100%;aspect-ratio:4/3;border-bottom:3px solid var(--ink);background:var(--sky)}
+.chapters .lab{display:flex;align-items:baseline;gap:8px;padding:5px 10px 6px}
+.chapters .lab b{font-family:var(--chunk);font-weight:400;font-size:1.15rem;letter-spacing:.12em}
+.chapters .lab small{font-family:var(--mono);font-size:11px;font-weight:700}
+.chapters button[aria-current=true] .lab{background:#ffe77d}
+.chapters button[aria-current=true]{box-shadow:4px 4px 0 var(--coral)}
+
+/* ================= 融合功能：生体印章按键与原稿滤镜 ================= */
+.manga-control-bar{
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  background:var(--white);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+  padding:12px 16px;
+}
+.mode-selector{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mode-title{
+  font-family:var(--chunk);font-size:1.2rem;letter-spacing:.08em;
+  background:var(--ink);color:#fff;padding:2px 10px;transform:skewX(-8deg);
+}
+.stamp-btn{
+  font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em;
+  background:var(--paper);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:5px 12px;cursor:pointer;transition:all 0.15s;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.stamp-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);background:var(--sun)}
+.stamp-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.stamp-btn[aria-pressed=true]{background:var(--coral);color:#fff;box-shadow:3px 3px 0 var(--ink);transform:translateY(1px)}
+
+.tone-filters{display:flex;gap:8px;align-items:center}
+.filter-tag{font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em}
+.filter-btn{
+  font-family:var(--body);font-weight:700;font-size:12px;
+  border:2px solid var(--ink);background:#fff;padding:4px 10px;cursor:pointer;
+}
+.filter-btn.active{background:var(--ink);color:#fff}
+
+/* ================= 经典百科档案区 ================= */
+.guide{display:flex;flex-direction:column;gap:16px;background:var(--white);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:18px 20px 16px}
+.guide-header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.guide h2{margin:0;font-family:var(--chunk);font-weight:400;font-size:1.7rem;letter-spacing:.12em;line-height:1.2}
+.guide-num{font-family:var(--mono);font-size:12px;font-weight:700;color:#666}
+dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+.row{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:12px;padding:10px 0;border-top:2px dashed rgba(16,34,54,.25);align-items:start}
+dt{justify-self:start;background:#bce9d7;border:2px solid var(--ink);padding:1px 7px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em}
+dd{margin:0;min-width:0;font-size:14px}
+.note{margin:0;font-family:var(--mono);font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:8px}
+.sfxload{position:absolute;left:-9999px;top:0;font-family:var(--chunk);white-space:nowrap}
+
+/* 滤镜效果模式 */
+.mode-monochrome{filter:grayscale(100%) contrast(150%)}
+.mode-blueprint{filter:invert(100%) hue-rotate(190deg) contrast(140%) brightness(90%)}
+
+@media (max-width:640px){
+  .stage{aspect-ratio:4/5}
+  .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  dl{grid-template-columns:1fr}
+}
+</style>
+
+<main class="wrap" id="mainWrap">
+  <header class="head">
+    <p class="kicker">全境生灵图鉴 · 第 5 话 · 虚构物种</p>
+    <h1>曦光游晶兽</h1>
+    <p class="latin">Solarion chrysalis</p>
+  </header>
+
+  <section class="film" aria-label="曦光游晶兽漫画短片">
+    <div class="stage" id="stageFrame">
+      <canvas class="main" id="c" role="img" aria-label="漫画风格动画：一只通体亮白晶润、身覆彩虹光羽的神兽在晴空、碧海与地脉晶洞之间自在穿行"></canvas>
+      <div class="cap"><b id="capName">飞霄</b><span id="capText"></span></div>
+      <div class="gauge" id="gauge">境域 · 霄空 4,600 m</div>
+    </div>
+    
+    <div class="ctl">
+      <button id="play" type="button">暂停</button>
+      <input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="播放进度">
+      <span class="clock" id="clock">00:00 / 00:25</span>
+    </div>
+
+    <!-- 4 个经典章节缩略跳播格 -->
+    <nav class="chapters" id="chapters" aria-label="章节"></nav>
+  </section>
+
+  <!-- 融合功能栏：生体指令印章 + 原稿印刷滤镜 -->
+  <footer class="manga-control-bar">
+    <div class="mode-selector">
+      <span class="mode-title">生体指令印章</span>
+      <button class="stamp-btn" id="btnSky" aria-pressed="true">
+        <span>✦</span> 飞霄漫翔
+      </button>
+      <button class="stamp-btn" id="btnSea" aria-pressed="false">
+        <span>🌊</span> 碧海梭游
+      </button>
+      <button class="stamp-btn" id="btnCave" aria-pressed="false">
+        <span>💎</span> 晶穴漫步
+      </button>
+      <button class="stamp-btn" id="btnLeap" aria-pressed="false">
+        <span>🌈</span> 极光飞跃
+      </button>
+    </div>
+
+    <div class="tone-filters">
+      <span class="filter-tag">连载印装：</span>
+      <button class="filter-btn active" id="fltColor">卷首全彩</button>
+      <button class="filter-btn" id="fltMono">黑白网点</button>
+      <button class="filter-btn" id="fltBlue">原稿蓝图</button>
+    </div>
+  </footer>
+
+  <!-- 经典百科物种档案区 -->
+  <section class="guide" aria-label="物种百科档案">
+    <div class="guide-header">
+      <h2>物种档案</h2>
+      <span class="guide-num">档案编号：SOL-05-SPEC</span>
+    </div>
+    <dl>
+      <div class="row"><dt>体长</dt><dd>1.8 米，展翼 2.4 米，体重约 22 公斤（晶质骨骼轻盈中空）</dd></div>
+      <div class="row"><dt>栖息</dt><dd>日照充足的平流层暖云、澄澈浅海珊瑚群及地下自发光晶矿脉，三境无界穿梭</dd></div>
+      <div class="row"><dt>晶羽</dt><dd>由压电透光晶鳞构成：翔空为宽幅翼羽，入水化为流线鳍裙，入洞折叠为护体晶甲</dd></div>
+      <div class="row"><dt>食性</dt><dd>晨光水汽中的凝结晶、浅海发光浮游生物及地底高纯度能量晶盐</dd></div>
+      <div class="row"><dt>习性</dt><dd>极喜明亮日光；入海逐浪捕食；入夜进地底晶穴休眠；拂晓借热泉爆发重返蓝天</dd></div>
+      <div class="row"><dt>异能</dt><dd>滑翔与游曳时脱落纳米级发光晶粉，具有强效净化水质与驱散阴霾的伴生特性</dd></div>
+    </dl>
+    <p class="note">物种与拉丁学名皆为虚构。点击主画面可触发漫画震屏与冲击波，点击章节格或印章即可即时跳播。</p>
+  </section>
+  <span class="sfxload" aria-hidden="true">呼呼掠风扑通咕噜踏踏叮咚轰鸣破水跃～！—</span>
+</main>
+
+<script>
+(function(){
+  var DUR=25;
+  var INK='#102236';
+  var SFXFONT='"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif';
+  var scenes=[
+    {t:0,key:3.0,name:'飞霄',text:'晨光大好，它展开七彩透光晶羽，在晴空金云与暖风中惬意盘旋。'},
+    {t:6,key:8.8,name:'碧海',text:'收羽如梭，它一头扎进阳光洒满的碧蓝浅水，拖着游光尾带追逐彩鱼。'},
+    {t:12,key:15.2,name:'晶穴',text:'穿过海床裂隙，它钻入亮如白昼的地下晶岩洞，迈着四爪在水晶林间轻盈小跑。'},
+    {t:19,key:21.8,name:'跃晓',text:'借着滚烫地热暖泉破水腾空，带起漫天七彩虹芒，迎着朝阳重回万里晴空！'}
+  ];
+  var cv=document.getElementById('c');
+  var mctx=cv.getContext('2d');
+  var ctx=mctx;
+  var W=800,H=500,dpr=1;
+  var playing=true,t=0,last=0,loops=0,sceneIdx=-1;
+  var shockwaves=[];
+
+  var clamp=function(x,a,b){a=a===undefined?0:a;b=b===undefined?1:b;return Math.min(b,Math.max(a,x));};
+  var sm=function(a,b,x){x=clamp((x-a)/(b-a));return x*x*(3-2*x);};
+  var lerp=function(a,b,k){return a+(b-a)*k;};
+  var frac=function(v){return ((v%1)+1)%1;};
+  function mixc(a,b,k){return [Math.round(lerp(a[0],b[0],k)),Math.round(lerp(a[1],b[1],k)),Math.round(lerp(a[2],b[2],k))];}
+  function rgb(a,al){return al===undefined?'rgb('+a.join(',')+')':'rgba('+a.join(',')+','+al+')';}
+  function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var q=Math.imul(seed^seed>>>15,1|seed);q=q+Math.imul(q^q>>>7,61|q)^q;return((q^q>>>14)>>>0)/4294967296;};}
+
+  var R=rng(88);
+  var clouds=[];for(var i=0;i<8;i++)clouds.push({x:R(),y:0.08+R()*0.42,r:0.06+R()*0.05,sp:0.035+R()*0.03});
+  var fishes=[];for(i=0;i<18;i++)fishes.push({x:R(),y:0.2+R()*0.6,sz:5+R()*6,c:i%2?'#ff597b':'#ffbc26',sp:0.05+R()*0.04});
+  var crystals=[];for(i=0;i<15;i++)crystals.push({x:R(),h:0.18+R()*0.28,w:0.04+R()*0.03,c:['#36cfa6','#ff7b91','#ffe066','#6ee2ff'][i%4]});
+  var sparkles=[];for(i=0;i<45;i++)sparkles.push({x:R(),y:R(),sz:1.5+R()*3,c:['#ffffff','#ffe875','#8df5d0','#ff9ebb'][i%4]});
+
+  function halftone(x0,y0,w,h,sp,col,rmax,flip){
+    ctx.save();ctx.beginPath();ctx.rect(x0,y0,w,h);ctx.clip();
+    ctx.fillStyle=col;ctx.beginPath();
+    var row=0;
+    for(var y=y0;y<y0+h+sp;y+=sp*0.866,row++){
+      var f=clamp((y-y0)/h);if(flip)f=1-f;
+      var r=rmax*Math.pow(f,0.9);if(r<0.4)continue;
+      for(var x=x0+(row%2?sp/2:0);x<x0+w+sp;x+=sp){ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,6.283);}
+    }
+    ctx.fill();ctx.restore();
+  }
+
+  function burst(x,y,r1,r2,n,rot){
+    ctx.beginPath();
+    for(var i=0;i<n*2;i++){
+      var rr=i%2?r1:r2,a=rot+i*Math.PI/n;
+      if(i===0)ctx.moveTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);else ctx.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);
+    }
+    ctx.closePath();
+  }
+
+  function popv(tt,a,b){
+    if(tt<a||tt>b)return 0;
+    var age=tt-a,v=1;
+    if(age<0.22){var x=age/0.22,c1=1.70158,c3=c1+1;v=1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);}
+    if(b-tt<0.2)v*=(b-tt)/0.2;
+    return Math.max(0,v);
+  }
+
+  function sfx(txt,x,y,size,rot,fill,pop){
+    if(pop<=0)return;
+    ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(pop,pop);
+    ctx.font='900 '+size+'px '+SFXFONT;ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.lineJoin='round';ctx.lineWidth=size*0.22;ctx.strokeStyle=INK;ctx.strokeText(txt,0,0);
+    ctx.fillStyle=fill;ctx.fillText(txt,0,0);
+    ctx.restore();
+  }
+
+  // --- 绘制原创生物：曦光游晶兽 ---
+  function drawCreature(tt,s,flap,swim,run){
+    var OL=Math.max(2,2.6*s)/s;
+    ctx.lineJoin='round';ctx.lineCap='round';
+    var BODY='#ffffff',BELLY='#fff5cf',WING_A='#62d3ff',WING_B='#ff9ebb',WING_C='#ffd84d';
+
+    // 1. 燕尾游光双飘带
+    var tailWave1=Math.sin(tt*4)*18*(1+swim*0.5);
+    var tailWave2=Math.cos(tt*3.5)*22*(1+swim*0.5);
+    ctx.save();ctx.translate(-75,0);
+    // 上尾鳍流光带
+    ctx.beginPath();ctx.moveTo(0,-5);ctx.bezierCurveTo(-45,-15+tailWave1*0.4,-85,-25+tailWave1,-130,-15+tailWave1);
+    ctx.strokeStyle=INK;ctx.lineWidth=OL*1.8;ctx.stroke();
+    ctx.strokeStyle=WING_A;ctx.lineWidth=OL*0.9;ctx.stroke();
+    ctx.beginPath();ctx.arc(-130,-15+tailWave1,5.5,0,6.283);ctx.fillStyle='#ffe77d';ctx.fill();ctx.stroke();
+
+    // 下尾鳍流光带
+    ctx.beginPath();ctx.moveTo(0,5);ctx.bezierCurveTo(-45,15+tailWave2*0.4,-85,25+tailWave2,-130,20+tailWave2);
+    ctx.strokeStyle=INK;ctx.lineWidth=OL*1.8;ctx.stroke();
+    ctx.strokeStyle=WING_B;ctx.lineWidth=OL*0.9;ctx.stroke();
+    ctx.beginPath();ctx.arc(-130,20+tailWave2,5.5,0,6.283);ctx.fillStyle='#62d3ff';ctx.fill();ctx.stroke();
+    ctx.restore();
+
+    // 2. 四肢 (地底奔跑 / 空中海中收纳)
+    function drawLeg(lx,ly,isBack,far){
+      var ph=tt*10+(isBack?Math.PI*0.5:0)+(far?Math.PI:0);
+      var rx=lx,ry=ly;
+      if(run>0.1){
+        rx+=Math.sin(ph)*14*run;
+        ry+=-Math.max(0,Math.cos(ph))*9*run;
+      }else if(swim>0.1){
+        rx+=-10*swim;ry+=Math.sin(tt*4+(far?1:0))*4;
+      }else{
+        rx+=-5;ry+=2;
+      }
+      ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(rx,ry+16);
+      ctx.strokeStyle=INK;ctx.lineWidth=10+OL*1.5;ctx.stroke();
+      ctx.strokeStyle=far?'#e2ecf5':BODY;ctx.lineWidth=10;ctx.stroke();
+      // 小爪晶趾
+      ctx.beginPath();ctx.arc(rx,ry+17,4.5,0,6.283);ctx.fillStyle='#ffc048';ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.7;ctx.stroke();
+    }
+    drawLeg(-35,16,true,true);
+    drawLeg(25,18,false,true);
+
+    // 3. 躯干水滴形主轮廓
+    function bodyPath(){
+      ctx.beginPath();
+      ctx.moveTo(85,0);
+      ctx.bezierCurveTo(75,-32,15,-42,-35,-30);
+      ctx.bezierCurveTo(-65,-20,-85,-6,-95,0);
+      ctx.bezierCurveTo(-85,6,-65,20,-35,30);
+      ctx.bezierCurveTo(15,42,75,32,85,0);
+      ctx.closePath();
+    }
+    ctx.save();
+    bodyPath();ctx.fillStyle=BODY;ctx.fill();ctx.clip();
+    // 腹部金黄网点
+    ctx.fillStyle=BELLY;
+    ctx.beginPath();ctx.moveTo(-90,6);ctx.quadraticCurveTo(0,18,85,6);ctx.lineTo(85,45);ctx.lineTo(-90,45);ctx.closePath();ctx.fill();
+    ctx.fillStyle='#f0de9e';ctx.beginPath();
+    for(var yd=10,rw=0;yd<38;yd+=5,rw++){
+      var rd=2*(yd-6)/26;
+      for(var xd=(rw%2?-72:-76);xd<80;xd+=7.5){ctx.moveTo(xd+rd,yd);ctx.arc(xd,yd,rd,0,6.283);}
+    }
+    ctx.fill();
+    // 侧线彩虹斑
+    ctx.fillStyle='#ff9ebb';
+    for(var bi=0;bi<5;bi++){
+      ctx.beginPath();ctx.arc(-40+bi*24,-8+Math.sin(bi+tt*3)*3,5,0,6.283);ctx.fill();
+    }
+    ctx.restore();
+    bodyPath();ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
+
+    // 4. 晶羽 (飞翼/游鳍/晶甲三态切换)
+    function drawWing(upper){
+      var sign=upper?-1:1;
+      ctx.save();ctx.translate(5,sign*10);
+      var wrot=0;
+      if(flap>0.1){
+        wrot=sign*(Math.sin(tt*6)*0.45*flap - 0.2*flap);
+      }else if(swim>0.1){
+        wrot=sign*(-0.6*swim+Math.sin(tt*3)*0.15);
+      }else if(run>0.1){
+        wrot=sign*(-0.8*run);
+      }
+      ctx.rotate(wrot);
+      ctx.beginPath();
+      ctx.moveTo(0,0);
+      ctx.bezierCurveTo(10,sign*65,-40,sign*110,-95,sign*80);
+      ctx.bezierCurveTo(-65,sign*50,-35,sign*25,0,0);
+      ctx.closePath();
+      ctx.fillStyle=upper?WING_A:WING_B;ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(-10,0);
+      ctx.bezierCurveTo(-5,sign*45,-45,sign*75,-75,sign*55);
+      ctx.bezierCurveTo(-50,sign*35,-25,sign*18,-10,0);
+      ctx.closePath();
+      ctx.fillStyle=WING_C;ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.8;ctx.stroke();
+      ctx.restore();
+    }
+    drawWing(true);
+    drawLeg(-35,16,true,false);
+    drawLeg(25,18,false,false);
+    drawWing(false);
+
+    // 5. 萌感头部五官与珊瑚触角
+    for(var gi=0;gi<3;gi++){
+      var ga=-0.6+gi*0.55+Math.sin(tt*4+gi)*0.15;
+      ctx.save();ctx.translate(55,-22);ctx.rotate(ga);
+      ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(8,-20,16,-32);ctx.quadraticCurveTo(4,-20,-6,-10);ctx.closePath();
+      ctx.fillStyle=gi===1?'#ffd23f':'#ff6b8b';ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.7;ctx.stroke();
+      ctx.restore();
+    }
+    // 眼睛
+    ctx.beginPath();ctx.ellipse(62,-6,7,8,0,0,6.283);ctx.fillStyle='#ffffff';ctx.fill();
+    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.8;ctx.stroke();
+    ctx.beginPath();ctx.arc(64,-6,4.5,0,6.283);ctx.fillStyle=INK;ctx.fill();
+    ctx.beginPath();ctx.arc(66,-7.5,1.7,0,6.283);ctx.fillStyle='#ffffff';ctx.fill();
+    // 腮红与微笑
+    ctx.beginPath();ctx.ellipse(56,6,6,3.5,0.2,0,6.283);ctx.fillStyle='rgba(255,107,139,0.75)';ctx.fill();
+    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.7;
+    ctx.beginPath();ctx.moveTo(76,2);ctx.quadraticCurveTo(81,6,85,2);ctx.stroke();
+  }
+
+  // --- 场景主绘制函数 ---
+  function scene(tt,live){
+    var s=Math.min(W/(W<H?400:480),H/260);
+    var sp=clamp(W/900,0.75,1.25)*11;
+    var base=Math.min(W,H*1.4)*0.1;
+    var i,x,y;
+
+    // 境域区间计算
+    var isSky=sm(0,1,tt)*(1-sm(5.5,6.5,tt)) + sm(19.2,20.5,tt);
+    var isSea=sm(5.8,7.0,tt)*(1-sm(11.5,12.5,tt));
+    var isCave=sm(12.0,13.2,tt)*(1-sm(18.5,19.5,tt));
+    var isLeap=sm(19.0,21.5,tt)*(1-sm(24.0,25.0,tt));
+
+    var flap=sm(0,1,tt)*(1-sm(5.8,6.8,tt)) + sm(19.2,21.0,tt);
+    var swim=sm(6.2,7.2,tt)*(1-sm(11.8,12.6,tt));
+    var run=sm(12.4,13.5,tt)*(1-sm(18.2,19.2,tt));
+
+    // 背景环境渐变混合
+    var skyColor=[72,181,255],seaColor=[14,165,233],caveColor=[255,214,140];
+    var curBg=mixc(skyColor,seaColor,sm(5.5,6.8,tt));
+    curBg=mixc(curBg,caveColor,sm(11.8,13.0,tt));
+    curBg=mixc(curBg,skyColor,sm(18.5,20.0,tt));
+
+    ctx.fillStyle=rgb(curBg);ctx.fillRect(0,0,W,H);
+    halftone(0,0,W,H,sp,rgb(mixc(curBg,[20,45,75],0.28)),sp*0.48,true);
+
+    // A. 天上晴空
+    if(isSky>0.05){
+      ctx.save();ctx.globalAlpha=isSky;
+      var sunX=W*0.82,sunY=H*0.22,sunR=base*0.9;
+      burst(sunX,sunY,sunR*1.2,sunR*1.7,14,tt*0.12);
+      ctx.fillStyle='rgba(255,248,190,0.6)';ctx.fill();
+      ctx.beginPath();ctx.arc(sunX,sunY,sunR,0,6.283);ctx.fillStyle='#ffc936';ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.stroke();
+
+      if(isLeap>0.2){
+        ctx.lineWidth=12*s;
+        var rArr=['#ff6b8b','#ffd23f','#5ae3b2','#62d3ff'];
+        for(i=0;i<4;i++){
+          ctx.beginPath();ctx.arc(W*0.5,H*1.2,W*0.55+i*11*s,Math.PI*1.08,Math.PI*1.92);
+          ctx.strokeStyle=rArr[i];ctx.stroke();
+        }
+      }
+
+      for(i=0;i<clouds.length;i++){
+        var cld=clouds[i],cx=(frac(cld.x-tt*cld.sp)*1.3-0.15)*W,cy=cld.y*H,cr=cld.r*W;
+        ctx.beginPath();
+        ctx.arc(cx,cy,cr,Math.PI,0);ctx.arc(cx+cr*0.9,cy-cr*0.1,cr*0.75,Math.PI*1.1,Math.PI*1.95);
+        ctx.arc(cx-cr*0.9,cy,cr*0.7,Math.PI*1.05,Math.PI*1.9);
+        ctx.lineTo(cx-cr*1.3,cy+cr*0.2);ctx.closePath();
+        ctx.fillStyle='#ffffff';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2.6;ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // B. 海底碧潮
+    if(isSea>0.05){
+      ctx.save();ctx.globalAlpha=isSea;
+      ctx.strokeStyle='rgba(255,255,255,0.85)';ctx.lineWidth=4;ctx.beginPath();
+      for(x=0;x<=W;x+=24){ctx.lineTo(x,H*0.12+Math.sin((x+tt*80)*0.03)*8);}
+      ctx.stroke();
+
+      ctx.fillStyle='rgba(255,255,255,0.14)';
+      for(i=0;i<4;i++){
+        var lx=W*(0.15+i*0.24)+Math.sin(tt*0.4+i)*20,lw=W*0.08;
+        ctx.beginPath();ctx.moveTo(lx,0);ctx.lineTo(lx+lw,0);ctx.lineTo(lx+lw+W*0.15,H);ctx.lineTo(lx+W*0.1,H);ctx.closePath();ctx.fill();
+      }
+
+      for(i=0;i<fishes.length;i++){
+        var fsh=fishes[i],fx=(frac(fsh.x-tt*fsh.sp)*1.3-0.15)*W,fy=fsh.y*H+Math.sin(tt*3+i)*12;
+        ctx.beginPath();ctx.ellipse(fx,fy,fsh.sz,fsh.sz*0.5,0,0,6.283);ctx.fillStyle=fsh.c;ctx.fill();
+        ctx.strokeStyle=INK;ctx.lineWidth=1.5;ctx.stroke();
+        ctx.beginPath();ctx.moveTo(fx-fsh.sz*0.8,fy);ctx.lineTo(fx-fsh.sz*1.6,fy-4);ctx.lineTo(fx-fsh.sz*1.6,fy+4);ctx.closePath();ctx.fill();ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // C. 地下晶穴
+    if(isCave>0.05){
+      ctx.save();ctx.globalAlpha=isCave;
+      var gy=H*0.82;
+      ctx.fillStyle='#f0cf85';ctx.fillRect(0,gy,W,H-gy);
+      halftone(0,gy,W,H-gy,sp,'#d2a550',sp*0.55,false);
+      ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();
+
+      for(i=0;i<crystals.length;i++){
+        var cry=crystals[i],crx=(frac(cry.x-tt*0.04)*1.3-0.15)*W,crh=cry.h*H,crw=cry.w*W;
+        ctx.beginPath();
+        ctx.moveTo(crx,gy);ctx.lineTo(crx+crw*0.5,gy-crh);ctx.lineTo(crx+crw,gy);ctx.closePath();
+        ctx.fillStyle=cry.c;ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.stroke();
+        ctx.beginPath();ctx.moveTo(crx+crw*0.5,gy-crh);ctx.lineTo(crx+crw*0.4,gy);ctx.strokeStyle='rgba(255,255,255,0.7)';ctx.lineWidth=2;ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // 悬浮晶屑微粒
+    for(i=0;i<sparkles.length;i++){
+      var spk=sparkles[i];
+      var sx=(frac(spk.x+Math.sin(tt*0.5+i)*0.1))*W;
+      var sy=(frac(spk.y-tt*0.04*(1+isSea*0.8)))*H;
+      ctx.beginPath();ctx.arc(sx,sy,spk.sz*Math.max(0.7,s*0.8),0,6.283);
+      ctx.fillStyle=spk.c;ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=1.2;ctx.stroke();
+    }
+
+    // 生物位置动态计算
+    var creatureX=W*0.48;
+    var creatureY=H*0.52;
+    var creatureRot=0;
+
+    if(isSky>0.5&&isLeap<0.2){
+      creatureY=H*0.48+Math.sin(tt*2.2)*H*0.06;
+      creatureRot=Math.cos(tt*2.2)*0.12;
+    }else if(isSea>0.5){
+      creatureY=H*0.5+Math.sin(tt*3)*H*0.07;
+      creatureRot=0.1+Math.cos(tt*3)*0.15;
+    }else if(isCave>0.5){
+      creatureY=H*0.82-24*s;
+      creatureRot=0;
+    }else if(isLeap>0.2){
+      var lPhase=clamp((tt-19)/3.5);
+      creatureY=H*(0.85-Math.sin(lPhase*Math.PI)*0.55);
+      creatureRot=-0.4+lPhase*0.8;
+    }
+
+    // 绘制点击冲击波
+    for(i=shockwaves.length-1;i>=0;i--){
+      var sw=shockwaves[i];
+      sw.r+=8*s;sw.op-=0.035;
+      if(sw.op<=0){shockwaves.splice(i,1);continue;}
+      ctx.beginPath();ctx.arc(sw.x,sw.y,sw.r,0,6.283);
+      ctx.strokeStyle='rgba(255,230,0,'+sw.op+')';ctx.lineWidth=4*s;ctx.stroke();
+    }
+
+    // 绘制生物本体
+    ctx.save();
+    ctx.translate(creatureX,creatureY);
+    ctx.rotate(creatureRot);
+    ctx.scale(s,s);
+    drawCreature(tt,s,flap,swim,run);
+    ctx.restore();
+
+    // 破水水花飞溅
+    if(isLeap>0.2){
+      var spAlpha=clamp(1-(tt-19)/2.2);
+      ctx.save();ctx.globalAlpha=spAlpha;
+      burst(creatureX-30*s,H*0.85,30*s,70*s,12,-tt*2);
+      ctx.fillStyle='rgba(255,255,255,0.85)';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.stroke();
+      ctx.restore();
+    }
+
+    // 漫画动态拟声词
+    sfx('呼呼～',creatureX-W*0.2,H*0.35+Math.sin(tt*4)*6,base*0.85,-0.08,'#ffffff',popv(tt,0.8,5.0));
+    sfx('扑通！',creatureX+W*0.02,H*0.28,base*1.4,0.1,'#ffe77d',popv(tt,6.2,8.6));
+    sfx('咕噜噜',creatureX-W*0.18,H*0.62,base*0.9,-0.06,'#ffffff',popv(tt,8.8,11.8));
+    sfx('踏踏踏',creatureX-W*0.22,H*0.88,base*0.85,-0.04+Math.sin(tt*8)*0.03,'#ffffff',popv(tt,12.5,15.2));
+    sfx('叮咚！',creatureX+W*0.18,H*0.7,base*1.2,0.12,'#6ee2ff',popv(tt,15.5,18.2));
+    sfx('轰鸣！',creatureX-W*0.04,H*0.48,base*1.5,-0.12,'#ffe77d',popv(tt,19.2,21.5));
+    sfx('破水飞跃！',creatureX+W*0.15,H*0.22,base*1.5,0.14,'#ff597b',popv(tt,21.6,24.2));
+
+    if(live){
+      var fa=sm(24.2,25,tt);
+      if(loops>0)fa=Math.max(fa,1-sm(0,0.6,tt));
+      if(fa>0){ctx.fillStyle='rgba(16,34,54,'+fa+')';ctx.fillRect(0,0,W,H);}
+    }
+  }
+
+  function draw(tt){ctx=mctx;scene(tt,true);}
+
+  // ---- UI 绑定与时间轴 ----
+  var elPlay=document.getElementById('play'),elSeek=document.getElementById('seek'),
+      elClock=document.getElementById('clock'),elGauge=document.getElementById('gauge'),
+      elName=document.getElementById('capName'),elText=document.getElementById('capText'),
+      elCh=document.getElementById('chapters'),stageFrame=document.getElementById('stageFrame'),
+      mainWrap=document.getElementById('mainWrap');
+
+  var chBtns=[],thumbs=[];
+  function fmt(v){var s=Math.floor(v);return '00:'+(s<10?'0':'')+s;}
+  
+  scenes.forEach(function(sc,idx){
+    var b=document.createElement('button');b.type='button';
+    b.innerHTML='<canvas aria-hidden="true"></canvas><span class="lab"><b>'+sc.name+'</b><small>'+fmt(sc.t)+'</small></span>';
+    b.addEventListener('click',function(){t=sc.t;draw(t);ui();updateStamps(idx);});
+    elCh.appendChild(b);chBtns.push(b);thumbs.push(b.querySelector('canvas'));
+  });
+
+  function renderThumbs(){
+    var sW=W,sH=H,sCtx=ctx;
+    thumbs.forEach(function(el,n){
+      var r=el.getBoundingClientRect();if(!r.width||!r.height)return;
+      var d=Math.min(window.devicePixelRatio||1,2);
+      el.width=Math.round(r.width*d);el.height=Math.round(r.height*d);
+      var c=el.getContext('2d');c.setTransform(d,0,0,d,0,0);
+      W=r.width;H=r.height;ctx=c;
+      scene(scenes[n].key,false);
+    });
+    W=sW;H=sH;ctx=sCtx;
+  }
+
+  // 4 颗生体指令印章按钮
+  var btnSky=document.getElementById('btnSky'),
+      btnSea=document.getElementById('btnSea'),
+      btnCave=document.getElementById('btnCave'),
+      btnLeap=document.getElementById('btnLeap');
+  var stampBtns=[btnSky,btnSea,btnCave,btnLeap];
+
+  function updateStamps(idx){
+    stampBtns.forEach(function(b,i){b.setAttribute('aria-pressed',i===idx?'true':'false');});
+  }
+
+  btnSky.addEventListener('click',function(){t=0;draw(t);ui();updateStamps(0);});
+  btnSea.addEventListener('click',function(){t=6;draw(t);ui();updateStamps(1);});
+  btnCave.addEventListener('click',function(){t=12;draw(t);ui();updateStamps(2);});
+  btnLeap.addEventListener('click',function(){t=19;draw(t);ui();updateStamps(3);});
+
+  // 连载印装滤镜切换 (全彩 / 黑白 / 蓝图)
+  var fltColor=document.getElementById('fltColor'),
+      fltMono=document.getElementById('fltMono'),
+      fltBlue=document.getElementById('fltBlue');
+  var fltBtns=[fltColor,fltMono,fltBlue];
+
+  function setFilter(cls,activeBtn){
+    mainWrap.classList.remove('mode-monochrome','mode-blueprint');
+    if(cls)mainWrap.classList.add(cls);
+    fltBtns.forEach(function(b){b.classList.remove('active');});
+    activeBtn.classList.add('active');
+  }
+  fltColor.addEventListener('click',function(){setFilter('',fltColor);});
+  fltMono.addEventListener('click',function(){setFilter('mode-monochrome',fltMono);});
+  fltBlue.addEventListener('click',function(){setFilter('mode-blueprint',fltBlue);});
+
+  // 点击画布触发震屏与冲击波特效
+  stageFrame.addEventListener('click',function(e){
+    var rect=cv.getBoundingClientRect();
+    var clickX=(e.clientX-rect.left);
+    var clickY=(e.clientY-rect.top);
+    shockwaves.push({x:clickX,y:clickY,r:15,op:1.0});
+    stageFrame.style.transform='translate('+((Math.random()-0.5)*10)+'px,'+((Math.random()-0.5)*10)+'px)';
+    setTimeout(function(){stageFrame.style.transform='';},120);
+  });
+
+  function ui(){
+    var idx=0;for(var i=0;i<scenes.length;i++)if(t>=scenes[i].t)idx=i;
+    if(idx!==sceneIdx){
+      sceneIdx=idx;
+      elName.textContent=scenes[idx].name;elText.textContent=scenes[idx].text;
+      chBtns.forEach(function(b,n){b.setAttribute('aria-current',n===idx?'true':'false');});
+      updateStamps(idx);
+    }
+    elSeek.value=t;
+    elClock.textContent=fmt(t)+' / 00:25';
+
+    var gaugeTxt='境域 · 霄空 4,600 m';
+    if(t<6){
+      gaugeTxt='境域 · 霄空 '+Math.round(lerp(4600,2900,t/6)).toLocaleString('en-US')+' m';
+    }else if(t<12){
+      gaugeTxt='境域 · 碧海 -'+Math.round(lerp(15,92,(t-6)/6))+' m';
+    }else if(t<19){
+      gaugeTxt='境域 · 晶穴 -'+Math.round(lerp(350,480,(t-12)/7))+' m';
+    }else{
+      gaugeTxt='境域 · 破海 '+Math.round(lerp(120,4200,(t-19)/6)).toLocaleString('en-US')+' m';
+    }
+    elGauge.textContent=gaugeTxt;
+    elPlay.textContent=playing?'暂停':'播放';
+  }
+
+  elPlay.addEventListener('click',function(){playing=!playing;last=performance.now();ui();});
+  elSeek.addEventListener('input',function(){t=parseFloat(elSeek.value);draw(t);ui();});
+
+  function fit(){
+    var r=cv.getBoundingClientRect();
+    if(!r.width||!r.height)return;
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);
+    W=r.width;H=r.height;ctx=mctx;
+    mctx.setTransform(dpr,0,0,dpr,0,0);
+    draw(t);
+    renderThumbs();
+  }
+  if(window.ResizeObserver)new ResizeObserver(fit).observe(cv);
+  window.addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.load){
+    document.fonts.load('900 40px "ZCOOL QingKe HuangYou"','呼呼掠风扑通咕噜踏踏叮咚轰鸣破水跃～！—').then(function(){fit();ui();}).catch(function(){});
+  }
+
+  function frame(now){
+    var dt=Math.min(0.1,Math.max(0,(now-last)/1000));last=now;
+    if(playing){
+      t+=dt;
+      if(t>=DUR){t-=DUR;loops++;}
+      draw(t);ui();
+    }
+    requestAnimationFrame(frame);
+  }
+  fit();ui();
+  last=performance.now();
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body></html>

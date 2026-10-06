@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>幻兽特报：炽晶烛角鹿 · 动态连环漫画</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+/* ================= 全局漫画原稿纸质感与排版 ================= */
+:root {
+  --ink: #111417;
+  --paper: #f7f4ec;
+  --panel-bg: #ffffff;
+  --gold: #ffaa00;
+  --amber: #ff6b35;
+  --crystal: #b388ff;
+  --crystal-glow: #e040fb;
+  --teal-glow: #00e5ff;
+  --mint: #bce9d7;
+  --white: #ffffff;
+  --font-chunk: "ZCOOL QingKe HuangYou", "Noto Sans SC", sans-serif;
+  --font-body: "Noto Sans SC", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--paper);
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(17,20,23,0.08) 1.2px, transparent 1.5px),
+    linear-gradient(rgba(17,20,23,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17,20,23,0.03) 1px, transparent 1px);
+  background-size: 14px 14px, 28px 28px, 28px 28px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  padding: 24px 16px 64px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.manga-spread {
+  width: 100%;
+  max-width: 1160px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 顶部漫画杂志卷首眉栏 */
+.manga-masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 5px solid var(--ink);
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+}
+.masthead-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.issue-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  background: var(--ink);
+  color: #fff;
+  padding: 2px 10px;
+  width: fit-content;
+  transform: skewX(-10deg);
+}
+.issue-tag span { color: var(--gold); }
+.manga-title {
+  font-family: var(--font-chunk);
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: 6px;
+}
+.manga-title .sub {
+  font-family: var(--font-mono);
+  font-size: clamp(0.95rem, 2vw, 1.4rem);
+  color: #c2185b;
+  letter-spacing: 0.05em;
+}
+.masthead-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+.stamp-danger {
+  border: 3px dashed #d62828;
+  color: #d62828;
+  font-family: var(--font-mono);
+  font-weight: 900;
+  font-size: 13px;
+  padding: 3px 8px;
+  transform: rotate(3deg);
+  letter-spacing: 0.1em;
+}
+
+/* ================= 漫画不规则分镜网格 ================= */
+.comic-grid {
+  display: grid;
+  grid-template-columns: 330px 1fr;
+  grid-template-rows: auto auto;
+  gap: 18px;
+  position: relative;
+}
+
+.panel {
+  background: var(--panel-bg);
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.panel-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  z-index: 10;
+}
+
+/* 左侧分镜栏 */
+.left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* 分镜一：地底晶脉震波雷达 */
+.panel-recon {
+  height: 230px;
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+  background: #140d1f;
+}
+.recon-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 分镜二：晶角聚光折射解剖 */
+.panel-organ {
+  flex: 1;
+  min-height: 270px;
+  background: #fdfcfa;
+  display: flex;
+  flex-direction: column;
+  padding: 34px 14px 14px;
+}
+.organ-svg-wrap {
+  width: 100%;
+  height: 170px;
+  position: relative;
+}
+
+/* 右侧核心主舞台：破框主战格 */
+.panel-hero {
+  grid-row: span 2;
+  min-height: 560px;
+  background: radial-gradient(circle at 55% 45%, #241432 0%, #0d0714 85%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  cursor: crosshair;
+}
+
+.hero-svg-canvas {
+  position: absolute;
+  inset: -25px -35px -15px -25px;
+  width: calc(100% + 60px);
+  height: calc(100% + 40px);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.speed-lines-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  transition: opacity 0.3s;
+}
+
+/* 中文拟声词 (SFX) */
+.sfx-bubble {
+  position: absolute;
+  font-family: var(--font-chunk);
+  font-size: 46px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  -webkit-text-stroke: 4.5px var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 var(--ink);
+  pointer-events: none;
+  z-index: 20;
+  animation: sfxPop 2.4s infinite ease-in-out;
+}
+.sfx-1 { top: 36px; left: 28px; transform: rotate(-10deg); }
+.sfx-2 { bottom: 80px; right: 36px; transform: rotate(8deg); color: #ff3366; }
+
+@keyframes sfxPop {
+  0%, 100% { transform: scale(0.96) rotate(-10deg); }
+  50% { transform: scale(1.08) rotate(-7deg) translate(3px, -3px); }
+}
+
+/* 漫画旁白方框 */
+.narrator-box {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  max-width: 285px;
+  background: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 10px 14px;
+  z-index: 12;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.narrator-box b {
+  display: block;
+  font-family: var(--font-chunk);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: #c2185b;
+  margin-bottom: 2px;
+}
+
+/* ================= 互动控制栏 ================= */
+.manga-control-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 14px 18px;
+}
+
+.mode-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.mode-title {
+  font-family: var(--font-chunk);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  background: var(--ink);
+  color: #fff;
+  padding: 2px 10px;
+  transform: skewX(-8deg);
+}
+
+.stamp-btn {
+  font-family: var(--font-chunk);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.stamp-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--ink);
+  background: var(--gold);
+}
+.stamp-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+.stamp-btn[aria-pressed="true"] {
+  background: #c2185b;
+  color: #fff;
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: translateY(1px);
+}
+
+.tone-filters {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.filter-tag {
+  font-family: var(--font-chunk);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+}
+.filter-btn {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.filter-btn.active {
+  background: var(--ink);
+  color: #fff;
+}
+
+/* ================= 经典物种百科档案区 ================= */
+.guide {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--white);
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 20px 22px 18px;
+}
+.guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 8px;
+}
+.guide h2 {
+  margin: 0;
+  font-family: var(--font-chunk);
+  font-weight: 400;
+  font-size: 1.8rem;
+  letter-spacing: 0.12em;
+  line-height: 1.1;
+  color: #4a148c;
+}
+.guide-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+}
+
+dl.encyclopedia-grid {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 36px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 4.8em minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 2px dashed rgba(17,20,23,0.25);
+  align-items: start;
+}
+dt {
+  justify-self: start;
+  background: var(--mint);
+  border: 2px solid var(--ink);
+  padding: 1px 7px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #222;
+}
+.note {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #666;
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+}
+
+/* 滤镜效果模式 */
+.mode-monochrome {
+  filter: grayscale(100%) contrast(150%);
+}
+.mode-blueprint {
+  filter: invert(100%) hue-rotate(190deg) contrast(140%) brightness(90%);
+}
+
+@media (max-width: 860px) {
+  .comic-grid { grid-template-columns: 1fr; }
+  .panel-hero { min-height: 440px; }
+  dl.encyclopedia-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<main class="manga-spread" id="mangaCanvasRoot">
+  <!-- 顶部卷首横栏 -->
+  <header class="manga-masthead">
+    <div class="masthead-left">
+      <div class="issue-tag">
+        <span>巨神漫画</span> // 幻兽特报 · 第 10 案 · 虚构物种
+      </div>
+      <h1 class="manga-title">
+        炽晶烛角鹿
+        <span class="sub">Pyrocervus crystallifer</span>
+      </h1>
+    </div>
+    <div class="masthead-right">
+      <div class="stamp-danger">地脉能阶：特异点</div>
+    </div>
+  </header>
+
+  <!-- 不规则漫画分镜布局 -->
+  <section class="comic-grid">
+    <!-- 左侧分镜栏 -->
+    <div class="left-col">
+      <!-- 分镜一：地底晶脉震波雷达 -->
+      <div class="panel panel-recon" aria-label="地脉声呐分镜">
+        <span class="panel-label">分镜一 · 晶脉震鸣</span>
+        <svg class="recon-svg" viewBox="0 0 330 230" preserveAspectRatio="none">
+          <defs>
+            <pattern id="reconGrid" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.3" fill="#2d1746"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#reconGrid)"/>
+
+          <!-- 地底黑曜石晶柱剪影 -->
+          <g opacity="0.85">
+            <polygon points="-10,230 40,140 70,230" fill="#0d0714"/>
+            <polygon points="60,230 110,120 150,230" fill="#1b0c29"/>
+            <polygon points="180,230 230,150 270,230" fill="#0d0714"/>
+            <polygon points="250,230 300,110 340,230" fill="#1b0c29"/>
+          </g>
+
+          <!-- 震波声呐扩散线圈 -->
+          <g id="reconSonar">
+            <circle cx="165" cy="115" r="20" fill="none" stroke="#e040fb" stroke-width="1.5" opacity="0.8"/>
+            <circle cx="165" cy="115" r="48" fill="none" stroke="#e040fb" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.6"/>
+            <circle cx="165" cy="115" r="80" fill="none" stroke="#e040fb" stroke-width="1.2" opacity="0.4"/>
+            <line id="reconScanner" x1="165" y1="115" x2="235" y2="70" stroke="#00e5ff" stroke-width="2.5" stroke-linecap="round"/>
+          </g>
+
+          <!-- 远景微型鹿角辉光 -->
+          <path id="miniStag" d="M160 110 Q165 95 170 110 M165 100 L158 90 M165 100 L172 90" stroke="#ffaa00" stroke-width="2" fill="none"/>
+          <text x="18" y="210" fill="#00e5ff" font-family="monospace" font-size="11" font-weight="bold">深度: -1,850米 // 压电共鸣</text>
+        </svg>
+      </div>
+
+      <!-- 分镜二：晶角聚光折射解剖 -->
+      <div class="panel panel-organ" aria-label="晶角折射解剖分镜">
+        <span class="panel-label">分镜二 · 烛晶折射解剖</span>
+        <div class="organ-svg-wrap">
+          <svg viewBox="0 0 300 170" style="width:100%;height:100%;">
+            <defs>
+              <linearGradient id="prismLight" x1="0%" y1="50%" x2="100%" y2="50%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="40%" stop-color="#e040fb"/>
+                <stop offset="80%" stop-color="#ffaa00"/>
+                <stop offset="100%" stop-color="#ff6b35"/>
+              </linearGradient>
+            </defs>
+            <!-- 解剖圆形轮廓 -->
+            <circle cx="150" cy="80" r="58" fill="#f8f4fb" stroke="#111417" stroke-width="3" stroke-dasharray="7 4"/>
+            <!-- 旋转水晶棱柱透视 -->
+            <g id="organPrism">
+              <polygon points="150,28 185,75 165,130 115,115 125,50" fill="url(#prismLight)" stroke="#111417" stroke-width="2.5"/>
+              <polygon points="150,42 172,78 158,118 126,106 132,58" fill="#ffaa00" opacity="0.75" stroke="#111417" stroke-width="1.5"/>
+              <line x1="125" y1="50" x2="165" y2="130" stroke="#fff" stroke-width="2"/>
+              <circle cx="150" cy="80" r="6" fill="#ffffff" stroke="#111417" stroke-width="2"/>
+            </g>
+            <!-- 标注引线 -->
+            <polyline points="65,36 105,48 128,55" fill="none" stroke="#111417" stroke-width="2"/>
+            <text x="12" y="34" font-family="Noto Sans SC" font-size="11" font-weight="bold" fill="#111417">压电晶芯 (聚光轴)</text>
+
+            <polyline points="235,130 195,115 168,105" fill="none" stroke="#111417" stroke-width="2"/>
+            <text x="180" y="146" font-family="Noto Sans SC" font-size="11" font-weight="bold" fill="#111417">高热地火腺 (820°C)</text>
+          </svg>
+        </div>
+        <p style="font-size:12px;color:#444;line-height:1.5;margin-top:6px;border-top:1px dashed #ccc;padding-top:6px;">
+          角部由致密共生紫晶与导光纤维化石构成，能将血液中的地热能以近百倍的效率聚集转化为强光。
+        </p>
+      </div>
+    </div>
+
+    <!-- 右侧大分镜：破框巨型主舞台 -->
+    <div class="panel panel-hero" id="heroPanel" aria-label="核心动态主格">
+      <span class="panel-label">分镜三 · 破框特写 [主战域]</span>
+
+      <!-- 漫画式旁白方框 -->
+      <div class="narrator-box">
+        <b id="statusNarratorTitle">【幽谷宁谧 · 烛光引路】</b>
+        <span id="statusNarratorDesc">足蹄轻踏黑曜石崖壁，分叉紫晶双角泛起温润荧光，在漆黑沉寂的地底晶洞中如幽幽烛火摇曳。</span>
+      </div>
+
+      <!-- 中文动态拟声词 -->
+      <div class="sfx-bubble sfx-1" id="sfxMain">铮——！</div>
+      <div class="sfx-bubble sfx-2" id="sfxSub">踏踏——</div>
+
+      <!-- 漫画速度线遮罩 -->
+      <svg class="speed-lines-overlay" id="speedLinesSvg" viewBox="0 0 800 600" preserveAspectRatio="none">
+        <g stroke="#ffffff" stroke-width="2" opacity="0.6">
+          <line x1="0" y1="60" x2="310" y2="290"/>
+          <line x1="0" y1="200" x2="350" y2="310"/>
+          <line x1="0" y1="400" x2="330" y2="330"/>
+          <line x1="800" y1="70" x2="490" y2="280"/>
+          <line x1="800" y1="230" x2="500" y2="310"/>
+          <line x1="800" y1="480" x2="480" y2="350"/>
+          <line x1="400" y1="0" x2="400" y2="230"/>
+          <line x1="200" y1="0" x2="370" y2="250"/>
+          <line x1="600" y1="0" x2="430" y2="250"/>
+        </g>
+      </svg>
+
+      <!-- 破框矢量 SVG 动画画布 -->
+      <svg class="hero-svg-canvas" id="heroSvg" viewBox="0 0 920 660">
+        <defs>
+          <pattern id="mangaHalftone" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.3" fill="#111417"/>
+          </pattern>
+
+          <!-- 水晶渐变 (破框折射) -->
+          <linearGradient id="crystalGradL" x1="0%" y1="100%" x2="80%" y2="0%">
+            <stop offset="0%" stop-color="#4a148c"/>
+            <stop offset="45%" stop-color="#b388ff"/>
+            <stop offset="85%" stop-color="#ffd54f"/>
+            <stop offset="100%" stop-color="#ffffff"/>
+          </linearGradient>
+
+          <linearGradient id="crystalGradR" x1="100%" y1="100%" x2="20%" y2="0%">
+            <stop offset="0%" stop-color="#4a148c"/>
+            <stop offset="45%" stop-color="#b388ff"/>
+            <stop offset="85%" stop-color="#ffd54f"/>
+            <stop offset="100%" stop-color="#ffffff"/>
+          </linearGradient>
+
+          <!-- 熔金体毛与皮甲渐变 -->
+          <linearGradient id="stagFur" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2d1c3a"/>
+            <stop offset="60%" stop-color="#190e24"/>
+            <stop offset="100%" stop-color="#0e0614"/>
+          </linearGradient>
+        </defs>
+
+        <!-- 悬浮晶尘图层 -->
+        <g id="sparkFieldLayer"></g>
+        <g id="shockwaveLayer"></g>
+
+        <!-- 破框放射棱镜光柱 (PRISM 模式发射) -->
+        <g id="prismBeamsLayer" opacity="0"></g>
+
+        <!-- 原创生物：炽晶烛角鹿 核心身体 Rig -->
+        <g id="creatureRig" transform="translate(460, 360)">
+
+          <!-- 1. 细长后肢与暗金分蹄 -->
+          <g id="backLegsGroup">
+            <!-- 左后腿 (远) -->
+            <path d="M-60 40 Q-95 110 -80 180 Q-85 220 -82 250" fill="none" stroke="#111417" stroke-width="14" stroke-linecap="round"/>
+            <path d="M-60 40 Q-95 110 -80 180 Q-85 220 -82 250" fill="none" stroke="#1e102b" stroke-width="9" stroke-linecap="round"/>
+            <rect x="-89" y="246" width="14" height="12" rx="3" fill="#ffaa00" stroke="#111417" stroke-width="2.5"/>
+
+            <!-- 右后腿 (近) -->
+            <path d="M-20 40 Q-40 115 -25 185 Q-30 220 -28 250" fill="none" stroke="#111417" stroke-width="15" stroke-linecap="round"/>
+            <path d="M-20 40 Q-40 115 -25 185 Q-30 220 -28 250" fill="none" stroke="#351a4a" stroke-width="10" stroke-linecap="round"/>
+            <rect x="-35" y="246" width="14" height="12" rx="3" fill="#ffaa00" stroke="#111417" stroke-width="2.5"/>
+          </g>
+
+          <!-- 2. 短鹿尾与晶化尾羽 -->
+          <g id="tailGroup">
+            <path d="M-110 5 Q-145 15 -140 45 Q-125 40 -115 20 Z" fill="#ffaa00" stroke="#111417" stroke-width="3"/>
+          </g>
+
+          <!-- 3. 强健躯干与腹部网点阴影 -->
+          <g id="torsoGroup">
+            <!-- 躯干剪影 -->
+            <path id="torsoBody" 
+                  d="M-115 15 Q-70 -20 40 -35 Q110 -30 110 50 Q70 85 -30 75 Q-100 65 -115 15 Z" 
+                  fill="url(#stagFur)" 
+                  stroke="#111417" 
+                  stroke-width="5"/>
+
+            <!-- 漫画网点阴影 -->
+            <path d="M-90 35 Q-30 45 40 40 Q10 75 -40 70 Z" fill="url(#mangaHalftone)" opacity="0.6"/>
+
+            <!-- 脊椎晶化棘突 (背部发光晶刺) -->
+            <g id="spineCrystals">
+              <polygon points="-80,-8 -72,-28 -66,-6" fill="#b388ff" stroke="#111417" stroke-width="2"/>
+              <polygon points="-50,-18 -42,-44 -35,-15" fill="#e040fb" stroke="#111417" stroke-width="2"/>
+              <polygon points="-15,-26 -6,-56 2,-23" fill="#ffaa00" stroke="#111417" stroke-width="2"/>
+              <polygon points="20,-32 30,-64 38,-28" fill="#ffd54f" stroke="#111417" stroke-width="2"/>
+            </g>
+
+            <!-- 胸腔地火晶髓 (透光核心) -->
+            <ellipse cx="60" cy="18" rx="20" ry="26" fill="#ff6b35" stroke="#111417" stroke-width="3" opacity="0.9"/>
+            <circle id="heartCore" cx="60" cy="18" r="11" fill="#ffe066" stroke="#c2185b" stroke-width="2.5"/>
+          </g>
+
+          <!-- 4. 前肢与踱步前蹄 -->
+          <g id="foreLegsGroup">
+            <!-- 左前腿 (踏立) -->
+            <path id="foreLegLeft" d="M75 55 Q70 135 68 200 Q65 230 65 250" fill="none" stroke="#111417" stroke-width="14" stroke-linecap="round"/>
+            <path id="foreLegLeftCore" d="M75 55 Q70 135 68 200 Q65 230 65 250" fill="none" stroke="#1e102b" stroke-width="9" stroke-linecap="round"/>
+            <rect id="hoofL" x="58" y="246" width="14" height="12" rx="3" fill="#ffaa00" stroke="#111417" stroke-width="2.5"/>
+
+            <!-- 右前腿 (微抬警戒或蓄力) -->
+            <path id="foreLegRight" d="M100 50 Q115 125 125 185 Q135 215 130 240" fill="none" stroke="#111417" stroke-width="15" stroke-linecap="round"/>
+            <path id="foreLegRightCore" d="M100 50 Q115 125 125 185 Q135 215 130 240" fill="none" stroke="#351a4a" stroke-width="10" stroke-linecap="round"/>
+            <rect id="hoofR" x="123" y="236" width="14" height="12" rx="3" fill="#ffaa00" stroke="#111417" stroke-width="2.5"/>
+          </g>
+
+          <!-- 5. 鹿颈与鹿首 -->
+          <g id="neckAndHead" transform="translate(100, -25)">
+            <!-- 优雅鹿颈 -->
+            <path d="M-25 15 Q-15 -70 25 -115 Q55 -110 50 -20 Q20 30 -25 15 Z" fill="url(#stagFur)" stroke="#111417" stroke-width="5"/>
+            
+            <!-- 头部主体 -->
+            <g id="headSkull" transform="translate(35, -125)">
+              <path d="M-20 20 Q-28 -15 0 -35 Q35 -38 75 -10 Q50 20 15 22 Z" fill="#2d1c3a" stroke="#111417" stroke-width="4.5"/>
+              
+              <!-- 下颌与吻部 -->
+              <path d="M40 -12 L80 -8 L68 12 L35 15 Z" fill="#140a1c" stroke="#111417" stroke-width="3"/>
+              <ellipse cx="78" cy="-5" rx="3" ry="2" fill="#ffaa00"/>
+
+              <!-- 精灵般后仰的鹿耳 -->
+              <path d="M-15 -25 Q-45 -55 -60 -45 Q-40 -20 -10 -15 Z" fill="#b388ff" stroke="#111417" stroke-width="3"/>
+
+              <!-- 漫画金芒重瞳 -->
+              <ellipse cx="25" cy="-14" rx="7" ry="10" fill="#ffaa00" stroke="#111417" stroke-width="2.5"/>
+              <ellipse cx="27" cy="-15" rx="3.5" ry="6" fill="#111417"/>
+              <circle cx="28" cy="-17" r="1.8" fill="#ffffff"/>
+
+              <!-- 面颊晶化泪痕线 -->
+              <path d="M25 -4 L32 10 L30 18" fill="none" stroke="#e040fb" stroke-width="2.2" stroke-linecap="round"/>
+
+              <!-- ================= 核心：破框烛晶巨角 ================= -->
+              <!-- 左侧大主角 (破向左上方) -->
+              <g id="antlerLeft">
+                <!-- 主干 -->
+                <path d="M-5 -30 Q-60 -110 -110 -210 Q-80 -170 -30 -110" fill="url(#crystalGradL)" stroke="#111417" stroke-width="4.5" stroke-linejoin="round"/>
+                <!-- 第一叉枝 (横破) -->
+                <polygon points="-45,-90 -120,-115 -140,-105 -55,-75" fill="#e040fb" stroke="#111417" stroke-width="3"/>
+                <!-- 第二叉枝 (冲天) -->
+                <polygon points="-80,-150 -135,-230 -115,-235 -70,-165" fill="#ffd54f" stroke="#111417" stroke-width="3"/>
+                <!-- 角尖聚光星芒 -->
+                <circle id="starTipL" cx="-125" cy="-232" r="7" fill="#ffffff" stroke="#ffaa00" stroke-width="2.5"/>
+              </g>
+
+              <!-- 右侧大主角 (纵贯向上破框溢出！) -->
+              <g id="antlerRight">
+                <!-- 主干 -->
+                <path d="M15 -32 Q30 -130 50 -250 Q65 -180 35 -100" fill="url(#crystalGradR)" stroke="#111417" stroke-width="5" stroke-linejoin="round"/>
+                <!-- 向右叉枝 (破出右侧画格) -->
+                <polygon points="28,-100 120,-130 135,-118 38,-85" fill="#ffd54f" stroke="#111417" stroke-width="3"/>
+                <!-- 顶峰极高叉枝 -->
+                <polygon points="42,-180 85,-275 102,-268 52,-190" fill="#ffffff" stroke="#111417" stroke-width="3"/>
+                <!-- 角尖聚光星芒 -->
+                <circle id="starTipR" cx="93" cy="-271" r="8" fill="#ffffff" stroke="#e040fb" stroke-width="2.5"/>
+              </g>
+            </g>
+          </g>
+
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 底部交互控制板：生体指令印章 -->
+  <footer class="manga-control-bar">
+    <div class="mode-selector">
+      <span class="mode-title">生体指令印章</span>
+      <button class="stamp-btn" id="btnCalm" aria-pressed="true">
+        <span>✦</span> 幽谷宁谧
+      </button>
+      <button class="stamp-btn" id="btnPrism" aria-pressed="false">
+        <span>⚡</span> 晶芒聚焦
+      </button>
+      <button class="stamp-btn" id="btnErupt" aria-pressed="false">
+        <span>🔥</span> 地火共振
+      </button>
+      <button class="stamp-btn" id="btnFossil" aria-pressed="false">
+        <span>💎</span> 晶化匿息
+      </button>
+    </div>
+
+    <!-- 漫画印刷滤镜切换 -->
+    <div class="tone-filters">
+      <span class="filter-tag">连载印装：</span>
+      <button class="filter-btn active" id="fltColor">卷首全彩</button>
+      <button class="filter-btn" id="fltMono">黑白网点</button>
+      <button class="filter-btn" id="fltBlue">原稿蓝图</button>
+    </div>
+  </footer>
+
+  <!-- 物种百科档案（延续经典百科布局） -->
+  <section class="guide" aria-label="物种百科档案">
+    <div class="guide-header">
+      <h2>物种档案</h2>
+      <span class="guide-num">档案编号：PYRO-10-SPEC</span>
+    </div>
+    <dl class="encyclopedia-grid">
+      <div class="row"><dt>体长</dt><dd>肩高 2.4 米，全长 3.8 米，双角展开跨度达 3.2 米，体重约 680 公斤</dd></div>
+      <div class="row"><dt>栖息</dt><dd>地底深层荧光钟乳晶洞、富含压电水晶的地热断裂带与黑曜石林，常年居于地下热泉旁</dd></div>
+      <div class="row"><dt>烛晶巨角</dt><dd>由共生紫晶与导光纤维化石构成，能将血液中的地热能聚焦倍增，释放定向强光与破空热能束</dd></div>
+      <div class="row"><dt>食性</dt><dd>以岩壁上的嗜热发光真菌、稀土矿脉上的耐酸苔藓及热泉中沉淀的水晶盐为食</dd></div>
+      <div class="row"><dt>地火晶髓</dt><dd>胸腔内嵌有液态金红晶髓，剧烈运动时心脏压力骤升，将流体热量通过颈动脉直泵角顶（达 820°C）</dd></div>
+      <div class="row"><dt>习性</dt><dd>性情高贵警觉；常以双角幽光为地底族群照亮前路；受惊时低头释放刺目光芒致盲天敌，随后踏碎岩壁远遁</dd></div>
+    </dl>
+    <p class="note">物种与拉丁学名皆为虚构。点击上方“生体指令印章”即可随时切换生物动态姿态与声光效果。</p>
+  </section>
+</main>
+
+<script>
+(function(){
+  // ================= 状态机与纯中文声效 =================
+  var modes = {
+    CALM: {
+      id: 'CALM',
+      title: '【幽谷宁谧 · 烛光引路】',
+      desc: '足蹄轻踏黑曜石崖壁，分叉紫晶双角泛起温润荧光，在漆黑沉寂的地底晶洞中如幽幽烛火摇曳。',
+      sfx1: '铮——！',
+      sfx2: '踏踏——',
+      speedFactor: 1.0,
+      glowColor: '#b388ff',
+      linesOpacity: 0.15,
+      prismBeams: false,
+      eruptFlame: false,
+      headBobAmp: 4
+    },
+    PRISM: {
+      id: 'PRISM',
+      title: '【晶芒聚焦 · 破空耀斑】',
+      desc: '压电晶角高频共鸣！两支角尖化为炽烈焦点，破框激射出两道璀璨耀眼的棱镜聚合强光束！',
+      sfx1: '刺啦——✨',
+      sfx2: '轰鸣！',
+      speedFactor: 2.2,
+      glowColor: '#ffffff',
+      linesOpacity: 0.7,
+      prismBeams: true,
+      eruptFlame: false,
+      headBobAmp: 7
+    },
+    ERUPT: {
+      id: 'ERUPT',
+      title: '【地火共振 · 熔晶狂澜】',
+      desc: '体内晶髓狂暴加压！黑曜石蹄下爆裂出金红熔岩火花，双角自基底通红炽化，宛若地底喷涌的烈焰！',
+      sfx1: '轰隆隆！！',
+      sfx2: '噼啪噼啪！',
+      speedFactor: 2.6,
+      glowColor: '#ff6b35',
+      linesOpacity: 0.85,
+      prismBeams: false,
+      eruptFlame: true,
+      headBobAmp: 9
+    },
+    FOSSIL: {
+      id: 'FOSSIL',
+      title: '【晶化匿息 · 黑曜雕像】',
+      desc: '体表辉光尽敛，皮甲迅速硬化拟态为冰冷的黑曜石矿柱，心跳近乎停滞，完美隐匿于昏暗晶林。',
+      sfx1: '凝——...',
+      sfx2: '幽寂',
+      speedFactor: 0.35,
+      glowColor: '#4a148c',
+      linesOpacity: 0.05,
+      prismBeams: false,
+      eruptFlame: false,
+      headBobAmp: 1.5
+    }
+  };
+
+  var curMode = modes.CALM;
+  var time = 0;
+
+  var heroPanel = document.getElementById('heroPanel');
+  var speedLines = document.getElementById('speedLinesSvg');
+  var sfxMain = document.getElementById('sfxMain');
+  var sfxSub = document.getElementById('sfxSub');
+  var narratorTitle = document.getElementById('statusNarratorTitle');
+  var narratorDesc = document.getElementById('statusNarratorDesc');
+  var mangaRoot = document.getElementById('mangaCanvasRoot');
+
+  // SVG 生物 Rig 节点
+  var creatureRig = document.getElementById('creatureRig');
+  var neckAndHead = document.getElementById('neckAndHead');
+  var heartCore = document.getElementById('heartCore');
+  var starTipL = document.getElementById('starTipL');
+  var starTipR = document.getElementById('starTipR');
+  var foreLegRight = document.getElementById('foreLegRight');
+  var hoofR = document.getElementById('hoofR');
+  var sparkField = document.getElementById('sparkFieldLayer');
+  var shockLayer = document.getElementById('shockwaveLayer');
+  var prismBeamsLayer = document.getElementById('prismBeamsLayer');
+
+  // 小格部件
+  var reconScanner = document.getElementById('reconScanner');
+  var organPrism = document.getElementById('organPrism');
+
+  // 1. 生成环境悬浮晶屑粒子
+  var sparks = [];
+  for(var i=0; i<45; i++){
+    var cx = Math.random() * 920;
+    var cy = Math.random() * 660;
+    var r = 1 + Math.random() * 2.8;
+    var spark = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    spark.setAttribute('cx', cx);
+    spark.setAttribute('cy', cy);
+    spark.setAttribute('r', r);
+    spark.setAttribute('fill', i%2===0 ? '#e040fb' : '#ffaa00');
+    spark.setAttribute('opacity', 0.3 + Math.random() * 0.7);
+    sparkField.appendChild(spark);
+    sparks.push({ el: spark, x: cx, y: cy, spd: 0.6 + Math.random()*2.2 });
+  }
+
+  // 2. 动画主循环
+  function animate() {
+    time += 0.02 * curMode.speedFactor;
+
+    // 躯干呼吸起伏
+    var breathY = Math.sin(time * 2) * 5;
+    creatureRig.setAttribute('transform', 'translate(460, ' + (360 + breathY) + ')');
+
+    // 头部警惕摆动与鹿角颤动
+    var headRot = Math.sin(time * 1.5) * curMode.headBobAmp;
+    neckAndHead.setAttribute('transform', 'translate(100, -25) rotate(' + headRot + ', 35, -125)');
+
+    // 前足踱步小动作
+    var hoofWave = Math.sin(time * 3) * 6;
+    foreLegRight.setAttribute('d', 'M100 50 Q115 125 125 185 Q135 215 ' + (130 + hoofWave) + ' ' + (240 - Math.abs(hoofWave)));
+    hoofR.setAttribute('x', 123 + hoofWave);
+    hoofR.setAttribute('y', 236 - Math.abs(hoofWave));
+
+    // 心脏晶髓脉动
+    var pulse = 10 + Math.abs(Math.sin(time * 4)) * 5;
+    heartCore.setAttribute('r', pulse);
+
+    // 角顶星芒缩放
+    var starR = 7 + Math.sin(time * 5) * 3;
+    starTipL.setAttribute('r', starR);
+    starTipR.setAttribute('r', starR + 1);
+
+    // 晶屑上浮飘动 (地底热流)
+    sparks.forEach(function(s){
+      s.y -= s.spd * curMode.speedFactor * 1.2;
+      s.x += Math.sin(time + s.spd) * 0.8;
+      if(s.y < -10) { s.y = 670; s.x = Math.random() * 920; }
+      s.el.setAttribute('cy', s.y);
+      s.el.setAttribute('cx', s.x);
+    });
+
+    // 分镜一 雷达扫描线
+    var rAngle = (time * 120) % 360;
+    var rad = rAngle * Math.PI / 180;
+    reconScanner.setAttribute('x2', 165 + Math.cos(rad) * 68);
+    reconScanner.setAttribute('y2', 115 + Math.sin(rad) * 68);
+
+    // 分镜二 棱柱自转
+    organPrism.setAttribute('transform', 'rotate(' + (time * 25) + ', 150, 80)');
+
+    // 晶芒聚焦光束状态
+    if(curMode.prismBeams) {
+      renderPrismBeams();
+    } else {
+      prismBeamsLayer.setAttribute('opacity', '0');
+    }
+
+    // 地火共振时溅射地面熔岩火花
+    if(curMode.eruptFlame && Math.random() < 0.4) {
+      spawnGroundEmber();
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  // 渲染破框棱镜耀斑光束
+  function renderPrismBeams() {
+    prismBeamsLayer.setAttribute('opacity', '0.85');
+    while(prismBeamsLayer.firstChild) prismBeamsLayer.removeChild(prismBeamsLayer.firstChild);
+
+    // 左角尖射线 (穿出左上画布)
+    var beam1 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    beam1.setAttribute('points', '470,210 -40,-60 120,-80');
+    beam1.setAttribute('fill', 'url(#crystalGradL)');
+    beam1.setAttribute('opacity', '0.65');
+    prismBeamsLayer.appendChild(beam1);
+
+    // 右角尖强光束 (穿出右上画布)
+    var beam2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    beam2.setAttribute('points', '590,170 960,-100 840,-120');
+    beam2.setAttribute('fill', 'url(#crystalGradR)');
+    beam2.setAttribute('opacity', '0.75');
+    prismBeamsLayer.appendChild(beam2);
+  }
+
+  // 溅射地面熔岩火星
+  function spawnGroundEmber() {
+    var ember = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    var ex = 520 + (Math.random() - 0.5) * 160;
+    var ey = 600 + (Math.random() - 0.5) * 20;
+    ember.setAttribute('cx', ex);
+    ember.setAttribute('cy', ey);
+    ember.setAttribute('r', 3 + Math.random()*4);
+    ember.setAttribute('fill', Math.random()>0.5 ? '#ffaa00' : '#ff3366');
+    shockLayer.appendChild(ember);
+
+    var eLife = 1.0;
+    var vy = -2 - Math.random()*4;
+    var vx = (Math.random() - 0.5)*3;
+    var fly = setInterval(function(){
+      ex += vx;
+      ey += vy;
+      eLife -= 0.05;
+      ember.setAttribute('cx', ex);
+      ember.setAttribute('cy', ey);
+      ember.setAttribute('opacity', Math.max(0, eLife));
+      if(eLife <= 0) {
+        clearInterval(fly);
+        if(ember.parentNode) ember.parentNode.removeChild(ember);
+      }
+    }, 25);
+  }
+
+  // 点击震屏与冲击波
+  heroPanel.addEventListener('click', function(e){
+    sfxMain.style.transform = 'scale(1.35) rotate(-16deg) translate(8px, -12px)';
+    heroPanel.style.transform = 'translate(' + ((Math.random()-0.5)*12) + 'px, ' + ((Math.random()-0.5)*12) + 'px)';
+
+    var rect = heroPanel.getBoundingClientRect();
+    var clickX = (e.clientX - rect.left) / rect.width * 920;
+    var clickY = (e.clientY - rect.top) / rect.height * 660;
+
+    var wave = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    wave.setAttribute('cx', clickX);
+    wave.setAttribute('cy', clickY);
+    wave.setAttribute('r', '15');
+    wave.setAttribute('fill', 'none');
+    wave.setAttribute('stroke', curMode.glowColor);
+    wave.setAttribute('stroke-width', '5');
+    wave.setAttribute('opacity', '0.9');
+    shockLayer.appendChild(wave);
+
+    var r = 15, op = 0.9;
+    var expand = setInterval(function(){
+      r += 8;
+      op -= 0.04;
+      wave.setAttribute('r', r);
+      wave.setAttribute('opacity', Math.max(0, op));
+      if(op <= 0) {
+        clearInterval(expand);
+        if(wave.parentNode) wave.parentNode.removeChild(wave);
+      }
+    }, 20);
+
+    setTimeout(function(){
+      sfxMain.style.transform = '';
+      heroPanel.style.transform = '';
+    }, 150);
+  });
+
+  // 印章按钮切换
+  var btnCalm = document.getElementById('btnCalm');
+  var btnPrism = document.getElementById('btnPrism');
+  var btnErupt = document.getElementById('btnErupt');
+  var btnFossil = document.getElementById('btnFossil');
+  var stampBtns = [btnCalm, btnPrism, btnErupt, btnFossil];
+
+  function setMode(newMode, activeBtn) {
+    curMode = newMode;
+    stampBtns.forEach(function(b){ b.setAttribute('aria-pressed', 'false'); });
+    activeBtn.setAttribute('aria-pressed', 'true');
+
+    narratorTitle.textContent = newMode.title;
+    narratorDesc.textContent = newMode.desc;
+    sfxMain.textContent = newMode.sfx1;
+    sfxSub.textContent = newMode.sfx2;
+    speedLines.style.opacity = newMode.linesOpacity;
+
+    activeBtn.style.transform = 'scale(0.92)';
+    setTimeout(function(){ activeBtn.style.transform = ''; }, 120);
+  }
+
+  btnCalm.addEventListener('click', function(){ setMode(modes.CALM, btnCalm); });
+  btnPrism.addEventListener('click', function(){ setMode(modes.PRISM, btnPrism); });
+  btnErupt.addEventListener('click', function(){ setMode(modes.ERUPT, btnErupt); });
+  btnFossil.addEventListener('click', function(){ setMode(modes.FOSSIL, btnFossil); });
+
+  // 漫画印刷滤镜切换
+  var fltColor = document.getElementById('fltColor');
+  var fltMono = document.getElementById('fltMono');
+  var fltBlue = document.getElementById('fltBlue');
+  var fltBtns = [fltColor, fltMono, fltBlue];
+
+  function setFilter(cls, activeBtn) {
+    mangaRoot.classList.remove('mode-monochrome', 'mode-blueprint');
+    if(cls) mangaRoot.classList.add(cls);
+    fltBtns.forEach(function(b){ b.classList.remove('active'); });
+    activeBtn.classList.add('active');
+  }
+
+  fltColor.addEventListener('click', function(){ setFilter('', fltColor); });
+  fltMono.addEventListener('click', function(){ setFilter('mode-monochrome', fltMono); });
+  fltBlue.addEventListener('click', function(){ setFilter('mode-blueprint', fltBlue); });
+
+  animate();
+})();
+</script>
+
+</body>
+</html>

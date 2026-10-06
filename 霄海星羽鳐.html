@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>幻兽特报：霄海星羽鳐 · 动态连环漫画</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+/* ================= 全局漫画原稿纸质感与排版 ================= */
+:root {
+  --ink: #111417;
+  --paper: #f6f3eb;
+  --panel-bg: #ffffff;
+  --cyan: #00d2ff;
+  --electric: #ffe600;
+  --magenta: #ff2a74;
+  --blue-ink: #1b3554;
+  --mint: #bce9d7;
+  --white: #ffffff;
+  --font-chunk: "ZCOOL QingKe HuangYou", "Noto Sans SC", sans-serif;
+  --font-body: "Noto Sans SC", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--paper);
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(17,20,23,0.07) 1.2px, transparent 1.4px),
+    linear-gradient(rgba(17,20,23,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17,20,23,0.03) 1px, transparent 1px);
+  background-size: 14px 14px, 28px 28px, 28px 28px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  padding: 24px 16px 64px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+/* 漫画跨页大画幅容器 */
+.manga-spread {
+  width: 100%;
+  max-width: 1160px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 顶部漫画杂志卷首眉栏 */
+.manga-masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 5px solid var(--ink);
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+}
+.masthead-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.issue-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  background: var(--ink);
+  color: #fff;
+  padding: 2px 10px;
+  width: fit-content;
+  transform: skewX(-10deg);
+}
+.issue-tag span { color: var(--electric); }
+.manga-title {
+  font-family: var(--font-chunk);
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: 6px;
+}
+.manga-title .sub {
+  font-family: var(--font-mono);
+  font-size: clamp(0.95rem, 2vw, 1.4rem);
+  color: #0288d1;
+  letter-spacing: 0.05em;
+}
+.masthead-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+.stamp-danger {
+  border: 3px dashed #d62828;
+  color: #d62828;
+  font-family: var(--font-mono);
+  font-weight: 900;
+  font-size: 13px;
+  padding: 3px 8px;
+  transform: rotate(3deg);
+  letter-spacing: 0.1em;
+}
+
+/* ================= 漫画不规则分镜网格 ================= */
+.comic-grid {
+  display: grid;
+  grid-template-columns: 330px 1fr;
+  grid-template-rows: auto auto;
+  gap: 18px;
+  position: relative;
+}
+
+.panel {
+  background: var(--panel-bg);
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+.panel-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  z-index: 10;
+}
+
+/* 左侧分镜栏 */
+.left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* 分镜 1：斜切侦查格（雷达与高空气象） */
+.panel-recon {
+  height: 230px;
+  clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+  background: #0d151c;
+}
+.recon-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 分镜 2：核心发光器官解剖特写 */
+.panel-organ {
+  flex: 1;
+  min-height: 270px;
+  background: #fdfdfc;
+  display: flex;
+  flex-direction: column;
+  padding: 34px 14px 14px;
+}
+.organ-svg-wrap {
+  width: 100%;
+  height: 170px;
+  position: relative;
+}
+
+/* 右侧核心巨格：破框主舞台 */
+.panel-hero {
+  grid-row: span 2;
+  min-height: 560px;
+  background: radial-gradient(circle at 60% 40%, #172433 0%, #0a1017 90%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  cursor: crosshair;
+}
+
+/* 破框溢出矢量画布 */
+.hero-svg-canvas {
+  position: absolute;
+  inset: -20px -30px -10px -20px;
+  width: calc(100% + 50px);
+  height: calc(100% + 30px);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* 速度线遮罩 */
+.speed-lines-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.25;
+  mix-blend-mode: overlay;
+  transition: opacity 0.3s;
+}
+
+/* 中文拟声词（SFX） */
+.sfx-bubble {
+  position: absolute;
+  font-family: var(--font-chunk);
+  font-size: 46px;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: var(--electric);
+  -webkit-text-stroke: 4.5px var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 var(--ink);
+  pointer-events: none;
+  z-index: 20;
+  animation: sfxPop 2.4s infinite ease-in-out;
+}
+.sfx-1 { top: 36px; left: 28px; transform: rotate(-10deg); }
+.sfx-2 { bottom: 80px; right: 36px; transform: rotate(8deg); color: #ff3366; }
+
+@keyframes sfxPop {
+  0%, 100% { transform: scale(0.96) rotate(-10deg); }
+  50% { transform: scale(1.08) rotate(-7deg) translate(3px, -3px); }
+}
+
+/* 漫画旁白说明框 */
+.narrator-box {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  max-width: 280px;
+  background: #fff;
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 10px 14px;
+  z-index: 12;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.narrator-box b {
+  display: block;
+  font-family: var(--font-chunk);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: #ff3366;
+  margin-bottom: 2px;
+}
+
+/* ================= 互动控制栏 ================= */
+.manga-control-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 14px 18px;
+}
+
+.mode-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.mode-title {
+  font-family: var(--font-chunk);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  background: var(--ink);
+  color: #fff;
+  padding: 2px 10px;
+  transform: skewX(-8deg);
+}
+
+.stamp-btn {
+  font-family: var(--font-chunk);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.stamp-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--ink);
+  background: var(--electric);
+}
+.stamp-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+.stamp-btn[aria-pressed="true"] {
+  background: #ff3366;
+  color: #fff;
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: translateY(1px);
+}
+
+.tone-filters {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.filter-tag {
+  font-family: var(--font-chunk);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+}
+.filter-btn {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.filter-btn.active {
+  background: var(--ink);
+  color: #fff;
+}
+
+/* ================= 模板物种百科档案区 ================= */
+.guide {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--white);
+  border: 4px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 20px 22px 18px;
+}
+.guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 8px;
+}
+.guide h2 {
+  margin: 0;
+  font-family: var(--font-chunk);
+  font-weight: 400;
+  font-size: 1.8rem;
+  letter-spacing: 0.12em;
+  line-height: 1.1;
+  color: var(--blue-ink);
+}
+.guide-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+}
+
+dl.encyclopedia-grid {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 36px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 4.8em minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 2px dashed rgba(17,20,23,0.25);
+  align-items: start;
+}
+dt {
+  justify-self: start;
+  background: var(--mint);
+  border: 2px solid var(--ink);
+  padding: 1px 7px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #222;
+}
+.note {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #666;
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+}
+
+/* 滤镜效果模式 */
+.mode-monochrome {
+  filter: grayscale(100%) contrast(150%);
+}
+.mode-blueprint {
+  filter: invert(100%) hue-rotate(190deg) contrast(140%) brightness(90%);
+}
+
+@media (max-width: 860px) {
+  .comic-grid { grid-template-columns: 1fr; }
+  .panel-hero { min-height: 440px; }
+  dl.encyclopedia-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<main class="manga-spread" id="mangaCanvasRoot">
+  <!-- 顶部漫画杂志卷首横栏 -->
+  <header class="manga-masthead">
+    <div class="masthead-left">
+      <div class="issue-tag">
+        <span>巨神漫画</span> // 幻兽特报 · 第 09 案 · 虚构物种
+      </div>
+      <h1 class="manga-title">
+        霄海星羽鳐
+        <span class="sub">Aethereoraja stellata</span>
+      </h1>
+    </div>
+    <div class="masthead-right">
+      <div class="stamp-danger">生体磁场：极度危险</div>
+    </div>
+  </header>
+
+  <!-- 不规则漫画分镜布局 -->
+  <section class="comic-grid">
+    <!-- 左侧分镜栏 -->
+    <div class="left-col">
+      <!-- 分镜 1：斜切侦查雷达分镜 -->
+      <div class="panel panel-recon" aria-label="高空侦查分镜">
+        <span class="panel-label">分镜一 · 霄层目击</span>
+        <svg class="recon-svg" viewBox="0 0 330 230" preserveAspectRatio="none">
+          <defs>
+            <pattern id="reconDots" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.5" fill="#1e2c38"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#reconDots)"/>
+          
+          <!-- 远景穿云剪影与雷电 -->
+          <g id="reconCloudLayer" opacity="0.8">
+            <path d="M-20 170 Q60 135 140 165 T300 145 T380 185 L380 230 L-20 230 Z" fill="#0b1016"/>
+            <path d="M-20 195 Q80 175 190 200 T380 190 L380 230 L-20 230 Z" fill="#06090c"/>
+          </g>
+
+          <!-- 雷达扫描扫线动画 -->
+          <g id="radarSweep">
+            <circle cx="165" cy="105" r="72" fill="none" stroke="#00d2ff" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.4"/>
+            <circle cx="165" cy="105" r="44" fill="none" stroke="#00d2ff" stroke-width="1.2" opacity="0.3"/>
+            <circle cx="165" cy="105" r="15" fill="none" stroke="#00d2ff" stroke-width="1" opacity="0.5"/>
+            <line x1="85" y1="105" x2="245" y2="105" stroke="#00d2ff" stroke-width="1" opacity="0.3"/>
+            <line x1="165" y1="25" x2="165" y2="185" stroke="#00d2ff" stroke-width="1" opacity="0.3"/>
+            <line id="radarBeam" x1="165" y1="105" x2="230" y2="55" stroke="#ffe600" stroke-width="2.5" stroke-linecap="round"/>
+          </g>
+
+          <!-- 远空鳐影掠过 -->
+          <path id="miniSilhouette" d="M155 100 Q165 90 180 100 Q190 105 180 110 Q165 115 155 100 Z" fill="#ffe600" opacity="0.85"/>
+          <text x="18" y="210" fill="#00d2ff" font-family="monospace" font-size="11" font-weight="bold">海拔: 8,400米 // 气压逆变</text>
+        </svg>
+      </div>
+
+      <!-- 分镜 2：核心发光器官解剖透视 -->
+      <div class="panel panel-organ" aria-label="核心解剖分镜">
+        <span class="panel-label">分镜二 · 悬浮晶核解剖</span>
+        <div class="organ-svg-wrap">
+          <svg viewBox="0 0 300 170" style="width:100%;height:100%;">
+            <defs>
+              <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="35%" stop-color="#00d2ff"/>
+                <stop offset="70%" stop-color="#ff2a74"/>
+                <stop offset="100%" stop-color="transparent"/>
+              </radialGradient>
+            </defs>
+            <circle cx="150" cy="80" r="58" fill="#f0f5f8" stroke="#111417" stroke-width="3" stroke-dasharray="7 4"/>
+            <!-- 旋转能量核心 -->
+            <g id="organSpindle">
+              <polygon points="150,32 180,80 150,128 120,80" fill="url(#coreGlow)" stroke="#111417" stroke-width="2.5"/>
+              <polygon points="150,44 170,80 150,116 130,80" fill="#ffe600" opacity="0.8" stroke="#111417" stroke-width="1.5"/>
+              <circle cx="150" cy="80" r="8" fill="#ffffff" stroke="#111417" stroke-width="2"/>
+            </g>
+            <!-- 标注引线 -->
+            <polyline points="65,36 110,50 130,60" fill="none" stroke="#111417" stroke-width="2"/>
+            <text x="14" y="34" font-family="Noto Sans SC" font-size="11" font-weight="bold" fill="#111417">反重力晶室 (发光囊)</text>
+            
+            <polyline points="225,130 185,115 165,100" fill="none" stroke="#111417" stroke-width="2"/>
+            <text x="175" y="146" font-family="Noto Sans SC" font-size="11" font-weight="bold" fill="#111417">高压放电结 (350千伏)</text>
+          </svg>
+        </div>
+        <p style="font-size:12px;color:#444;line-height:1.5;margin-top:6px;border-top:1px dashed #ccc;padding-top:6px;">
+          体内嵌有磁浮晶核，吞食高空极光中的电离微粒保持悬浮；受惊时晶核剧烈共振放电。
+        </p>
+      </div>
+    </div>
+
+    <!-- 右侧大分镜：破框巨型主舞台 -->
+    <div class="panel panel-hero" id="heroPanel" aria-label="核心动态主格">
+      <span class="panel-label">分镜三 · 破框特写 [主战域]</span>
+      
+      <!-- 旁白说明框 -->
+      <div class="narrator-box">
+        <b id="statusNarratorTitle">【巡航姿态 · 霄云漫游】</b>
+        <span id="statusNarratorDesc">展开宽达 14 米的柔性星羽翼，乘着高空平流层的逆向气流悄然掠过，翼尖拖拽出明灭不定的极光星芒。</span>
+      </div>
+
+      <!-- 中文动态拟声词 -->
+      <div class="sfx-bubble sfx-1" id="sfxMain">呼哗——！</div>
+      <div class="sfx-bubble sfx-2" id="sfxSub">掠风——</div>
+
+      <!-- 漫画速度线图层 -->
+      <svg class="speed-lines-overlay" id="speedLinesSvg" viewBox="0 0 800 600" preserveAspectRatio="none">
+        <g stroke="#ffffff" stroke-width="2" opacity="0.6">
+          <line x1="0" y1="50" x2="300" y2="280"/>
+          <line x1="0" y1="180" x2="340" y2="300"/>
+          <line x1="0" y1="380" x2="320" y2="320"/>
+          <line x1="800" y1="60" x2="480" y2="270"/>
+          <line x1="800" y1="220" x2="490" y2="300"/>
+          <line x1="800" y1="460" x2="470" y2="340"/>
+          <line x1="400" y1="0" x2="400" y2="220"/>
+          <line x1="180" y1="0" x2="360" y2="240"/>
+          <line x1="620" y1="0" x2="440" y2="240"/>
+        </g>
+      </svg>
+
+      <!-- 破框矢量 SVG 动画画布 -->
+      <svg class="hero-svg-canvas" id="heroSvg" viewBox="0 0 920 660">
+        <defs>
+          <pattern id="mangaHalftone" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.3" fill="#111417"/>
+          </pattern>
+          
+          <linearGradient id="wingGradientL" x1="0%" y1="0%" x2="100%" y2="80%">
+            <stop offset="0%" stop-color="#00d2ff"/>
+            <stop offset="60%" stop-color="#14263a"/>
+            <stop offset="100%" stop-color="#09121a"/>
+          </linearGradient>
+
+          <linearGradient id="wingGradientR" x1="100%" y1="0%" x2="0%" y2="80%">
+            <stop offset="0%" stop-color="#00d2ff"/>
+            <stop offset="60%" stop-color="#14263a"/>
+            <stop offset="100%" stop-color="#09121a"/>
+          </linearGradient>
+        </defs>
+
+        <g id="starFieldLayer"></g>
+        <g id="shockwaveLayer"></g>
+
+        <!-- 原创生物：霄海星羽鳐 核心身体 Rig -->
+        <g id="creatureRig" transform="translate(460, 310)">
+          
+          <!-- 尾部长引流双光鳍 -->
+          <g id="tailGroup">
+            <path id="tailRibbonLeft" d="M-12 90 Q-40 220 -80 320" fill="none" stroke="#00d2ff" stroke-width="5" stroke-linecap="round"/>
+            <path id="tailRibbonLeftInk" d="M-12 90 Q-40 220 -80 320" fill="none" stroke="#111417" stroke-width="9" stroke-linecap="round" opacity="0.4"/>
+            
+            <path id="tailRibbonRight" d="M12 90 Q40 220 80 320" fill="none" stroke="#00d2ff" stroke-width="5" stroke-linecap="round"/>
+            <path id="tailRibbonRightInk" d="M12 90 Q40 220 80 320" fill="none" stroke="#111417" stroke-width="9" stroke-linecap="round" opacity="0.4"/>
+            
+            <!-- 尾端发光拟饵提灯 -->
+            <circle id="tailBulbLeft" cx="-80" cy="320" r="8" fill="#ffe600" stroke="#111417" stroke-width="2.5"/>
+            <circle id="tailBulbRight" cx="80" cy="320" r="8" fill="#ffe600" stroke="#111417" stroke-width="2.5"/>
+          </g>
+
+          <!-- 左侧巨幅星羽翅 (破框溢出左侧) -->
+          <g id="leftWingGroup">
+            <path id="leftWingPath" 
+                  d="M-30 -20 Q-160 -120 -380 -50 Q-280 40 -120 70 Q-40 60 -20 30 Z" 
+                  fill="url(#wingGradientL)" 
+                  stroke="#111417" 
+                  stroke-width="5" 
+                  stroke-linejoin="round"/>
+            
+            <path id="leftWingTone" 
+                  d="M-50 10 Q-140 20 -260 -10 Q-180 50 -100 60 Z" 
+                  fill="url(#mangaHalftone)" 
+                  opacity="0.75"/>
+
+            <path id="leftWingFeathers" 
+                  d="M-50 -10 Q-180 -50 -320 -20 M-60 15 Q-160 10 -240 20 M-40 35 Q-110 35 -170 45" 
+                  fill="none" 
+                  stroke="#ffe600" 
+                  stroke-width="2.5" 
+                  stroke-linecap="round"/>
+          </g>
+
+          <!-- 右侧巨幅星羽翅 (破框溢出右侧) -->
+          <g id="rightWingGroup">
+            <path id="rightWingPath" 
+                  d="M30 -20 Q160 -120 380 -50 Q280 40 120 70 Q40 60 20 30 Z" 
+                  fill="url(#wingGradientR)" 
+                  stroke="#111417" 
+                  stroke-width="5" 
+                  stroke-linejoin="round"/>
+
+            <path id="rightWingTone" 
+                  d="M50 10 Q140 20 260 -10 Q180 50 100 60 Z" 
+                  fill="url(#mangaHalftone)" 
+                  opacity="0.75"/>
+
+            <path id="rightWingFeathers" 
+                  d="M50 -10 Q180 -50 320 -20 M60 15 Q160 10 240 20 M40 35 Q110 35 170 45" 
+                  fill="none" 
+                  stroke="#ffe600" 
+                  stroke-width="2.5" 
+                  stroke-linecap="round"/>
+          </g>
+
+          <!-- 脊背主躯干 -->
+          <path id="torsoBody" 
+                d="M0 -90 Q-45 -20 -35 70 Q0 105 35 70 Q45 -20 0 -90 Z" 
+                fill="#f4f8fb" 
+                stroke="#111417" 
+                stroke-width="5"/>
+
+          <!-- 腹部晶核发光透视窗 -->
+          <ellipse cx="0" cy="15" rx="18" ry="30" fill="#00d2ff" stroke="#111417" stroke-width="2.5" opacity="0.9"/>
+          <circle id="heartPulse" cx="0" cy="15" r="9" fill="#ffe600" stroke="#ff2a74" stroke-width="2"/>
+
+          <!-- 头部感应须与眼睛 -->
+          <g id="headSensors">
+            <path d="M-15 -80 Q-45 -145 -70 -160 Q-55 -130 -25 -88" fill="#00d2ff" stroke="#111417" stroke-width="3"/>
+            <path d="M15 -80 Q45 -145 70 -160 Q55 -130 25 -88" fill="#00d2ff" stroke="#111417" stroke-width="3"/>
+
+            <ellipse cx="-16" cy="-60" rx="5" ry="7" fill="#ffe600" stroke="#111417" stroke-width="2.5"/>
+            <circle cx="-15" cy="-62" r="2" fill="#111417"/>
+            <ellipse cx="16" cy="-60" rx="5" ry="7" fill="#ffe600" stroke="#111417" stroke-width="2.5"/>
+            <circle cx="17" cy="-62" r="2" fill="#111417"/>
+
+            <!-- 眉心第三只星辉复眼 -->
+            <polygon points="0,-78 6,-70 0,-62 -6,-70" fill="#ff2a74" stroke="#111417" stroke-width="2"/>
+          </g>
+
+          <g id="lightningLayer" opacity="0"></g>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 互动控制板：印章模式切换 -->
+  <footer class="manga-control-bar">
+    <div class="mode-selector">
+      <span class="mode-title">生体指令印章</span>
+      <button class="stamp-btn" id="btnCruise" aria-pressed="true">
+        <span>✦</span> 巡航漫游
+      </button>
+      <button class="stamp-btn" id="btnBlitz" aria-pressed="false">
+        <span>⚡</span> 激雷超频
+      </button>
+      <button class="stamp-btn" id="btnBloom" aria-pressed="false">
+        <span>✿</span> 星华绽放
+      </button>
+      <button class="stamp-btn" id="btnStealth" aria-pressed="false">
+        <span>👁</span> 虚空匿形
+      </button>
+    </div>
+
+    <!-- 漫画印刷滤镜切换 -->
+    <div class="tone-filters">
+      <span class="filter-tag">连载印装：</span>
+      <button class="filter-btn active" id="fltColor">卷首全彩</button>
+      <button class="filter-btn" id="fltMono">黑白网点</button>
+      <button class="filter-btn" id="fltBlue">原稿蓝图</button>
+    </div>
+  </footer>
+
+  <!-- 物种百科档案（延续经典百科布局） -->
+  <section class="guide" aria-label="物种百科档案">
+    <div class="guide-header">
+      <h2>物种档案</h2>
+      <span class="guide-num">档案编号：AETH-09-SPEC</span>
+    </div>
+    <dl class="encyclopedia-grid">
+      <div class="row"><dt>体长</dt><dd>体长 8.5 米，翼展宽达 14.2 米，体重约 1.2 吨（因反重力场作用，表观重力几乎为零）</dd></div>
+      <div class="row"><dt>栖息</dt><dd>高空 7,000 ~ 12,000 米强对流平流层，终年不落陆地，常栖息于积雨云之巅</dd></div>
+      <div class="row"><dt>星羽翼</dt><dd>翼缘覆有纳米级吸光柔性羽鳞，滑翔时无紊流空气噪音，翼面星纹可传导静电</dd></div>
+      <div class="row"><dt>食性</dt><dd>以极光带中漂浮的电离发光微藻、对流层浮游水母及云中暴风雷电为食</dd></div>
+      <div class="row"><dt>浮空晶核</dt><dd>腹部嵌有半透明天然能量核，常态呈深天蓝，超频时激化为金红雷暴核心（输出350千伏）</dd></div>
+      <div class="row"><dt>习性</dt><dd>平流层平缓时舒展双翼漫游；风暴来临时俯冲穿云吸收雷电；受惊时化作吸光墨影遁入夜空</dd></div>
+    </dl>
+    <p class="note">物种与学名皆为虚构。点击上方“生体指令印章”即可随时切换生物动态姿态与声光效果。</p>
+  </section>
+</main>
+
+<script>
+(function(){
+  // ================= 状态机与纯中文声效 =================
+  var modes = {
+    CRUISE: {
+      id: 'CRUISE',
+      title: '【巡航姿态 · 霄云漫游】',
+      desc: '展开宽达 14 米的柔性星羽翼，乘着高空平流层的逆向气流悄然掠过，翼尖拖拽出明灭不定的极光星芒。',
+      sfx1: '呼哗——！',
+      sfx2: '掠风——',
+      speedFactor: 1.0,
+      flapAmp: 30,
+      glowColor: '#00d2ff',
+      linesOpacity: 0.18,
+      lightning: false
+    },
+    BLITZ: {
+      id: 'BLITZ',
+      title: '【激雷超频 · 破空雷突】',
+      desc: '体表金黄雷电狂涌！双翼高频震颤，撕裂云障引发超音速音爆，化作一道横贯天穹的撕裂光矛！',
+      sfx1: '轰隆隆！！',
+      sfx2: '⚡噼啪噼啪⚡',
+      speedFactor: 2.8,
+      flapAmp: 55,
+      glowColor: '#ffe600',
+      linesOpacity: 0.75,
+      lightning: true
+    },
+    BLOOM: {
+      id: 'BLOOM',
+      title: '【星华绽放 · 极光潮涌】',
+      desc: '悬浮晶核全面过载解离，反重力场化作环形星环向四周狂猛扩散，整个天幕化为七彩绚烂星海。',
+      sfx1: '嗡——✨',
+      sfx2: '铮鸣！',
+      speedFactor: 0.7,
+      flapAmp: 22,
+      glowColor: '#ff2a74',
+      linesOpacity: 0.35,
+      lightning: false
+    },
+    STEALTH: {
+      id: 'STEALTH',
+      title: '【虚空匿形 · 墨影幽灵】',
+      desc: '体表羽毛翻转闭合，转化为纯粹的吸光墨态，如同二维剪影隐入高空黑夜，唯留两点冷冽金瞳。',
+      sfx1: '隐——...',
+      sfx2: '飒！',
+      speedFactor: 0.5,
+      flapAmp: 16,
+      glowColor: '#ffffff',
+      linesOpacity: 0.08,
+      lightning: false
+    }
+  };
+
+  var curMode = modes.CRUISE;
+  var time = 0;
+
+  var heroPanel = document.getElementById('heroPanel');
+  var speedLines = document.getElementById('speedLinesSvg');
+  var sfxMain = document.getElementById('sfxMain');
+  var sfxSub = document.getElementById('sfxSub');
+  var narratorTitle = document.getElementById('statusNarratorTitle');
+  var narratorDesc = document.getElementById('statusNarratorDesc');
+  var mangaRoot = document.getElementById('mangaCanvasRoot');
+
+  // SVG 部件
+  var creatureRig = document.getElementById('creatureRig');
+  var leftWing = document.getElementById('leftWingGroup');
+  var rightWing = document.getElementById('rightWingGroup');
+  var tailLeft = document.getElementById('tailRibbonLeft');
+  var tailRight = document.getElementById('tailRibbonRight');
+  var tailBulbL = document.getElementById('tailBulbLeft');
+  var tailBulbR = document.getElementById('tailBulbRight');
+  var heartPulse = document.getElementById('heartPulse');
+  var starField = document.getElementById('starFieldLayer');
+  var shockLayer = document.getElementById('shockwaveLayer');
+  var lightningLayer = document.getElementById('lightningLayer');
+
+  // 小格部件
+  var radarBeam = document.getElementById('radarBeam');
+  var miniSil = document.getElementById('miniSilhouette');
+  var organSpindle = document.getElementById('organSpindle');
+
+  // 1. 生成星光粒子
+  var stars = [];
+  for(var i=0; i<45; i++){
+    var cx = Math.random() * 920;
+    var cy = Math.random() * 660;
+    var r = 1 + Math.random() * 2.5;
+    var starCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    starCircle.setAttribute('cx', cx);
+    starCircle.setAttribute('cy', cy);
+    starCircle.setAttribute('r', r);
+    starCircle.setAttribute('fill', i%2===0 ? '#00d2ff' : '#ffe600');
+    starCircle.setAttribute('opacity', 0.3 + Math.random() * 0.7);
+    starField.appendChild(starCircle);
+    stars.push({ el: starCircle, x: cx, y: cy, spd: 0.5 + Math.random()*2 });
+  }
+
+  // 2. 动画主循环
+  function animate() {
+    time += 0.02 * curMode.speedFactor;
+
+    // 悬浮晃动
+    var bobY = Math.sin(time * 2) * 16;
+    var tiltRot = Math.sin(time * 1.2) * 4;
+    creatureRig.setAttribute('transform', 'translate(460, ' + (310 + bobY) + ') rotate(' + tiltRot + ')');
+
+    // 扇翅动画
+    var flap = Math.sin(time * 3.5) * curMode.flapAmp;
+    leftWing.setAttribute('transform', 'rotate(' + (-flap) + ', -30, 20) scale(1, ' + (1 - flap*0.005) + ')');
+    rightWing.setAttribute('transform', 'rotate(' + (flap) + ', 30, 20) scale(1, ' + (1 - flap*0.005) + ')');
+
+    // 双尾游曳波动
+    var tWave1 = Math.sin(time * 2.8) * 35;
+    var tWave2 = Math.cos(time * 2.5) * 40;
+    tailLeft.setAttribute('d', 'M-12 90 Q' + (-30 + tWave1) + ' 200 ' + (-70 + tWave2) + ' 330');
+    tailRight.setAttribute('d', 'M12 90 Q' + (30 - tWave1) + ' 200 ' + (70 - tWave2) + ' 330');
+    tailBulbL.setAttribute('cx', -70 + tWave2);
+    tailBulbL.setAttribute('cy', 330);
+    tailBulbR.setAttribute('cx', 70 - tWave2);
+    tailBulbR.setAttribute('cy', 330);
+
+    // 核心心跳
+    var pulse = 8 + Math.abs(Math.sin(time * 4)) * 5;
+    heartPulse.setAttribute('r', pulse);
+
+    // 星辰下落漂移
+    stars.forEach(function(s){
+      s.y += s.spd * curMode.speedFactor * 1.5;
+      if(s.y > 680) s.y = -10;
+      s.el.setAttribute('cy', s.y);
+    });
+
+    // 雷达扫描线
+    var rAngle = (time * 120) % 360;
+    var rad = rAngle * Math.PI / 180;
+    radarBeam.setAttribute('x2', 165 + Math.cos(rad) * 70);
+    radarBeam.setAttribute('y2', 105 + Math.sin(rad) * 70);
+    miniSil.setAttribute('transform', 'translate(' + (Math.sin(time)*14) + ', ' + (Math.cos(time*1.5)*8) + ')');
+
+    // 解剖晶核悬浮自转
+    organSpindle.setAttribute('transform', 'rotate(' + (time * 25) + ', 150, 80)');
+
+    // 激雷态电弧
+    if(curMode.lightning && Math.random() < 0.45) {
+      spawnLightningArc();
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  function spawnLightningArc() {
+    while(lightningLayer.firstChild) lightningLayer.removeChild(lightningLayer.firstChild);
+    var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    var startX = (Math.random() - 0.5) * 80;
+    var startY = (Math.random() - 0.5) * 60;
+    var d = 'M' + startX + ' ' + startY;
+    var curX = startX, curY = startY;
+    for(var j=0; j<4; j++) {
+      curX += (Math.random() - 0.5) * 160;
+      curY += (Math.random() - 0.5) * 120;
+      d += ' L' + curX + ' ' + curY;
+    }
+    p.setAttribute('d', d);
+    p.setAttribute('stroke', '#ffe600');
+    p.setAttribute('stroke-width', '3');
+    p.setAttribute('fill', 'none');
+    p.setAttribute('stroke-linecap', 'round');
+    lightningLayer.appendChild(p);
+    lightningLayer.setAttribute('opacity', '1');
+    setTimeout(function(){ lightningLayer.setAttribute('opacity', '0'); }, 70);
+  }
+
+  // 点击震屏与冲击波
+  heroPanel.addEventListener('click', function(e){
+    sfxMain.style.transform = 'scale(1.35) rotate(-16deg) translate(8px, -12px)';
+    heroPanel.style.transform = 'translate(' + ((Math.random()-0.5)*12) + 'px, ' + ((Math.random()-0.5)*12) + 'px)';
+    
+    var rect = heroPanel.getBoundingClientRect();
+    var clickX = (e.clientX - rect.left) / rect.width * 920;
+    var clickY = (e.clientY - rect.top) / rect.height * 660;
+    
+    var wave = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    wave.setAttribute('cx', clickX);
+    wave.setAttribute('cy', clickY);
+    wave.setAttribute('r', '15');
+    wave.setAttribute('fill', 'none');
+    wave.setAttribute('stroke', curMode.glowColor);
+    wave.setAttribute('stroke-width', '5');
+    wave.setAttribute('opacity', '0.9');
+    shockLayer.appendChild(wave);
+
+    var r = 15, op = 0.9;
+    var expand = setInterval(function(){
+      r += 8;
+      op -= 0.04;
+      wave.setAttribute('r', r);
+      wave.setAttribute('opacity', Math.max(0, op));
+      if(op <= 0) {
+        clearInterval(expand);
+        if(wave.parentNode) wave.parentNode.removeChild(wave);
+      }
+    }, 20);
+
+    setTimeout(function(){
+      sfxMain.style.transform = '';
+      heroPanel.style.transform = '';
+    }, 150);
+  });
+
+  // 印章按钮切换
+  var btnCruise = document.getElementById('btnCruise');
+  var btnBlitz = document.getElementById('btnBlitz');
+  var btnBloom = document.getElementById('btnBloom');
+  var btnStealth = document.getElementById('btnStealth');
+  var stampBtns = [btnCruise, btnBlitz, btnBloom, btnStealth];
+
+  function setMode(newMode, activeBtn) {
+    curMode = newMode;
+    stampBtns.forEach(function(b){ b.setAttribute('aria-pressed', 'false'); });
+    activeBtn.setAttribute('aria-pressed', 'true');
+
+    narratorTitle.textContent = newMode.title;
+    narratorDesc.textContent = newMode.desc;
+    sfxMain.textContent = newMode.sfx1;
+    sfxSub.textContent = newMode.sfx2;
+    speedLines.style.opacity = newMode.linesOpacity;
+
+    activeBtn.style.transform = 'scale(0.92)';
+    setTimeout(function(){ activeBtn.style.transform = ''; }, 120);
+  }
+
+  btnCruise.addEventListener('click', function(){ setMode(modes.CRUISE, btnCruise); });
+  btnBlitz.addEventListener('click', function(){ setMode(modes.BLITZ, btnBlitz); });
+  btnBloom.addEventListener('click', function(){ setMode(modes.BLOOM, btnBloom); });
+  btnStealth.addEventListener('click', function(){ setMode(modes.STEALTH, btnStealth); });
+
+  // 漫画滤镜
+  var fltColor = document.getElementById('fltColor');
+  var fltMono = document.getElementById('fltMono');
+  var fltBlue = document.getElementById('fltBlue');
+  var fltBtns = [fltColor, fltMono, fltBlue];
+
+  function setFilter(cls, activeBtn) {
+    mangaRoot.classList.remove('mode-monochrome', 'mode-blueprint');
+    if(cls) mangaRoot.classList.add(cls);
+    fltBtns.forEach(function(b){ b.classList.remove('active'); });
+    activeBtn.classList.add('active');
+  }
+
+  fltColor.addEventListener('click', function(){ setFilter('', fltColor); });
+  fltMono.addEventListener('click', function(){ setFilter('mode-monochrome', fltMono); });
+  fltBlue.addEventListener('click', function(){ setFilter('mode-blueprint', fltBlue); });
+
+  animate();
+})();
+</script>
+
+</body>
+</html>

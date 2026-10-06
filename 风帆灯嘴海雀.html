@@ -1,0 +1,652 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fffaf0;color:#181816}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>风帆灯嘴海雀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fffaf0;
+  --ink:#181816;
+  --orange:#ff5722;
+  --sun:#ffb300;
+  --sea:#00b4d8;
+  --sea-deep:#0077b6;
+  --cave:#3d2b1f;
+  --gold:#ffe082;
+  --white:#ffffff;
+  --chunk:"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif;
+  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  background-color:var(--paper);
+  background-image:radial-gradient(rgba(24,24,22,.08) 1.2px,transparent 1.5px);
+  background-size:12px 12px;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.65;
+  padding-inline:16px;
+  padding-block:28px 56px;
+  transition:filter 0.3s ease;
+}
+.wrap{max-width:980px;margin-inline:auto;display:flex;flex-direction:column;gap:26px}
+.head{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.kicker{margin:0;background:var(--ink);color:var(--white);font-family:var(--mono);font-size:12px;letter-spacing:.14em;padding:3px 10px;transform:skewX(-8deg)}
+h1{
+  margin:0;font-family:var(--chunk);font-weight:400;
+  font-size:clamp(3.6rem,14vw,6.4rem);line-height:1;letter-spacing:.05em;
+  color:var(--orange);
+  -webkit-text-stroke:8px var(--ink);paint-order:stroke fill;
+  text-shadow:6px 6px 0 var(--ink);
+  transform:rotate(-1.5deg);transform-origin:left bottom;
+}
+.latin{margin:0;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--sea-deep);letter-spacing:.06em}
+
+.film{display:flex;flex-direction:column;gap:16px;min-width:0}
+.stage{
+  position:relative;width:100%;aspect-ratio:16/10;
+  background:#70d6ff;
+  border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);
+  cursor:crosshair;overflow:hidden;
+}
+canvas.main{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cap{
+  position:absolute;left:14px;top:14px;max-width:min(72%,26em);
+  background:#ffe082;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+  padding:6px 14px;display:flex;flex-direction:column;gap:0;pointer-events:none;z-index:10;
+}
+.cap b{font-family:var(--chunk);font-weight:400;font-size:1.25rem;letter-spacing:.12em;line-height:1.3;color:var(--orange)}
+.cap span{font-size:13.5px;line-height:1.5;color:var(--ink)}
+.gauge{
+  position:absolute;right:14px;bottom:14px;
+  background:var(--white);border:2px solid var(--ink);padding:2px 10px;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;z-index:10;box-shadow:2px 2px 0 var(--ink);
+}
+
+.ctl{display:flex;align-items:center;gap:12px;min-width:0;margin-top:2px}
+.ctl button{
+  flex:none;min-width:68px;
+  font:inherit;font-size:14px;font-weight:700;color:var(--ink);
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:3px 3px 0 var(--ink);padding:5px 14px;cursor:pointer;
+  transition:all 0.1s;
+}
+.ctl button:hover{background:#ffe082;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.ctl button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.ctl input[type=range]{flex:1;min-width:0;accent-color:var(--orange);cursor:pointer}
+.clock{flex:none;font-family:var(--mono);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+
+.chapters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.chapters button{
+  font:inherit;color:var(--ink);text-align:left;cursor:pointer;
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:4px 4px 0 var(--ink);padding:0;display:flex;flex-direction:column;min-width:0;
+  transition:all 0.15s;
+}
+.chapters button:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.chapters canvas{display:block;width:100%;aspect-ratio:4/3;border-bottom:3px solid var(--ink);background:#70d6ff}
+.chapters .lab{display:flex;align-items:baseline;gap:8px;padding:5px 10px 6px}
+.chapters .lab b{font-family:var(--chunk);font-weight:400;font-size:1.15rem;letter-spacing:.12em}
+.chapters .lab small{font-family:var(--mono);font-size:11px;font-weight:700}
+.chapters button[aria-current=true] .lab{background:#ffe082}
+.chapters button[aria-current=true]{box-shadow:4px 4px 0 var(--orange)}
+
+.manga-control-bar{
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  background:var(--white);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+  padding:12px 16px;
+}
+.mode-selector{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mode-title{
+  font-family:var(--chunk);font-size:1.2rem;letter-spacing:.08em;
+  background:var(--ink);color:#fff;padding:2px 10px;transform:skewX(-8deg);
+}
+.stamp-btn{
+  font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em;
+  background:var(--paper);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:5px 12px;cursor:pointer;transition:all 0.15s;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.stamp-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);background:var(--sun)}
+.stamp-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.stamp-btn[aria-pressed=true]{background:var(--orange);color:#fff;box-shadow:3px 3px 0 var(--ink);transform:translateY(1px)}
+
+.tone-filters{display:flex;gap:8px;align-items:center}
+.filter-tag{font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em}
+.filter-btn{
+  font-family:var(--body);font-weight:700;font-size:12px;
+  border:2px solid var(--ink);background:#fff;padding:4px 10px;cursor:pointer;
+}
+.filter-btn.active{background:var(--ink);color:#fff}
+
+.guide{display:flex;flex-direction:column;gap:16px;background:var(--white);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:18px 20px 16px}
+.guide-header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.guide h2{margin:0;font-family:var(--chunk);font-weight:400;font-size:1.7rem;letter-spacing:.12em;line-height:1.2}
+.guide-num{font-family:var(--mono);font-size:12px;font-weight:700;color:#666}
+dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+.row{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:12px;padding:10px 0;border-top:2px dashed rgba(24,24,22,.25);align-items:start}
+dt{justify-self:start;background:#bce9d7;border:2px solid var(--ink);padding:1px 7px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em}
+dd{margin:0;min-width:0;font-size:14px}
+.note{margin:0;font-family:var(--mono);font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:8px}
+.sfxload{position:absolute;left:-9999px;top:0;font-family:var(--chunk);white-space:nowrap}
+
+.mode-monochrome{filter:grayscale(100%) contrast(150%)}
+.mode-blueprint{filter:invert(100%) hue-rotate(190deg) contrast(140%) brightness(90%)}
+
+@media (max-width:640px){
+  .stage{aspect-ratio:4/5}
+  .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  dl{grid-template-columns:1fr}
+}
+</style>
+
+<main class="wrap" id="mainWrap">
+  <header class="head">
+    <p class="kicker">极北洋流图鉴 · 第 8 话 · 虚构物种</p>
+    <h1>风帆灯嘴海雀</h1>
+    <p class="latin">Fratercula velolucis</p>
+  </header>
+
+  <section class="film" aria-label="风帆灯嘴海雀漫画短片">
+    <div class="stage" id="stageFrame">
+      <canvas class="main" id="c" role="img" aria-label="风帆灯嘴海雀在海崖天际乘风、潜水追鱼与在发光海蚀洞踱步"></canvas>
+      <div class="cap"><b id="capName">崖空</b><span id="capText"></span></div>
+      <div class="gauge" id="gauge">海拔 +180 m · 迎风扬帆</div>
+    </div>
+    
+    <div class="ctl">
+      <button id="play" type="button">暂停</button>
+      <input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="播放进度">
+      <span class="clock" id="clock">00:00 / 00:25</span>
+    </div>
+
+    <nav class="chapters" id="chapters" aria-label="章节"></nav>
+  </section>
+
+  <footer class="manga-control-bar">
+    <div class="mode-selector">
+      <span class="mode-title">生体指令印章</span>
+      <button class="stamp-btn" id="btnSky" aria-pressed="true">
+        <span>🪁</span> 扬帆滑翔
+      </button>
+      <button class="stamp-btn" id="btnDive" aria-pressed="false">
+        <span>🌊</span> 扎水刺潜
+      </button>
+      <button class="stamp-btn" id="btnCave" aria-pressed="false">
+        <span>🪨</span> 穴居踱步
+      </button>
+      <button class="stamp-btn" id="btnFly" aria-pressed="false">
+        <span>⚡</span> 振翅冲霄
+      </button>
+    </div>
+
+    <div class="tone-filters">
+      <span class="filter-tag">连载印装：</span>
+      <button class="filter-btn active" id="fltColor">卷首全彩</button>
+      <button class="filter-btn" id="fltMono">黑白网点</button>
+      <button class="filter-btn" id="fltBlue">原稿蓝图</button>
+    </div>
+  </footer>
+
+  <section class="guide" aria-label="物种百科档案">
+    <div class="guide-header">
+      <h2>物种档案</h2>
+      <span class="guide-num">档案编号：PUFF-08-SPEC</span>
+    </div>
+    <dl>
+      <div class="row"><dt>体长</dt><dd>体长 0.42 米，翼展 0.75 米，背部风帆立高 0.35 米，重 1.1 公斤</dd></div>
+      <div class="row"><dt>栖息</dt><dd>风高浪急的极地海蚀悬崖、水下 30 米冷洋流带以及沿海天然玄武岩溶洞</dd></div>
+      <div class="row"><dt>风帆羽</dt><dd>脊背长有类似古代帆船般的半月形风帆，遇侧风时展开借力，无须剧烈振翅</dd></div>
+      <div class="row"><dt>荧光喙</dt><dd>角质层极厚的三角形巨喙，侧面长有发光腺，入水与入洞时发出温暖橘黄强光诱鱼</dd></div>
+      <div class="row"><dt>食性</dt><dd>极地银鱼、冷水发光小鱿鱼以及海蚀洞石隙中的藤壶与小贝类</dd></div>
+      <div class="row"><dt>步态</dt><dd>在陆地与洞穴中挺直腰板一摇一摆快步小跑，入水时则化作流线型炮弹灵活穿梭</dd></div>
+    </dl>
+    <p class="note">物种与拉丁学名皆为虚构。点击主画面可触发漫画震屏与冲击波，点击章节格或印章即可即时跳播。</p>
+  </section>
+  <span class="sfxload" aria-hidden="true">呼呼啪嗒咕噜噜踏踏踏咚破浪跃～！—</span>
+</main>
+
+<script>
+(function(){
+  var DUR=25;
+  var INK='#181816';
+  var SFXFONT='"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif';
+  var scenes=[
+    {t:0,key:3.0,name:'崖空',text:'悬崖侧风呼啸，它竖起背上的半月羽帆，圆滚滚的身子借风平稳滑翔。'},
+    {t:6,key:8.5,name:'深潜',text:'收帆收羽如炮弹扎入碧海，大嘴亮起金光照透深水，小短翅高速扇动捕鱼。'},
+    {t:12,key:15.0,name:'穴径',text:'叼着小鱼钻进海蚀洞穴，挺着白肚子甩开橙红鸭蹼，吧唧吧唧一摇一晃小跑。'},
+    {t:19,key:21.8,name:'乘浪',text:'冲出洞口乘着汹涌白浪振翅加速，扬起风帆逆风滑上高耸的云崖！'}
+  ];
+  var cv=document.getElementById('c');
+  var mctx=cv.getContext('2d');
+  var ctx=mctx;
+  var W=800,H=500,dpr=1;
+  var playing=true,t=0,last=0,loops=0,sceneIdx=-1;
+  var shockwaves=[];
+
+  var clamp=function(x,a,b){a=a===undefined?0:a;b=b===undefined?1:b;return Math.min(b,Math.max(a,x));};
+  var sm=function(a,b,x){x=clamp((x-a)/(b-a));return x*x*(3-2*x);};
+  var lerp=function(a,b,k){return a+(b-a)*k;};
+  var frac=function(v){return ((v%1)+1)%1;};
+  function mixc(a,b,k){return [Math.round(lerp(a[0],b[0],k)),Math.round(lerp(a[1],b[1],k)),Math.round(lerp(a[2],b[2],k))];}
+  function rgb(a,al){return al===undefined?'rgb('+a.join(',')+')':'rgba('+a.join(',')+','+al+')';}
+
+  function halftone(x0,y0,w,h,sp,col,rmax,flip){
+    ctx.save();ctx.beginPath();ctx.rect(x0,y0,w,h);ctx.clip();
+    ctx.fillStyle=col;ctx.beginPath();
+    var row=0;
+    for(var y=y0;y<y0+h+sp;y+=sp*0.866,row++){
+      var f=clamp((y-y0)/h);if(flip)f=1-f;
+      var r=rmax*Math.pow(f,0.9);if(r<0.4)continue;
+      for(var x=x0+(row%2?sp/2:0);x<x0+w+sp;x+=sp){ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,6.283);}
+    }
+    ctx.fill();ctx.restore();
+  }
+
+  function popv(tt,a,b){
+    if(tt<a||tt>b)return 0;
+    var age=tt-a,v=1;
+    if(age<0.22){var x=age/0.22,c1=1.70158,c3=c1+1;v=1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);}
+    if(b-tt<0.2)v*=(b-tt)/0.2;
+    return Math.max(0,v);
+  }
+
+  function sfx(txt,x,y,size,rot,fill,pop){
+    if(pop<=0)return;
+    ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(pop,pop);
+    ctx.font='900 '+size+'px '+SFXFONT;ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.lineJoin='round';ctx.lineWidth=size*0.22;ctx.strokeStyle=INK;ctx.strokeText(txt,0,0);
+    ctx.fillStyle=fill;ctx.fillText(txt,0,0);
+    ctx.restore();
+  }
+
+  // --- 独创形态：风帆海雀的绘制 ---
+  function drawPuffin(tt,s,sailUp,dive,waddle){
+    var OL=Math.max(2.2,2.8*s)/s;
+    ctx.lineJoin='round';ctx.lineCap='round';
+    
+    // 1. 脚蹼 (小红鸭掌)
+    function drawFoot(fx,fy,phase,far){
+      var footRot=0;
+      var yOff=0;
+      if(waddle>0.1){
+        footRot=Math.sin(tt*12+phase)*0.5;
+        yOff=-Math.max(0,Math.cos(tt*12+phase))*8*waddle;
+      }else if(dive>0.1){
+        footRot=-0.8+Math.sin(tt*8+phase)*0.2;
+      }
+      ctx.save();ctx.translate(fx,fy+yOff);ctx.rotate(footRot);
+      // 小腿
+      ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,14);
+      ctx.strokeStyle=INK;ctx.lineWidth=OL*1.6;ctx.stroke();
+      ctx.strokeStyle=far?'#e64a19':'#ff5722';ctx.lineWidth=OL*0.8;ctx.stroke();
+      // 鸭蹼
+      ctx.beginPath();ctx.moveTo(-2,14);ctx.lineTo(14,14);ctx.lineTo(10,18);ctx.lineTo(-4,16);ctx.closePath();
+      ctx.fillStyle=far?'#d84315':'#ff5722';ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.7;ctx.stroke();
+      ctx.restore();
+    }
+    drawFoot(-8,32,Math.PI,true);
+
+    // 2. 背部风帆 (羽帆)
+    if(sailUp>0.05){
+      ctx.save();ctx.translate(-14,-15);
+      var sailWave=Math.sin(tt*4)*0.08;
+      ctx.rotate(-0.1+sailWave);
+      ctx.scale(sailUp,sailUp);
+      // 桅杆羽茎
+      ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(-10,-40,15,-75);
+      ctx.strokeStyle=INK;ctx.lineWidth=OL*1.4;ctx.stroke();
+      // 帆面
+      ctx.beginPath();ctx.moveTo(0,0);
+      ctx.bezierCurveTo(-25,-25,-30,-55,15,-75);
+      ctx.bezierCurveTo(0,-45,5,-15,0,0);
+      ctx.closePath();
+      ctx.fillStyle='#ffb300';ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
+      // 帆骨条纹
+      ctx.strokeStyle='#ffe082';ctx.lineWidth=OL*0.6;
+      ctx.beginPath();
+      ctx.moveTo(-15,-30);ctx.lineTo(2,-25);
+      ctx.moveTo(-18,-50);ctx.lineTo(8,-45);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // 3. 肥嘟嘟海雀躯体
+    // 黑色大身段
+    ctx.beginPath();
+    ctx.moveTo(35,-15);
+    ctx.bezierCurveTo(45,15,20,40,-25,35);
+    ctx.bezierCurveTo(-50,30,-60,-5,-45,-25);
+    ctx.bezierCurveTo(-30,-45,15,-40,35,-15);
+    ctx.closePath();
+    ctx.fillStyle='#212121';ctx.fill();
+    ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
+
+    // 白肚皮
+    ctx.beginPath();
+    ctx.moveTo(15,-20);
+    ctx.bezierCurveTo(38,-5,32,25,0,32);
+    ctx.bezierCurveTo(-22,34,-32,15,-22,-10);
+    ctx.bezierCurveTo(-15,-25,0,-28,15,-20);
+    ctx.closePath();
+    ctx.fillStyle='#ffffff';ctx.fill();
+    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.8;ctx.stroke();
+
+    // 4. 小短翅膀 (振翅或顺贴)
+    ctx.save();ctx.translate(-8,-2);
+    var wingRot=0;
+    if(dive>0.1){
+      wingRot=Math.sin(tt*16)*0.6; // 水下如企鹅般高速振动
+    }else if(waddle>0.1){
+      wingRot=-0.2+Math.sin(tt*6)*0.1;
+    }else{
+      wingRot=Math.sin(tt*4)*0.25;
+    }
+    ctx.rotate(wingRot);
+    ctx.beginPath();
+    ctx.moveTo(0,0);ctx.bezierCurveTo(15,10,25,30,12,38);ctx.bezierCurveTo(-5,35,-15,15,0,0);
+    ctx.closePath();
+    ctx.fillStyle='#37474f';ctx.fill();
+    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.9;ctx.stroke();
+    ctx.restore();
+
+    // 前足
+    drawFoot(12,33,0,false);
+
+    // 5. 头部与特色发光大嘴
+    ctx.save();ctx.translate(28,-18);
+    // 白面颊
+    ctx.beginPath();ctx.ellipse(0,0,16,14,0.2,0,6.283);
+    ctx.fillStyle='#ffffff';ctx.fill();
+    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.8;ctx.stroke();
+
+    // 漫画眼睛 (海雀特有的几何眼斑)
+    ctx.beginPath();ctx.moveTo(0,-8);ctx.lineTo(4,-2);ctx.lineTo(8,-8);
+    ctx.strokeStyle='#e64a19';ctx.lineWidth=OL*0.6;ctx.stroke();
+    ctx.beginPath();ctx.arc(4,-2,4,0,6.283);ctx.fillStyle='#181816';ctx.fill();
+    ctx.beginPath();ctx.arc(5.5,-3.5,1.5,0,6.283);ctx.fillStyle='#ffffff';ctx.fill();
+
+    // 三角形发光大喙 (灯嘴)
+    var beakGlow=0.7+0.3*Math.sin(tt*5);
+    ctx.beginPath();
+    ctx.moveTo(12,-12);
+    ctx.lineTo(38,-2);
+    ctx.lineTo(10,12);
+    ctx.closePath();
+    ctx.fillStyle='#ff5722';ctx.fill();
+    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.9;ctx.stroke();
+
+    // 喙部发光黄色条纹
+    ctx.beginPath();ctx.moveTo(18,-9);ctx.lineTo(26,-3);ctx.lineTo(18,7);ctx.closePath();
+    ctx.fillStyle='rgba(255,224,130,'+beakGlow+')';ctx.fill();
+    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.6;ctx.stroke();
+
+    // 嘴里叼着的小银鱼 (第2、3幕)
+    if(dive>0.2||waddle>0.2){
+      ctx.beginPath();
+      ctx.ellipse(32,4,14,3,0.3,0,6.283);
+      ctx.fillStyle='#b0bec5';ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.5;ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // --- 场景主绘制 ---
+  function scene(tt,live){
+    var s=Math.min(W/(W<H?400:480),H/260);
+    var sp=clamp(W/900,0.75,1.25)*11;
+    var base=Math.min(W,H*1.4)*0.1;
+    var i;
+
+    var isSky=sm(0,1,tt)*(1-sm(5.5,6.5,tt)) + sm(19.2,20.5,tt);
+    var isSea=sm(5.8,7.0,tt)*(1-sm(11.5,12.5,tt));
+    var isCave=sm(12.0,13.2,tt)*(1-sm(18.5,19.5,tt));
+    var isWave=sm(19.0,21.5,tt)*(1-sm(24.0,25.0,tt));
+
+    var sailUp=isSky + isWave;
+    var dive=isSea;
+    var waddle=isCave;
+
+    // 背景色调转换
+    var skyColor=[112,214,255],seaColor=[0,150,214],caveColor=[245,215,160];
+    var curBg=mixc(skyColor,seaColor,sm(5.5,6.8,tt));
+    curBg=mixc(curBg,caveColor,sm(11.8,13.0,tt));
+    curBg=mixc(curBg,skyColor,sm(18.5,20.0,tt));
+
+    ctx.fillStyle=rgb(curBg);ctx.fillRect(0,0,W,H);
+    halftone(0,0,W,H,sp,rgb(mixc(curBg,[20,40,60],0.25)),sp*0.48,true);
+
+    // 1. 各境域环境层
+    if(isSky>0.05){
+      ctx.save();ctx.globalAlpha=isSky;
+      // 太阳
+      ctx.beginPath();ctx.arc(W*0.82,H*0.22,base*0.9,0,6.283);
+      ctx.fillStyle='#ffb300';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.stroke();
+      // 云朵
+      for(i=0;i<4;i++){
+        var cx=((i*0.3-tt*0.04)%1.3)*W,cy=H*(0.15+i*0.08);
+        ctx.beginPath();ctx.arc(cx,cy,45*s,0,6.283);ctx.arc(cx+30*s,cy-10*s,35*s,0,6.283);ctx.arc(cx+60*s,cy,40*s,0,6.283);
+        ctx.fillStyle='#ffffff';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    if(isSea>0.05){
+      ctx.save();ctx.globalAlpha=isSea;
+      // 水下透光光斑
+      ctx.fillStyle='rgba(255,255,255,0.18)';
+      for(i=0;i<3;i++){
+        var lx=W*(0.2+i*0.3)+Math.sin(tt+i)*25;
+        ctx.beginPath();ctx.moveTo(lx,0);ctx.lineTo(lx+W*0.1,0);ctx.lineTo(lx+W*0.2,H);ctx.lineTo(lx+W*0.05,H);ctx.closePath();ctx.fill();
+      }
+      // 气泡
+      for(i=0;i<12;i++){
+        var bx=((i*0.1+tt*0.05)%1)*W,by=H*(0.9-((tt*0.3+i*0.2)%1)*0.8);
+        ctx.beginPath();ctx.arc(bx,by,4+i%5,0,6.283);
+        ctx.fillStyle='rgba(255,255,255,0.6)';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=1.5;ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    if(isCave>0.05){
+      ctx.save();ctx.globalAlpha=isCave;
+      var gy=H*0.82;
+      ctx.fillStyle='#d7ccc8';ctx.fillRect(0,gy,W,H-gy);
+      halftone(0,gy,W,H-gy,sp,'#8d6e63',sp*0.5,false);
+      ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();
+      // 发光钟乳石与水晶
+      for(i=0;i<6;i++){
+        var rx=W*(0.1+i*0.16),rh=H*0.25;
+        ctx.beginPath();ctx.moveTo(rx,gy);ctx.lineTo(rx+15*s,gy-rh);ctx.lineTo(rx+30*s,gy);ctx.closePath();
+        ctx.fillStyle=i%2?'#ffe082':'#80deea';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // 2. 生物位置与姿态
+    var puffinX=W*0.48;
+    var puffinY=H*0.5;
+    var puffinRot=0;
+
+    if(isSky>0.5&&isWave<0.2){
+      puffinY=H*0.45+Math.sin(tt*2)*H*0.04;
+      puffinRot=Math.cos(tt*2)*0.08;
+    }else if(isSea>0.5){
+      puffinY=H*0.52+Math.sin(tt*3.5)*H*0.06;
+      puffinRot=0.25+Math.cos(tt*3.5)*0.15; // 俯冲射水
+    }else if(isCave>0.5){
+      puffinY=H*0.82-32*s;
+      puffinRot=Math.sin(tt*12)*0.1; // 憨态可掬的左右摇摆
+    }else if(isWave>0.2){
+      var wp=clamp((tt-19)/3.5);
+      puffinY=H*(0.85-Math.sin(wp*Math.PI)*0.55);
+      puffinRot=-0.4+wp*0.7;
+    }
+
+    // 点击冲击波
+    for(i=shockwaves.length-1;i>=0;i--){
+      var sw=shockwaves[i];
+      sw.r+=8*s;sw.op-=0.035;
+      if(sw.op<=0){shockwaves.splice(i,1);continue;}
+      ctx.beginPath();ctx.arc(sw.x,sw.y,sw.r,0,6.283);
+      ctx.strokeStyle='rgba(255,87,34,'+sw.op+')';ctx.lineWidth=4*s;ctx.stroke();
+    }
+
+    ctx.save();
+    ctx.translate(puffinX,puffinY);
+    ctx.rotate(puffinRot);
+    ctx.scale(s,s);
+    drawPuffin(tt,s,sailUp,dive,waddle);
+    ctx.restore();
+
+    // 漫画声效字
+    sfx('呼呼～',puffinX-W*0.2,H*0.35,base*0.85,-0.08,'#ffffff',popv(tt,0.8,5.0));
+    sfx('扎水！',puffinX+W*0.04,H*0.3,base*1.4,0.1,'#ffe082',popv(tt,6.2,8.6));
+    sfx('吧唧吧唧',puffinX-W*0.2,H*0.88,base*0.85,0.02,'#ffffff',popv(tt,12.5,15.2));
+    sfx('乘浪冲霄！',puffinX+W*0.12,H*0.25,base*1.5,0.12,'#ff5722',popv(tt,21.6,24.2));
+
+    if(live){
+      var fa=sm(24.2,25,tt);
+      if(loops>0)fa=Math.max(fa,1-sm(0,0.6,tt));
+      if(fa>0){ctx.fillStyle='rgba(24,24,22,'+fa+')';ctx.fillRect(0,0,W,H);}
+    }
+  }
+
+  function draw(tt){ctx=mctx;scene(tt,true);}
+
+  // ---- UI ----
+  var elPlay=document.getElementById('play'),elSeek=document.getElementById('seek'),
+      elClock=document.getElementById('clock'),elGauge=document.getElementById('gauge'),
+      elName=document.getElementById('capName'),elText=document.getElementById('capText'),
+      elCh=document.getElementById('chapters'),stageFrame=document.getElementById('stageFrame'),
+      mainWrap=document.getElementById('mainWrap');
+
+  var chBtns=[],thumbs=[];
+  function fmt(v){var s=Math.floor(v);return '00:'+(s<10?'0':'')+s;}
+
+  scenes.forEach(function(sc,idx){
+    var b=document.createElement('button');b.type='button';
+    b.innerHTML='<canvas aria-hidden="true"></canvas><span class="lab"><b>'+sc.name+'</b><small>'+fmt(sc.t)+'</small></span>';
+    b.addEventListener('click',function(){t=sc.t;draw(t);ui();updateStamps(idx);});
+    elCh.appendChild(b);chBtns.push(b);thumbs.push(b.querySelector('canvas'));
+  });
+
+  function renderThumbs(){
+    var sW=W,sH=H,sCtx=ctx;
+    thumbs.forEach(function(el,n){
+      var r=el.getBoundingClientRect();if(!r.width||!r.height)return;
+      var d=Math.min(window.devicePixelRatio||1,2);
+      el.width=Math.round(r.width*d);el.height=Math.round(r.height*d);
+      var c=el.getContext('2d');c.setTransform(d,0,0,d,0,0);
+      W=r.width;H=r.height;ctx=c;
+      scene(scenes[n].key,false);
+    });
+    W=sW;H=sH;ctx=sCtx;
+  }
+
+  var stampBtns = [
+    document.getElementById('btnSky'),
+    document.getElementById('btnDive'),
+    document.getElementById('btnCave'),
+    document.getElementById('btnFly')
+  ];
+
+  function updateStamps(idx){
+    stampBtns.forEach(function(b,i){b.setAttribute('aria-pressed',i===idx?'true':'false');});
+  }
+
+  stampBtns[0].addEventListener('click',function(){t=0;draw(t);ui();updateStamps(0);});
+  stampBtns[1].addEventListener('click',function(){t=6;draw(t);ui();updateStamps(1);});
+  stampBtns[2].addEventListener('click',function(){t=12;draw(t);ui();updateStamps(2);});
+  stampBtns[3].addEventListener('click',function(){t=19;draw(t);ui();updateStamps(3);});
+
+  var fltColor=document.getElementById('fltColor'),
+      fltMono=document.getElementById('fltMono'),
+      fltBlue=document.getElementById('fltBlue');
+  var fltBtns=[fltColor,fltMono,fltBlue];
+
+  function setFilter(cls,activeBtn){
+    mainWrap.classList.remove('mode-monochrome','mode-blueprint');
+    if(cls)mainWrap.classList.add(cls);
+    fltBtns.forEach(function(b){b.classList.remove('active');});
+    activeBtn.classList.add('active');
+  }
+  fltColor.addEventListener('click',function(){setFilter('',fltColor);});
+  fltMono.addEventListener('click',function(){setFilter('mode-monochrome',fltMono);});
+  fltBlue.addEventListener('click',function(){setFilter('mode-blueprint',fltBlue);});
+
+  stageFrame.addEventListener('click',function(e){
+    var rect=cv.getBoundingClientRect();
+    var clickX=(e.clientX-rect.left);
+    var clickY=(e.clientY-rect.top);
+    shockwaves.push({x:clickX,y:clickY,r:15,op:1.0});
+    stageFrame.style.transform='translate('+((Math.random()-0.5)*10)+'px,'+((Math.random()-0.5)*10)+'px)';
+    setTimeout(function(){stageFrame.style.transform='';},120);
+  });
+
+  function ui(){
+    var idx=0;for(var i=0;i<scenes.length;i++)if(t>=scenes[i].t)idx=i;
+    if(idx!==sceneIdx){
+      sceneIdx=idx;
+      elName.textContent=scenes[idx].name;elText.textContent=scenes[idx].text;
+      chBtns.forEach(function(b,n){b.setAttribute('aria-current',n===idx?'true':'false');});
+      updateStamps(idx);
+    }
+    elSeek.value=t;
+    elClock.textContent=fmt(t)+' / 00:25';
+
+    var gaugeTxt='海拔 +180 m · 迎风扬帆';
+    if(t<6){
+      gaugeTxt='海拔 +'+Math.round(lerp(180,45,t/6))+' m · 迎风扬帆';
+    }else if(t<12){
+      gaugeTxt='水深 -'+Math.round(lerp(2,32,(t-6)/6))+' m · 水下潜游';
+    }else if(t<19){
+      gaugeTxt='深度 -'+Math.round(lerp(8,15,(t-12)/7))+' m · 洞径小跑';
+    }else{
+      gaugeTxt='腾空 +'+Math.round(lerp(5,210,(t-19)/6))+' m · 乘浪冲霄';
+    }
+    elGauge.textContent=gaugeTxt;
+    elPlay.textContent=playing?'暂停':'播放';
+  }
+
+  elPlay.addEventListener('click',function(){playing=!playing;last=performance.now();ui();});
+  elSeek.addEventListener('input',function(){t=parseFloat(elSeek.value);draw(t);ui();});
+
+  function fit(){
+    var r=cv.getBoundingClientRect();
+    if(!r.width||!r.height)return;
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);
+    W=r.width;H=r.height;ctx=mctx;
+    mctx.setTransform(dpr,0,0,dpr,0,0);
+    draw(t);
+    renderThumbs();
+  }
+  if(window.ResizeObserver)new ResizeObserver(fit).observe(cv);
+  window.addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.load){
+    document.fonts.load('900 40px "ZCOOL QingKe HuangYou"','呼呼啪嗒咕噜噜踏踏踏咚破浪跃～！—').then(function(){fit();ui();}).catch(function(){});
+  }
+
+  function frame(now){
+    var dt=Math.min(0.1,Math.max(0,(now-last)/1000));last=now;
+    if(playing){
+      t+=dt;
+      if(t>=DUR){t-=DUR;loops++;}
+      draw(t);ui();
+    }
+    requestAnimationFrame(frame);
+  }
+  fit();ui();
+  last=performance.now();
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body></html>

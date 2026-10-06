@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#04060d">
+<title>幻想大陆 · 生灵图鉴</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg0:#04060d; --bg1:#0a0f24; --bg2:#160f33;
+  --ink:#e9edfa; --dim:#9aa7c9; --faint:#6d7899;
+  --gold:#ffea78; --cyan:#8be9ff; --mint:#7ef0c9;
+  --line:rgba(139,233,255,.20);
+  --card:rgba(16,23,54,.90);
+  --chunk:"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif;
+  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;padding:0;color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.7;
+  background:
+    radial-gradient(120% 70% at 50% -10%, rgba(64,40,120,.35), transparent 60%),
+    linear-gradient(180deg,var(--bg0) 0%,var(--bg1) 46%,var(--bg2) 82%,#1b1038 100%);
+  background-color:var(--bg0);
+  overflow-x:hidden;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+::selection{background:rgba(255,234,120,.35)}
+
+/* ---------- 天空层：星海画布 / 极光 / 萤火 ---------- */
+#sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+.aurora{position:fixed;top:-14vh;left:-12vw;right:-12vw;height:58vh;z-index:0;pointer-events:none;opacity:.6;mix-blend-mode:screen}
+.aurora i{position:absolute;display:block;border-radius:50%}
+.aurora .a1{left:4%;top:8%;width:70%;height:34%;
+  background:radial-gradient(55% 90% at 50% 30%,rgba(64,255,196,.32),transparent 70%);
+  animation:sway 26s ease-in-out infinite alternate}
+.aurora .a2{left:26%;top:2%;width:76%;height:38%;
+  background:radial-gradient(50% 90% at 42% 40%,rgba(150,110,255,.30),transparent 72%);
+  animation:sway 34s ease-in-out infinite alternate-reverse}
+.aurora .a3{left:48%;top:12%;width:64%;height:30%;
+  background:radial-gradient(55% 85% at 55% 35%,rgba(0,210,255,.26),transparent 72%);
+  animation:sway 41s ease-in-out infinite alternate}
+@keyframes sway{from{transform:translateX(-4%) rotate(-3deg) scaleY(1)}to{transform:translateX(5%) rotate(2.5deg) scaleY(1.18)}}
+
+#flies{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ff{position:absolute;border-radius:50%;background:#f4ffb0;
+  box-shadow:0 0 9px 2px rgba(255,240,150,.55),0 0 22px 6px rgba(180,255,140,.18);
+  opacity:.85;animation:ffFloat var(--dur) ease-in-out var(--delay) infinite alternate, ffGlow var(--glow) ease-in-out infinite}
+@keyframes ffFloat{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(calc(var(--dx)*.6),calc(var(--dy)*-.4))}
+  100%{transform:translate(var(--dx),var(--dy))}
+}
+@keyframes ffGlow{0%,100%{opacity:.25}40%{opacity:.95}62%{opacity:.45}}
+body.viewing{overflow:hidden}
+body.viewing .ff{animation-play-state:paused}
+
+/* ---------- 漂浮岛 ---------- */
+.isles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.isle{position:absolute;will-change:transform}
+.isle svg{display:block;width:100%;height:auto;animation:bob var(--bob,11s) ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(-8px)}to{transform:translateY(10px)}}
+.isle.i1{right:-4vw;top:12vh;width:min(34vw,300px)}
+.isle.i2{left:-6vw;top:46vh;width:min(26vw,220px);--bob:14s}
+.isle.i3{right:14vw;top:66vh;width:min(15vw,130px);--bob:9s;opacity:.75}
+
+/* ---------- 通用版式 ---------- */
+.wrap{position:relative;z-index:1;max-width:1080px;margin-inline:auto;padding-inline:18px}
+section{position:relative;z-index:1}
+.kicker{display:inline-block;margin:0;background:linear-gradient(90deg,var(--gold),var(--cyan));color:#04060d;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.14em;padding:3px 12px;transform:skewX(-8deg)}
+.latin{font-family:var(--mono);letter-spacing:.06em;color:var(--cyan)}
+.btn{font:inherit;font-weight:700;cursor:pointer;color:#04060d;background:linear-gradient(90deg,var(--gold),var(--cyan));
+  border:2px solid rgba(255,255,255,.25);border-radius:999px;padding:10px 22px;letter-spacing:.06em;
+  box-shadow:0 6px 24px -8px rgba(139,233,255,.55);transition:transform .15s,box-shadow .15s;text-decoration:none;display:inline-block}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px -8px rgba(255,234,120,.6)}
+
+/* ---------- 卷首 ---------- */
+.hero{min-height:92svh;display:flex;flex-direction:column;justify-content:center;padding-block:14vh 10vh;text-align:center}
+.hero .kicker{letter-spacing:.3em}
+.hero h1{
+  margin:.35em 0 .1em;font-family:var(--chunk);font-weight:400;color:#fdfbe8;
+  font-size:clamp(3.4rem,13vw,7.2rem);line-height:1.06;letter-spacing:.06em;
+  text-shadow:0 0 18px rgba(255,234,120,.45),0 0 60px rgba(139,233,255,.30),0 4px 0 rgba(0,0,0,.35);
+}
+.hero h1 em{font-style:normal;background:linear-gradient(92deg,var(--gold) 10%,var(--mint) 55%,var(--cyan) 95%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{margin:.2em 0 1.4em;font-family:var(--mono);font-size:clamp(12px,2.6vw,15px);letter-spacing:.42em;color:var(--dim)}
+.hero .lore{max-width:34em;margin-inline:auto;color:var(--dim);font-size:15.5px}
+.hero .lore b{color:var(--ink)}
+.hero .stats{display:flex;justify-content:center;gap:10px 26px;flex-wrap:wrap;margin-top:1.8em;
+  font-family:var(--mono);font-size:12.5px;color:var(--faint);letter-spacing:.1em}
+.hero .stats b{color:var(--gold);font-size:15px;margin-right:4px}
+.scrolldn{margin-top:7vh;color:var(--cyan);font-family:var(--mono);font-size:12px;letter-spacing:.3em;opacity:.8;animation:dip 2.4s ease-in-out infinite}
+@keyframes dip{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(8px);opacity:1}}
+
+/* ---------- 大陆介绍 ---------- */
+.about{padding-block:8vh 4vh}
+.about .panel{
+  background:linear-gradient(165deg,rgba(22,30,68,.82),rgba(9,13,32,.9));
+  border:1px solid var(--line);border-radius:22px;padding:clamp(22px,4vw,44px);
+  box-shadow:0 24px 60px -30px rgba(0,0,0,.8), inset 0 1px 0 rgba(139,233,255,.12);
+  position:relative;overflow:hidden;
+}
+.about .panel::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,234,120,.14),transparent 70%);pointer-events:none}
+.about h2,.sec-h{font-family:var(--chunk);font-weight:400;font-size:clamp(1.9rem,5.5vw,2.7rem);letter-spacing:.1em;margin:0 0 .35em;color:#fdfbe8}
+.about p{margin:.7em 0;color:var(--dim);max-width:44em}
+.about p b{color:var(--gold);font-weight:700}
+.about p i{color:var(--cyan);font-style:normal}
+.divider{display:flex;align-items:center;gap:14px;margin:5vh 0 3vh;color:var(--faint);font-family:var(--mono);font-size:12px;letter-spacing:.3em}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line))}
+.divider::after{background:linear-gradient(90deg,var(--line),transparent)}
+
+/* ---------- 六境总览 ---------- */
+.realms{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:14px}
+.realm{
+  text-align:left;font:inherit;color:var(--ink);cursor:pointer;
+  background:linear-gradient(170deg,rgba(24,32,72,.75),rgba(10,14,34,.92));
+  border:1px solid var(--line);border-radius:16px;padding:16px 15px 13px;
+  transition:transform .2s,border-color .2s,box-shadow .2s;
+}
+.realm:hover{transform:translateY(-4px);border-color:var(--rc,var(--cyan));box-shadow:0 16px 34px -18px var(--rc,var(--cyan))}
+.realm .re{font-size:1.7rem;filter:drop-shadow(0 0 10px var(--rc,var(--cyan)))}
+.realm h3{margin:.35em 0 .15em;font-family:var(--chunk);font-weight:400;font-size:1.42rem;letter-spacing:.14em}
+.realm .en{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;color:var(--faint)}
+.realm p{margin:.55em 0 0;font-size:12.8px;color:var(--dim);line-height:1.55}
+.realm .ct{display:inline-block;margin-top:.7em;font-family:var(--mono);font-size:11px;color:var(--rc,var(--cyan));border:1px solid var(--rc,var(--cyan));border-radius:999px;padding:1px 9px;opacity:.9}
+
+/* ---------- 图鉴筛选 ---------- */
+.codex{padding-bottom:6vh}
+.filters{
+  position:sticky;top:0;z-index:6;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
+  padding:12px 2px 14px;margin-inline:-4px;
+  background:linear-gradient(180deg,rgba(4,6,13,.96) 62%,rgba(4,6,13,.6) 86%,transparent);
+}
+.filters::-webkit-scrollbar{display:none}
+.filters button{
+  flex:none;font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.08em;cursor:pointer;
+  color:var(--dim);background:rgba(14,20,46,.85);border:1px solid var(--line);border-radius:999px;padding:7px 15px;
+  transition:all .18s;
+}
+.filters button:hover{color:var(--ink);border-color:var(--cyan)}
+.filters button.on{background:linear-gradient(90deg,var(--gold),var(--cyan));color:#04060d;font-weight:700;border-color:transparent}
+.fcount{margin:2px 2px 16px;font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.08em}
+.fcount b{color:var(--cyan)}
+
+/* ---------- 生灵卡片 ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(248px,1fr));gap:18px}
+.card{
+  --a1:#8be9ff;--a2:#ffea78;
+  position:relative;display:flex;flex-direction:column;gap:9px;overflow:hidden;
+  color:inherit;text-decoration:none;border-radius:20px;padding:18px 18px 15px;
+  background:linear-gradient(165deg,rgba(22,30,66,.92),rgba(9,13,32,.95));
+  border:1px solid var(--line);
+  transition:transform .22s,box-shadow .22s,border-color .22s;
+}
+.card::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(125deg,color-mix(in srgb,var(--a1) 16%,transparent),transparent 52%)}
+.card::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;
+  background:linear-gradient(90deg,var(--a1),var(--a2));opacity:.85}
+.card:hover,.card:focus-visible{transform:translateY(-5px);border-color:color-mix(in srgb,var(--a1) 60%,transparent);
+  box-shadow:0 22px 46px -20px color-mix(in srgb,var(--a1) 55%,transparent)}
+.card:focus-visible{outline:2px solid var(--a1);outline-offset:3px}
+.card .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.card .ep{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--gold);
+  border:1px solid rgba(255,234,120,.45);border-radius:6px;padding:1px 8px;white-space:nowrap}
+.card .rl{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--a1);
+  border:1px solid color-mix(in srgb,var(--a1) 45%,transparent);border-radius:999px;padding:1px 10px;white-space:nowrap}
+.card .rl.wander{background:linear-gradient(90deg,rgba(255,234,120,.16),rgba(139,233,255,.16))}
+.card .face{font-size:2.3rem;line-height:1;margin-top:2px;filter:drop-shadow(0 0 12px var(--a1))}
+.card h3{margin:0;font-family:var(--chunk);font-weight:400;font-size:1.62rem;letter-spacing:.1em;color:#fdfbe8}
+.card .latin{font-size:11.5px;color:var(--faint)}
+.card p{margin:.15em 0 .5em;font-size:13.6px;color:var(--dim);line-height:1.62;flex:1}
+.card .go{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--a1)}
+.card .go::after{content:"→";margin-left:.5em;transition:margin .2s}
+.card:hover .go::after{margin-left:.9em}
+
+/* ---------- 页脚 ---------- */
+footer{position:relative;z-index:1;text-align:center;padding:9vh 18px calc(7vh + env(safe-area-inset-bottom,0px));
+  color:var(--faint);font-size:13px}
+footer .star{color:var(--gold);letter-spacing:.5em;display:block;margin-bottom:1em}
+footer a{color:var(--cyan);text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+/* ---------- 入场动效 ---------- */
+.js .rv{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.js .rv.on{opacity:1;transform:none}
+
+@media (max-width:640px){
+  .hero{min-height:86svh;padding-block:16vh 8vh}
+  .isle.i1{top:8vh;opacity:.8}
+  .isle.i2{top:auto;bottom:4vh}
+  .isle.i3{display:none}
+  .grid{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .aurora i,.isle svg,.scrolldn,.ff{animation:none!important}
+  .js .rv{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+<div id="flies" aria-hidden="true"></div>
+
+<div class="isles" aria-hidden="true">
+  <div class="isle i1" data-par="0.30">
+    <svg viewBox="0 0 300 190">
+      <ellipse cx="150" cy="34" rx="120" ry="20" fill="#123055"/>
+      <ellipse cx="150" cy="30" rx="120" ry="18" fill="#1b4a72"/>
+      <ellipse cx="150" cy="27" rx="86" ry="11" fill="#2a6d63"/>
+      <path d="M30 34 Q60 60 78 96 Q96 138 128 168 L150 178 L172 168 Q204 138 222 96 Q240 60 270 34 Z" fill="#0c1a38"/>
+      <path d="M64 58 Q92 92 108 130 M236 58 Q208 92 192 130" stroke="#152a52" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M118 150 q6 26 -4 38 M150 172 v16 M182 150 q-6 26 4 38" stroke="#152a52" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <circle cx="150" cy="60" r="3.4" fill="#8be9ff" opacity=".9"/><circle cx="120" cy="82" r="2.6" fill="#ffea78" opacity=".8"/>
+      <circle cx="184" cy="76" r="2.8" fill="#8be9ff" opacity=".75"/><circle cx="150" cy="104" r="2.2" fill="#ffea78" opacity=".6"/>
+      <path d="M96 20 l10 -18 l10 18 z" fill="#123055"/><path d="M196 22 l8 -14 l8 14 z" fill="#123055"/>
+      <circle cx="106" cy="2" r="2.4" fill="#7ef0c9" opacity=".9"/><circle cx="204" cy="8" r="2" fill="#ffea78" opacity=".8"/>
+    </svg>
+  </div>
+  <div class="isle i2" data-par="0.18">
+    <svg viewBox="0 0 220 140">
+      <ellipse cx="110" cy="26" rx="88" ry="14" fill="#14335c"/>
+      <ellipse cx="110" cy="22" rx="88" ry="12" fill="#1d4a70"/>
+      <ellipse cx="110" cy="20" rx="60" ry="8" fill="#27604f"/>
+      <path d="M22 26 Q44 48 56 78 Q68 106 90 126 L110 134 L130 126 Q152 106 164 78 Q176 48 198 26 Z" fill="#0b1734"/>
+      <path d="M84 112 q4 20 -3 28 M110 128 v12 M136 112 q-4 20 3 28" stroke="#152a52" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+      <circle cx="110" cy="48" r="2.6" fill="#8be9ff" opacity=".85"/><circle cx="88" cy="68" r="2" fill="#ffea78" opacity=".7"/>
+      <path d="M60 14 l8 -13 l8 13 z" fill="#14335c"/><circle cx="68" cy="1" r="2" fill="#7ef0c9" opacity=".9"/>
+    </svg>
+  </div>
+  <div class="isle i3" data-par="0.10">
+    <svg viewBox="0 0 130 84">
+      <ellipse cx="65" cy="16" rx="52" ry="9" fill="#1a4166"/>
+      <ellipse cx="65" cy="13" rx="52" ry="7" fill="#2a5f58"/>
+      <path d="M13 16 Q26 32 34 50 Q42 66 54 76 L65 81 L76 76 Q88 66 96 50 Q104 32 117 16 Z" fill="#0a1631"/>
+      <circle cx="65" cy="30" r="2" fill="#8be9ff" opacity=".85"/>
+    </svg>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- ============ 卷首 ============ -->
+  <header class="hero">
+    <span class="kicker">FANTASY CONTINENT CODEX</span>
+    <h1>幻想<em>大陆</em></h1>
+    <p class="sub">夜空之海 · 漂浮岛链 · 六境生灵</p>
+    <p class="lore">
+      这是一片悬浮于<b>夜空之海</b>上的破碎星陆：极光终年横贯天穹，漂浮岛链在云间缓缓巡游，
+      <b>六境</b>各自孕育出奇异的生灵——从深水提灯者到引力星环下的太空水母，均已被图鉴师逐一记录。
+      点击下方任意生灵卡片，即可翻阅它的专属图鉴话页。
+    </p>
+    <div class="stats">
+      <span><b>6</b>大生境</span>
+      <span><b>18</b>种已记录生灵</span>
+      <span><b>18</b>页动态图鉴</span>
+    </div>
+    <div class="scrolldn">▼ 向下滚动 · 进入大陆 ▼</div>
+  </header>
+
+  <!-- ============ 大陆介绍 ============ -->
+  <section class="about rv" id="about">
+    <div class="panel">
+      <h2>大陆介绍</h2>
+      <p>
+        传说远古有一颗星辰坠入无垠夜海，它的残骸被地脉<b>升浮晶石</b>托举，凝成了这座永不沉没的大陆。
+        极光带在高空洒下电离的光尘，滋养了云海之上翱翔的巨兽；洋流在岛链之间织成环路的暖涡，
+        深水之下则是另一个点着灯火的世界。
+      </p>
+      <p>
+        大陆按风土分为六境——高远的<i>苍穹境</i>、环抱岛链的<i>碧海境</i>、苔雨淋漓的<i>林泽境</i>、
+        沉睡钟楼与工坊所在的<i>遗迹境</i>、风蚀红丘延绵的<i>旷野境</i>，以及地脉轰鸣的<i>幽域境</i>。
+        另有极少数生灵不受境界束缚，自由往返于<i>全境</i>之间。
+      </p>
+      <p>
+        每一只生灵都拥有一页独立的「图鉴话页」：一幕可播放与拖动的动态漫画短片，附有完整物种档案。
+        话页内可以切换<b>章节</b>、点亮<b>动效印章</b>，还能换上「黑白网点」或「原稿蓝图」的印刷滤镜。
+      </p>
+    </div>
+  </section>
+
+  <div class="divider rv">六 境 总 览 · 点击直达</div>
+
+  <!-- ============ 六境 ============ -->
+  <section class="rv" aria-label="六境总览">
+    <div class="realms">
+      <button class="realm" style="--rc:#8be9ff" data-jump="sky">
+        <span class="re">🌌</span><h3>苍穹境</h3><span class="en">SKY · AURORA</span>
+        <p>云海之上，极光之滨——翱翔者的领空。</p><span class="ct">常驻 3 种</span>
+      </button>
+      <button class="realm" style="--rc:#4fc3f7" data-jump="sea">
+        <span class="re">🌊</span><h3>碧海境</h3><span class="en">TIDE · ABYSS</span>
+        <p>从潮间浅湾到无光深水，洋流的国度。</p><span class="ct">常驻 4 种</span>
+      </button>
+      <button class="realm" style="--rc:#7ef0c9" data-jump="forest">
+        <span class="re">🌿</span><h3>林泽境</h3><span class="en">VERDANT · MIRE</span>
+        <p>苔雨淋漓的巨树密林与黑水沼泽。</p><span class="ct">常驻 3 种</span>
+      </button>
+      <button class="realm" style="--rc:#e9c46a" data-jump="ruin">
+        <span class="re">⚙️</span><h3>遗迹境</h3><span class="en">RELIC · GEAR</span>
+        <p>停摆的钟楼、废土工坊与蒙尘书阁。</p><span class="ct">常驻 3 种</span>
+      </button>
+      <button class="realm" style="--rc:#ffb36b" data-jump="wild">
+        <span class="re">🌾</span><h3>旷野境</h3><span class="en">MEADOW · STAR</span>
+        <p>风蚀红丘与星野荒原的漫游地。</p><span class="ct">常驻 2 种</span>
+      </button>
+      <button class="realm" style="--rc:#b388ff" data-jump="deep">
+        <span class="re">💠</span><h3>幽域境</h3><span class="en">GEODE · GEOTHERM</span>
+        <p>地脉轰鸣的晶洞与热泉裂谷。</p><span class="ct">常驻 1 种</span>
+      </button>
+    </div>
+  </section>
+
+  <div class="divider rv">生 灵 图 鉴 · 点击卡片进入话页</div>
+
+  <!-- ============ 图鉴 ============ -->
+  <section class="codex" id="codex">
+    <div class="filters rv" role="tablist" aria-label="按生境筛选">
+      <button class="on" data-f="all">✦ 全部</button>
+      <button data-f="sky">🌌 苍穹境</button>
+      <button data-f="sea">🌊 碧海境</button>
+      <button data-f="forest">🌿 林泽境</button>
+      <button data-f="ruin">⚙️ 遗迹境</button>
+      <button data-f="wild">🌾 旷野境</button>
+      <button data-f="deep">💠 幽域境</button>
+    </div>
+    <p class="fcount" id="fcount" aria-live="polite"></p>
+
+    <div class="grid" id="grid">
+
+      <a class="card rv" style="--a1:#ffd23f;--a2:#2a62b0" href="灯袖鳐.html" data-realm="sea">
+        <span class="top"><span class="ep">第 1 话</span><span class="rl">碧海境</span></span>
+        <span class="face">🏮</span><h3>灯袖鳐</h3><span class="latin">Velamenta lucerna</span>
+        <p>暖冷流交汇的深水带上，靠鳍膜借流滑行的提灯灵鳐，尾须织网收集发光磷虾。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#4cb86b;--a2:#ff8a3d" href="伞耳獾.html" data-realm="forest">
+        <span class="top"><span class="ep">第 2 话</span><span class="rl">林泽境</span></span>
+        <span class="face">☂️</span><h3>伞耳獾</h3><span class="latin">Umbrotis fungifera</span>
+        <p>苔藓林的雨中行者，脑后伞耳遇雨撑开足有 1.2 米，以落叶下的蕈类与蜗牛为食。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#48b5ff;--a2:#ffbc26" href="浮光天海鲵.html" data-realm="all">
+        <span class="top"><span class="ep">第 4 话</span><span class="rl wander">全境种 ✦</span></span>
+        <span class="face">🌈</span><h3>浮光天海鲵</h3><span class="latin">Caelomaris splendida</span>
+        <p>晴空、碧海、晶穴三境自由迁徙的旅者：晶羽遇风为翼、遇水为鳍、遇穴为甲。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#ffbc26;--a2:#ff597b" href="曦光游晶兽.html" data-realm="all">
+        <span class="top"><span class="ep">第 5 话</span><span class="rl wander">全境种 ✦</span></span>
+        <span class="face">🔆</span><h3>曦光游晶兽</h3><span class="latin">Solarion chrysalis</span>
+        <p>追逐晨光的游晶兽，压电透光晶鳞在宽幅翼羽、流线鳍裙与护体晶甲之间随心切换。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#ffaa00;--a2:#00d2ff" href="苍穹金鬃雀.html" data-realm="sky">
+        <span class="top"><span class="ep">第 6 话</span><span class="rl">苍穹境</span></span>
+        <span class="face">🦅</span><h3>苍穹金鬃雀</h3><span class="latin">Auricoma volans</span>
+        <p>平流层云海上的金鬃飞鸟，以高导光羽鬃聚敛阳光，化作体内巡航的动能。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#ff5252;--a2:#40c4ff" href="珊瑚铠角螈.html" data-realm="sea">
+        <span class="top"><span class="ep">第 7 话</span><span class="rl">碧海境</span></span>
+        <span class="face">🪸</span><h3>珊瑚铠角螈</h3><span class="latin">Ceratocora bathys</span>
+        <p>头顶活体珊瑚角的浅海巨螈，铠角中的共生藻在日照下持续释氧，如携一座小礁林。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#ff5722;--a2:#00b4d8" href="风帆灯嘴海雀.html" data-realm="sea">
+        <span class="top"><span class="ep">第 8 话</span><span class="rl">碧海境</span></span>
+        <span class="face">🐧</span><h3>风帆灯嘴海雀</h3><span class="latin">Fratercula velolucis</span>
+        <p>极地海崖的帆羽海雀，展开背上半月风帆借风翱翔，荧光巨喙入水即点亮橘黄灯火诱鱼。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#00d2ff;--a2:#ffe600" href="铜铃刺刺豚.html" data-realm="wild">
+        <span class="top"><span class="ep">第 9 话</span><span class="rl">旷野境</span></span>
+        <span class="face">🔔</span><h3>铜铃刺刺豚</h3><span class="latin">Campanula ericius</span>
+        <p>红土丘陵上的铃铛刺球，尾端铜铃叮当作响；遇险收爪成轮，沿斜坡叮当飞滚而去。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#00d2ff;--a2:#ff2a74" href="霄海星羽鳐.html" data-realm="sky">
+        <span class="top"><span class="ep">幻兽特报 · 第 09 案</span><span class="rl">苍穹境</span></span>
+        <span class="face">🪶</span><h3>霄海星羽鳐</h3><span class="latin">Aethereoraja stellata</span>
+        <p>翼展 14.2 米的平流层巨鳐，终年不落陆地，栖于积雨云之巅，以极光微藻与雷暴为食。</p>
+        <span class="go">翻开特报页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#2e7d32;--a2:#aed581" href="苔鳞潜沼蜥.html" data-realm="forest">
+        <span class="top"><span class="ep">第 10 话</span><span class="rl">林泽境</span></span>
+        <span class="face">🦎</span><h3>苔鳞潜沼蜥</h3><span class="latin">Lophisuchus muscosus</span>
+        <p>黑水沼泽的苔藓伪装者，蜂窝鳞片与地衣真菌共生；鼓喉时弹开荧光伞膜震慑来敌。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#b388ff;--a2:#ff6b35" href="炽晶烛角鹿.html" data-realm="deep">
+        <span class="top"><span class="ep">幻兽特报 · 第 10 案</span><span class="rl">幽域境</span></span>
+        <span class="face">🦌</span><h3>炽晶烛角鹿</h3><span class="latin">Pyrocervus crystallifer</span>
+        <p>地脉晶洞深处的烛角巨鹿，紫晶双角聚焦地热，能射出定向强光与破空热能束。</p>
+        <span class="go">翻开特报页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#cd7f32;--a2:#e9d8a6" href="机关磁齿蛛.html" data-realm="ruin">
+        <span class="top"><span class="ep">第 11 话</span><span class="rl">遗迹境</span></span>
+        <span class="face">🕷️</span><h3>机关磁齿蛛</h3><span class="latin">Mechanarachne ferrox</span>
+        <p>废土工坊的青铜机关蛛，差速齿轮腹腔高速咬合，纺出带静电吸附、极难挣脱的铁磁丝网。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#d1493b;--a2:#f2994a" href="古卷风琴毛虫.html" data-realm="ruin">
+        <span class="top"><span class="ep">第 12 话</span><span class="rl">遗迹境</span></span>
+        <span class="face">📖</span><h3>古卷风琴毛虫</h3><span class="latin">Voluminis accordia</span>
+        <p>藏书阁里的风琴毛虫，伸缩羊皮纸背褶奏出悠扬和声；受扰时喷吐含松烟墨香的微光气泡。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#d97706;--a2:#f59e0b" href="琥珀蜜罐熊.html" data-realm="forest">
+        <span class="top"><span class="ep">第 13 话</span><span class="rl">林泽境</span></span>
+        <span class="face">🐻</span><h3>琥珀蜜罐熊</h3><span class="latin">Melursus vitrina</span>
+        <p>巨树林中的蜜罐熊，腹部琥珀蜜囊随饱食渐渐胀亮，45 厘米金丝长舌深探花萼。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#ff2a85;--a2:#00f0ff" href="琉璃霓虹海蛞蝓.html" data-realm="sea">
+        <span class="top"><span class="ep">第 14 话</span><span class="rl">碧海境</span></span>
+        <span class="face">🫧</span><h3>琉璃霓虹海蛞蝓</h3><span class="latin">Glaucus neonexia</span>
+        <p>潮间带的霓虹精灵，羽状角突流转高能荧光；受惊时喷出带薄荷清香的彩虹防卫墨。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#d4af37;--a2:#0288d1" href="时钟齿轮寄居蟹.html" data-realm="ruin">
+        <span class="top"><span class="ep">第 15 话</span><span class="rl">遗迹境</span></span>
+        <span class="face">⏰</span><h3>时钟齿轮寄居蟹</h3><span class="latin">Horologocrabus mechanicus</span>
+        <p>废钟楼的发条房客，背负罗马数字古董表盘，旋紧尾钩发条储存机械动能，鸣响钟摆。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#e9c46a;--a2:#6a0572" href="星屑留声机蜗牛.html" data-realm="wild">
+        <span class="top"><span class="ep">第 16 话</span><span class="rl">旷野境</span></span>
+        <span class="face">🎶</span><h3>星屑留声机蜗牛</h3><span class="latin">Cochlea phonographica</span>
+        <p>星空旷野的留声师，摩擦螺壳内的音轨化石，呼出闪烁星光的音符状实体音波气泡。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+      <a class="card rv" style="--a1:#ffea78;--a2:#00f0ff" href="星环引力水母.html" data-realm="sky">
+        <span class="top"><span class="ep">第 17 话</span><span class="rl">苍穹境</span></span>
+        <span class="face">🪐</span><h3>星环引力水母</h3><span class="latin">Aurelia gravitatis</span>
+        <p>深空中脉动巡航的引力水母，黄金星环吸附旋转陨石、弯曲星光，触须捕食太阳风。</p>
+        <span class="go">翻开图鉴页</span>
+      </a>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span class="star">✦ ✦ ✦</span>
+  本图鉴中所有物种与拉丁学名均为虚构，仅供幻想创作欣赏。<br>
+  图鉴话页均支持播放、进度拖动、章节跳转与印刷滤镜 · <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">回到大陆上空</a>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  document.documentElement.classList.add('js');
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  /* ---------- 星海画布 ---------- */
+  var sky = document.getElementById('sky'), sctx = sky.getContext('2d');
+  var SW = 0, SH = 0, stars = [], shoot = null, nextShoot = 3.5;
+  function starColor(){
+    var r = Math.random();
+    return r < .08 ? '255,234,120' : (r < .16 ? '139,233,255' : '235,240,255');
+  }
+  function buildSky(){
+    SW = sky.width = Math.round(innerWidth * dpr);
+    SH = sky.height = Math.round(innerHeight * dpr);
+    sky.style.width = innerWidth + 'px'; sky.style.height = innerHeight + 'px';
+    sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.round(innerWidth * innerHeight / 9000);
+    stars = [];
+    for(var i = 0; i < n; i++){
+      stars.push({
+        x: Math.random() * innerWidth, y: Math.random() * innerHeight,
+        r: .4 + Math.random() * 1.1,
+        ph: Math.random() * 6.283, tw: .6 + Math.random() * 1.8,
+        vy: .9 + Math.random() * 2.2, c: starColor()
+      });
+    }
+  }
+  var st0 = performance.now();
+  function drawSky(now){
+    if(document.body.classList.contains('viewing')){requestAnimationFrame(drawSky);return;}
+    var t = (now - st0) / 1000;
+    sctx.clearRect(0, 0, innerWidth, innerHeight);
+    for(var i = 0; i < stars.length; i++){
+      var s = stars[i];
+      s.y += s.vy * 0.016 * 8;
+      if(s.y > innerHeight + 2){ s.y = -2; s.x = Math.random() * innerWidth; }
+      var a = .22 + .78 * (0.5 + 0.5 * Math.sin(t * s.tw + s.ph));
+      sctx.beginPath();
+      sctx.arc(s.x, s.y, s.r, 0, 6.283);
+      sctx.fillStyle = 'rgba(' + s.c + ',' + a.toFixed(3) + ')';
+      sctx.fill();
+    }
+    /* 流星 */
+    nextShoot -= 0.016;
+    if(!shoot && nextShoot <= 0){
+      shoot = { x: innerWidth * (0.15 + Math.random() * 0.7), y: -10,
+                vx: -(90 + Math.random() * 130), vy: 150 + Math.random() * 110, life: 1 };
+      nextShoot = 6 + Math.random() * 6;
+    }
+    if(shoot){
+      shoot.life -= 0.016 / 0.9;
+      shoot.x += shoot.vx * 0.016; shoot.y += shoot.vy * 0.016;
+      if(shoot.life <= 0 || shoot.y > innerHeight + 40){ shoot = null; }
+      else{
+        var g = sctx.createLinearGradient(shoot.x, shoot.y, shoot.x - shoot.vx * .28, shoot.y - shoot.vy * .28);
+        g.addColorStop(0, 'rgba(255,255,255,' + (0.9 * shoot.life).toFixed(3) + ')');
+        g.addColorStop(1, 'rgba(139,233,255,0)');
+        sctx.strokeStyle = g; sctx.lineWidth = 1.6; sctx.lineCap = 'round';
+        sctx.beginPath(); sctx.moveTo(shoot.x, shoot.y);
+        sctx.lineTo(shoot.x - shoot.vx * .28, shoot.y - shoot.vy * .28); sctx.stroke();
+      }
+    }
+    if(!reduced) requestAnimationFrame(drawSky);
+  }
+  buildSky();
+  requestAnimationFrame(drawSky);
+  window.addEventListener('resize', buildSky);
+
+  /* ---------- 萤火粒子 ---------- */
+  var flies = document.getElementById('flies');
+  if(!reduced){
+    for(var f = 0; f < 16; f++){
+      var d = document.createElement('i');
+      d.className = 'ff';
+      var sz = 2.4 + Math.random() * 2.4;
+      d.style.width = d.style.height = sz.toFixed(1) + 'px';
+      d.style.left = (Math.random() * 96).toFixed(2) + '%';
+      d.style.top = (18 + Math.random() * 74).toFixed(2) + '%';
+      d.style.setProperty('--dx', ((Math.random() - .5) * 130).toFixed(0) + 'px');
+      d.style.setProperty('--dy', (-(20 + Math.random() * 70)).toFixed(0) + 'px');
+      d.style.setProperty('--dur', (7 + Math.random() * 9).toFixed(1) + 's');
+      d.style.setProperty('--delay', (-Math.random() * 12).toFixed(1) + 's');
+      d.style.setProperty('--glow', (2.4 + Math.random() * 3).toFixed(1) + 's');
+      flies.appendChild(d);
+    }
+  }
+
+  /* ---------- 漂浮岛视差 ---------- */
+  var isles = Array.prototype.slice.call(document.querySelectorAll('.isle'));
+  var ticking = false;
+  function parallax(){
+    ticking = false;
+    var y = window.scrollY || 0;
+    for(var i = 0; i < isles.length; i++){
+      var el = isles[i];
+      el.style.transform = 'translate3d(0,' + (y * parseFloat(el.getAttribute('data-par') || .2)).toFixed(1) + 'px,0)';
+    }
+  }
+  if(!reduced){
+    window.addEventListener('scroll', function(){
+      if(!ticking){ ticking = true; requestAnimationFrame(parallax); }
+    }, { passive: true });
+    parallax();
+  }
+
+  /* ---------- 六境筛选 ---------- */
+  var grid = document.getElementById('grid');
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.card'));
+  var fBtns = Array.prototype.slice.call(document.querySelectorAll('.filters button'));
+  var fCount = document.getElementById('fcount');
+  var REALM_NAME = { all:'全部', sky:'苍穹境', sea:'碧海境', forest:'林泽境', ruin:'遗迹境', wild:'旷野境', deep:'幽域境' };
+  function applyFilter(key){
+    fBtns.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-f') === key); });
+    var shown = 0, wander = 0;
+    cards.forEach(function(c){
+      var r = c.getAttribute('data-realm');
+      var ok = (key === 'all') || (r === key) || (r === 'all' && key !== 'all');
+      c.style.display = ok ? '' : 'none';
+      if(ok){ shown++; if(r === 'all') wander++; }
+    });
+    var label = REALM_NAME[key] || key;
+    fCount.innerHTML = (key === 'all')
+      ? '当前收录 <b>' + shown + '</b> 种生灵 · 含 <b>' + wander + '</b> 种全境旅者'
+      : label + ' · 常驻 <b>' + (shown - wander) + '</b> 种 + 全境旅者 <b>' + wander + '</b> 种';
+  }
+  fBtns.forEach(function(b){
+    b.addEventListener('click', function(){ applyFilter(b.getAttribute('data-f')); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.realm[data-jump]'), function(r){
+    r.addEventListener('click', function(){
+      var key = r.getAttribute('data-jump');
+      applyFilter(key);
+      document.getElementById('codex').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+  applyFilter('all');
+
+  /* ---------- 入场显现 ---------- */
+  var rvs = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  if(reduced || !('IntersectionObserver' in window)){
+    rvs.forEach(function(el){ el.classList.add('on'); });
+  } else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -4% 0px' });
+    rvs.forEach(function(el){ io.observe(el); });
+  }
+})();
+</script>
+
+</body>
+</html>

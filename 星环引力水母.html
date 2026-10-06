@@ -1,0 +1,554 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#0d1117;color:#c9d1d9}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>星环引力水母</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+/* Layout: 深空太空港与引力星环风 (星空紫/引力蓝/超新星金) */
+:root{
+  --paper:#090d16;
+  --ink:#c9d1d9;
+  --space-dark:#05070c;
+  --star-gold:#ffea78;
+  --nebula-pink:#ff2a85;
+  --gravity-blue:#00f0ff;
+  --ring-bronze:#d4af37;
+  --white:#ffffff;
+  --chunk:"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif;
+  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background-color:var(--paper);
+  background-image:radial-gradient(rgba(0,240,255,.08) 1.2px,transparent 1.5px);
+  background-size:14px 14px;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.65;
+  padding-inline:16px;
+  padding-block:28px 56px;
+  transition:filter 0.3s ease;
+}
+.wrap{max-width:980px;margin-inline:auto;display:flex;flex-direction:column;gap:26px}
+.head{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.kicker{margin:0;background:var(--gravity-blue);color:#000;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.14em;padding:3px 10px;transform:skewX(-8deg)}
+h1{
+  margin:0;font-family:var(--chunk);font-weight:400;
+  font-size:clamp(3.6rem,14vw,6.4rem);line-height:1;letter-spacing:.05em;
+  color:var(--star-gold);
+  -webkit-text-stroke:8px #000;paint-order:stroke fill;
+  text-shadow:6px 6px 0 #000;
+  transform:rotate(-1.5deg);transform-origin:left bottom;
+}
+.latin{margin:0;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--gravity-blue);letter-spacing:.06em}
+
+.film{display:flex;flex-direction:column;gap:16px;min-width:0}
+.stage{
+  position:relative;width:100%;aspect-ratio:16/10;
+  background:#0b132b;
+  border:4px solid var(--star-gold);box-shadow:8px 8px 0 var(--star-gold);
+  cursor:crosshair;overflow:hidden;
+}
+canvas.main{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cap{
+  position:absolute;left:14px;top:14px;max-width:min(72%,26em);
+  background:#1c2541;border:3px solid var(--star-gold);box-shadow:4px 4px 0 var(--star-gold);
+  padding:6px 14px;display:flex;flex-direction:column;gap:0;pointer-events:none;z-index:10;
+}
+.cap b{font-family:var(--chunk);font-weight:400;font-size:1.25rem;letter-spacing:.12em;line-height:1.3;color:var(--star-gold)}
+.cap span{font-size:13.5px;line-height:1.5;color:#c9d1d9}
+.gauge{
+  position:absolute;right:14px;bottom:14px;
+  background:#1c2541;border:2px solid var(--star-gold);padding:2px 10px;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;z-index:10;box-shadow:2px 2px 0 var(--star-gold);color:var(--star-gold);
+}
+
+.ctl{display:flex;align-items:center;gap:12px;min-width:0;margin-top:2px}
+.ctl button{
+  flex:none;min-width:68px;
+  font:inherit;font-size:14px;font-weight:700;color:#000;
+  background:var(--star-gold);border:3px solid #000;border-radius:0;
+  box-shadow:3px 3px 0 #000;padding:5px 14px;cursor:pointer;
+  transition:all 0.1s;
+}
+.ctl button:hover{background:var(--gravity-blue);transform:translate(-1px,-1px);box-shadow:4px 4px 0 #000}
+.ctl button:active{transform:translate(3px,3px);box-shadow:0 0 0 #000}
+.ctl input[type=range]{flex:1;min-width:0;accent-color:var(--gravity-blue);cursor:pointer}
+.clock{flex:none;font-family:var(--mono);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--star-gold)}
+
+.chapters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.chapters button{
+  font:inherit;color:#fff;text-align:left;cursor:pointer;
+  background:#1c2541;border:3px solid var(--star-gold);border-radius:0;
+  box-shadow:4px 4px 0 var(--star-gold);padding:0;display:flex;flex-direction:column;min-width:0;
+  transition:all 0.15s;
+}
+.chapters button:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--star-gold)}
+.chapters canvas{display:block;width:100%;aspect-ratio:4/3;border-bottom:3px solid var(--star-gold);background:#0b132b}
+.chapters .lab{display:flex;align-items:baseline;gap:8px;padding:5px 10px 6px}
+.chapters .lab b{font-family:var(--chunk);font-weight:400;font-size:1.15rem;letter-spacing:.12em;color:var(--star-gold)}
+.chapters .lab small{font-family:var(--mono);font-size:11px;font-weight:700;color:#8ab4f8}
+.chapters button[aria-current=true] .lab{background:var(--gravity-blue);color:#000}
+.chapters button[aria-current=true]{box-shadow:4px 4px 0 var(--gravity-blue)}
+
+.manga-control-bar{
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  background:#1c2541;border:3px solid var(--star-gold);box-shadow:5px 5px 0 var(--star-gold);
+  padding:12px 16px;
+}
+.mode-selector{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mode-title{
+  font-family:var(--chunk);font-size:1.2rem;letter-spacing:.08em;
+  background:var(--star-gold);color:#000;padding:2px 10px;transform:skewX(-8deg);
+}
+.stamp-btn{
+  font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em;
+  background:#0b132b;border:3px solid var(--star-gold);box-shadow:3px 3px 0 var(--star-gold);
+  padding:5px 12px;cursor:pointer;transition:all 0.1s;color:#fff;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.stamp-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--star-gold);background:var(--gravity-blue);color:#000}
+.stamp-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--star-gold)}
+.stamp-btn[aria-pressed=true]{background:var(--gravity-blue);color:#000;box-shadow:3px 3px 0 var(--star-gold);transform:translateY(1px)}
+
+.tone-filters{display:flex;gap:8px;align-items:center}
+.filter-tag{font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em;color:var(--star-gold)}
+.filter-btn{
+  font-family:var(--body);font-weight:700;font-size:12px;
+  border:2px solid var(--star-gold);background:#0b132b;color:#fff;padding:4px 10px;cursor:pointer;
+}
+.filter-btn.active{background:var(--star-gold);color:#000}
+
+.guide{display:flex;flex-direction:column;gap:16px;background:#1c2541;border:3px solid var(--star-gold);box-shadow:6px 6px 0 var(--star-gold);padding:18px 20px 16px;color:#c9d1d9}
+.guide-header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--star-gold);padding-bottom:8px}
+.guide h2{margin:0;font-family:var(--chunk);font-weight:400;font-size:1.7rem;letter-spacing:.12em;line-height:1.2;color:var(--star-gold)}
+.guide-num{font-family:var(--mono);font-size:12px;font-weight:700;color:#8ab4f8}
+dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+.row{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:12px;padding:10px 0;border-top:2px dashed rgba(255,234,120,.25);align-items:start}
+dt{justify-self:start;background:var(--gravity-blue);color:#000;border:2px solid var(--star-gold);padding:1px 7px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em}
+dd{margin:0;min-width:0;font-size:14px;color:#c9d1d9}
+.note{margin:0;font-family:var(--mono);font-size:12px;color:#8ab4f8;border-top:1px solid rgba(255,234,120,.2);padding-top:8px}
+.sfxload{position:absolute;left:-9999px;top:0;font-family:var(--chunk);white-space:nowrap}
+
+.mode-monochrome{filter:grayscale(100%) contrast(160%)}
+.mode-blueprint{filter:invert(100%) hue-rotate(190deg) contrast(140%) brightness(90%)}
+
+@media (max-width:640px){
+  .stage{aspect-ratio:4/5}
+  .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  dl{grid-template-columns:1fr}
+}
+</style>
+
+<main class="wrap" id="mainWrap">
+  <header class="head">
+    <p class="kicker">深空星际与引力洋流 · 第 17 话 · 虚构星际软体生物</p>
+    <h1>星环引力水母</h1>
+    <p class="latin">Aurelia gravitatis</p>
+  </header>
+
+  <section class="film" aria-label="星环引力水母漫画短片">
+    <div class="stage" id="stageFrame">
+      <canvas class="main" id="c" role="img" aria-label="星环引力水母在太空中脉动漂浮、引力星环旋转吸附陨石、超新星爆发与星云中安眠的动画"></canvas>
+      <div class="cap"><b id="capName">深空</b><span id="capText"></span></div>
+      <div class="gauge" id="gauge">引力指数 · 0.05 G · 脉动巡航</div>
+    </div>
+    
+    <div class="ctl">
+      <button id="play" type="button">暂停</button>
+      <input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="播放进度">
+      <span class="clock" id="clock">00:00 / 00:25</span>
+    </div>
+
+    <nav class="chapters" id="chapters" aria-label="章节"></nav>
+  </section>
+
+  <footer class="manga-control-bar">
+    <div class="mode-selector">
+      <span class="mode-title">星航指令印章</span>
+      <button class="stamp-btn" id="btnFloat" aria-pressed="true">
+        <span>🌌</span> 零重脉动
+      </button>
+      <button class="stamp-btn" id="btnRing" aria-pressed="false">
+        <span>🪐</span> 引力星环
+      </button>
+      <button class="stamp-btn" id="btnNova" aria-pressed="false">
+        <span>✨</span> 超新星吸
+      </button>
+      <button class="stamp-btn" id="btnNebula" aria-pressed="false">
+        <span>💤</span> 星云瞑眠
+      </button>
+    </div>
+
+    <div class="tone-filters">
+      <span class="filter-tag">连载印装：</span>
+      <button class="filter-btn active" id="fltColor">卷首全彩</button>
+      <button class="filter-btn" id="fltMono">黑白网点</button>
+      <button class="filter-btn" id="fltBlue">原稿蓝图</button>
+    </div>
+  </footer>
+
+  <section class="guide" aria-label="物种百科档案">
+    <div class="guide-header">
+      <h2>物种档案</h2>
+      <span class="guide-num">档案编号：ASTRO-17-SPEC</span>
+    </div>
+    <dl>
+      <div class="row"><dt>体态</dt><dd>伞盖直径 4.8 米，引力星环展开直径 9.2 米，体重仅 85 公斤（等离子超轻质胶质）</dd></div>
+      <div class="row"><dt>生境</dt><dd>无重力深空星际尘埃云、年轻恒星系原行星盘边缘与超新星遗迹辐射带</dd></div>
+      <div class="row"><dt>引力星环</dt><dd>伞盖边缘环绕着一圈由微型引力场维持的高速旋转陨石带与黄金星环，能弯曲周围星光</dd></div>
+      <div class="row"><dt>等离子触须</dt><dd>数条数十米长的流光触须在真空中无重力飘荡，触须末端释放电离辐射吸收高能粒子</dd></div>
+      <div class="row"><dt>食性</dt><dd>以空间游离的氢离子、微型流星体矿物尘埃与太阳风高能带电粒子为食</dd></div>
+      <div class="row"><dt>航行习性</dt><dd>通过生物脉冲压缩伞盖喷射等离子气流在真空中优雅巡航，常与小行星群结伴同行</dd></div>
+    </dl>
+    <p class="note">物种与拉丁学名皆为虚构。点击主画面可激发引力波涟漪与超新星耀斑，点击章节或印章即刻切换动效。</p>
+  </section>
+  <span class="sfxload" aria-hidden="true">嗡——脉动吸附超新星轰鸣星云闪烁～！—</span>
+</main>
+
+<script>
+(function(){
+  var DUR=25;
+  var INK='#05070c';
+  var SFXFONT='"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif';
+  var scenes=[
+    {t:0,key:3.0,name:'深空',text:'无垠太空中，它展开巨大的透光伞盖，伴随生物脉冲在星际尘埃中优雅漂浮巡航。'},
+    {t:6,key:8.5,name:'引力',text:'伞盖边缘的黄金星环高速旋转，强大的微型引力场将周围的碎裂陨石优雅地吸附环绕。'},
+    {t:12,key:15.0,name:'超新',text:'遭遇远方超新星爆发，它将引力环瞬间扩大捕捉高能耀斑，释放出绚丽的霓虹极光。'},
+    {t:19,key:21.8,name:'星眠',text:'驶入平静的彩色星云深处，它闭合伞盖与星环，在璀璨星海中安然静谧瞑眠。'}
+  ];
+  var cv=document.getElementById('c');
+  var mctx=cv.getContext('2d');
+  var ctx=mctx;
+  var W=800,H=500,dpr=1;
+  var playing=true,t=0,last=0,loops=0,sceneIdx=-1;
+  var gravityRipples=[];
+
+  var clamp=function(x,a,b){a=a===undefined?0:a;b=b===undefined?1:b;return Math.min(b,Math.max(a,x));};
+  var sm=function(a,b,x){x=clamp((x-a)/(b-a));return x*x*(3-2*x);};
+  var lerp=function(a,b,k){return a+(b-a)*k;};
+  var frac=function(v){return ((v%1)+1)%1;};
+  function mixc(a,b,k){return [Math.round(lerp(a[0],b[0],k)),Math.round(lerp(a[1],b[1],k)),Math.round(lerp(a[2],b[2],k))];}
+  function rgb(a,al){return al===undefined?'rgb('+a.join(',')+')':'rgba('+a.join(',')+','+al+')';}
+
+  function halftone(x0,y0,w,h,sp,col,rmax,flip){
+    ctx.save();ctx.beginPath();ctx.rect(x0,y0,w,h);ctx.clip();
+    ctx.fillStyle=col;ctx.beginPath();
+    var row=0;
+    for(var y=y0;y<y0+h+sp;y+=sp*0.866,row++){
+      var f=clamp((y-y0)/h);if(flip)f=1-f;
+      var r=rmax*Math.pow(f,0.9);if(r<0.4)continue;
+      for(var x=x0+(row%2?sp/2:0);x<x0+w+sp;x+=sp){ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,6.283);}
+    }
+    ctx.fill();ctx.restore();
+  }
+
+  function popv(tt,a,b){
+    if(tt<a||tt>b)return 0;
+    var age=tt-a,v=1;
+    if(age<0.22){var x=age/0.22,c1=1.70158,c3=c1+1;v=1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);}
+    if(b-tt<0.2)v*=(b-tt)/0.2;
+    return Math.max(0,v);
+  }
+
+  function sfx(txt,x,y,size,rot,fill,pop){
+    if(pop<=0)return;
+    ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(pop,pop);
+    ctx.font='900 '+size+'px '+SFXFONT;ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.lineJoin='round';ctx.lineWidth=size*0.22;ctx.strokeStyle='#000';ctx.strokeText(txt,0,0);
+    ctx.fillStyle=fill;ctx.fillText(txt,0,0);
+    ctx.restore();
+  }
+
+  // --- 独创星际软体生物：星环引力水母 ---
+  function drawGravJelly(tt,s,floatMode,ringMode,novaMode,sleepMode){
+    var OL=Math.max(2.2,2.8*s)/s;
+    ctx.lineJoin='round';ctx.lineCap='round';
+    var DOME_BLUE='#1e88e5',DOME_GLOW='#00f0ff',RING_GOLD='#ffea78',TENTACLE='#ab47bc';
+
+    ctx.save();
+
+    // 4. 阶段：星云瞑眠 (团伞收拢)
+    if(sleepMode>0.5){
+      var breathe = Math.sin(tt*2.5)*4;
+      ctx.beginPath();ctx.arc(0,0,32 + breathe*0.3,0,6.283);
+      ctx.fillStyle=DOME_BLUE;ctx.fill();
+      ctx.strokeStyle='#fff';ctx.lineWidth=OL;ctx.stroke();
+      ctx.restore();
+      return;
+    }
+
+    // 1. 伞盖脉动压缩 (Pulse animation)
+    var pulse = Math.sin(tt*4)*0.12 * (floatMode>0.1?1.2:0.5);
+    ctx.save();
+    ctx.scale(1.0 + pulse, 1.0 - pulse);
+
+    // 半透明透光穹顶伞盖
+    ctx.beginPath();
+    ctx.arc(0, -10, 42, Math.PI, 0, false);
+    ctx.closePath();
+    ctx.fillStyle=DOME_BLUE;ctx.fill();
+    ctx.strokeStyle='#ffffff';ctx.lineWidth=OL;ctx.stroke();
+
+    // 穹顶内部发光引力核心
+    ctx.beginPath();ctx.arc(0, -12, 16, 0, 6.283);
+    ctx.fillStyle=DOME_GLOW;ctx.fill();
+    ctx.strokeStyle='#fff';ctx.lineWidth=OL*0.8;ctx.stroke();
+
+    // 2. 引力星环 (第2幕环绕陨石)
+    if(ringMode>0.1 || novaMode>0.1){
+      ctx.save();
+      var ringScale = novaMode>0.1 ? (1.6 + 0.3*Math.sin(tt*10)) : 1.2;
+      ctx.scale(ringScale, 0.35);
+      ctx.beginPath();ctx.arc(0, -10, 55, 0, 6.283);
+      ctx.strokeStyle=RING_GOLD;ctx.lineWidth=4.5;ctx.stroke();
+      ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();
+
+      // 环绕的小陨石块
+      for(var mi=0;mi<5;mi++){
+        var mang = tt*3 + mi*(Math.PI*0.4);
+        var mx = Math.cos(mang)*55, my = -10 + Math.sin(mang)*55;
+        ctx.beginPath();ctx.arc(mx, my, 4, 0, 6.283);
+        ctx.fillStyle='#9e9e9e';ctx.fill();ctx.strokeStyle='#000';ctx.lineWidth=1.5;ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // 3. 等离子飘逸触须 (多条流光触须)
+    for(var ti=-2;ti<=2;ti++){
+      var tOffX = ti * 10;
+      var tWave = Math.sin(tt*5 + ti*0.8)*12;
+      ctx.beginPath();
+      ctx.moveTo(tOffX, 15);
+      ctx.bezierCurveTo(tOffX + tWave, 45, tOffX - tWave, 75, tOffX + tWave*0.5, 105);
+      ctx.strokeStyle=TENTACLE;ctx.lineWidth=3.5+OL*0.5;ctx.stroke();
+      ctx.strokeStyle=DOME_GLOW;ctx.lineWidth=1.5;ctx.stroke();
+    }
+
+    ctx.restore();
+    ctx.restore();
+  }
+
+  // --- 深空星际场景绘制逻辑 ---
+  function scene(tt,live){
+    var s=Math.min(W/(W<H?400:480),H/260);
+    var sp=clamp(W/900,0.75,1.25)*11;
+    var base=Math.min(W,H*1.4)*0.1;
+    var i;
+
+    // 四大阶段状态
+    var isFloat   = sm(0,1,tt)*(1-sm(5.5,6.5,tt));
+    var isRing    = sm(5.8,7.0,tt)*(1-sm(11.5,12.5,tt));
+    var isNova    = sm(12.0,13.2,tt)*(1-sm(18.5,19.5,tt));
+    var isNebula  = sm(19.0,20.5,tt);
+
+    var floatMode = isFloat;
+    var ringMode  = isRing;
+    var novaMode  = isNova;
+    var sleepMode = isNebula;
+
+    // 深空背景色彩渐变
+    var spaceDeep=[5,7,12], spaceNebula=[42,15,65], spaceQuiet=[11,19,43];
+    var curBg = mixc(spaceDeep,spaceNebula,sm(11.8,13.0,tt));
+    curBg = mixc(curBg,spaceQuiet,sm(18.5,20.0,tt));
+
+    ctx.fillStyle=rgb(curBg);ctx.fillRect(0,0,W,H);
+    halftone(0,0,W,H,sp,rgb(mixc(curBg,[0,240,255],0.15)),sp*0.48,true);
+
+    // 背景璀璨星海与遥远星云
+    ctx.fillStyle='#ffffff';
+    for(i=0;i<45;i++){
+      var stX = (i*123.4)%W, stY = (i*77.8)%H;
+      var sAlpha = 0.3 + 0.7*Math.sin(tt*4 + i);
+      ctx.globalAlpha = sAlpha;
+      ctx.beginPath();ctx.arc(stX, stY, 1 + (i%3)*0.9, 0, 6.283);ctx.fill();
+    }
+    ctx.globalAlpha = 1.0;
+
+    // 超新星爆发霓虹辉光 (第3幕)
+    if(novaMode>0.1){
+      ctx.save();ctx.globalAlpha = 0.65;
+      var ncx = W*0.5, ncy = H*0.45;
+      var nGrad = ctx.createRadialGradient(ncx, ncy, 10, ncx, ncy, 220);
+      nGrad.addColorStop(0, '#ffea78');
+      nGrad.addColorStop(0.4, '#ff2a85');
+      nGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = nGrad;
+      ctx.beginPath();ctx.arc(ncx, ncy, 220, 0, 6.283);ctx.fill();
+      ctx.restore();
+    }
+
+    // 引力波涟漪粒子逻辑
+    if((novaMode>0.2 || ringMode>0.2) && Math.random()<0.4){
+      gravityRipples.push({
+        x: W*0.48, y: H*0.45,
+        r: 10, op: 1.0, dr: 4 + Math.random()*3
+      });
+    }
+    for(i=gravityRipples.length-1;i>=0;i--){
+      var gr=gravityRipples[i];
+      gr.r += gr.dr; gr.op -= 0.03;
+      if(gr.op<=0){gravityRipples.splice(i,1);continue;}
+      ctx.beginPath();ctx.arc(gr.x, gr.y, gr.r, 0, 6.283);
+      ctx.strokeStyle='rgba(0,240,255,'+gr.op*0.7+')';ctx.lineWidth=2;ctx.stroke();
+    }
+
+    // 生物体定位（真空中无重力浮游）
+    var jellyX = W*0.48 + Math.sin(tt*1.5)*12;
+    var jellyY = H*0.45 + Math.cos(tt*2)*10;
+
+    ctx.save();
+    ctx.translate(jellyX, jellyY);
+    ctx.scale(s, s);
+    drawGravJelly(tt, s, floatMode, ringMode, novaMode, sleepMode);
+    ctx.restore();
+
+    // 拟声词
+    sfx('嗡——脉动',jellyX-W*0.22,jellyY-H*0.18,base*0.85,-0.06,'#00f0ff',popv(tt,0.8,5.0));
+    sfx('🪐 引力吸附',jellyX+W*0.12,jellyY-H*0.24,base*1.35,0.12,'#ffea78',popv(tt,6.2,8.8));
+    sfx('✨ 超新星耀斑！',jellyX+W*0.08,jellyY-H*0.28,base*1.4,-0.1,'#ff2a85',popv(tt,12.5,15.2));
+    sfx('💤 星云静谧瞑眠',jellyX-W*0.18,jellyY+H*0.22,base*1.1,0.06,'#1e88e5',popv(tt,19.5,23.5));
+
+    if(live){
+      var fa=sm(24.2,25,tt);
+      if(loops>0)fa=Math.max(fa,1-sm(0,0.6,tt));
+      if(fa>0){ctx.fillStyle='rgba(5,7,12,'+fa+')';ctx.fillRect(0,0,W,H);}
+    }
+  }
+
+  function draw(tt){ctx=mctx;scene(tt,true);}
+
+  // ---- UI 绑定 ----
+  var elPlay=document.getElementById('play'),elSeek=document.getElementById('seek'),
+      elClock=document.getElementById('clock'),elGauge=document.getElementById('gauge'),
+      elName=document.getElementById('capName'),elText=document.getElementById('capText'),
+      elCh=document.getElementById('chapters'),stageFrame=document.getElementById('stageFrame'),
+      mainWrap=document.getElementById('mainWrap');
+
+  var chBtns=[],thumbs=[];
+  function fmt(v){var s=Math.floor(v);return '00:'+(s<10?'0':'')+s;}
+
+  scenes.forEach(function(sc,idx){
+    var b=document.createElement('button');b.type='button';
+    b.innerHTML='<canvas aria-hidden="true"></canvas><span class="lab"><b>'+sc.name+'</b><small>'+fmt(sc.t)+'</small></span>';
+    b.addEventListener('click',function(){t=sc.t;draw(t);ui();updateStamps(idx);});
+    elCh.appendChild(b);chBtns.push(b);thumbs.push(b.querySelector('canvas'));
+  });
+
+  function renderThumbs(){
+    var sW=W,sH=H,sCtx=ctx;
+    thumbs.forEach(function(el,n){
+      var r=el.getBoundingClientRect();if(!r.width||!r.height)return;
+      var d=Math.min(window.devicePixelRatio||1,2);
+      el.width=Math.round(r.width*d);el.height=Math.round(r.height*d);
+      var c=el.getContext('2d');c.setTransform(d,0,0,d,0,0);
+      W=r.width;H=r.height;ctx=c;
+      scene(scenes[n].key,false);
+    });
+    W=sW;H=sH;ctx=sCtx;
+  }
+
+  var stampBtns = [
+    document.getElementById('btnFloat'),
+    document.getElementById('btnRing'),
+    document.getElementById('btnNova'),
+    document.getElementById('btnNebula')
+  ];
+
+  function updateStamps(idx){
+    stampBtns.forEach(function(b,i){b.setAttribute('aria-pressed',i===idx?'true':'false');});
+  }
+
+  stampBtns[0].addEventListener('click',function(){t=0;draw(t);ui();updateStamps(0);});
+  stampBtns[1].addEventListener('click',function(){t=6;draw(t);ui();updateStamps(1);});
+  stampBtns[2].addEventListener('click',function(){t=12;draw(t);ui();updateStamps(2);});
+  stampBtns[3].addEventListener('click',function(){t=19;draw(t);ui();updateStamps(3);});
+
+  var fltColor=document.getElementById('fltColor'),
+      fltMono=document.getElementById('fltMono'),
+      fltBlue=document.getElementById('fltBlue');
+  var fltBtns=[fltColor,fltMono,fltBlue];
+
+  function setFilter(cls,activeBtn){
+    mainWrap.classList.remove('mode-monochrome','mode-blueprint');
+    if(cls)mainWrap.classList.add(cls);
+    fltBtns.forEach(function(b){b.classList.remove('active');});
+    activeBtn.classList.add('active');
+  }
+  fltColor.addEventListener('click',function(){setFilter('',fltColor);});
+  fltMono.addEventListener('click',function(){setFilter('mode-monochrome',fltMono);});
+  fltBlue.addEventListener('click',function(){setFilter('mode-blueprint',fltBlue);});
+
+  stageFrame.addEventListener('click',function(e){
+    var rect=cv.getBoundingClientRect();
+    var clickX=(e.clientX-rect.left);
+    var clickY=(e.clientY-rect.top);
+    gravityRipples.push({x:clickX,y:clickY,r:10,op:1.0,dr:6});
+    stageFrame.style.transform='translate('+((Math.random()-0.5)*10)+'px,'+((Math.random()-0.5)*10)+'px)';
+    setTimeout(function(){stageFrame.style.transform='';},120);
+  });
+
+  function ui(){
+    var idx=0;for(var i=0;i<scenes.length;i++)if(t>=scenes[i].t)idx=i;
+    if(idx!==sceneIdx){
+      sceneIdx=idx;
+      elName.textContent=scenes[idx].name;elText.textContent=scenes[idx].text;
+      chBtns.forEach(function(b,n){b.setAttribute('aria-current',n===idx?'true':'false');});
+      updateStamps(idx);
+    }
+    elSeek.value=t;
+    elClock.textContent=fmt(t)+' / 00:25';
+
+    var gaugeTxt='引力指数 · 0.05 G · 脉动巡航';
+    if(t<6){
+      gaugeTxt='引力指数 · 0.05 G · 脉动巡航';
+    }else if(t<12){
+      gaugeTxt='星环转速 · '+Math.round(lerp(12,45,(t-6)/6))+' RPM · 陨石吸附';
+    }else if(t<19){
+      gaugeTxt='超新星耀斑 · 辐射吸收率 '+Math.round(lerp(40,99,(t-12)/7))+'%';
+    }else{
+      gaugeTxt='状态 · 彩色星云中心 · 静谧瞑眠';
+    }
+    elGauge.textContent=gaugeTxt;
+    elPlay.textContent=playing?'暂停':'播放';
+  }
+
+  elPlay.addEventListener('click',function(){playing=!playing;last=performance.now();ui();});
+  elSeek.addEventListener('input',function(){t=parseFloat(elSeek.value);draw(t);ui();});
+
+  function fit(){
+    var r=cv.getBoundingClientRect();
+    if(!r.width||!r.height)return;
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);
+    W=r.width;H=r.height;ctx=mctx;
+    mctx.setTransform(dpr,0,0,dpr,0,0);
+    draw(t);
+    renderThumbs();
+  }
+  if(window.ResizeObserver)new ResizeObserver(fit).observe(cv);
+  window.addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.load){
+    document.fonts.load('900 40px "ZCOOL QingKe HuangYou"','嗡——脉动吸附超新星轰鸣星云闪烁～!—').then(function(){fit();ui();}).catch(function(){});
+  }
+
+  function frame(now){
+    var dt=Math.min(0.1,Math.max(0,(now-last)/1000));last=now;
+    if(playing){
+      t+=dt;
+      if(t>=DUR){t-=DUR;loops++;}
+      draw(t);ui();
+    }
+    requestAnimationFrame(frame);
+  }
+  fit();ui();
+  last=performance.now();
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body></html>
