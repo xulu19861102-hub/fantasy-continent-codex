@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>寻泉萤草 · 旷野境动态图鉴 · 新增篇</title>
+<style>
+/* Layout: 幻想大陆经典动态漫画短片 + 物种档案排版体系 */
+:root{
+  --paper:#f5efdb;
+  --ink:#171227;
+  --violet:#619b32;
+  --crystal:#d9e99c;
+  --amber:#ff8a1f;
+  --teal:#12c2c2;
+  --white:#ffffff;
+  --chunk:"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif;
+  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  background-color:var(--paper);
+  background-image:radial-gradient(rgba(23,18,39,.10) 1.2px,transparent 1.5px);
+  background-size:12px 12px;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.65;
+  padding-inline:16px;
+  padding-block:28px 56px;
+  margin:0;
+}
+.wrap{max-width:980px;margin-inline:auto;display:flex;flex-direction:column;gap:28px}
+.head{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.kicker{
+  margin:0;background:var(--ink);color:var(--white);
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  padding:3px 10px;display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.kicker .tech-tag{color:#ffc98a;font-weight:700}
+h1{
+  margin:0;font-family:var(--chunk);font-weight:400;
+  font-size:clamp(3.4rem,13vw,6rem);line-height:1;letter-spacing:.05em;
+  color:var(--violet);
+  -webkit-text-stroke:8px var(--ink);paint-order:stroke fill;
+  text-shadow:6px 6px 0 var(--ink);
+  transform:rotate(1.5deg);transform-origin:left bottom;
+}
+.latin{margin:0;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--amber);letter-spacing:.06em}
+
+.film{display:flex;flex-direction:column;gap:16px;min-width:0}
+.stage{
+  position:relative;width:100%;aspect-ratio:16/10;
+  background:#0a0714;
+  border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);
+  overflow:hidden;cursor:crosshair;
+}
+canvas.main{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+.cap{
+  position:absolute;left:14px;top:14px;max-width:min(74%,28em);
+  background:#ffe27a;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+  padding:6px 14px;display:flex;flex-direction:column;gap:0;pointer-events:none;z-index:10;
+}
+.cap b{font-family:var(--chunk);font-weight:400;font-size:1.25rem;letter-spacing:.12em;line-height:1.3;color:#6d28d9}
+.cap span{font-size:13.5px;line-height:1.5;color:var(--ink)}
+
+.gauge{
+  position:absolute;right:14px;bottom:14px;
+  background:var(--white);border:2px solid var(--ink);padding:2px 10px;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;z-index:10;box-shadow:2px 2px 0 var(--ink);
+}
+.hud-pill{
+  position:absolute;left:14px;bottom:14px;
+  background:rgba(10,7,20,.86);border:1.5px solid rgba(255,255,255,.32);
+  padding:3px 12px;font-family:var(--mono);font-size:11px;color:#ffc98a;
+  border-radius:999px;pointer-events:none;z-index:10;
+  display:flex;align-items:center;gap:6px;
+}
+.hud-pill .dot{width:6px;height:6px;border-radius:50%;background:#ff8a1f;box-shadow:0 0 8px #ff8a1f}
+
+.ctl{display:flex;align-items:center;gap:12px;min-width:0;margin-top:2px}
+.ctl button{
+  flex:none;min-width:68px;font:inherit;font-size:14px;font-weight:700;color:var(--ink);
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:3px 3px 0 var(--ink);padding:5px 14px;cursor:pointer;transition:all .1s;
+}
+.ctl button:hover{background:#ffe27a;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.ctl button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.ctl input[type=range]{flex:1;min-width:0;accent-color:var(--violet);cursor:pointer}
+.clock{flex:none;font-family:var(--mono);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+button:focus-visible,input:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+.chapters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.chapters button{
+  font:inherit;color:var(--ink);text-align:left;cursor:pointer;
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:4px 4px 0 var(--ink);padding:0;display:flex;flex-direction:column;min-width:0;
+  transition:all .15s;
+}
+.chapters button:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.chapters canvas{display:block;width:100%;aspect-ratio:4/3;border-bottom:3px solid var(--ink);background:#0a0714}
+.chapters .lab{display:flex;align-items:baseline;gap:8px;padding:5px 10px 6px}
+.chapters .lab b{font-family:var(--chunk);font-weight:400;font-size:1.15rem;letter-spacing:.12em}
+.chapters .lab small{font-family:var(--mono);font-size:11px;font-weight:700}
+.chapters button[aria-current=true] .lab{background:#ffe27a}
+.chapters button[aria-current=true]{box-shadow:4px 4px 0 var(--violet)}
+
+.manga-control-bar{
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  background:var(--white);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+  padding:12px 16px;
+}
+.mode-selector{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mode-title{
+  font-family:var(--chunk);font-size:1.2rem;letter-spacing:.08em;
+  background:var(--ink);color:#fff;padding:2px 10px;transform:skewX(-8deg);
+}
+.stamp-btn{
+  font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em;
+  background:var(--paper);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:5px 12px;cursor:pointer;transition:all .15s;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.stamp-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);background:#ffe27a}
+.stamp-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.stamp-btn[aria-pressed=true]{background:var(--violet);color:#fff;box-shadow:3px 3px 0 var(--ink);transform:translateY(1px)}
+
+.tone-filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.filter-tag{font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em}
+.filter-btn{
+  font-family:var(--body);font-weight:700;font-size:12px;
+  border:2px solid var(--ink);background:#fff;padding:4px 10px;cursor:pointer;
+}
+.filter-btn.active{background:var(--ink);color:#fff}
+
+.guide{
+  display:flex;flex-direction:column;gap:16px;background:var(--white);
+  border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:20px 22px 18px;
+}
+.guide-header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.guide h2{margin:0;font-family:var(--chunk);font-weight:400;font-size:1.7rem;letter-spacing:.12em;line-height:1.2}
+.guide-num{font-family:var(--mono);font-size:12px;font-weight:700;color:#666}
+dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+.row{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:12px;padding:10px 0;border-top:2px dashed rgba(23,18,39,.22);align-items:start}
+dt{justify-self:start;background:#d9e99c;border:2px solid var(--ink);padding:1px 7px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em}
+dd{margin:0;min-width:0;font-size:14px}
+.tech-spec{background:#f5efdb;border:2.5px solid var(--ink);padding:12px 16px;font-size:13.5px;line-height:1.65}
+.tech-spec b{color:#619b32}
+.tech-spec code{font-family:var(--mono);background:#fff;border:1px solid var(--ink);padding:1px 5px;border-radius:3px}
+.note{margin:0;font-family:var(--mono);font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:8px}
+.sfxload{position:absolute;left:-9999px;top:0;font-family:var(--chunk);white-space:nowrap}
+
+.mode-monochrome{filter:grayscale(100%) contrast(150%)}
+.mode-blueprint{filter:invert(100%) hue-rotate(190deg) contrast(140%) brightness(90%)}
+
+@media (max-width:640px){
+  .stage{aspect-ratio:4/5}
+  .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  dl{grid-template-columns:1fr}
+}
+
+.cap{max-width:min(74%,32em)}.hud-pill{max-width:calc(100% - 28px);white-space:normal}.gauge{bottom:46px;font-size:11px}
+.guide-header{flex-wrap:wrap;gap:8px}.stage{touch-action:pan-y}.clock{white-space:nowrap}
+@media(max-width:640px){body{padding-inline:12px}.wrap{gap:24px}h1{font-size:clamp(2.6rem,12vw,4rem);-webkit-text-stroke:6px var(--ink);text-shadow:4px 4px 0 var(--ink)}.cap{left:9px;top:9px;max-width:82%;padding:5px 9px}.cap b{font-size:1.05rem}.cap span{font-size:11px;line-height:1.45}.hud-pill{left:8px;bottom:9px;font-size:9px;padding:3px 7px;max-width:calc(100% - 16px)}.gauge{right:9px;bottom:42px;font-size:9px;padding:2px 6px}.ctl{gap:8px}.ctl button{padding:5px 10px;min-width:58px}.clock{font-size:10px}.guide{padding:16px 14px}.guide-num{font-size:10px}.row{gap:8px}.stamp-btn{font-size:1rem}.mode-selector{gap:8px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style></head><body><main class="wrap" id="mainWrap">
+<header class="head"><p class="kicker"><span>旷野境图鉴 · 新增篇 · 虚构物种</span><span class="tech-tag">细根探水 · 风中萤花</span></p><h1>寻泉萤草</h1><p class="latin">Fontivaga luciflorens</p></header>
+<section class="film" aria-label="寻泉萤草动态漫画短片"><div class="stage" id="stageFrame"><canvas class="main" id="c" role="img" aria-label="伸出细根脚主动寻找地下水，扎根饮水后舒展亮绿萤花，光点随风。"></canvas><div class="cap"><b id="capName"></b><span id="capText"></span></div><div class="gauge" id="gauge"></div><div class="hud-pill"><span class="dot"></span><span>划风拂光点 · 轻点草球看它收根</span></div></div>
+<div class="ctl"><button id="play" type="button">暂停</button><input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="播放进度"><span class="clock" id="clock">00:00 / 00:25</span></div><nav class="chapters" id="chapters" aria-label="章节"></nav></section>
+<footer class="manga-control-bar"><div class="mode-selector"><span class="mode-title">生体指令印章</span><button class="stamp-btn" id="btnStamp0" aria-pressed="true">醒草</button><button class="stamp-btn" id="btnStamp1" aria-pressed="false">行根</button><button class="stamp-btn" id="btnStamp2" aria-pressed="false">饮泉</button><button class="stamp-btn" id="btnStamp3" aria-pressed="false">萤花</button></div><div class="tone-filters"><span class="filter-tag">连载印装：</span><button class="filter-btn active" id="fltColor">卷首全彩</button><button class="filter-btn" id="fltMono">黑白网点</button><button class="filter-btn" id="fltBlue">原稿蓝图</button></div></footer>
+<section class="guide" aria-label="物种百科档案"><div class="guide-header"><h2>物种档案</h2><span class="guide-num">FONT-NEW-SPEC</span></div><dl><div class="row"><dt>体长</dt><dd>草球直径 0.48 米，根脚展开可达 0.86 米；含水体重 2.6 公斤。</dd></div><div class="row"><dt>栖息</dt><dd>旷野境风蚀红丘与星野草原，偏好地下 15–40 厘米的浅水脉。</dd></div><div class="row"><dt>草球</dt><dd>层叠卷叶与柔软草丝形成蓬松球冠，不靠翻滚迁移；缺水时叶缘呈麦金色。</dd></div><div class="row"><dt>根脚</dt><dd>8 条可伸缩根脚以交错相位抬落，末端分出细根探测土壤湿度。</dd></div><div class="row"><dt>饮水</dt><dd>确认湿土后停止行走，将根脚扎入水脉，约 7 分钟可补足储水叶囊。</dd></div><div class="row"><dt>萤花</dt><dd>饮水后舒展 5–7 朵亮绿色花；花粉形成黄绿小光点，随风扩散。</dd></div><div class="row"><dt>食性</dt><dd>吸收浅层地下水与溶解矿物盐，以星露补充微量星质。</dd></div><div class="row"><dt>习性</dt><dd>独自寻泉，抵达湿地才开花；惊扰时短暂收根，随后继续自己的路线。</dd></div></dl><div class="tech-spec">✦ <b>生态交互手记：</b>光标划过只会拂动风线与黄绿光点；轻点草球会让它短暂收根。根脚按不同相位抬起、落地，抵达水脉后才依次扎根；角色位置由寻水路线决定。</div><p class="note">草球主动步行，不是被风推着滚动的普通风滚草。 物种与拉丁学名均为虚构；新增篇不占既有话数。</p></section><span class="sfxload" aria-hidden="true">沙簌汩啵咔嗒呼—</span></main>
+<script>
+(function(){'use strict';
+const DATA={"name": "寻泉萤草", "latin": "Fontivaga luciflorens", "realm": "旷野境", "realmkey": "wild", "code": "FONT-NEW-SPEC", "color": "#619b32", "light": "#d9e99c", "paper": "#f5efdb", "emoji": "✺", "tag": "细根探水 · 风中萤花", "hud": "划风拂光点 · 轻点草球看它收根", "stamps": ["醒草", "行根", "饮泉", "萤花"], "scenes": [{"t": 0, "key": 3, "name": "旷野醒来", "text": "星露退去，蓬松草球从红土上醒来，细根脚试探着展开。"}, {"t": 6, "key": 8.5, "name": "循水而行", "text": "根脚一前一后踩过荒原，循着地下潮气主动寻找水脉。"}, {"t": 12, "key": 15, "name": "扎根饮水", "text": "找到湿土便停步，细根扎入地下，清水沿根脉缓缓上升。"}, {"t": 19, "key": 21.8, "name": "萤花绽放", "text": "吸饱水的草球舒展亮绿萤花，黄绿光点被旷野的风轻轻带走。"}], "rows": [["体长", "草球直径 0.48 米，根脚展开可达 0.86 米；含水体重 2.6 公斤。"], ["栖息", "旷野境风蚀红丘与星野草原，偏好地下 15–40 厘米的浅水脉。"], ["草球", "层叠卷叶与柔软草丝形成蓬松球冠，不靠翻滚迁移；缺水时叶缘呈麦金色。"], ["根脚", "8 条可伸缩根脚以交错相位抬落，末端分出细根探测土壤湿度。"], ["饮水", "确认湿土后停止行走，将根脚扎入水脉，约 7 分钟可补足储水叶囊。"], ["萤花", "饮水后舒展 5–7 朵亮绿色花；花粉形成黄绿小光点，随风扩散。"], ["食性", "吸收浅层地下水与溶解矿物盐，以星露补充微量星质。"], ["习性", "独自寻泉，抵达湿地才开花；惊扰时短暂收根，随后继续自己的路线。"]], "tech": "光标划过只会拂动风线与黄绿光点；轻点草球会让它短暂收根。根脚按不同相位抬起、落地，抵达水脉后才依次扎根；角色位置由寻水路线决定。", "note": "草球主动步行，不是被风推着滚动的普通风滚草。", "desc": "伸出细根脚主动寻找地下水，扎根饮水后舒展亮绿萤花，光点随风。"};
+const DUR=25,INK='#171c23',SFXFONT='"Noto Sans SC","Microsoft YaHei",sans-serif',scenes=DATA.scenes;
+const cv=document.getElementById('c'),mctx=cv.getContext('2d');let ctx=mctx,W=800,H=500,dpr=1;
+let playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,t=0,last=0,loops=0,sceneIdx=-1;
+let wind=0,reaction=0,effectClock=0,pulses=[],lastPX=null;
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),lerp=(a,b,k)=>a+(b-a)*k,frac=v=>v-Math.floor(v);
+const sm=(a,b,v)=>{const k=clamp((v-a)/(b-a));return k*k*(3-2*k);};
+const popv=(v,a,b)=>sm(a,a+.3,v)*(1-sm(b-.3,b,v));
+const hash=n=>frac(Math.sin(n*127.1+311.7)*43758.5453123);
+function path(points,fill,stroke=INK,lw=2){ctx.beginPath();points(ctx);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke();}}
+function oval(x,y,rx,ry,fill,stroke=INK,lw=2,rot=0){ctx.beginPath();ctx.ellipse(x,y,rx,ry,rot,0,Math.PI*2);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.lineWidth=lw;ctx.strokeStyle=stroke;ctx.stroke();}}
+function line(x,y,xx,yy,color=INK,lw=2){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(xx,yy);ctx.strokeStyle=color;ctx.lineWidth=lw;ctx.stroke();}
+function glow(x,y,r,color,alpha=.3){ctx.save();ctx.globalAlpha=alpha;const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,color);g.addColorStop(1,color+'00');ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2);ctx.restore();}
+function sfx(txt,x,y,size,rot,fill,pop=1){if(pop<=0)return;ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(pop,pop);ctx.font='900 '+size+'px '+SFXFONT;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=Math.max(3,size*.12);ctx.strokeStyle=INK;ctx.strokeText(txt,0,0);ctx.fillStyle=fill;ctx.fillText(txt,0,0);ctx.restore();}
+function label(txt,x,y,color='#eee6c5',size=11){ctx.save();ctx.font='700 '+size+'px sans-serif';ctx.fillStyle=color;ctx.fillText(txt,x,y);ctx.restore();}
+function grain(floor,color,seed=1){ctx.save();ctx.fillStyle=color;for(let i=0;i<110;i++){let x=hash(i+seed)*W,y=floor+hash(i+seed+711)*(H-floor);ctx.globalAlpha=.15+hash(i+21)*.2;ctx.fillRect(x,y,1+hash(i+99)*2,1+hash(i+28)*2);}ctx.restore();}
+function insect(x,y,tt,size=1,color='#efce89'){ctx.save();ctx.translate(x,y);ctx.scale(size,size);oval(-4,-5,7,3,'#f6edccaa',null,1,Math.sin(tt*38)*.7);oval(4,-5,7,3,'#f6edccaa',null,1,-Math.sin(tt*38)*.7);oval(0,0,4,7,color,INK,1.5);line(0,-4,0,5,INK,1);line(-2,-6,-5,-10);line(2,-6,5,-10);ctx.restore();}
+function dust(tt,color){for(let i=0;i<26;i++){const x=frac(hash(i+51)+tt*(.004+hash(i)*.005)+wind*.003)*W,y=(.18+hash(i+81)*.62)*H+Math.sin(tt*.8+i)*7;oval(x,y,1+hash(i)*1.5,1+hash(i)*1.5,color,null);}}
+function waterDrop(x,y,r,color){path(c=>{c.moveTo(x,y-r*1.6);c.bezierCurveTo(x-r*1.2,y,x-r,y+r,x,y+r);c.bezierCurveTo(x+r,y+r,x+r*1.2,y,x,y-r*1.6);},color,INK,1.2);}
+function finish(tt,live){if(live&&tt>24.3){ctx.fillStyle='rgba(18,21,25,'+(sm(24.3,25,tt)*.65)+')';ctx.fillRect(0,0,W,H);}}
+function draw(tt){ctx=mctx;scene(tt,true);}
+function grassPose(tt){const walk=sm(5.8,6.8,tt)*(1-sm(11,12.4,tt)),drink=sm(12,14.6,tt),bloom=sm(18.7,21.5,tt),s=Math.min(W/485,H/365),x=W*(.41+.13*sm(6,12,tt)),ground=H*.77,y=ground-57*s-Math.abs(Math.sin(tt*5))*3*s*walk;return {walk,drink,bloom,s,x,y,ground};}
+function geometry(tt){const p=grassPose(tt);return {kind:'root-walking-grass',bounds:[p.x-157*p.s,p.y-143*p.s,p.x+157*p.s,p.y+116*p.s],roots:8,rootPhases:Array.from({length:8},(_,i)=>tt*6-i*.83),bloom:p.bloom,anchored:p.drink>.6};}
+function grassLeaf(x,y,len,angle,col,width=9){ctx.save();ctx.translate(x,y);ctx.rotate(angle);path(c=>{c.moveTo(0,0);c.quadraticCurveTo(-width,-len*.55,0,-len);c.quadraticCurveTo(width*1.6,-len*.48,0,0);},col,INK,1.8);line(0,-2,0,-len*.83,'#c5d583',.85);ctx.restore();}
+function drawGrass(ctx,tt,p){
+ const {walk,drink,bloom}=p;
+ // Root feet reach the ground in staggered phases, then penetrate the water lens.
+ for(let i=0;i<8;i++){const ph=tt*6-i*.83,bx=(i-3.5)*18,side=i<4?-1:1,step=Math.sin(ph)*15*walk;let fx=bx+side*22+step,fy=57-Math.max(0,Math.cos(ph))*19*walk+drink*(17+hash(i)*20);fy-=reaction*9*(1-drink);
+ path(c=>{c.moveTo(bx,12);c.bezierCurveTo(bx+side*17,24,fx-11,fy-15,fx,fy);},null,INK,5);
+ path(c=>{c.moveTo(bx,12);c.bezierCurveTo(bx+side*17,24,fx-11,fy-15,fx,fy);},null,drink>.2?'#b7c777':'#a18b50',2.5);
+ for(let j=0;j<3;j++){let yy=fy-j*5;path(c=>{c.moveTo(fx-j*2,yy);c.quadraticCurveTo(fx+side*6+8*j,yy+4,fx+side*(10+6*j),yy+7);},null,'#b5a26b',1.4);}
+ if(drink>.2){const q=frac(tt*.7+i*.19);oval(lerp(fx,bx,q),lerp(fy,12,q),2,3,'#b6f4d1',null);}
+ }
+ oval(0,5,96,72,'#726d38',INK,3.5);
+ for(let i=0;i<59;i++){const a=i*2.39996,r=Math.sqrt((i+.5)/59),xx=Math.cos(a)*87*r,yy=Math.sin(a)*65*r+5,len=30+hash(i+20)*26;let col=['#b5b267','#d0bf72','#929849','#dccc87'][i%4];if(bloom>.2)col=['#8baa48','#adc963','#6b923c','#c6d789'][i%4];grassLeaf(xx,yy,len,Math.atan2(xx,-yy)*.52+Math.sin(tt*1.4+i)*.06+wind*.025,col,6+hash(i)*5);}
+ for(let j=0;j<22;j++){const a=j*2.39996,rr=Math.sqrt((j+.5)/22),xx=Math.cos(a)*42*rr,yy=Math.sin(a)*35*rr+7;grassLeaf(xx,yy,18+hash(j+61)*16,Math.sin(a)*.9,bloom>.2?(j%2?'#9cba52':'#bfd573'):(j%2?'#b5ae65':'#d0c183'),5);}
+ // Long wisps break the silhouette, so it reads as a living, fluffy herb rather than a rigid ball.
+ for(let i=0;i<18;i++){const a=i/18*Math.PI*2,rx=Math.cos(a)*88,ry=Math.sin(a)*68;path(c=>{c.moveTo(rx*.7,ry*.7);c.quadraticCurveTo(rx*1.4+Math.sin(tt+i)*5,ry*1.3,rx*1.5+wind*4,ry*1.45);},null,'#e1d39a',1.4);}
+ if(bloom>0){for(let k=0;k<5;k++){let bx=(k-2)*34,by=-64-Math.sin((k+1)/6*Math.PI)*29,open=sm(.05+k*.1,.4+k*.1,bloom);ctx.save();ctx.translate(bx,by);ctx.scale(open,open);line(0,22,0,0,'#4e7134',4);glow(0,-7,38,'#baf252',.4);for(let j=0;j<6;j++){let a=j/6*Math.PI*2+tt*.015;ctx.save();ctx.rotate(a);path(c=>{c.moveTo(0,0);c.bezierCurveTo(-16,-8,-18,-31,0,-34);c.bezierCurveTo(18,-31,16,-8,0,0);},j%2?'#b8f25b':'#7cdc44',INK,2);line(0,-3,0,-26,'#e0ff9a',1.2);ctx.restore();}oval(0,0,8,8,'#edfcb2',INK,2);ctx.restore();}}
+}
+function scene(tt,live){
+ const p=grassPose(tt),g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#202f39');g.addColorStop(.6,'#697b6b');g.addColorStop(1,'#caac78');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ // Long dusk plains, stratified red hills and wind-scoured stars.
+ oval(W*.81,H*.2,H*.063,H*.063,'#ebddaa',null);oval(W*.826,H*.188,H*.055,H*.055,'#344a48',null);
+ for(let layer=0;layer<3;layer++){const yy=H*(.42+layer*.095);path(c=>{c.moveTo(0,H);c.lineTo(0,yy);for(let i=0;i<=12;i++)c.lineTo(i*W/12,yy+Math.sin(i*.8+layer*2)*H*.04);c.lineTo(W,H);c.closePath();},['#535e56','#8c7b5f','#b18b61'][layer],null);}
+ const floor=p.ground;path(c=>{c.moveTo(0,floor);c.quadraticCurveTo(W*.4,floor-10,W,floor+4);c.lineTo(W,H);c.lineTo(0,H);c.closePath();},'#997553',INK,2.5);grain(floor,'#392d2c',21);
+ for(let i=0;i<35;i++){const x=hash(i+1)*W,y=floor-9-hash(i+84)*H*.08,l=8+hash(i+3)*17;path(c=>{c.moveTo(x,y+10);c.quadraticCurveTo(x-4,y-l*.4,x+Math.sin(tt+i)*3+wind*2,y-l);},null,'#c4b78a',1.4);}
+ // A small cutaway opens only as it reaches water; roots are still drawn in full, above the lens.
+ if(p.drink>.02){ctx.save();ctx.globalAlpha=p.drink;oval(p.x,floor+26*p.s,109*p.s,29*p.s,'#625541','#392e2c',2);oval(p.x+5*p.s,floor+31*p.s,88*p.s,13*p.s,'#69bdb0','#283e39',2);for(let i=0;i<4;i++)line(p.x+(-62+i*33)*p.s,floor+(29+Math.sin(tt*2+i)*2)*p.s,p.x+(-44+i*33)*p.s,floor+(29+Math.sin(tt*2+i)*2)*p.s,'#c2f2d3',1.2);ctx.restore();}
+ oval(p.x,floor+2,110*p.s,12*p.s,'#423b3260',null);
+ ctx.save();ctx.translate(p.x,p.y);ctx.scale(p.s,p.s);ctx.rotate(Math.sin(tt*4)*.018*p.walk);drawGrass(ctx,tt,p);ctx.restore();
+ for(let i=0;i<28;i++){let xx=frac(hash(i+41)+tt*.011+wind*.005)*W,yy=H*(.3+hash(i+14)*.4)+Math.sin(tt*.7+i)*12,rr=(1+hash(i)*1.4)*(1+p.bloom*.6);glow(xx,yy,rr*5,'#dbf876',.15+p.bloom*.3);oval(xx,yy,rr,rr,i%3?'#cadd70':'#f6e69b',null);}
+ for(let i=0;i<4;i++){const yy=H*(.32+i*.1),xx=frac(tt*.035+i*.28)*W;path(c=>{c.moveTo(xx-45,yy);c.quadraticCurveTo(xx,yy-8-wind*3,xx+55,yy);},null,'#e8e0ad44',1.2);}
+ if(W>500)label(p.drink>.3?'浅层水脉  /  28 cm':'星露荒原  /  WILD FIELD',W*.06,H*.91,'#efe3ba',11);
+ sfx(tt<6?'簌…':tt<12?'沙、沙':tt<19?'汩汩':'舒——',W*.76,H*.44,Math.max(13,W*.037),-.10,tt>19?'#d3fa82':'#f3e6ab',popv(tt,1,5.5)+popv(tt,6.4,11.6)+popv(tt,13,18.6)+popv(tt,19.7,24));finish(tt,live);
+}
+function gauge(tt){return tt<6?'星露 8% · 根脚苏醒':tt<12?'湿度梯度 ↑ · 交错寻泉':tt<19?'水脉 28 cm · 扎根吸水':'含水率 96% · 萤花舒展';}
+const elPlay=document.getElementById('play'),elSeek=document.getElementById('seek'),elClock=document.getElementById('clock'),elGauge=document.getElementById('gauge'),elName=document.getElementById('capName'),elText=document.getElementById('capText'),elCh=document.getElementById('chapters'),stageFrame=document.getElementById('stageFrame'),mainWrap=document.getElementById('mainWrap');
+const chBtns=[],thumbs=[],stampBtns=scenes.map((_,i)=>document.getElementById('btnStamp'+i));
+const fmt=v=>'00:'+String(Math.floor(v)).padStart(2,'0');
+function seek(v){t=clamp(Number(v)||0,0,24.99);draw(t);ui();}
+scenes.forEach((sc,idx)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',sc.name+'，'+fmt(sc.t));b.innerHTML='<canvas aria-hidden="true"></canvas><span class="lab"><b>'+sc.name+'</b><small>'+fmt(sc.t)+'</small></span>';b.addEventListener('click',()=>seek(sc.t));elCh.appendChild(b);chBtns.push(b);thumbs.push(b.querySelector('canvas'));});
+function renderThumbs(){const sW=W,sH=H,sCtx=ctx;thumbs.forEach((el,n)=>{const r=el.getBoundingClientRect();if(!r.width||!r.height)return;const d=Math.min(devicePixelRatio||1,2);el.width=Math.round(r.width*d);el.height=Math.round(r.height*d);const c=el.getContext('2d');c.setTransform(d,0,0,d,0,0);W=r.width;H=r.height;ctx=c;scene(scenes[n].key,false);});W=sW;H=sH;ctx=sCtx;}
+function updateStamps(idx){stampBtns.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===idx)));}
+stampBtns.forEach((b,i)=>b.addEventListener('click',()=>seek(scenes[i].t)));
+const fltBtns=['fltColor','fltMono','fltBlue'].map(id=>document.getElementById(id));
+fltBtns.forEach((b,i)=>b.addEventListener('click',()=>{mainWrap.classList.remove('mode-monochrome','mode-blueprint');if(i)mainWrap.classList.add(i===1?'mode-monochrome':'mode-blueprint');fltBtns.forEach((x,n)=>{x.classList.toggle('active',n===i);x.setAttribute('aria-pressed',String(n===i));});}));
+function ui(){let idx=0;scenes.forEach((sc,i)=>{if(t>=sc.t)idx=i;});if(idx!==sceneIdx){sceneIdx=idx;elName.textContent=scenes[idx].name;elText.textContent=scenes[idx].text;chBtns.forEach((b,n)=>b.setAttribute('aria-current',String(n===idx)));updateStamps(idx);}elSeek.value=t;elClock.textContent=fmt(t)+' / 00:25';elPlay.textContent=playing?'暂停':'播放';elPlay.setAttribute('aria-label',playing?'暂停动画':'播放动画');elGauge.textContent=gauge(t);}
+elPlay.addEventListener('click',()=>{playing=!playing;last=performance.now();ui();});elSeek.addEventListener('input',()=>seek(elSeek.value));
+stageFrame.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect(),px=e.clientX-r.left;wind=clamp((lastPX===null?0:px-lastPX)/5,-3,3);lastPX=px;draw(t);});
+stageFrame.addEventListener('pointerleave',()=>{lastPX=null;wind=0;});
+stageFrame.addEventListener('pointerdown',e=>{const r=cv.getBoundingClientRect();const px=(e.clientX-r.left)/W,py=(e.clientY-r.top)/H;reaction=1;pulses.push({x:px,y:py,born:effectClock});if(pulses.length>4)pulses.shift();draw(t);});
+function fit(){const r=cv.getBoundingClientRect();if(!r.width||!r.height)return;dpr=Math.min(devicePixelRatio||1,2);cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);W=r.width;H=r.height;mctx.setTransform(dpr,0,0,dpr,0,0);draw(t);renderThumbs();}
+if(window.ResizeObserver)new ResizeObserver(fit).observe(cv);window.addEventListener('resize',fit);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&window.parent!==window){window.parent.postMessage({type:'fantasia:close'},'*');return;}if(/INPUT|BUTTON/.test(e.target.tagName))return;if(e.code==='Space'){e.preventDefault();elPlay.click();}if(e.key==='ArrowRight')seek(t+1);if(e.key==='ArrowLeft')seek(t-1);});
+function frame(now){const dt=Math.min(.1,Math.max(0,(now-last)/1000));last=now;if(!document.hidden){effectClock+=dt;reaction=Math.max(0,reaction-dt*.7);wind*=Math.pow(.1,dt);pulses=pulses.filter(p=>effectClock-p.born<4);if(playing){t+=dt;if(t>=DUR){t-=DUR;loops++;}draw(t);ui();}else if(reaction>0||Math.abs(wind)>.02||pulses.length)draw(t);}requestAnimationFrame(frame);}
+window.__codex={seek,pause(){playing=false;ui();},play(){playing=true;last=performance.now();ui();},state(){return {t,playing,sceneIdx,wind,reaction,geometry:geometry(t),pulses:pulses.map(p=>({...p}))};},render(){draw(t);},DUR};
+const qs=new URLSearchParams(location.search);if(qs.has('t'))t=clamp(Number(qs.get('t'))||0,0,24.99);if(qs.has('paused'))playing=false;
+fit();ui();last=performance.now();requestAnimationFrame(frame);
+
+})();
+</script></body></html>

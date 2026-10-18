@@ -1,17 +1,21 @@
 // 构建单文件分发版：把 index.html（首页）、序章、试玩游戏与全部生物话页打包成一个自包含 HTML。
 // 用法：在本目录执行  node build-single.mjs
 // 以后新增/修改话页后重跑一次即可同步更新单文件版。
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, statSync } from 'node:fs';
 
-const OUT = '幻想大陆生灵图鉴-单文件版.html';
+const args = Object.fromEntries(process.argv.slice(2).map(v => { const i=v.indexOf('='); return i<0?[v,true]:[v.slice(0,i),v.slice(i+1)]; }));
+const OUT = args['--out'] || '幻想大陆生灵图鉴-单文件版.html';
 const INTRO = '幻想大陆-序章.html';
 const GAME = '幻想大陆-星兽纪.html';
 
-const shell = readFileSync('index.html', 'utf8');
-const bios = readdirSync('.').filter(f => f.endsWith('.html') && f !== 'index.html' && f !== OUT && f !== 'canvas-creature-demo.html' && f !== INTRO && f !== GAME);
-if (bios.length !== 20) console.warn('注意：生物页数量为 ' + bios.length + '（预期 20），如新增话页请同步更新首页卡片与本阈值。');
-/* 序章与试玩游戏也内嵌，但不算生物页，不计入上面的阈值 */
-const names = bios.concat([INTRO, GAME]);
+const shell = readFileSync(args['--index'] || 'index.html', 'utf8');
+const links = [...shell.matchAll(/href="([^"#]+?\.html)"/g)].map(m=>m[1]);
+const names = [...new Set(links)];
+/* 序章与试玩是额外内嵌页，不算生物页；--index 为新增篇合集时不存在它们 */
+const bios = names.filter(n=>n!==INTRO && n!==GAME);
+const cardCount = (shell.match(/class="card rv"/g)||[]).length;
+if (bios.length !== cardCount) throw new Error('首页卡片与话页数量不一致');
+if (!names.length) throw new Error('首页没有话页入口');
 
 // 读取全部话页原文
 const pages = {};
@@ -132,7 +136,7 @@ for (const n of names) {
   if (restored[n] !== readFileSync(n, 'utf8')) { identical = false; console.error('内嵌不一致: ' + n); }
 }
 
-// B) 链接转换完整：20 张生物卡片 + 1 个序章入口 + 2 个试玩入口 = 23 个 data-page，无残留 .html 链接
+// B) 首页链接全部转换为内嵌入口，无残留 .html 链接
 const linked = (built.match(/data-page="/g) || []).length;
 const leftover = /href="[^"]*\.html"/.test(built);
 
@@ -141,7 +145,9 @@ const bodies = [...built.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1
 let syntaxOk = true;
 for (const b of bodies) { try { new Function(b); } catch (e) { syntaxOk = false; console.error('脚本语法错误: ' + e.message); } }
 
-console.log('内嵌页数: ' + Object.keys(restored).length + '（生物页 ' + bios.length + ' + 序章 + 试玩） / 与原文件一致: ' + identical);
+console.log('内嵌页数: ' + Object.keys(restored).length + '（生物页 ' + bios.length + '，序章 ' + Number(names.includes(INTRO)) + '，试玩 ' + Number(names.includes(GAME)) + '） / 与原文件一致: ' + identical);
 console.log('入口 data-page: ' + linked + ' / 残留文件链接: ' + leftover);
 console.log('内联脚本语法: ' + (syntaxOk ? 'OK (' + bodies.length + ' 段)' : 'FAIL'));
 console.log('输出: ' + OUT + ' (' + (statSync(OUT).size / 1024).toFixed(1) + ' KB)');
+
+if (!identical || leftover || !syntaxOk || linked !== links.length) throw new Error('构建一致性检查失败');
