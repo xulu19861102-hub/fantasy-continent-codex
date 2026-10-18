@@ -98,6 +98,34 @@ section{position:relative;z-index:1}
   font-family:var(--mono);font-size:12.5px;color:var(--faint);letter-spacing:.1em}
 .hero .stats b{color:var(--gold);font-size:15px;margin-right:4px}
 .hero-cta{margin-top:2.1em;font-family:var(--mono);font-size:13px;letter-spacing:.12em}
+.hero-ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:2.1em}
+.hero-ctas .btn{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+.hero-ctas .btn.ghost{background:linear-gradient(160deg,rgba(22,30,66,.92),rgba(9,13,32,.95));color:var(--ink);border:1px solid var(--line)}
+.hero-ctas .btn.play{background:linear-gradient(90deg,#ffd76b,#8be9ff);position:relative}
+.hero-ctas .btn.play::after{content:"NEW";font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.1em;background:var(--red);color:#fff;border-radius:4px;padding:1px 4px;margin-left:7px;vertical-align:2px}
+.hero-note{margin-top:.9em;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--faint)}
+
+/* ---------- 试玩入口 ---------- */
+.play-panel{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(18px,4vw,44px);align-items:center}
+.play-panel .kicker{font-size:9.5px;letter-spacing:.2em}
+.play-panel h2{margin-top:.55em}
+.play-panel p{max-width:36em}
+.play-panel .btn{margin-top:1.1em;font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+.play-route{display:flex;flex-direction:column;gap:8px;position:relative;padding:4px 0 4px 12px}
+.play-route::before{content:"";position:absolute;left:17px;top:16px;bottom:16px;width:1px;background:linear-gradient(180deg,rgba(255,179,107,.55),rgba(126,240,201,.4),rgba(179,136,255,.55))}
+.pr-node{display:flex;align-items:center;gap:11px;position:relative}
+.pr-node .dot{width:34px;height:34px;flex:none;border-radius:50%;border:1px solid var(--rc);display:grid;place-items:center;font-size:16px;background:rgba(10,14,34,.9);box-shadow:0 0 18px -7px var(--rc);position:relative;z-index:1}
+.pr-node b{display:block;font-family:var(--chunk);font-weight:400;font-size:1.16rem;letter-spacing:.1em;line-height:1.2;color:#fdfbe8}
+.pr-node span{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--faint)}
+.pr-node small{margin-left:auto;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--rc);border:1px solid color-mix(in srgb,var(--rc) 40%,transparent);border-radius:999px;padding:1px 7px;white-space:nowrap}
+.play-tip{margin-top:6px;font-family:var(--mono);font-size:9px;letter-spacing:.1em;color:var(--faint)}
+@media (max-width:760px){
+  .play-panel{grid-template-columns:1fr}
+  .play-route{padding-left:0}
+  .play-route::before{left:16px}
+  .hero-ctas{margin-top:1.7em}
+  .hero-ctas .btn{font-size:11.5px;padding:9px 16px}
+}
 .scrolldn{margin-top:6vh;color:var(--cyan);font-family:var(--mono);font-size:12px;letter-spacing:.3em;opacity:.8;animation:dip 2.4s ease-in-out infinite}
 @keyframes dip{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(8px);opacity:1}}
 
@@ -267,7 +295,11 @@ footer a:hover{text-decoration:underline}
       <span><b>20</b>种已记录生灵</span>
       <span><b>20</b>页动态图鉴</span>
     </div>
-    <a class="btn hero-cta" href="幻想大陆-序章.html" data-page-title="序章 · 幻想大陆">▶ 观看序章动画 · 54 秒</a>
+    <div class="hero-ctas">
+      <a class="btn play" href="幻想大陆-星兽纪.html" data-page-title="星兽纪 · 试玩版">▶ 试玩《星兽纪》 · 约 8 分钟</a>
+      <a class="btn ghost" href="幻想大陆-序章.html" data-page-title="序章 · 幻想大陆">观看序章动画 · 54 秒</a>
+    </div>
+    <p class="hero-note">可捕捉星兽的回合制短篇 · 支持键盘与触屏</p>
     <div class="scrolldn">▼ 向下滚动 · 进入大陆 ▼</div>
   </header>
 
@@ -289,6 +321,29 @@ footer a:hover{text-decoration:underline}
         每一只生灵都拥有一页独立的「图鉴话页」：一幕可播放与拖动的动态漫画短片，附有完整物种档案。
         话页内可以切换<b>章节</b>、点亮<b>动效印章</b>，还能换上「黑白网点」或「原稿蓝图」的印刷滤镜。
       </p>
+    </div>
+  </section>
+
+  <!-- ============ 试玩入口 ============ -->
+  <section class="about rv" id="play" style="padding-top:0">
+    <div class="panel play-panel">
+      <div>
+        <span class="kicker">PLAYABLE DEMO · 8 MIN</span>
+        <h2>星兽纪</h2>
+        <p>
+          坠星之夜后的第七天，三道星痕落进旷野、苔林与晶洞。你带着第一只星兽「叮当」和五枚藤环出发，
+          把被星光搅得睡不着的孩子一只只牵回来。探索四张短地图，在回合战斗里削弱星兽、抛出藤环，
+          一路捕捉到晶洞深处。约 8 分钟，一段完整的小旅程。
+        </p>
+        <a class="btn" href="幻想大陆-星兽纪.html" data-page-title="星兽纪 · 试玩版">▶ 进入试玩 · 约 8 分钟</a>
+        <div class="play-tip">WASD / 方向键 · 空格互动 · 战斗数字键 1–6</div>
+      </div>
+      <div class="play-route" aria-label="试玩路线">
+        <div class="pr-node" style="--rc:#ffb36b"><span class="dot">🌾</span><div><b>风蚀红丘</b><span>WILD · 第一道星痕</span></div><small>星屑留声机蜗牛</small></div>
+        <div class="pr-node" style="--rc:#7ef0c9"><span class="dot">🌿</span><div><b>苔雨林</b><span>VERDANT · 第二道星痕</span></div><small>苔鳞潜沼蜥</small></div>
+        <div class="pr-node" style="--rc:#b388ff"><span class="dot">💠</span><div><b>地脉晶洞</b><span>GEODE · 最后的星痕</span></div><small>沸泉晶钟兽</small></div>
+        <div class="play-tip">探索 → 削弱 → 捕获 → 回合战斗</div>
+      </div>
     </div>
   </section>
 
