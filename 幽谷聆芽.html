@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>幽谷聆芽 · 幽域境动态图鉴 · 新增篇</title>
+<style>
+/* Layout: 幻想大陆经典动态漫画短片 + 物种档案排版体系 */
+:root{
+  --paper:#f0eee2;
+  --ink:#171227;
+  --violet:#248b8b;
+  --crystal:#b9dfd7;
+  --amber:#ff8a1f;
+  --teal:#12c2c2;
+  --white:#ffffff;
+  --chunk:"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif;
+  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  background-color:var(--paper);
+  background-image:radial-gradient(rgba(23,18,39,.10) 1.2px,transparent 1.5px);
+  background-size:12px 12px;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.65;
+  padding-inline:16px;
+  padding-block:28px 56px;
+  margin:0;
+}
+.wrap{max-width:980px;margin-inline:auto;display:flex;flex-direction:column;gap:28px}
+.head{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.kicker{
+  margin:0;background:var(--ink);color:var(--white);
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  padding:3px 10px;display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.kicker .tech-tag{color:#ffc98a;font-weight:700}
+h1{
+  margin:0;font-family:var(--chunk);font-weight:400;
+  font-size:clamp(3.4rem,13vw,6rem);line-height:1;letter-spacing:.05em;
+  color:var(--violet);
+  -webkit-text-stroke:8px var(--ink);paint-order:stroke fill;
+  text-shadow:6px 6px 0 var(--ink);
+  transform:rotate(1.5deg);transform-origin:left bottom;
+}
+.latin{margin:0;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--amber);letter-spacing:.06em}
+
+.film{display:flex;flex-direction:column;gap:16px;min-width:0}
+.stage{
+  position:relative;width:100%;aspect-ratio:16/10;
+  background:#0a0714;
+  border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);
+  overflow:hidden;cursor:crosshair;
+}
+canvas.main{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+.cap{
+  position:absolute;left:14px;top:14px;max-width:min(74%,28em);
+  background:#ffe27a;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+  padding:6px 14px;display:flex;flex-direction:column;gap:0;pointer-events:none;z-index:10;
+}
+.cap b{font-family:var(--chunk);font-weight:400;font-size:1.25rem;letter-spacing:.12em;line-height:1.3;color:#6d28d9}
+.cap span{font-size:13.5px;line-height:1.5;color:var(--ink)}
+
+.gauge{
+  position:absolute;right:14px;bottom:14px;
+  background:var(--white);border:2px solid var(--ink);padding:2px 10px;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;z-index:10;box-shadow:2px 2px 0 var(--ink);
+}
+.hud-pill{
+  position:absolute;left:14px;bottom:14px;
+  background:rgba(10,7,20,.86);border:1.5px solid rgba(255,255,255,.32);
+  padding:3px 12px;font-family:var(--mono);font-size:11px;color:#ffc98a;
+  border-radius:999px;pointer-events:none;z-index:10;
+  display:flex;align-items:center;gap:6px;
+}
+.hud-pill .dot{width:6px;height:6px;border-radius:50%;background:#ff8a1f;box-shadow:0 0 8px #ff8a1f}
+
+.ctl{display:flex;align-items:center;gap:12px;min-width:0;margin-top:2px}
+.ctl button{
+  flex:none;min-width:68px;font:inherit;font-size:14px;font-weight:700;color:var(--ink);
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:3px 3px 0 var(--ink);padding:5px 14px;cursor:pointer;transition:all .1s;
+}
+.ctl button:hover{background:#ffe27a;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.ctl button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.ctl input[type=range]{flex:1;min-width:0;accent-color:var(--violet);cursor:pointer}
+.clock{flex:none;font-family:var(--mono);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+button:focus-visible,input:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+.chapters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.chapters button{
+  font:inherit;color:var(--ink);text-align:left;cursor:pointer;
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:4px 4px 0 var(--ink);padding:0;display:flex;flex-direction:column;min-width:0;
+  transition:all .15s;
+}
+.chapters button:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.chapters canvas{display:block;width:100%;aspect-ratio:4/3;border-bottom:3px solid var(--ink);background:#0a0714}
+.chapters .lab{display:flex;align-items:baseline;gap:8px;padding:5px 10px 6px}
+.chapters .lab b{font-family:var(--chunk);font-weight:400;font-size:1.15rem;letter-spacing:.12em}
+.chapters .lab small{font-family:var(--mono);font-size:11px;font-weight:700}
+.chapters button[aria-current=true] .lab{background:#ffe27a}
+.chapters button[aria-current=true]{box-shadow:4px 4px 0 var(--violet)}
+
+.manga-control-bar{
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  background:var(--white);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+  padding:12px 16px;
+}
+.mode-selector{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mode-title{
+  font-family:var(--chunk);font-size:1.2rem;letter-spacing:.08em;
+  background:var(--ink);color:#fff;padding:2px 10px;transform:skewX(-8deg);
+}
+.stamp-btn{
+  font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em;
+  background:var(--paper);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:5px 12px;cursor:pointer;transition:all .15s;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.stamp-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);background:#ffe27a}
+.stamp-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.stamp-btn[aria-pressed=true]{background:var(--violet);color:#fff;box-shadow:3px 3px 0 var(--ink);transform:translateY(1px)}
+
+.tone-filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.filter-tag{font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em}
+.filter-btn{
+  font-family:var(--body);font-weight:700;font-size:12px;
+  border:2px solid var(--ink);background:#fff;padding:4px 10px;cursor:pointer;
+}
+.filter-btn.active{background:var(--ink);color:#fff}
+
+.guide{
+  display:flex;flex-direction:column;gap:16px;background:var(--white);
+  border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:20px 22px 18px;
+}
+.guide-header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.guide h2{margin:0;font-family:var(--chunk);font-weight:400;font-size:1.7rem;letter-spacing:.12em;line-height:1.2}
+.guide-num{font-family:var(--mono);font-size:12px;font-weight:700;color:#666}
+dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+.row{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:12px;padding:10px 0;border-top:2px dashed rgba(23,18,39,.22);align-items:start}
+dt{justify-self:start;background:#b9dfd7;border:2px solid var(--ink);padding:1px 7px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em}
+dd{margin:0;min-width:0;font-size:14px}
+.tech-spec{background:#f0eee2;border:2.5px solid var(--ink);padding:12px 16px;font-size:13.5px;line-height:1.65}
+.tech-spec b{color:#248b8b}
+.tech-spec code{font-family:var(--mono);background:#fff;border:1px solid var(--ink);padding:1px 5px;border-radius:3px}
+.note{margin:0;font-family:var(--mono);font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:8px}
+.sfxload{position:absolute;left:-9999px;top:0;font-family:var(--chunk);white-space:nowrap}
+
+.mode-monochrome{filter:grayscale(100%) contrast(150%)}
+.mode-blueprint{filter:invert(100%) hue-rotate(190deg) contrast(140%) brightness(90%)}
+
+@media (max-width:640px){
+  .stage{aspect-ratio:4/5}
+  .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  dl{grid-template-columns:1fr}
+}
+
+.cap{max-width:min(74%,32em)}.hud-pill{max-width:calc(100% - 28px);white-space:normal}.gauge{bottom:46px;font-size:11px}
+.guide-header{flex-wrap:wrap;gap:8px}.stage{touch-action:pan-y}.clock{white-space:nowrap}
+@media(max-width:640px){body{padding-inline:12px}.wrap{gap:24px}h1{font-size:clamp(2.6rem,12vw,4rem);-webkit-text-stroke:6px var(--ink);text-shadow:4px 4px 0 var(--ink)}.cap{left:9px;top:9px;max-width:82%;padding:5px 9px}.cap b{font-size:1.05rem}.cap span{font-size:11px;line-height:1.45}.hud-pill{left:8px;bottom:9px;font-size:9px;padding:3px 7px;max-width:calc(100% - 16px)}.gauge{right:9px;bottom:42px;font-size:9px;padding:2px 6px}.ctl{gap:8px}.ctl button{padding:5px 10px;min-width:58px}.clock{font-size:10px}.guide{padding:16px 14px}.guide-num{font-size:10px}.row{gap:8px}.stamp-btn{font-size:1rem}.mode-selector{gap:8px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style></head><body><main class="wrap" id="mainWrap">
+<header class="head"><p class="kicker"><span>幽域境图鉴 · 新增篇 · 虚构物种</span><span class="tech-tag">叶孔听音 · 静候回声</span></p><h1>幽谷聆芽</h1><p class="latin">Vallidenta auscultans</p></header>
+<section class="film" aria-label="幽谷聆芽动态漫画短片"><div class="stage" id="stageFrame"><canvas class="main" id="c" role="img" aria-label="蓝绿叶孔安静接收虫声与岩壁回声，藏在叶间的白唇转向来源捕食。"></canvas><div class="cap"><b id="capName"></b><span id="capText"></span></div><div class="gauge" id="gauge"></div><div class="hud-pill"><span class="dot"></span><span>轻点岩壁制造外来回声 · 划过扬起幽尘</span></div></div>
+<div class="ctl"><button id="play" type="button">暂停</button><input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="播放进度"><span class="clock" id="clock">00:00 / 00:25</span></div><nav class="chapters" id="chapters" aria-label="章节"></nav></section>
+<footer class="manga-control-bar"><div class="mode-selector"><span class="mode-title">生体指令印章</span><button class="stamp-btn" id="btnStamp0" aria-pressed="true">静听</button><button class="stamp-btn" id="btnStamp1" aria-pressed="false">辨声</button><button class="stamp-btn" id="btnStamp2" aria-pressed="false">转颚</button><button class="stamp-btn" id="btnStamp3" aria-pressed="false">收叶</button></div><div class="tone-filters"><span class="filter-tag">连载印装：</span><button class="filter-btn active" id="fltColor">卷首全彩</button><button class="filter-btn" id="fltMono">黑白网点</button><button class="filter-btn" id="fltBlue">原稿蓝图</button></div></footer>
+<section class="guide" aria-label="物种百科档案"><div class="guide-header"><h2>物种档案</h2><span class="guide-num">VALL-NEW-SPEC</span></div><dl><div class="row"><dt>体长</dt><dd>叶冠高 0.62 米，展开宽 0.92 米；白唇捕食嘴长 0.24 米。</dd></div><div class="row"><dt>栖息</dt><dd>幽域境无光峡谷的矿质湿土，常扎根在距离反射岩壁 1–3 米处。</dd></div><div class="row"><dt>叶片</dt><dd>6–8 枚蓝绿色厚叶环绕中心，叶背深青，中央折脊可带动叶面转向。</dd></div><div class="row"><dt>听孔</dt><dd>每枚叶片有 3–5 个听音孔，由薄膜比较外来声音抵达的时间差，无外耳。</dd></div><div class="row"><dt>白唇</dt><dd>捕蝇草式双瓣嘴藏在叶丛中，嘴边为乳白色；柔齿交错闭合，非血腥。</dd></div><div class="row"><dt>辨声</dt><dd>被动接收其他生灵的声响及岩壁反射回声；不会主动发声进行声呐定位。</dd></div><div class="row"><dt>食性</dt><dd>杂食：小虫、能量碎屑、漂游幽光与落入叶丛的有机碎末。</dd></div><div class="row"><dt>习性</dt><dd>久立静听，确认来源才转动捕食嘴；闭嘴轻响只是动作声，不用于定位。</dd></div></dl><div class="tech-spec">✦ <b>生态交互手记：</b>轻点岩壁会产生来自点击处的声音及反射路径，叶孔依次响应，嘴只转向这一次外来声源。划过画面只扬起幽尘。正常分镜中的声波始终从小虫出发，经岩壁折返；植物不会自己发出定位波。</div><p class="note">图中声线路径是图鉴师的可视记录；聆芽始终被动听取外界。 物种与拉丁学名均为虚构；新增篇不占既有话数。</p></section><span class="sfxload" aria-hidden="true">沙簌汩啵咔嗒呼—</span></main>
+<script>
+(function(){'use strict';
+const DATA={"name": "幽谷聆芽", "latin": "Vallidenta auscultans", "realm": "幽域境", "realmkey": "deep", "code": "VALL-NEW-SPEC", "color": "#248b8b", "light": "#b9dfd7", "paper": "#f0eee2", "emoji": "◈", "tag": "叶孔听音 · 静候回声", "hud": "轻点岩壁制造外来回声 · 划过扬起幽尘", "stamps": ["静听", "辨声", "转颚", "收叶"], "scenes": [{"t": 0, "key": 3, "name": "叶间静候", "text": "蓝绿叶片藏住白色嘴边，叶面听音孔安静地朝向幽谷。"}, {"t": 6, "key": 8.5, "name": "借壁辨声", "text": "小虫振翅声先抵达叶孔，再由岩壁折返；它比较先后，辨认来处。"}, {"t": 12, "key": 15, "name": "循声转颚", "text": "藏在叶间的捕食嘴转向声源，白唇张开，等待猎物靠近。"}, {"t": 19, "key": 21.8, "name": "轻合归寂", "text": "白唇轻合，收下小虫与能量碎屑；蓝绿叶片重新覆拢，谷中归于安静。"}], "rows": [["体长", "叶冠高 0.62 米，展开宽 0.92 米；白唇捕食嘴长 0.24 米。"], ["栖息", "幽域境无光峡谷的矿质湿土，常扎根在距离反射岩壁 1–3 米处。"], ["叶片", "6–8 枚蓝绿色厚叶环绕中心，叶背深青，中央折脊可带动叶面转向。"], ["听孔", "每枚叶片有 3–5 个听音孔，由薄膜比较外来声音抵达的时间差，无外耳。"], ["白唇", "捕蝇草式双瓣嘴藏在叶丛中，嘴边为乳白色；柔齿交错闭合，非血腥。"], ["辨声", "被动接收其他生灵的声响及岩壁反射回声；不会主动发声进行声呐定位。"], ["食性", "杂食：小虫、能量碎屑、漂游幽光与落入叶丛的有机碎末。"], ["习性", "久立静听，确认来源才转动捕食嘴；闭嘴轻响只是动作声，不用于定位。"]], "tech": "轻点岩壁会产生来自点击处的声音及反射路径，叶孔依次响应，嘴只转向这一次外来声源。划过画面只扬起幽尘。正常分镜中的声波始终从小虫出发，经岩壁折返；植物不会自己发出定位波。", "note": "图中声线路径是图鉴师的可视记录；聆芽始终被动听取外界。", "desc": "蓝绿叶孔安静接收虫声与岩壁回声，藏在叶间的白唇转向来源捕食。"};
+const DUR=25,INK='#171c23',SFXFONT='"Noto Sans SC","Microsoft YaHei",sans-serif',scenes=DATA.scenes;
+const cv=document.getElementById('c'),mctx=cv.getContext('2d');let ctx=mctx,W=800,H=500,dpr=1;
+let playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,t=0,last=0,loops=0,sceneIdx=-1;
+let wind=0,reaction=0,effectClock=0,pulses=[],lastPX=null;
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),lerp=(a,b,k)=>a+(b-a)*k,frac=v=>v-Math.floor(v);
+const sm=(a,b,v)=>{const k=clamp((v-a)/(b-a));return k*k*(3-2*k);};
+const popv=(v,a,b)=>sm(a,a+.3,v)*(1-sm(b-.3,b,v));
+const hash=n=>frac(Math.sin(n*127.1+311.7)*43758.5453123);
+function path(points,fill,stroke=INK,lw=2){ctx.beginPath();points(ctx);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke();}}
+function oval(x,y,rx,ry,fill,stroke=INK,lw=2,rot=0){ctx.beginPath();ctx.ellipse(x,y,rx,ry,rot,0,Math.PI*2);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.lineWidth=lw;ctx.strokeStyle=stroke;ctx.stroke();}}
+function line(x,y,xx,yy,color=INK,lw=2){ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(xx,yy);ctx.strokeStyle=color;ctx.lineWidth=lw;ctx.stroke();}
+function glow(x,y,r,color,alpha=.3){ctx.save();ctx.globalAlpha=alpha;const g=ctx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,color);g.addColorStop(1,color+'00');ctx.fillStyle=g;ctx.fillRect(x-r,y-r,r*2,r*2);ctx.restore();}
+function sfx(txt,x,y,size,rot,fill,pop=1){if(pop<=0)return;ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(pop,pop);ctx.font='900 '+size+'px '+SFXFONT;ctx.textAlign='center';ctx.lineJoin='round';ctx.lineWidth=Math.max(3,size*.12);ctx.strokeStyle=INK;ctx.strokeText(txt,0,0);ctx.fillStyle=fill;ctx.fillText(txt,0,0);ctx.restore();}
+function label(txt,x,y,color='#eee6c5',size=11){ctx.save();ctx.font='700 '+size+'px sans-serif';ctx.fillStyle=color;ctx.fillText(txt,x,y);ctx.restore();}
+function grain(floor,color,seed=1){ctx.save();ctx.fillStyle=color;for(let i=0;i<110;i++){let x=hash(i+seed)*W,y=floor+hash(i+seed+711)*(H-floor);ctx.globalAlpha=.15+hash(i+21)*.2;ctx.fillRect(x,y,1+hash(i+99)*2,1+hash(i+28)*2);}ctx.restore();}
+function insect(x,y,tt,size=1,color='#efce89'){ctx.save();ctx.translate(x,y);ctx.scale(size,size);oval(-4,-5,7,3,'#f6edccaa',null,1,Math.sin(tt*38)*.7);oval(4,-5,7,3,'#f6edccaa',null,1,-Math.sin(tt*38)*.7);oval(0,0,4,7,color,INK,1.5);line(0,-4,0,5,INK,1);line(-2,-6,-5,-10);line(2,-6,5,-10);ctx.restore();}
+function dust(tt,color){for(let i=0;i<26;i++){const x=frac(hash(i+51)+tt*(.004+hash(i)*.005)+wind*.003)*W,y=(.18+hash(i+81)*.62)*H+Math.sin(tt*.8+i)*7;oval(x,y,1+hash(i)*1.5,1+hash(i)*1.5,color,null);}}
+function waterDrop(x,y,r,color){path(c=>{c.moveTo(x,y-r*1.6);c.bezierCurveTo(x-r*1.2,y,x-r,y+r,x,y+r);c.bezierCurveTo(x+r,y+r,x+r*1.2,y,x,y-r*1.6);},color,INK,1.2);}
+function finish(tt,live){if(live&&tt>24.3){ctx.fillStyle='rgba(18,21,25,'+(sm(24.3,25,tt)*.65)+')';ctx.fillRect(0,0,W,H);}}
+function draw(tt){ctx=mctx;scene(tt,true);}
+function valleyPose(tt){const s=Math.min(W/505,H/390),x=W*.46,y=H*.78,listen=sm(6,8,tt),turn=sm(11.8,14.5,tt),snap=sm(19,20.2,tt),rest=sm(22.2,24.5,tt),open=lerp(.07,.92,turn)*(1-snap)+.12*snap*(1-rest);return {s,x,y,listen,turn,snap,rest,open};}
+function geometry(tt){const p=valleyPose(tt);return {kind:'passive-listening-plant',bounds:[p.x-145*p.s,p.y-196*p.s,p.x+145*p.s,p.y+12*p.s],holes:24,externalEars:0,source:[W*.79,H*.41],activeSonar:false,mouthOpen:p.open};}
+function valleyLeaf(x,y,len,width,angle,idx,tt){ctx.save();ctx.translate(x,y);ctx.rotate(angle+Math.sin(tt*.7+idx)*.025);path(c=>{c.moveTo(0,0);c.bezierCurveTo(-width,-len*.3,-width*.8,-len*.8,0,-len);c.bezierCurveTo(width*.9,-len*.83,width,-len*.3,0,0);},idx%2?'#397e78':'#4d9990',INK,3);path(c=>{c.moveTo(0,0);c.quadraticCurveTo(7,-len*.45,0,-len*.94);},null,'#a4d4bb',1.7);
+ for(let j=0;j<4;j++){let hy=-len*(.29+j*.145),hx=(j%2?1:-1)*width*.22;oval(hx,hy,4.7,7,'#112f39','#b1d8c2',1.8,-.15);const lit=popv(tt,6.6+j*.34+idx*.09,8.1+j*.34+idx*.09)+popv(tt,9.3+j*.16,10+j*.16);if(lit>0){ctx.save();ctx.globalAlpha=lit*.7;oval(hx,hy,7.5,10,null,'#c1efb0',1.5);ctx.restore();}line(hx>0?-2:2,hy+8,hx>0?-width*.62:width*.62,hy+4,'#286762',1);}
+ ctx.restore();}
+function drawValley(ctx,tt,p){
+ // All ears are perforations IN the leaves; the foliage carries the sensory structure.
+ for(let i=0;i<6;i++)valleyLeaf((i-2.5)*10,-3,148+(i%3)*14,25+hash(i)*5,(i-2.5)*.37,i,tt);
+ path(c=>{c.moveTo(-9,0);c.bezierCurveTo(-15,-40,13,-70,3,-109);},null,INK,14);path(c=>{c.moveTo(-9,0);c.bezierCurveTo(-15,-40,13,-70,3,-109);},null,'#6fada0',8);
+ let aim=-.20*p.turn*(1-p.rest);const latest=pulses.at(-1);if(latest&&reaction>0)aim=clamp((latest.x-.46)*.9,-.5,.5)*reaction;
+ ctx.save();ctx.translate(7,-106);ctx.rotate(aim);
+ // The white-rimmed twin jaws open as a living trap, then close with a tiny, harmless snap.
+ for(let side of [-1,1]){ctx.save();ctx.rotate(side*p.open*.56);ctx.scale(1,side);path(c=>{c.moveTo(-49,0);c.bezierCurveTo(-59,-24,-28,-49,8,-40);c.bezierCurveTo(45,-40,66,-22,53,0);c.quadraticCurveTo(0,12,-49,0);},'#318f89',INK,3.4);
+ path(c=>{c.moveTo(-48,-1);c.quadraticCurveTo(0,11,52,-1);},null,'#faf6df',7);
+ path(c=>{c.moveTo(-43,-7);c.quadraticCurveTo(0,0,47,-7);},null,'#202f36',2);
+ for(let j=0;j<9;j++){let xx=-42+j*10.5;path(c=>{c.moveTo(xx-3,0);c.lineTo(xx+1,12+(j%2)*3);c.lineTo(xx+4,0);c.closePath();},'#fff8df',INK,1.2);}
+ for(let j=0;j<5;j++)line(-34+j*16,-10,-27+j*16,-24,'#80b9a7',1.2);ctx.restore();}
+ if(p.open>.2){oval(3,1,29,5,'#20242e',null);}
+ ctx.restore();
+ // Low front leaves conceal the trap hinge without hiding the white lip.
+ const cover=1-p.turn*(1-p.rest);valleyLeaf(-17,1,103+cover*34,28,-.94+cover*.47,7,tt);valleyLeaf(20,3,98+cover*35,28,1.02-cover*.49,8,tt);
+ for(let j=0;j<7;j++){let x=(j-3)*8;path(c=>{c.moveTo(x,0);c.quadraticCurveTo(x*2,10,x*2.7,7+hash(j)*9);},null,'#6fa393',2);}
+}
+function soundPath(points,progress,color='#cbe2b6',alpha=1){ctx.save();ctx.globalAlpha=alpha;ctx.setLineDash([4,7]);ctx.beginPath();ctx.moveTo(...points[0]);for(let i=1;i<points.length;i++)ctx.lineTo(...points[i]);ctx.strokeStyle=color;ctx.lineWidth=1.4;ctx.stroke();ctx.setLineDash([]);
+ const lengths=points.slice(1).map((p,i)=>Math.hypot(p[0]-points[i][0],p[1]-points[i][1])),total=lengths.reduce((a,b)=>a+b,0);
+ for(let n=0;n<3;n++){let distance=frac(progress+n/3)*total;for(let i=0;i<lengths.length;i++){if(distance<=lengths[i]){const q=distance/lengths[i],x=lerp(points[i][0],points[i+1][0],q),y=lerp(points[i][1],points[i+1][1],q);oval(x,y,3,3,color,null);break;}distance-=lengths[i];}}ctx.restore();}
+function scene(tt,live){
+ const p=valleyPose(tt),bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#102830');bg.addColorStop(.5,'#1d4547');bg.addColorStop(1,'#111d2a');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+ // Angular cave walls give the incoming sound an unambiguous reflecting surface.
+ for(let side of [-1,1]){ctx.save();if(side===1){ctx.translate(W,0);ctx.scale(-1,1);}path(c=>{c.moveTo(0,0);c.lineTo(W*.22,0);c.lineTo(W*.15,H*.2);c.lineTo(W*.21,H*.41);c.lineTo(W*.13,H*.64);c.lineTo(W*.18,H);c.lineTo(0,H);c.closePath();},'#263f43','#0d202b',3);for(let i=0;i<9;i++){let yy=i*H/9;line(W*.035,yy,W*(.11+hash(i)*.04),yy+H*.07,'#73928844',1.4);}ctx.restore();}
+ for(let i=0;i<12;i++){let xx=hash(i+5)*W;path(c=>{c.moveTo(xx,0);c.lineTo(xx+10,0);c.lineTo(xx+4,H*(.05+hash(i+14)*.12));c.closePath();},'#233e46',INK,1.5);}
+ const floor=H*.79;path(c=>{c.moveTo(0,floor+12);c.quadraticCurveTo(W*.55,floor-18,W,floor+5);c.lineTo(W,H);c.lineTo(0,H);c.closePath();},'#365752',INK,2);grain(floor,'#94a98e',55);
+ for(let i=0;i<12;i++){let xx=hash(i+50)*W,yy=floor+hash(i+23)*H*.07;oval(xx,yy,6+hash(i)*12,3+hash(i)*4,'#587667',INK,1);}
+ glow(p.x,p.y-70*p.s,155*p.s,'#67b8a4',.18);oval(p.x,p.y+4*p.s,125*p.s,13*p.s,'#0b272d77',null);
+ let bugX=W*.79+Math.sin(tt*1.1)*W*.014,bugY=H*.41+Math.sin(tt*2)*H*.02;const catchP=sm(17.6,19.55,tt);bugX=lerp(bugX,p.x+25*p.s,catchP);bugY=lerp(bugY,p.y-106*p.s,catchP);
+ if(tt<19.6){insect(bugX,bugY,tt,Math.max(.6,p.s*.7),'#e9c992');if(tt>5.8&&tt<12.4){const a=popv(tt,5.8,12.4);for(let k=0;k<3;k++){const rr=(frac(tt*.65-k*.25)*26+5)*p.s;ctx.save();ctx.globalAlpha=(1-(rr/p.s-5)/26)*a;ctx.beginPath();ctx.arc(bugX,bugY,rr,2.5,4);ctx.strokeStyle='#e3dda4';ctx.lineWidth=1.4;ctx.stroke();ctx.restore();}
+ const ear=[p.x+19*p.s,p.y-120*p.s],wall=[W*.84,H*.29];soundPath([[bugX,bugY],ear],tt*.7,'#f1e0a7',a*.65);soundPath([[bugX,bugY],wall,ear],tt*.45-.3,'#89ccce',a*.8);if(W>500){label('虫翼声',W*.78,H*.35,'#eddaa8',11);label('岩壁反射',W*.70,H*.25,'#a9d5ce',11);}}
+ }
+ for(const pulse of pulses){const age=effectClock-pulse.born;if(age<3){const source=[pulse.x*W,pulse.y*H],wall=[pulse.x>.5?W*.85:W*.15,H*.28],ear=[p.x,p.y-100*p.s];soundPath([source,wall,ear],age*.45,'#cce5bb',(1-age/3)*.8);ctx.save();ctx.globalAlpha=1-age/3;oval(source[0],source[1],(7+age*15),7+age*15,null,'#cce5bb',1);ctx.restore();}}
+ ctx.save();ctx.translate(p.x,p.y);ctx.scale(p.s,p.s);drawValley(ctx,tt,p);ctx.restore();
+ // Energy scraps and little wisps are food as well, with no violent detail.
+ for(let i=0;i<4;i++){let xx=W*(.65+hash(i+6)*.17),yy=H*(.52+hash(i+8)*.09)+Math.sin(tt+i)*6;const pull=sm(18,20.4,tt);xx=lerp(xx,p.x+20*p.s,pull);yy=lerp(yy,p.y-105*p.s,pull);if(tt<20.4){ctx.save();ctx.translate(xx,yy);ctx.rotate(tt*.4+i);path(c=>{c.moveTo(0,-3*p.s);c.lineTo(3*p.s,0);c.lineTo(0,3*p.s);c.lineTo(-3*p.s,0);c.closePath();},'#acdcd2',null);ctx.restore();}}
+ dust(tt,'#a4d4ba80');if(W>500)label('被动听音记录 / 外来声 → 岩壁 → 叶孔',W*.06,H*.92,'#bdcec0',11);
+ sfx(tt<6?'静…':tt<12?'嗡…':tt<19?'…':'咔嗒',W*.73,H*.64,Math.max(14,W*.036),.08,'#d2ead4',popv(tt,1,5)+popv(tt,6.3,11.5)+popv(tt,13,17.5)+popv(tt,19.4,22));finish(tt,live);
+}
+function gauge(tt){return tt<6?'叶孔开放 · 被动静听':tt<12?'外来虫声 → 岩壁反射':tt<19?'来源已辨 · 白唇转向':'轻合取食 · 再次静候';}
+const elPlay=document.getElementById('play'),elSeek=document.getElementById('seek'),elClock=document.getElementById('clock'),elGauge=document.getElementById('gauge'),elName=document.getElementById('capName'),elText=document.getElementById('capText'),elCh=document.getElementById('chapters'),stageFrame=document.getElementById('stageFrame'),mainWrap=document.getElementById('mainWrap');
+const chBtns=[],thumbs=[],stampBtns=scenes.map((_,i)=>document.getElementById('btnStamp'+i));
+const fmt=v=>'00:'+String(Math.floor(v)).padStart(2,'0');
+function seek(v){t=clamp(Number(v)||0,0,24.99);draw(t);ui();}
+scenes.forEach((sc,idx)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',sc.name+'，'+fmt(sc.t));b.innerHTML='<canvas aria-hidden="true"></canvas><span class="lab"><b>'+sc.name+'</b><small>'+fmt(sc.t)+'</small></span>';b.addEventListener('click',()=>seek(sc.t));elCh.appendChild(b);chBtns.push(b);thumbs.push(b.querySelector('canvas'));});
+function renderThumbs(){const sW=W,sH=H,sCtx=ctx;thumbs.forEach((el,n)=>{const r=el.getBoundingClientRect();if(!r.width||!r.height)return;const d=Math.min(devicePixelRatio||1,2);el.width=Math.round(r.width*d);el.height=Math.round(r.height*d);const c=el.getContext('2d');c.setTransform(d,0,0,d,0,0);W=r.width;H=r.height;ctx=c;scene(scenes[n].key,false);});W=sW;H=sH;ctx=sCtx;}
+function updateStamps(idx){stampBtns.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===idx)));}
+stampBtns.forEach((b,i)=>b.addEventListener('click',()=>seek(scenes[i].t)));
+const fltBtns=['fltColor','fltMono','fltBlue'].map(id=>document.getElementById(id));
+fltBtns.forEach((b,i)=>b.addEventListener('click',()=>{mainWrap.classList.remove('mode-monochrome','mode-blueprint');if(i)mainWrap.classList.add(i===1?'mode-monochrome':'mode-blueprint');fltBtns.forEach((x,n)=>{x.classList.toggle('active',n===i);x.setAttribute('aria-pressed',String(n===i));});}));
+function ui(){let idx=0;scenes.forEach((sc,i)=>{if(t>=sc.t)idx=i;});if(idx!==sceneIdx){sceneIdx=idx;elName.textContent=scenes[idx].name;elText.textContent=scenes[idx].text;chBtns.forEach((b,n)=>b.setAttribute('aria-current',String(n===idx)));updateStamps(idx);}elSeek.value=t;elClock.textContent=fmt(t)+' / 00:25';elPlay.textContent=playing?'暂停':'播放';elPlay.setAttribute('aria-label',playing?'暂停动画':'播放动画');elGauge.textContent=gauge(t);}
+elPlay.addEventListener('click',()=>{playing=!playing;last=performance.now();ui();});elSeek.addEventListener('input',()=>seek(elSeek.value));
+stageFrame.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect(),px=e.clientX-r.left;wind=clamp((lastPX===null?0:px-lastPX)/5,-3,3);lastPX=px;draw(t);});
+stageFrame.addEventListener('pointerleave',()=>{lastPX=null;wind=0;});
+stageFrame.addEventListener('pointerdown',e=>{const r=cv.getBoundingClientRect();const px=(e.clientX-r.left)/W,py=(e.clientY-r.top)/H;reaction=1;pulses.push({x:px,y:py,born:effectClock});if(pulses.length>4)pulses.shift();draw(t);});
+function fit(){const r=cv.getBoundingClientRect();if(!r.width||!r.height)return;dpr=Math.min(devicePixelRatio||1,2);cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);W=r.width;H=r.height;mctx.setTransform(dpr,0,0,dpr,0,0);draw(t);renderThumbs();}
+if(window.ResizeObserver)new ResizeObserver(fit).observe(cv);window.addEventListener('resize',fit);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&window.parent!==window){window.parent.postMessage({type:'fantasia:close'},'*');return;}if(/INPUT|BUTTON/.test(e.target.tagName))return;if(e.code==='Space'){e.preventDefault();elPlay.click();}if(e.key==='ArrowRight')seek(t+1);if(e.key==='ArrowLeft')seek(t-1);});
+function frame(now){const dt=Math.min(.1,Math.max(0,(now-last)/1000));last=now;if(!document.hidden){effectClock+=dt;reaction=Math.max(0,reaction-dt*.7);wind*=Math.pow(.1,dt);pulses=pulses.filter(p=>effectClock-p.born<4);if(playing){t+=dt;if(t>=DUR){t-=DUR;loops++;}draw(t);ui();}else if(reaction>0||Math.abs(wind)>.02||pulses.length)draw(t);}requestAnimationFrame(frame);}
+window.__codex={seek,pause(){playing=false;ui();},play(){playing=true;last=performance.now();ui();},state(){return {t,playing,sceneIdx,wind,reaction,geometry:geometry(t),pulses:pulses.map(p=>({...p}))};},render(){draw(t);},DUR};
+const qs=new URLSearchParams(location.search);if(qs.has('t'))t=clamp(Number(qs.get('t'))||0,0,24.99);if(qs.has('paused'))playing=false;
+fit();ui();last=performance.now();requestAnimationFrame(frame);
+
+})();
+</script></body></html>
