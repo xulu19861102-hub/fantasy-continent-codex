@@ -1,610 +1,1267 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#f5f8fc;color:#101d2c}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>浮光天海鲵</title>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>浮光天海鲵 · 全境生灵图鉴 · 第 4 话</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;600;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
 <style>
-/* Layout: comic page. Tag line and outlined title, one big panel that plays, four small panels that jump to a chapter, then a boxed field guide. Single light look, committed on purpose. */
-:root{
-  --paper:#eef5fc;
-  --ink:#102236;
-  --sun:#ffbc26;
-  --coral:#ff597b;
-  --sky:#48b5ff;
-  --mint:#36cfa6;
-  --white:#ffffff;
-  --chunk:"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif;
-  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-  color-scheme:light;
+:root {
+  --bg-dark: #070d18;
+  --ink: #0d1526;
+  --gold: #ffe77d;
+  --cyan: #48b5ff;
+  --coral: #ff597b;
+  --mint: #36cfa6;
+  --white: #f8fafc;
+  --chunk: "ZCOOL QingKe HuangYou", "Noto Sans SC", sans-serif;
+  --body: "Noto Sans SC", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
 }
-*{box-sizing:border-box}
-body{
-  background-color:var(--paper);
-  background-image:radial-gradient(rgba(16,34,54,.09) 1.3px,transparent 1.6px);
-  background-size:12px 12px;
-  color:var(--ink);
-  font-family:var(--body);
-  font-size:15px;
-  line-height:1.65;
-  padding-inline:16px;
-  padding-block:28px 56px;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  scroll-behavior: smooth;
 }
-.wrap{max-width:980px;margin-inline:auto;display:flex;flex-direction:column;gap:32px}
-.head{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
-.kicker{margin:0;background:var(--ink);color:var(--white);font-family:var(--mono);font-size:12px;letter-spacing:.14em;padding:3px 10px}
-h1{
-  margin:0;font-family:var(--chunk);font-weight:400;
-  font-size:clamp(3.6rem,14vw,6.4rem);line-height:1;letter-spacing:.05em;
-  color:var(--sun);
-  -webkit-text-stroke:8px var(--ink);paint-order:stroke fill;
-  text-shadow:6px 6px 0 var(--ink);
-  transform:rotate(-1.5deg);transform-origin:left bottom;
-}
-.latin{margin:0;font-family:var(--mono);font-size:14px;font-weight:500;color:var(--coral);letter-spacing:.06em}
-
-.film{display:flex;flex-direction:column;gap:18px;min-width:0}
-.stage{
-  position:relative;width:100%;aspect-ratio:16/10;
-  background:var(--sky);
-  border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);
-}
-canvas.main{position:absolute;inset:0;width:100%;height:100%;display:block}
-.cap{
-  position:absolute;left:12px;top:12px;max-width:min(72%,26em);
-  background:#ffe77d;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
-  padding:6px 12px;display:flex;flex-direction:column;gap:0;pointer-events:none;
-}
-.cap b{font-family:var(--chunk);font-weight:400;font-size:1.2rem;letter-spacing:.14em;line-height:1.3}
-.cap span{font-size:13.5px;line-height:1.5}
-.gauge{
-  position:absolute;right:12px;bottom:12px;
-  background:var(--white);border:2px solid var(--ink);padding:1px 8px;
-  font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.06em;
-  font-variant-numeric:tabular-nums;
+body {
+  background: var(--bg-dark);
+  color: var(--white);
+  font-family: var(--body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  user-select: none;
 }
 
-.ctl{display:flex;align-items:center;gap:12px;min-width:0;margin-top:2px}
-.ctl button{
-  flex:none;min-width:68px;
-  font:inherit;font-size:14px;font-weight:500;color:var(--ink);
-  background:var(--white);border:3px solid var(--ink);border-radius:0;
-  box-shadow:3px 3px 0 var(--ink);padding:4px 12px;cursor:pointer;
+/* 背景固定全屏 Canvas 画布 */
+canvas#artboard {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  z-index: 1;
 }
-.ctl button:hover{background:#ffe77d}
-.ctl button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
-.ctl input[type=range]{flex:1;min-width:0;accent-color:var(--coral)}
-.clock{flex:none;font-family:var(--mono);font-size:12px;font-weight:500;font-variant-numeric:tabular-nums}
-button:focus-visible,input:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
 
-.chapters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.chapters button{
-  font:inherit;color:var(--ink);text-align:left;cursor:pointer;
-  background:var(--white);border:3px solid var(--ink);border-radius:0;
-  box-shadow:4px 4px 0 var(--ink);padding:0;display:flex;flex-direction:column;min-width:0;
+/* 页面滚动主层 */
+.page-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
 }
-.chapters button:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
-.chapters canvas{display:block;width:100%;aspect-ratio:4/3;border-bottom:3px solid var(--ink);background:var(--sky)}
-.chapters .lab{display:flex;align-items:baseline;gap:8px;padding:4px 10px 5px}
-.chapters .lab b{font-family:var(--chunk);font-weight:400;font-size:1.1rem;letter-spacing:.12em}
-.chapters .lab small{font-family:var(--mono);font-size:11px;font-weight:500}
-.chapters button[aria-current=true] .lab{background:#ffe77d}
-.chapters button[aria-current=true]{box-shadow:4px 4px 0 var(--coral)}
 
-.guide{display:flex;flex-direction:column;gap:16px;background:var(--white);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:18px 18px 16px}
-.guide h2{margin:0;font-family:var(--chunk);font-weight:400;font-size:1.6rem;letter-spacing:.14em;line-height:1.2}
-dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
-.row{display:grid;grid-template-columns:4.2em minmax(0,1fr);gap:12px;padding:10px 0;border-top:2px dashed rgba(16,34,54,.3);align-items:start}
-dt{justify-self:start;background:#bce9d7;border:2px solid var(--ink);padding:0 6px;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.08em}
-dd{margin:0;min-width:0}
-.note{margin:0;font-family:var(--mono);font-size:12px}
-.sfxload{position:absolute;left:-9999px;top:0;font-family:var(--chunk);white-space:nowrap}
+/* ================= 1. 首屏全屏沉浸大舞台 ================= */
+.hero-screen {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: calc(20px + env(safe-area-inset-top, 0px)) 28px calc(24px + env(safe-area-inset-bottom, 0px));
+  pointer-events: none;
+}
+.header-box {
+  pointer-events: auto;
+  background: rgba(13, 21, 38, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 2px solid rgba(72, 181, 255, 0.4);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 20px rgba(72, 181, 255, 0.2);
+  border-radius: 14px;
+  padding: 16px 22px;
+  max-width: 520px;
+}
+.badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  background: rgba(255, 231, 125, 0.15);
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+.badge.sub {
+  color: var(--cyan);
+  background: rgba(72, 181, 255, 0.12);
+  border-color: rgba(72, 181, 255, 0.6);
+}
+.badge-link {
+  font-family: var(--body);
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--cyan), var(--coral));
+  border: none;
+  border-radius: 4px;
+  padding: 2px 10px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.2s;
+}
+.badge-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(72, 181, 255, 0.6);
+}
+h1 {
+  font-family: var(--chunk);
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  letter-spacing: 0.08em;
+  color: #fff;
+  line-height: 1.15;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+h1 span.latin {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--cyan);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+p.hero-desc {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-top: 8px;
+}
 
-@media (max-width:640px){
-  .stage{aspect-ratio:4/5}
-  .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
-  dl{grid-template-columns:1fr}
+/* 底部操作与向下滑动引导 */
+.hero-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.toolbar {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(13, 21, 38, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 7px 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 95vw;
+}
+.tool-group {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.tool-label {
+  font-family: var(--chunk);
+  font-size: 1.05rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  margin-right: 2px;
+}
+.btn {
+  font-family: var(--body);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 5px 13px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.btn:hover {
+  background: rgba(72, 181, 255, 0.25);
+  border-color: var(--cyan);
+  transform: translateY(-2px);
+}
+.btn.active {
+  background: linear-gradient(135deg, var(--cyan), var(--coral));
+  border-color: #fff;
+  color: #fff;
+  box-shadow: 0 0 14px rgba(72, 181, 255, 0.5);
+}
+.divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.scroll-hint {
+  pointer-events: auto;
+  font-family: var(--chunk);
+  font-size: 1.15rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  background: rgba(13, 21, 38, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 231, 125, 0.4);
+  border-radius: 999px;
+  padding: 6px 20px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  transition: all 0.2s;
+  animation: floatDown 2s infinite ease-in-out;
+}
+.scroll-hint:hover {
+  background: rgba(255, 231, 125, 0.2);
+  transform: translateY(2px);
+}
+@keyframes floatDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+.tips {
+  position: absolute;
+  right: 28px;
+  bottom: 24px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: right;
+  line-height: 1.5;
+  background: rgba(13, 21, 38, 0.6);
+  padding: 6px 12px;
+  border-radius: 6px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+
+/* ================= 2. 详细文字版图鉴内容区 ================= */
+.content-section {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 50px 24px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  pointer-events: auto;
+}
+
+/* 玻璃拟态卡片通用样式 */
+.glass-panel {
+  background: rgba(13, 21, 38, 0.86);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2px solid rgba(72, 181, 255, 0.35);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(72, 181, 255, 0.15);
+  padding: 28px 32px;
+  user-select: text;
+}
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+.panel-title {
+  font-family: var(--chunk);
+  font-size: 1.85rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.panel-sub {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+}
+
+/* 核心档案参数网格 */
+dl.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 32px;
+  margin: 0;
+}
+.archive-item {
+  display: grid;
+  grid-template-columns: 68px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+}
+.archive-item dt {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: #04060d;
+  background: linear-gradient(135deg, var(--gold), #ffbc26);
+  border-radius: 6px;
+  text-align: center;
+  padding: 3px 6px;
+  letter-spacing: 0.06em;
+}
+.archive-item dd {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #e2e8f0;
+}
+
+/* 四境巡游故事分镜 */
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.story-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.story-card:hover {
+  background: rgba(72, 181, 255, 0.12);
+  border-color: var(--cyan);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(72, 181, 255, 0.25);
+}
+.story-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.story-badge {
+  font-family: var(--chunk);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.story-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--gold);
+  background: rgba(255, 231, 125, 0.15);
+  border: 1px solid rgba(255, 231, 125, 0.4);
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+.story-desc {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #cbd5e1;
+}
+
+/* 解剖生理特征图文卡 */
+.anatomy-features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.feature-box {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(72, 181, 255, 0.2);
+  border-radius: 10px;
+  padding: 18px;
+}
+.feature-box h3 {
+  font-family: var(--chunk);
+  font-size: 1.25rem;
+  color: var(--cyan);
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.feature-box p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #cbd5e1;
+}
+
+/* 观察员笔记 */
+.field-notes {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #cbd5e1;
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 4px solid var(--gold);
+  padding: 16px 20px;
+  border-radius: 0 10px 10px 0;
+}
+.field-notes b {
+  color: var(--gold);
+}
+
+/* 页面底部返回栏 */
+.footer-bar {
+  text-align: center;
+  padding-top: 10px;
+}
+.btn-top {
+  font-family: var(--chunk);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  background: rgba(13, 21, 38, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 8px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-top:hover {
+  background: var(--gold);
+  color: #04060d;
+  border-color: var(--gold);
+}
+
+/* 滤镜增强 */
+body.mode-blueprint {
+  filter: invert(95%) hue-rotate(190deg) contrast(140%) brightness(95%);
+}
+body.mode-manga {
+  filter: grayscale(100%) contrast(160%);
+}
+
+@media (max-width: 768px) {
+  .hero-screen { padding: 16px; }
+  .header-box { max-width: 100%; padding: 14px 18px; }
+  h1 { font-size: 2rem; }
+  .toolbar { gap: 8px; padding: 6px 12px; }
+  .tool-label { font-size: 0.95rem; }
+  .btn { font-size: 11px; padding: 4px 9px; }
+  .tips { display: none; }
+  .content-section { padding: 30px 16px 60px; }
+  .glass-panel { padding: 20px 18px; }
+  dl.archive-grid { grid-template-columns: 1fr; gap: 14px; }
+  .stories-grid { grid-template-columns: 1fr; }
+  .anatomy-features { grid-template-columns: 1fr; }
 }
 </style>
+</head>
+<body>
 
-<main class="wrap">
-  <header class="head">
-    <p class="kicker">全境生灵图鉴 · 第 4 话 · 虚构物种</p>
-    <h1>浮光天海鲵</h1>
-    <p class="latin">Caelomaris splendida</p>
-  </header>
+<!-- 1. 固定背景 60FPS Canvas 全屏动力学画布 -->
+<canvas id="artboard"></canvas>
 
-  <section class="film" aria-label="浮光天海鲵漫画短片">
-    <div class="stage">
-      <canvas class="main" id="c" role="img" aria-label="漫画风格动画：一只通体晶润、身负彩羽的小灵鲵在晴空、碧海与明亮地脉晶穴之间畅快游历"></canvas>
-      <div class="cap"><b id="capName">霄云</b><span id="capText"></span></div>
-      <div class="gauge" id="gauge">境域 · 霄空 4,200 m</div>
+<!-- 2. 页面内容滚动层（首屏全屏体验 + 下方完整文字版） -->
+<div class="page-container">
+
+  <!-- 首屏沉浸大舞台 -->
+  <section class="hero-screen">
+    <!-- 顶部名片信息 -->
+    <div class="header-box">
+      <div class="badge-row">
+        <span class="badge">全境生灵图鉴 · 第 4 话</span>
+        <span class="badge sub">60 FPS 柔体物理模拟</span>
+        <a class="badge-link" href="#archiveSection">📖 直达文字版档案 ↓</a>
+      </div>
+      <h1>浮光天海鲵 <span class="latin">Caelomaris splendida</span></h1>
+      <p class="hero-desc">
+        全境旅者生灵：利用三阶贝塞尔曲线构建解剖骨骼、动力学柔体摆动算法、半透明水光折射、动态微光粒子尾迹与水波交互系统。
+      </p>
     </div>
-    <div class="ctl">
-      <button id="play" type="button">暂停</button>
-      <input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="播放进度">
-      <span class="clock" id="clock">00:00 / 00:25</span>
+
+    <!-- 底部控制条与向下滑动引导 -->
+    <div class="hero-bottom">
+      <div class="toolbar">
+        <div class="tool-group">
+          <span class="tool-label">生境漫游：</span>
+          <button class="btn active" id="envOcean">🌊 碧海深澜</button>
+          <button class="btn" id="envSky">🌌 极光霄云</button>
+          <button class="btn" id="envCave">💎 地脉晶渊</button>
+        </div>
+        <div class="divider"></div>
+        <div class="tool-group">
+          <span class="tool-label">绘卷风格：</span>
+          <button class="btn active" id="fltColor">卷首全彩</button>
+          <button class="btn" id="fltManga">黑白网点</button>
+          <button class="btn" id="fltBlue">原稿蓝图</button>
+        </div>
+        <div class="divider"></div>
+        <button class="btn" id="btnBurst">✨ 激发晶光爆发</button>
+      </div>
+
+      <a class="scroll-hint" href="#archiveSection" title="向下滚动查看完整物种百科档案">
+        <span>📖 浏览完整文字版档案</span>
+        <span>↓</span>
+      </a>
     </div>
-    <nav class="chapters" id="chapters" aria-label="章节"></nav>
+
+    <div class="tips">
+      🖱️ 移动光标/触摸：灵鲵优雅跟随巡航<br>
+      👆 点击画面：激荡水波与净化晶粉
+    </div>
   </section>
 
-  <section class="guide">
-    <h2>物种档案</h2>
-    <dl>
-      <div class="row"><dt>体长</dt><dd>1.6 米，羽翼张开 2.2 米，体重约 18 公斤</dd></div>
-      <div class="row"><dt>栖息</dt><dd>晴空暖云、浅海珊瑚礁与地下明亮晶穴，三境自由迁徙</dd></div>
-      <div class="row"><dt>晶羽</dt><dd>遇风为翼展翅滑翔，入水收束为鳍破浪，进穴闭合为坚固晶甲</dd></div>
-      <div class="row"><dt>食性</dt><dd>晨空凝光云雾、浅海发光水母与地下地热泉沉积的能量晶盐</dd></div>
-      <div class="row"><dt>习性</dt><dd>喜晴恶阴，晨起乘暖气流冲霄，正午扎入碧海逐浪，向晚归穴沉睡</dd></div>
-      <div class="row"><dt>光尘</dt><dd>游动时身躯折射七彩虹芒，脱落的微光晶粉能净化海水与山涧</dd></div>
-    </dl>
-    <p class="note">物种与拉丁名都是虚构的。点上面的小格可以跳到对应章节。</p>
-  </section>
-  <span class="sfxload" aria-hidden="true">呼呼掠风扑通咕噜踏踏叮咚破水跃～！—</span>
-</main>
+  <!-- 详细文字版图鉴内容区 -->
+  <main class="content-section" id="archiveSection">
+
+    <!-- 核心百科参数表 -->
+    <section class="glass-panel" aria-label="物种百科档案">
+      <div class="panel-header">
+        <h2 class="panel-title"><span>✦</span> 物种百科档案</h2>
+        <span class="panel-sub">档案编号：CAEL-04-SPEC · 全境种</span>
+      </div>
+      <dl class="archive-grid">
+        <div class="archive-item">
+          <dt>体长</dt>
+          <dd>1.6 米，羽翼张开 2.2 米，体重约 18 公斤</dd>
+        </div>
+        <div class="archive-item">
+          <dt>栖息</dt>
+          <dd>晴空暖云、浅海珊瑚礁与地下明亮晶穴，三境自由迁徙</dd>
+        </div>
+        <div class="archive-item">
+          <dt>晶羽</dt>
+          <dd>遇风为翼展翅滑翔，入水收束为鳍破浪，进穴闭合为坚固晶甲</dd>
+        </div>
+        <div class="archive-item">
+          <dt>食性</dt>
+          <dd>晨空凝光云雾、浅海发光水母与地下地热泉沉积的能量晶盐</dd>
+        </div>
+        <div class="archive-item">
+          <dt>习性</dt>
+          <dd>喜晴恶阴，晨起乘暖气流冲霄，正午扎入碧海逐浪，向晚归穴沉睡</dd>
+        </div>
+        <div class="archive-item">
+          <dt>光尘</dt>
+          <dd>游动时身躯折射七彩虹芒，脱落的微光晶粉能净化海水与山涧</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- 四境生态巡游纪事（点击卡片联动上空灵鲵生境） -->
+    <section class="glass-panel" aria-label="四境生态漫游纪事">
+      <div class="panel-header">
+        <h2 class="panel-title"><span>📜</span> 四境漫游生态纪事</h2>
+        <span class="panel-sub">点击卡片可即时引导背景灵鲵进入对应生境</span>
+      </div>
+      <div class="stories-grid">
+        <div class="story-card" id="cardStorySky">
+          <div class="story-top">
+            <span class="story-badge"><span>✦</span> 霄云漫翔</span>
+            <span class="story-tag">霄空 4,200m</span>
+          </div>
+          <p class="story-desc">
+            晨光大好，它展开七彩晶羽，在万里晴空与棉花般的云海里自在翱翔。晨曦折射在羽片晶脉上，宛如一抹掠过长空的彩虹。
+          </p>
+        </div>
+
+        <div class="story-card" id="cardStoryOcean">
+          <div class="story-top">
+            <span class="story-badge"><span>🌊</span> 碧海潜波</span>
+            <span class="story-tag">碧海 浅海暖流</span>
+          </div>
+          <p class="story-desc">
+            收羽如梭，它一头扎进阳光澄澈的碧蓝浅海，拖着游光尾带穿梭于珊瑚礁丛追逐鱼群，周身伴随发光水母与透彻水波。
+          </p>
+        </div>
+
+        <div class="story-card" id="cardStoryCave">
+          <div class="story-top">
+            <span class="story-badge"><span>💎</span> 晶穴漫步</span>
+            <span class="story-tag">地脉 能量晶林</span>
+          </div>
+          <p class="story-desc">
+            穿过海沟裂缝，它钻入亮如白昼的地脉晶洞，迈着晶质轻捷四爪在水晶林间踏步，汲取地热泉沉积的晶盐能量。
+          </p>
+        </div>
+
+        <div class="story-card" id="cardStoryBurst">
+          <div class="story-top">
+            <span class="story-badge"><span>🌈</span> 暖泉飞跃</span>
+            <span class="story-tag">破水 冲上云霄</span>
+          </div>
+          <p class="story-desc">
+            乘着炽热暖泉破水腾空，甩落漫天金雨与净化晶粉，迎着灿烂朝阳再次冲向云霄！周身微光微粒在光束中宛若繁星飘散。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 生理构造与解剖学深度说明 -->
+    <section class="glass-panel" aria-label="解剖生理构造说明">
+      <div class="panel-header">
+        <h2 class="panel-title"><span>🧬</span> 解剖生理与动力学特性</h2>
+        <span class="panel-sub">ANATOMY & DYNAMICS</span>
+      </div>
+      <div class="anatomy-features">
+        <div class="feature-box">
+          <h3><span>🦴</span> 16 节流体骨骼</h3>
+          <p>
+            逆向运动学（IK）链条驱动的脊椎解剖系统。无论是正弦波八字巡游还是急速变向，身体曲线始终保持超平滑高阶样条过渡。
+          </p>
+        </div>
+        <div class="feature-box">
+          <h3><span>🪶</span> 三对压电晶羽</h3>
+          <p>
+            前主羽、中侧羽与后翼裙由晶质透明薄膜构成，滑翔时张开捕获上升气流，潜水时顺体贴合导流，遇险时可折叠为抵御撞击的晶壳。
+          </p>
+        </div>
+        <div class="feature-box">
+          <h3><span>✨</span> 燕尾游光带与净化</h3>
+          <p>
+            后身修长的飘逸丝带双燕尾鳍在游弋时释放发光微粒。这种微光晶尘富含高活性净化能量，能迅速分解水质杂质与悬浮浊物。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 观察员笔记 -->
+    <section class="glass-panel" aria-label="观察员手记">
+      <div class="panel-header">
+        <h2 class="panel-title"><span>📝</span> 观察员手记</h2>
+        <span class="panel-sub">FIELD RESEARCH NOTES</span>
+      </div>
+      <div class="field-notes">
+        <b>观察员留记：</b>「浮光天海鲵」是大陆上罕见的跨境物种。它并不受限于单一地域法则，而是在霄穹、碧海与地脉晶渊间自由穿梭。移动光标可指引其游动航向，在任何位置轻触屏幕亦可产生震荡水波与微光晶粉爆发。物种与学名皆为虚构，是幻想大陆生态之美的重要缩影。
+      </div>
+    </section>
+
+    <!-- 底部回到顶部 -->
+    <div class="footer-bar">
+      <button class="btn-top" id="btnBackToHero">↑ 返回顶层全屏动态视口</button>
+    </div>
+
+  </main>
+</div>
 
 <script>
 (function(){
-  var DUR=25;
-  var INK='#102236';
-  var SFXFONT='"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif';
-  var scenes=[
-    {t:0,key:3.0,name:'霄云',text:'晨光大好，它展开七彩晶羽，在万里晴空与棉花般的云海里自在翱翔。'},
-    {t:6,key:8.5,name:'碧海',text:'收羽如梭，它一头扎进阳光澄澈的碧蓝浅海，拖着游光尾带追逐鱼群。'},
-    {t:12,key:15.0,name:'晶穴',text:'穿过海沟裂缝，它钻入亮如白昼的地脉晶洞，迈着四爪在水晶林间踏步。'},
-    {t:19,key:21.8,name:'飞跃',text:'乘着炽热暖泉破水腾空，甩落漫天金雨，迎着灿烂朝阳再次冲向云霄！'}
-  ];
-  var cv=document.getElementById('c');
-  var mctx=cv.getContext('2d');
-  var ctx=mctx;
-  var W=800,H=500,dpr=1;
-  var playing=true,t=0,last=0,loops=0,sceneIdx=-1;
-  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){playing=false;t=3.0;}
+  'use strict';
 
-  var clamp=function(x,a,b){a=a===undefined?0:a;b=b===undefined?1:b;return Math.min(b,Math.max(a,x));};
-  var sm=function(a,b,x){x=clamp((x-a)/(b-a));return x*x*(3-2*x);};
-  var lerp=function(a,b,k){return a+(b-a)*k;};
-  var frac=function(v){return ((v%1)+1)%1;};
-  function mixc(a,b,k){return [Math.round(lerp(a[0],b[0],k)),Math.round(lerp(a[1],b[1],k)),Math.round(lerp(a[2],b[2],k))];}
-  function rgb(a,al){return al===undefined?'rgb('+a.join(',')+')':'rgba('+a.join(',')+','+al+')';}
-  function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var q=Math.imul(seed^seed>>>15,1|seed);q=q+Math.imul(q^q>>>7,61|q)^q;return((q^q>>>14)>>>0)/4294967296;};}
+  const canvas = document.getElementById('artboard');
+  const ctx = canvas.getContext('2d');
+  let W = window.innerWidth, H = window.innerHeight, dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-  var R=rng(77);
-  var clouds=[];for(var i=0;i<8;i++)clouds.push({x:R(),y:0.1+R()*0.45,r:0.06+R()*0.05,sp:0.04+R()*0.03});
-  var fishes=[];for(i=0;i<18;i++)fishes.push({x:R(),y:0.2+R()*0.6,sz:5+R()*6,c:i%2?'#ff6b8b':'#ffd23f',sp:0.06+R()*0.05});
-  var crystals=[];for(i=0;i<14;i++)crystals.push({x:R(),h:0.18+R()*0.28,w:0.04+R()*0.03,c:['#5ae3b2','#ff7b91','#ffe066','#6ee2ff'][i%4]});
-  var sparkles=[];for(i=0;i<40;i++)sparkles.push({x:R(),y:R(),sz:1.5+R()*3,c:['#ffffff','#ffe875','#8df5d0','#ff9ebb'][i%4]});
+  function resize(){
+    W = window.innerWidth;
+    H = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+  }
+  window.addEventListener('resize', resize);
+  resize();
 
-  function halftone(x0,y0,w,h,sp,col,rmax,flip){
-    ctx.save();ctx.beginPath();ctx.rect(x0,y0,w,h);ctx.clip();
-    ctx.fillStyle=col;ctx.beginPath();
-    var row=0;
-    for(var y=y0;y<y0+h+sp;y+=sp*0.866,row++){
-      var f=clamp((y-y0)/h);if(flip)f=1-f;
-      var r=rmax*Math.pow(f,0.9);if(r<0.4)continue;
-      for(var x=x0+(row%2?sp/2:0);x<x0+w+sp;x+=sp){ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,6.283);}
+  // 生境主题设置
+  const ENVS = {
+    ocean: {
+      bgTop: '#04101e',
+      bgBottom: '#01050b',
+      glow: '#38bdf8',
+      accent: '#ff597b',
+      lightBeams: true,
+      causticColor: 'rgba(56, 189, 248, 0.08)'
+    },
+    sky: {
+      bgTop: '#101530',
+      bgBottom: '#2d1840',
+      glow: '#ffe77d',
+      accent: '#a78bfa',
+      lightBeams: false,
+      causticColor: 'rgba(255, 231, 125, 0.07)'
+    },
+    cave: {
+      bgTop: '#11091f',
+      bgBottom: '#07030c',
+      glow: '#00f0ff',
+      accent: '#d946ef',
+      lightBeams: true,
+      causticColor: 'rgba(217, 70, 239, 0.09)'
     }
-    ctx.fill();ctx.restore();
+  };
+  let currentEnv = ENVS.ocean;
+
+  // 鼠标/触控交互状态
+  const mouse = { x: W * 0.5, y: H * 0.45, active: false };
+  function updatePointer(clientX, clientY){
+    mouse.x = clientX;
+    mouse.y = clientY;
+    mouse.active = true;
+  }
+  window.addEventListener('pointermove', function(e){
+    updatePointer(e.clientX, e.clientY);
+  });
+  window.addEventListener('pointerdown', function(e){
+    // 若点击的不是按钮和文字内容区域，则产生水波与爆发
+    if(!e.target.closest('button, a, .glass-panel, input')){
+      updatePointer(e.clientX, e.clientY);
+      triggerBurst(e.clientX, e.clientY, 35);
+    }
+  });
+
+  // 水波涟漪系统
+  const ripples = [];
+  function addRipple(x, y, power){
+    power = power || 1;
+    ripples.push({ x: x, y: y, r: 10, maxR: 160 * power, alpha: 0.9, speed: 3.2 * power });
   }
 
-  function burst(x,y,r1,r2,n,rot){
-    ctx.beginPath();
-    for(var i=0;i<n*2;i++){
-      var rr=i%2?r1:r2,a=rot+i*Math.PI/n;
-      if(i===0)ctx.moveTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);else ctx.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);
-    }
-    ctx.closePath();
+  // 微光晶粉粒子系统
+  const dusts = [];
+  const MAX_DUST = 180;
+  function emitDust(x, y, vx, vy, color, size){
+    size = size || 3;
+    if(dusts.length >= MAX_DUST) dusts.shift();
+    dusts.push({
+      x: x, y: y,
+      vx: vx + (Math.random() - 0.5) * 1.5,
+      vy: vy + (Math.random() - 0.5) * 1.5,
+      r: size * (0.6 + Math.random() * 0.8),
+      color: color || currentEnv.glow,
+      alpha: 1.0,
+      life: 0.01 + Math.random() * 0.015
+    });
   }
 
-  function popv(tt,a,b){
-    if(tt<a||tt>b)return 0;
-    var age=tt-a,v=1;
-    if(age<0.22){var x=age/0.22,c1=1.70158,c3=c1+1;v=1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);}
-    if(b-tt<0.2)v*=(b-tt)/0.2;
-    return Math.max(0,v);
+  function triggerBurst(x, y, count){
+    count = count || 30;
+    addRipple(x, y, 1.4);
+    for(let i = 0; i < count; i++){
+      const ang = Math.random() * Math.PI * 2;
+      const spd = 2 + Math.random() * 5.5;
+      emitDust(x, y, Math.cos(ang) * spd, Math.sin(ang) * spd, Math.random() > 0.4 ? currentEnv.glow : '#ffe77d', 4);
+    }
   }
 
-  function sfx(txt,x,y,size,rot,fill,pop){
-    if(pop<=0)return;
-    ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(pop,pop);
-    ctx.font='900 '+size+'px '+SFXFONT;ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.lineJoin='round';ctx.lineWidth=size*0.22;ctx.strokeStyle=INK;ctx.strokeText(txt,0,0);
-    ctx.fillStyle=fill;ctx.fillText(txt,0,0);
-    ctx.restore();
+  // 生物骨骼与动力学模型（16 节脊椎链条）
+  const creature = {
+    x: W * 0.5,
+    y: H * 0.5,
+    speed: 0,
+    angle: 0,
+    segCount: 16,
+    segDist: 18,
+    segments: [],
+    finPhase: 0
+  };
+
+  for(let i = 0; i < creature.segCount; i++){
+    creature.segments.push({
+      x: creature.x - i * creature.segDist,
+      y: creature.y,
+      angle: 0
+    });
   }
 
-  // --- DRAW CREATURE: 浮光天海鲵 ---
-  function drawCreature(tt,s,mode,flap,swim,run,dive){
-    var OL=Math.max(2,2.6*s)/s;
-    ctx.lineJoin='round';ctx.lineCap='round';
-    var BODY='#ffffff',BELLY='#fff5cf',WING_A='#62d3ff',WING_B='#ff9ebb',WING_C='#ffd84d';
-
-    // 1. 燕尾游光双飘带
-    var tailWave1=Math.sin(tt*4)*18*(1+swim*0.5);
-    var tailWave2=Math.cos(tt*3.5)*22*(1+swim*0.5);
-    ctx.save();ctx.translate(-75,0);
-    // 上飘带
-    ctx.beginPath();ctx.moveTo(0,-5);ctx.bezierCurveTo(-45,-15+tailWave1*0.4,-85,-25+tailWave1,-130,-15+tailWave1);
-    ctx.strokeStyle=INK;ctx.lineWidth=OL*1.8;ctx.stroke();
-    ctx.strokeStyle=WING_A;ctx.lineWidth=OL*0.9;ctx.stroke();
-    ctx.beginPath();ctx.arc(-130,-15+tailWave1,5,0,6.283);ctx.fillStyle='#ffe77d';ctx.fill();ctx.stroke();
-
-    // 下飘带
-    ctx.beginPath();ctx.moveTo(0,5);ctx.bezierCurveTo(-45,15+tailWave2*0.4,-85,25+tailWave2,-130,20+tailWave2);
-    ctx.strokeStyle=INK;ctx.lineWidth=OL*1.8;ctx.stroke();
-    ctx.strokeStyle=WING_B;ctx.lineWidth=OL*0.9;ctx.stroke();
-    ctx.beginPath();ctx.arc(-130,20+tailWave2,5,0,6.283);ctx.fillStyle='#62d3ff';ctx.fill();ctx.stroke();
-    ctx.restore();
-
-    // 2. 四肢 (空中收拢，海中顺水，地脉踏步)
-    function drawLeg(lx,ly,isBack,far){
-      var ph=tt*10+(isBack?Math.PI*0.5:0)+(far?Math.PI:0);
-      var rx=lx,ry=ly;
-      if(run>0.1){
-        rx+=Math.sin(ph)*14*run;
-        ry+=-Math.max(0,Math.cos(ph))*9*run;
-      }else if(swim>0.1){
-        rx+=-10*swim;ry+=Math.sin(tt*4+(far?1:0))*4;
-      }else{
-        rx+=-5;ry+=2;
-      }
-      ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(rx,ry+16);
-      ctx.strokeStyle=INK;ctx.lineWidth=10+OL*1.5;ctx.stroke();
-      ctx.strokeStyle=far?'#e2ecf5':BODY;ctx.lineWidth=10;ctx.stroke();
-      // 小爪晶趾
-      ctx.beginPath();ctx.arc(rx,ry+17,4.5,0,6.283);ctx.fillStyle='#ffc048';ctx.fill();
-      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.7;ctx.stroke();
-    }
-    drawLeg(-35,16,true,true);
-    drawLeg(25,18,false,true);
-
-    // 3. 躯干主水滴轮廓
-    function bodyPath(){
-      ctx.beginPath();
-      ctx.moveTo(85,0);
-      ctx.bezierCurveTo(75,-32,15,-42,-35,-30);
-      ctx.bezierCurveTo(-65,-20,-85,-6,-95,0);
-      ctx.bezierCurveTo(-85,6,-65,20,-35,30);
-      ctx.bezierCurveTo(15,42,75,32,85,0);
-      ctx.closePath();
-    }
-    ctx.save();
-    bodyPath();ctx.fillStyle=BODY;ctx.fill();ctx.clip();
-    // 腹部金黄网点光晕
-    ctx.fillStyle=BELLY;
-    ctx.beginPath();ctx.moveTo(-90,6);ctx.quadraticCurveTo(0,18,85,6);ctx.lineTo(85,45);ctx.lineTo(-90,45);ctx.closePath();ctx.fill();
-    ctx.fillStyle='#f0de9e';ctx.beginPath();
-    for(var yd=10,rw=0;yd<38;yd+=5,rw++){
-      var rd=2*(yd-6)/26;
-      for(var xd=(rw%2?-72:-76);xd<80;xd+=7.5){ctx.moveTo(xd+rd,yd);ctx.arc(xd,yd,rd,0,6.283);}
-    }
-    ctx.fill();
-    // 侧线彩虹流光斑
-    ctx.fillStyle='#ff9ebb';
-    for(var bi=0;bi<5;bi++){
-      ctx.beginPath();ctx.arc(-40+bi*24,-8+Math.sin(bi+tt*3)*3,5,0,6.283);ctx.fill();
-    }
-    ctx.restore();
-    bodyPath();ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
-
-    // 4. 背部晶羽 (核心多形态翅羽)
-    function drawWing(upper){
-      var sign=upper?-1:1;
-      ctx.save();ctx.translate(5,sign*10);
-      var wrot=0;
-      if(flap>0.1){
-        wrot=sign*(Math.sin(tt*6)*0.45*flap - 0.2*flap);
-      }else if(swim>0.1){
-        wrot=sign*(-0.6*swim+Math.sin(tt*3)*0.15);
-      }else if(run>0.1){
-        wrot=sign*(-0.8*run);
-      }
-      ctx.rotate(wrot);
-      // 主晶羽大瓣
-      ctx.beginPath();
-      ctx.moveTo(0,0);
-      ctx.bezierCurveTo(10,sign*65,-40,sign*110,-95,sign*80);
-      ctx.bezierCurveTo(-65,sign*50,-35,sign*25,0,0);
-      ctx.closePath();
-      ctx.fillStyle=upper?WING_A:WING_B;ctx.fill();
-      ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
-      // 内层透明副羽
-      ctx.beginPath();
-      ctx.moveTo(-10,0);
-      ctx.bezierCurveTo(-5,sign*45,-45,sign*75,-75,sign*55);
-      ctx.bezierCurveTo(-50,sign*35,-25,sign*18,-10,0);
-      ctx.closePath();
-      ctx.fillStyle=WING_C;ctx.fill();
-      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.8;ctx.stroke();
-      ctx.restore();
-    }
-    drawWing(true); // 上羽
-
-    // 5. 前后外侧前肢
-    drawLeg(-35,16,true,false);
-    drawLeg(25,18,false,false);
-
-    // 下羽 (俯视透视羽)
-    drawWing(false);
-
-    // 6. 头部萌感五官与精灵耳羽
-    // 头顶三簇珊瑚触角
-    for(var gi=0;gi<3;gi++){
-      var ga=-0.6+gi*0.55+Math.sin(tt*4+gi)*0.15;
-      ctx.save();ctx.translate(55,-22);ctx.rotate(ga);
-      ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(8,-20,16,-32);ctx.quadraticCurveTo(4,-20,-6,-10);ctx.closePath();
-      ctx.fillStyle=gi===1?'#ffd23f':'#ff6b8b';ctx.fill();
-      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.7;ctx.stroke();
-      ctx.restore();
-    }
-    // 眼睛
-    ctx.beginPath();ctx.ellipse(62,-6,7,8,0,0,6.283);ctx.fillStyle='#ffffff';ctx.fill();
-    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.8;ctx.stroke();
-    ctx.beginPath();ctx.arc(64,-6,4.5,0,6.283);ctx.fillStyle=INK;ctx.fill();
-    ctx.beginPath();ctx.arc(66,-7.5,1.7,0,6.283);ctx.fillStyle='#ffffff';ctx.fill();
-    // 腮红
-    ctx.beginPath();ctx.ellipse(56,6,6,3.5,0.2,0,6.283);ctx.fillStyle='rgba(255,107,139,0.75)';ctx.fill();
-    // 嘴巴微翘小弧线
-    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.7;
-    ctx.beginPath();ctx.moveTo(76,2);ctx.quadraticCurveTo(81,6,85,2);ctx.stroke();
+  // 焦散光斑水纹
+  const caustics = [];
+  for(let i = 0; i < 40; i++){
+    caustics.push({
+      x: Math.random() * 2000,
+      y: Math.random() * 1200,
+      r: 60 + Math.random() * 120,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.015 + Math.random() * 0.02
+    });
   }
 
-  // --- SCENE RENDERING ---
-  function scene(tt,live){
-    var s=Math.min(W/(W<H?400:480),H/260);
-    var sp=clamp(W/900,0.75,1.25)*11;
-    var base=Math.min(W,H*1.4)*0.1;
-    var i,x,y;
+  // 绘制动态背景
+  function drawBackground(t){
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, currentEnv.bgTop);
+    grad.addColorStop(1, currentEnv.bgBottom);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
 
-    // 状态机区间计算
-    var isSky=sm(0,1,tt)*(1-sm(5.5,6.5,tt)) + sm(19.2,20.5,tt);
-    var isSea=sm(5.8,7.0,tt)*(1-sm(11.5,12.5,tt));
-    var isCave=sm(12.0,13.2,tt)*(1-sm(18.5,19.5,tt));
-    var isLeap=sm(19.0,21.5,tt)*(1-sm(24.0,25.0,tt));
-
-    var flap=sm(0,1,tt)*(1-sm(5.8,6.8,tt)) + sm(19.2,21.0,tt);
-    var swim=sm(6.2,7.2,tt)*(1-sm(11.8,12.6,tt));
-    var run=sm(12.4,13.5,tt)*(1-sm(18.2,19.2,tt));
-
-    // 动态世界色调混合
-    var skyColor=[72,181,255],seaColor=[38,190,214],caveColor=[255,214,140];
-    var curBg=mixc(skyColor,seaColor,sm(5.5,6.8,tt));
-    curBg=mixc(curBg,caveColor,sm(11.8,13.0,tt));
-    curBg=mixc(curBg,skyColor,sm(18.5,20.0,tt));
-
-    // 1. 背景底色
-    ctx.fillStyle=rgb(curBg);ctx.fillRect(0,0,W,H);
-    halftone(0,0,W,H,sp,rgb(mixc(curBg,[20,45,75],0.28)),sp*0.48,true);
-
-    // ================= 分场景环境物件 =================
-    // A. 天空 (0-6s & 19-25s): 明亮太阳与卡通白云
-    if(isSky>0.05){
-      ctx.save();ctx.globalAlpha=isSky;
-      // 太阳
-      var sunX=W*0.82,sunY=H*0.22,sunR=base*0.9;
-      burst(sunX,sunY,sunR*1.2,sunR*1.7,14,tt*0.12);
-      ctx.fillStyle='rgba(255,248,190,0.6)';ctx.fill();
-      ctx.beginPath();ctx.arc(sunX,sunY,sunR,0,6.283);ctx.fillStyle='#ffc936';ctx.fill();
-      ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.stroke();
-
-      // 彩虹光弧 (19-25s 破水腾空时出现)
-      if(isLeap>0.2){
-        ctx.lineWidth=12*s;
-        var rArr=['#ff6b8b','#ffd23f','#5ae3b2','#62d3ff'];
-        for(i=0;i<4;i++){
-          ctx.beginPath();ctx.arc(W*0.5,H*1.2,W*0.55+i*11*s,Math.PI*1.08,Math.PI*1.92);
-          ctx.strokeStyle=rArr[i];ctx.stroke();
-        }
-      }
-
-      // 云海
-      for(i=0;i<clouds.length;i++){
-        var cld=clouds[i],cx=(frac(cld.x-tt*cld.sp)*1.3-0.15)*W,cy=cld.y*H,cr=cld.r*W;
+    // 水下/天空丁达尔光束 (God Rays)
+    if(currentEnv.lightBeams){
+      ctx.save();
+      for(let b = 0; b < 5; b++){
+        const bx = W * (0.15 + b * 0.2) + Math.sin(t * 0.3 + b) * 50;
+        const beamGrad = ctx.createLinearGradient(bx, 0, bx + 120, H);
+        beamGrad.addColorStop(0, 'rgba(255, 255, 255, 0.07)');
+        beamGrad.addColorStop(0.6, 'rgba(56, 189, 248, 0.02)');
+        beamGrad.addColorStop(1, 'transparent');
+        ctx.fillStyle = beamGrad;
         ctx.beginPath();
-        ctx.arc(cx,cy,cr,Math.PI,0);ctx.arc(cx+cr*0.9,cy-cr*0.1,cr*0.75,Math.PI*1.1,Math.PI*1.95);
-        ctx.arc(cx-cr*0.9,cy,cr*0.7,Math.PI*1.05,Math.PI*1.9);
-        ctx.lineTo(cx-cr*1.3,cy+cr*0.2);ctx.closePath();
-        ctx.fillStyle='#ffffff';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2.6;ctx.stroke();
+        ctx.moveTo(bx - 30, 0);
+        ctx.lineTo(bx + 160, 0);
+        ctx.lineTo(bx + 340, H);
+        ctx.lineTo(bx - 60, H);
+        ctx.closePath();
+        ctx.fill();
       }
       ctx.restore();
     }
 
-    // B. 碧海 (6-12s): 透水光柱、珊瑚鱼群与水波光斑
-    if(isSea>0.05){
-      ctx.save();ctx.globalAlpha=isSea;
-      // 水面波光线
-      ctx.strokeStyle='rgba(255,255,255,0.85)';ctx.lineWidth=4;ctx.beginPath();
-      for(x=0;x<=W;x+=24){ctx.lineTo(x,H*0.12+Math.sin((x+tt*80)*0.03)*8);}
+    // 焦散折射水纹
+    ctx.save();
+    ctx.fillStyle = currentEnv.causticColor;
+    for(const c of caustics){
+      c.phase += c.speed;
+      const waveX = c.x + Math.sin(c.phase) * 35;
+      const waveY = c.y + Math.cos(c.phase * 0.8) * 25;
+      ctx.beginPath();
+      ctx.arc(waveX % (W + 200) - 100, waveY % (H + 200) - 100, c.r * (0.8 + 0.2 * Math.sin(c.phase)), 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // 绘制发光水波涟漪
+  function drawRipples(){
+    for(let i = ripples.length - 1; i >= 0; i--){
+      const rip = ripples[i];
+      rip.r += rip.speed;
+      rip.alpha -= 0.015;
+      if(rip.alpha <= 0){
+        ripples.splice(i, 1);
+        continue;
+      }
+      ctx.save();
+      ctx.strokeStyle = 'rgba(125, 211, 252, ' + (rip.alpha * 0.8) + ')';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.arc(rip.x, rip.y, rip.r, 0, Math.PI * 2);
       ctx.stroke();
 
-      // 透亮丁达尔光柱
-      ctx.fillStyle='rgba(255,255,255,0.14)';
-      for(i=0;i<4;i++){
-        var lx=W*(0.15+i*0.24)+Math.sin(tt*0.4+i)*20,lw=W*0.08;
-        ctx.beginPath();ctx.moveTo(lx,0);ctx.lineTo(lx+lw,0);ctx.lineTo(lx+lw+W*0.15,H);ctx.lineTo(lx+W*0.1,H);ctx.closePath();ctx.fill();
-      }
-
-      // 追逐的彩色小鱼
-      for(i=0;i<fishes.length;i++){
-        var fsh=fishes[i],fx=(frac(fsh.x-tt*fsh.sp)*1.3-0.15)*W,fy=fsh.y*H+Math.sin(tt*3+i)*12;
-        ctx.beginPath();ctx.ellipse(fx,fy,fsh.sz,fsh.sz*0.5,0,0,6.283);ctx.fillStyle=fsh.c;ctx.fill();
-        ctx.strokeStyle=INK;ctx.lineWidth=1.5;ctx.stroke();
-        ctx.beginPath();ctx.moveTo(fx-fsh.sz*0.8,fy);ctx.lineTo(fx-fsh.sz*1.6,fy-4);ctx.lineTo(fx-fsh.sz*1.6,fy+4);ctx.closePath();ctx.fill();ctx.stroke();
-      }
+      ctx.strokeStyle = 'rgba(255, 255, 255, ' + (rip.alpha * 0.4) + ')';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.arc(rip.x, rip.y, rip.r * 0.65, 0, Math.PI * 2);
+      ctx.stroke();
       ctx.restore();
     }
+  }
 
-    // C. 晶穴 (12-19s): 温暖金色沙地与透亮大水晶簇
-    if(isCave>0.05){
-      ctx.save();ctx.globalAlpha=isCave;
-      var gy=H*0.82;
-      // 洞底暖金沙地
-      ctx.fillStyle='#f0cf85';ctx.fillRect(0,gy,W,H-gy);
-      halftone(0,gy,W,H-gy,sp,'#d2a550',sp*0.55,false);
-      ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();
-
-      // 明亮巨型晶柱
-      for(i=0;i<crystals.length;i++){
-        var cry=crystals[i],crx=(frac(cry.x-tt*0.04)*1.3-0.15)*W,crh=cry.h*H,crw=cry.w*W;
-        ctx.beginPath();
-        ctx.moveTo(crx,gy);ctx.lineTo(crx+crw*0.5,gy-crh);ctx.lineTo(crx+crw,gy);ctx.closePath();
-        ctx.fillStyle=cry.c;ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.stroke();
-        // 晶面折射线
-        ctx.beginPath();ctx.moveTo(crx+crw*0.5,gy-crh);ctx.lineTo(crx+crw*0.4,gy);ctx.strokeStyle='rgba(255,255,255,0.7)';ctx.lineWidth=2;ctx.stroke();
-      }
-      ctx.restore();
-    }
-
-    // 环境微光晶尘粒子
-    for(i=0;i<sparkles.length;i++){
-      var spk=sparkles[i];
-      var sx=(frac(spk.x+Math.sin(tt*0.5+i)*0.1))*W;
-      var sy=(frac(spk.y-tt*0.04*(1+isSea*0.8)))*H;
-      ctx.beginPath();ctx.arc(sx,sy,spk.sz*Math.max(0.7,s*0.8),0,6.283);
-      ctx.fillStyle=spk.c;ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=1.2;ctx.stroke();
-    }
-
-    // 2. 生物位置与动力学计算
-    var creatureX=W*0.48;
-    var creatureY=H*0.52;
-    var creatureRot=0;
-
-    if(isSky>0.5&&isLeap<0.2){
-      // 天空滑翔波浪
-      creatureY=H*0.48+Math.sin(tt*2.2)*H*0.06;
-      creatureRot=Math.cos(tt*2.2)*0.12;
-    }else if(isSea>0.5){
-      // 碧海潜水曲线
-      creatureY=H*0.5+Math.sin(tt*3)*H*0.07;
-      creatureRot=0.1+Math.cos(tt*3)*0.15;
-    }else if(isCave>0.5){
-      // 晶穴贴地奔跑
-      creatureY=H*0.82-24*s;
-      creatureRot=0;
-    }else if(isLeap>0.2){
-      // 冲出海面大飞跃抛物线
-      var lPhase=clamp((tt-19)/3.5);
-      creatureY=H*(0.85-Math.sin(lPhase*Math.PI)*0.55);
-      creatureRot=-0.4+lPhase*0.8;
-    }
-
-    // 绘制生物本体
+  // 绘制伴生发光粒子
+  function drawDusts(){
     ctx.save();
-    ctx.translate(creatureX,creatureY);
-    ctx.rotate(creatureRot);
-    ctx.scale(s,s);
-    drawCreature(tt,s,'NORMAL',flap,swim,run,0);
+    for(let i = dusts.length - 1; i >= 0; i--){
+      const p = dusts[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.98;
+      p.vy *= 0.98;
+      p.alpha -= p.life;
+      if(p.alpha <= 0){
+        dusts.splice(i, 1);
+        continue;
+      }
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = p.color;
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur = 8;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // 绘制多阶流光晶羽
+  function drawCrystalWing(ctx, len, spread, wave, colorA, colorB){
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.bezierCurveTo(
+      len * 0.35, -spread * 0.6 + wave * 15,
+      len * 0.8, -spread * 1.1 - wave * 10,
+      len, -spread * 0.4 + wave * 5
+    );
+    ctx.bezierCurveTo(
+      len * 0.75, spread * 0.1 - wave * 5,
+      len * 0.35, spread * 0.25,
+      0, 0
+    );
+    ctx.closePath();
+
+    const wingGrad = ctx.createLinearGradient(0, 0, len, -spread * 0.5);
+    wingGrad.addColorStop(0, colorA);
+    wingGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.7)');
+    wingGrad.addColorStop(1, colorB);
+    ctx.fillStyle = wingGrad;
+    ctx.globalAlpha = 0.82;
+    ctx.shadowColor = colorB;
+    ctx.shadowBlur = 12;
+    ctx.fill();
+
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.quadraticCurveTo(len * 0.5, -spread * 0.4 + wave * 8, len, -spread * 0.4 + wave * 5);
+    ctx.stroke();
+
+    for(let f = 1; f <= 4; f++){
+      const k = f / 5;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+      ctx.lineWidth = 1.0;
+      ctx.beginPath();
+      ctx.moveTo(len * k * 0.8, (-spread * 0.4 + wave * 8) * k);
+      ctx.lineTo(len * (k + 0.15), (-spread * 0.8) * k);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // 绘制生物本体
+  function drawCreature(t){
+    const segs = creature.segments;
+    const head = segs[0];
+    creature.finPhase += 0.08;
+
+    // 1. 飘逸丝带尾鳍
+    ctx.save();
+    const tailEnd = segs[segs.length - 1];
+    ctx.translate(tailEnd.x, tailEnd.y);
+    ctx.rotate(tailEnd.angle);
+
+    for(let side = -1; side <= 1; side += 2){
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      const tLen = 95;
+      const tWave = Math.sin(t * 3.5 + side) * 18;
+      ctx.bezierCurveTo(
+        -tLen * 0.4, side * 15 + tWave,
+        -tLen * 0.8, side * 28 - tWave,
+        -tLen * 1.3, side * 8 + tWave * 1.5
+      );
+      ctx.bezierCurveTo(
+        -tLen * 0.8, side * 5,
+        -tLen * 0.3, 0,
+        0, 0
+      );
+      const tailGrad = ctx.createLinearGradient(0, 0, -tLen, side * 15);
+      tailGrad.addColorStop(0, 'rgba(72, 181, 255, 0.8)');
+      tailGrad.addColorStop(1, 'rgba(255, 89, 123, 0)');
+      ctx.fillStyle = tailGrad;
+      ctx.fill();
+      ctx.restore();
+    }
     ctx.restore();
 
-    // 3. 破水水花 (19s~21s)
-    if(isLeap>0.2){
-      var spAlpha=clamp(1-(tt-19)/2.2);
-      ctx.save();ctx.globalAlpha=spAlpha;
-      burst(creatureX-30*s,H*0.85,30*s,70*s,12,-tt*2);
-      ctx.fillStyle='rgba(255,255,255,0.85)';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2.5;ctx.stroke();
+    // 2. 三对晶羽
+    const segWing1 = segs[2];
+    ctx.save();
+    ctx.translate(segWing1.x, segWing1.y);
+    ctx.rotate(segWing1.angle);
+    const wave1 = Math.sin(creature.finPhase);
+    ctx.save();
+    drawCrystalWing(ctx, 110, 85, wave1, 'rgba(72, 181, 255, 0.85)', 'rgba(255, 231, 125, 0.9)');
+    ctx.restore();
+    ctx.save();
+    ctx.scale(1, -1);
+    drawCrystalWing(ctx, 110, 85, wave1, 'rgba(72, 181, 255, 0.85)', 'rgba(255, 231, 125, 0.9)');
+    ctx.restore();
+    ctx.restore();
+
+    const segWing2 = segs[6];
+    ctx.save();
+    ctx.translate(segWing2.x, segWing2.y);
+    ctx.rotate(segWing2.angle);
+    const wave2 = Math.sin(creature.finPhase - 0.9);
+    ctx.save();
+    ctx.scale(0.75, 0.75);
+    drawCrystalWing(ctx, 95, 70, wave2, 'rgba(255, 89, 123, 0.85)', 'rgba(72, 181, 255, 0.9)');
+    ctx.restore();
+    ctx.save();
+    ctx.scale(0.75, -0.75);
+    drawCrystalWing(ctx, 95, 70, wave2, 'rgba(255, 89, 123, 0.85)', 'rgba(72, 181, 255, 0.9)');
+    ctx.restore();
+    ctx.restore();
+
+    const segWing3 = segs[10];
+    ctx.save();
+    ctx.translate(segWing3.x, segWing3.y);
+    ctx.rotate(segWing3.angle);
+    const wave3 = Math.sin(creature.finPhase - 1.8);
+    ctx.save();
+    ctx.scale(0.5, 0.5);
+    drawCrystalWing(ctx, 75, 55, wave3, 'rgba(255, 231, 125, 0.85)', 'rgba(72, 181, 255, 0.9)');
+    ctx.restore();
+    ctx.save();
+    ctx.scale(0.5, -0.5);
+    drawCrystalWing(ctx, 75, 55, wave3, 'rgba(255, 231, 125, 0.85)', 'rgba(72, 181, 255, 0.9)');
+    ctx.restore();
+    ctx.restore();
+
+    // 3. 躯体轮廓
+    const rightPts = [];
+    const leftPts = [];
+    const bodyRadii = [26, 30, 32, 31, 28, 25, 22, 19, 16, 13, 11, 9, 7, 5, 4, 3];
+
+    for(let i = 0; i < segs.length; i++){
+      const s = segs[i];
+      const r = bodyRadii[i] || 3;
+      const normal = s.angle + Math.PI / 2;
+      rightPts.push({ x: s.x + Math.cos(normal) * r, y: s.y + Math.sin(normal) * r });
+      leftPts.push({ x: s.x - Math.cos(normal) * r, y: s.y - Math.sin(normal) * r });
+    }
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(head.x, head.y, bodyRadii[0], head.angle - Math.PI / 2, head.angle + Math.PI / 2, false);
+    for(let i = 0; i < rightPts.length - 1; i++){
+      const xc = (rightPts[i].x + rightPts[i + 1].x) / 2;
+      const yc = (rightPts[i].y + rightPts[i + 1].y) / 2;
+      ctx.quadraticCurveTo(rightPts[i].x, rightPts[i].y, xc, yc);
+    }
+    ctx.lineTo(tailEnd.x, tailEnd.y);
+    for(let i = leftPts.length - 1; i > 0; i--){
+      const xc = (leftPts[i].x + leftPts[i - 1].x) / 2;
+      const yc = (leftPts[i].y + leftPts[i - 1].y) / 2;
+      ctx.quadraticCurveTo(leftPts[i].x, leftPts[i].y, xc, yc);
+    }
+    ctx.closePath();
+
+    const bodyGrad = ctx.createLinearGradient(head.x, head.y, tailEnd.x, tailEnd.y);
+    bodyGrad.addColorStop(0, '#f8fafc');
+    bodyGrad.addColorStop(0.2, '#bae6fd');
+    bodyGrad.addColorStop(0.55, '#38bdf8');
+    bodyGrad.addColorStop(0.85, '#818cf8');
+    bodyGrad.addColorStop(1, '#ff597b');
+
+    ctx.fillStyle = bodyGrad;
+    ctx.shadowColor = currentEnv.glow;
+    ctx.shadowBlur = 18;
+    ctx.fill();
+
+    ctx.strokeStyle = '#0d1526';
+    ctx.lineWidth = 3.5;
+    ctx.shadowBlur = 0;
+    ctx.stroke();
+
+    // 4. 腹部光斑与背脊自发光晶斑
+    ctx.save();
+    ctx.clip();
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+    ctx.beginPath();
+    ctx.ellipse(head.x, head.y - 4, 30, 14, head.angle, 0, Math.PI * 2);
+    ctx.fill();
+
+    for(let i = 1; i < segs.length - 2; i += 2){
+      const seg = segs[i];
+      ctx.fillStyle = '#ffe77d';
+      ctx.shadowColor = '#ffe77d';
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(seg.x, seg.y, 3.8 - i * 0.15, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // 5. 头部触须与明眸
+    ctx.save();
+    ctx.translate(head.x, head.y);
+    ctx.rotate(head.angle);
+
+    for(let side = -1; side <= 1; side += 2){
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(12, side * 14);
+      const antWave = Math.sin(t * 4 + side) * 8;
+      ctx.bezierCurveTo(28, side * 22, 42, side * 30 + antWave, 56, side * 26 + antWave * 1.2);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+      ctx.fillStyle = '#ffe77d';
+      ctx.shadowColor = '#ffe77d';
+      ctx.shadowBlur = 8;
+      ctx.beginPath();
+      ctx.arc(56, side * 26 + antWave * 1.2, 3.5, 0, Math.PI * 2);
+      ctx.fill();
       ctx.restore();
     }
 
-    // 4. 漫画拟声词 (SFX)
-    sfx('呼呼～',creatureX-W*0.2,H*0.35+Math.sin(tt*4)*6,base*0.85,-0.08,'#ffffff',popv(tt,0.8,5.0));
-    sfx('扑通！',creatureX+W*0.02,H*0.28,base*1.4,0.1,'#ffe77d',popv(tt,6.2,8.6));
-    sfx('咕噜噜',creatureX-W*0.18,H*0.62,base*0.9,-0.06,'#ffffff',popv(tt,8.8,11.8));
-    sfx('踏踏踏',creatureX-W*0.22,H*0.88,base*0.85,-0.04+Math.sin(tt*8)*0.03,'#ffffff',popv(tt,12.5,15.2));
-    sfx('叮咚！',creatureX+W*0.18,H*0.7,base*1.2,0.12,'#6ee2ff',popv(tt,15.5,18.2));
-    sfx('破水！',creatureX-W*0.04,H*0.48,base*1.5,-0.12,'#ffe77d',popv(tt,19.2,21.5));
-    sfx('跃——！',creatureX+W*0.15,H*0.22,base*1.6,0.15,'#ff6b8b',popv(tt,21.6,24.2));
+    for(let side = -1; side <= 1; side += 2){
+      const eyeX = 8, eyeY = side * 18;
+      ctx.save();
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#0d1526';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(eyeX, eyeY, 6.5, 5, 0.2 * side, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
 
-    if(live){
-      var fa=sm(24.2,25,tt);
-      if(loops>0)fa=Math.max(fa,1-sm(0,0.6,tt));
-      if(fa>0){ctx.fillStyle='rgba(16,34,54,'+fa+')';ctx.fillRect(0,0,W,H);}
+      ctx.fillStyle = '#0284c7';
+      ctx.beginPath();
+      ctx.arc(eyeX + 1, eyeY, 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(eyeX + 1.5, eyeY, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(eyeX + 2.5, eyeY - 1.5, 1.4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    ctx.restore();
+
+    ctx.restore();
+
+    if(Math.random() < 0.65){
+      const trailSeg = segs[Math.floor(Math.random() * 4) + 6];
+      emitDust(
+        trailSeg.x + (Math.random() - 0.5) * 16,
+        trailSeg.y + (Math.random() - 0.5) * 16,
+        -Math.cos(trailSeg.angle) * 1.2,
+        -Math.sin(trailSeg.angle) * 1.2,
+        Math.random() > 0.5 ? '#ffe77d' : '#38bdf8',
+        2.8
+      );
     }
   }
 
-  function draw(tt){ctx=mctx;scene(tt,true);}
+  // 物理动力学更新
+  function updateCreature(t){
+    let targetX = mouse.x, targetY = mouse.y;
+    if(!mouse.active){
+      targetX = W * 0.5 + Math.cos(t * 0.55) * (W * 0.32);
+      targetY = H * 0.45 + Math.sin(t * 1.1) * (H * 0.22);
+    }
 
-  // ---- UI CONTROLS & TIMELINE ----
-  var elPlay=document.getElementById('play'),elSeek=document.getElementById('seek'),
-      elClock=document.getElementById('clock'),elGauge=document.getElementById('gauge'),
-      elName=document.getElementById('capName'),elText=document.getElementById('capText'),
-      elCh=document.getElementById('chapters');
-  var chBtns=[],thumbs=[];
-  function fmt(v){var s=Math.floor(v);return '00:'+(s<10?'0':'')+s;}
-  scenes.forEach(function(sc,idx){
-    var b=document.createElement('button');b.type='button';
-    b.innerHTML='<canvas aria-hidden="true"></canvas><span class="lab"><b>'+sc.name+'</b><small>'+fmt(sc.t)+'</small></span>';
-    b.addEventListener('click',function(){t=sc.t;draw(t);ui();});
-    elCh.appendChild(b);chBtns.push(b);thumbs.push(b.querySelector('canvas'));
+    const head = creature.segments[0];
+    const dx = targetX - head.x;
+    const dy = targetY - head.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    let targetAngle = Math.atan2(dy, dx);
+    let diffAngle = targetAngle - head.angle;
+    while(diffAngle > Math.PI) diffAngle -= Math.PI * 2;
+    while(diffAngle < -Math.PI) diffAngle += Math.PI * 2;
+    head.angle += diffAngle * 0.045;
+
+    const speed = Math.min(dist * 0.04 + 1.2, 5.2);
+    head.x += Math.cos(head.angle) * speed;
+    head.y += Math.sin(head.angle) * speed;
+
+    for(let i = 1; i < creature.segCount; i++){
+      const prev = creature.segments[i - 1];
+      const cur = creature.segments[i];
+      const sDx = prev.x - cur.x;
+      const sDy = prev.y - cur.y;
+      cur.angle = Math.atan2(sDy, sDx);
+      cur.x = prev.x - Math.cos(cur.angle) * creature.segDist;
+      cur.y = prev.y - Math.sin(cur.angle) * creature.segDist;
+    }
+  }
+
+  // 60FPS 渲染循环
+  function loop(now){
+    const t = now * 0.001;
+
+    ctx.save();
+    ctx.scale(dpr, dpr);
+
+    drawBackground(t);
+    updateCreature(t);
+    drawRipples();
+    drawCreature(t);
+    drawDusts();
+
+    ctx.restore();
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  // 生境切换辅助函数
+  function setEnv(envKey){
+    currentEnv = ENVS[envKey];
+    document.querySelectorAll('.tool-group:first-child .btn').forEach(function(b){ b.classList.remove('active'); });
+    if(envKey === 'ocean') document.getElementById('envOcean').classList.add('active');
+    if(envKey === 'sky') document.getElementById('envSky').classList.add('active');
+    if(envKey === 'cave') document.getElementById('envCave').classList.add('active');
+    const head = creature.segments[0];
+    triggerBurst(head.x, head.y, 40);
+  }
+
+  document.getElementById('envOcean').addEventListener('click', function(){ setEnv('ocean'); });
+  document.getElementById('envSky').addEventListener('click', function(){ setEnv('sky'); });
+  document.getElementById('envCave').addEventListener('click', function(){ setEnv('cave'); });
+
+  // 风格滤镜切换
+  const body = document.body;
+  document.getElementById('fltColor').addEventListener('click', function(){
+    body.className = '';
+    document.querySelectorAll('.tool-group:nth-child(3) .btn').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
   });
-  function renderThumbs(){
-    var sW=W,sH=H,sCtx=ctx;
-    thumbs.forEach(function(el,n){
-      var r=el.getBoundingClientRect();if(!r.width||!r.height)return;
-      var d=Math.min(window.devicePixelRatio||1,2);
-      el.width=Math.round(r.width*d);el.height=Math.round(r.height*d);
-      var c=el.getContext('2d');c.setTransform(d,0,0,d,0,0);
-      W=r.width;H=r.height;ctx=c;
-      scene(scenes[n].key,false);
-    });
-    W=sW;H=sH;ctx=sCtx;
-  }
-  function ui(){
-    var idx=0;for(var i=0;i<scenes.length;i++)if(t>=scenes[i].t)idx=i;
-    if(idx!==sceneIdx){
-      sceneIdx=idx;
-      elName.textContent=scenes[idx].name;elText.textContent=scenes[idx].text;
-      chBtns.forEach(function(b,n){b.setAttribute('aria-current',n===idx?'true':'false');});
-    }
-    elSeek.value=t;
-    elClock.textContent=fmt(t)+' / 00:25';
+  document.getElementById('fltManga').addEventListener('click', function(){
+    body.className = 'mode-manga';
+    document.querySelectorAll('.tool-group:nth-child(3) .btn').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+  document.getElementById('fltBlue').addEventListener('click', function(){
+    body.className = 'mode-blueprint';
+    document.querySelectorAll('.tool-group:nth-child(3) .btn').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
 
-    // 动态境域高度计算
-    var gaugeTxt='境域 · 霄空 4,200 m';
-    if(t<6){
-      gaugeTxt='境域 · 霄空 '+Math.round(lerp(4200,2800,t/6)).toLocaleString('en-US')+' m';
-    }else if(t<12){
-      gaugeTxt='境域 · 碧海 -'+Math.round(lerp(10,85,(t-6)/6))+' m';
-    }else if(t<19){
-      gaugeTxt='境域 · 晶穴 -'+Math.round(lerp(320,460,(t-12)/7))+' m';
-    }else{
-      gaugeTxt='境域 · 破海 '+Math.round(lerp(120,3800,(t-19)/6)).toLocaleString('en-US')+' m';
-    }
-    elGauge.textContent=gaugeTxt;
-    elPlay.textContent=playing?'暂停':'播放';
-  }
-  elPlay.addEventListener('click',function(){playing=!playing;last=performance.now();ui();});
-  elSeek.addEventListener('input',function(){t=parseFloat(elSeek.value);draw(t);ui();});
+  // 爆发按钮
+  document.getElementById('btnBurst').addEventListener('click', function(){
+    const head = creature.segments[0];
+    triggerBurst(head.x, head.y, 65);
+  });
 
-  function fit(){
-    var r=cv.getBoundingClientRect();
-    if(!r.width||!r.height)return;
-    dpr=Math.min(window.devicePixelRatio||1,2);
-    cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);
-    W=r.width;H=r.height;ctx=mctx;
-    mctx.setTransform(dpr,0,0,dpr,0,0);
-    draw(t);
-    renderThumbs();
-  }
-  if(window.ResizeObserver)new ResizeObserver(fit).observe(cv);
-  window.addEventListener('resize',fit);
-  if(document.fonts&&document.fonts.load){
-    document.fonts.load('900 40px "ZCOOL QingKe HuangYou"','呼呼掠风扑通咕噜踏踏叮咚破水跃～！—').then(function(){fit();ui();}).catch(function(){});
-  }
+  // 四境漫游卡片联动上空生境
+  document.getElementById('cardStorySky').addEventListener('click', function(){
+    setEnv('sky');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  document.getElementById('cardStoryOcean').addEventListener('click', function(){
+    setEnv('ocean');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  document.getElementById('cardStoryCave').addEventListener('click', function(){
+    setEnv('cave');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  document.getElementById('cardStoryBurst').addEventListener('click', function(){
+    setEnv('sky');
+    const head = creature.segments[0];
+    triggerBurst(head.x, head.y, 70);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
-  function frame(now){
-    var dt=Math.min(0.1,Math.max(0,(now-last)/1000));last=now;
-    if(playing){
-      t+=dt;
-      if(t>=DUR){t-=DUR;loops++;}
-      draw(t);ui();
-    }
-    requestAnimationFrame(frame);
-  }
-  fit();ui();
-  last=performance.now();
-  requestAnimationFrame(frame);
+  // 底部回到顶部
+  document.getElementById('btnBackToHero').addEventListener('click', function(){
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
 })();
 </script>
-
-</body></html>
+</body>
+</html>

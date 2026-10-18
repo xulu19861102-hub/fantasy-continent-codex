@@ -1,503 +1,1486 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>灯袖鳐</title>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>灯袖鳐 · 深水带生灵图鉴 · 第 1 话</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
 <style>
-/* Layout: comic page. Tag line and outlined title, one big panel that plays, four small panels that jump to a chapter, then a boxed field guide. Single light look, committed on purpose. */
-:root{
-  --paper:#e6eef7;
-  --ink:#0d1526;
-  --yellow:#ffd23f;
-  --pink:#ff4f78;
-  --sea:#2a62b0;
-  --white:#fbfcff;
-  --chunk:"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif;
-  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-  color-scheme:light;
+/* Layout: 幻想大陆经典动态漫画短片 + 物种档案排版体系 */
+:root {
+  --paper: #e6eef7;
+  --ink: #0d1526;
+  --yellow: #ffd23f;
+  --pink: #ff4f78;
+  --sea: #2a62b0;
+  --deep: #050e21;
+  --white: #fbfcff;
+  --chunk: "ZCOOL QingKe HuangYou", "Noto Sans SC", "PingFang SC", sans-serif;
+  --body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
 }
-*{box-sizing:border-box}
-body{
-  background-color:var(--paper);
-  background-image:radial-gradient(rgba(13,21,38,.1) 1.3px,transparent 1.6px);
-  background-size:11px 11px;
-  color:var(--ink);
-  font-family:var(--body);
-  font-size:15px;
-  line-height:1.65;
-  padding-inline:16px;
-  padding-block:28px 56px;
+* { box-sizing: border-box; }
+body {
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(13, 21, 38, 0.1) 1.3px, transparent 1.6px);
+  background-size: 11px 11px;
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.65;
+  padding-inline: 16px;
+  padding-block: 28px 56px;
+  margin: 0;
 }
-.wrap{max-width:980px;margin-inline:auto;display:flex;flex-direction:column;gap:32px}
-.head{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
-.kicker{margin:0;background:var(--ink);color:var(--white);font-family:var(--mono);font-size:12px;letter-spacing:.14em;padding:3px 10px}
-h1{
-  margin:0;font-family:var(--chunk);font-weight:400;
-  font-size:clamp(3.6rem,14vw,6.4rem);line-height:1;letter-spacing:.05em;
-  color:var(--yellow);
-  -webkit-text-stroke:8px var(--ink);paint-order:stroke fill;
-  text-shadow:6px 6px 0 var(--ink);
-  transform:rotate(-2deg);transform-origin:left bottom;
+.wrap {
+  max-width: 980px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
-.latin{margin:0;font-family:var(--mono);font-size:14px;font-weight:500;color:var(--pink);letter-spacing:.06em}
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.kicker {
+  margin: 0;
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  padding: 3px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.kicker .tech-tag {
+  color: var(--yellow);
+  font-weight: 700;
+}
+h1 {
+  margin: 0;
+  font-family: var(--chunk);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 14vw, 6.4rem);
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: var(--yellow);
+  -webkit-text-stroke: 8px var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 6px 6px 0 var(--ink);
+  transform: rotate(-2deg);
+  transform-origin: left bottom;
+}
+.latin {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pink);
+  letter-spacing: 0.06em;
+}
 
-.film{display:flex;flex-direction:column;gap:18px;min-width:0}
-.stage{
-  position:relative;width:100%;aspect-ratio:16/10;
-  background:var(--sea);
-  border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);
+.film {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
 }
-canvas.main{position:absolute;inset:0;width:100%;height:100%;display:block}
-.cap{
-  position:absolute;left:12px;top:12px;max-width:min(72%,26em);
-  background:var(--yellow);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
-  padding:6px 12px;display:flex;flex-direction:column;gap:0;pointer-events:none;
-}
-.cap b{font-family:var(--chunk);font-weight:400;font-size:1.2rem;letter-spacing:.14em;line-height:1.3}
-.cap span{font-size:13.5px;line-height:1.5}
-.depth{
-  position:absolute;right:12px;bottom:12px;
-  background:var(--white);border:2px solid var(--ink);padding:1px 8px;
-  font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.06em;
-  font-variant-numeric:tabular-nums;
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  background: var(--deep);
+  border: 4px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  overflow: hidden;
+  cursor: crosshair;
 }
 
-.ctl{display:flex;align-items:center;gap:12px;min-width:0;margin-top:2px}
-.ctl button{
-  flex:none;min-width:68px;
-  font:inherit;font-size:14px;font-weight:500;color:var(--ink);
-  background:var(--white);border:3px solid var(--ink);border-radius:0;
-  box-shadow:3px 3px 0 var(--ink);padding:4px 12px;cursor:pointer;
+/* 核心 WebGL 硬件加速超清画框 */
+canvas#glCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
-.ctl button:hover{background:var(--yellow)}
-.ctl button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
-.ctl input[type=range]{flex:1;min-width:0;accent-color:var(--pink)}
-.clock{flex:none;font-family:var(--mono);font-size:12px;font-weight:500;font-variant-numeric:tabular-nums}
-button:focus-visible,input:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
 
-.chapters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.chapters button{
-  font:inherit;color:var(--ink);text-align:left;cursor:pointer;
-  background:var(--white);border:3px solid var(--ink);border-radius:0;
-  box-shadow:4px 4px 0 var(--ink);padding:0;display:flex;flex-direction:column;min-width:0;
+/* 漫画对白字幕框 */
+.cap {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  max-width: min(72%, 28em);
+  background: var(--yellow);
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 6px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  pointer-events: none;
+  z-index: 5;
 }
-.chapters button:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
-.chapters canvas{display:block;width:100%;aspect-ratio:4/3;border-bottom:3px solid var(--ink);background:var(--sea)}
-.chapters .lab{display:flex;align-items:baseline;gap:8px;padding:4px 10px 5px}
-.chapters .lab b{font-family:var(--chunk);font-weight:400;font-size:1.1rem;letter-spacing:.12em}
-.chapters .lab small{font-family:var(--mono);font-size:11px;font-weight:500}
-.chapters button[aria-current=true] .lab{background:var(--yellow)}
-.chapters button[aria-current=true]{box-shadow:4px 4px 0 var(--pink)}
+.cap b {
+  font-family: var(--chunk);
+  font-weight: 400;
+  font-size: 1.25rem;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+}
+.cap span {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink);
+}
 
-.guide{display:flex;flex-direction:column;gap:16px;background:var(--white);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:18px 18px 16px}
-.guide h2{margin:0;font-family:var(--chunk);font-weight:400;font-size:1.6rem;letter-spacing:.14em;line-height:1.2}
-dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
-.row{display:grid;grid-template-columns:4.2em minmax(0,1fr);gap:12px;padding:10px 0;border-top:2px dashed rgba(13,21,38,.3);align-items:start}
-dt{justify-self:start;background:var(--yellow);border:2px solid var(--ink);padding:0 6px;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.08em}
-dd{margin:0;min-width:0}
-.note{margin:0;font-family:var(--mono);font-size:12px}
-.sfxload{position:absolute;left:-9999px;top:0;font-family:var(--chunk);white-space:nowrap}
+/* 水深刻度仪表与深海探标指示 */
+.depth {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  padding: 2px 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  z-index: 5;
+  pointer-events: none;
+}
 
-@media (max-width:640px){
-  .stage{aspect-ratio:4/5}
-  .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
-  dl{grid-template-columns:1fr}
+/* 探照光状态指示小胶囊 */
+.hud-pill {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  background: rgba(13, 21, 38, 0.75);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  padding: 3px 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #b0d6ff;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hud-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 6px #38bdf8;
+}
+
+/* 播放控制条 */
+.ctl {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  margin-top: 2px;
+}
+.ctl button {
+  flex: none;
+  min-width: 68px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--white);
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 4px 12px;
+  cursor: pointer;
+}
+.ctl button:hover { background: var(--yellow); }
+.ctl button:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+.ctl input[type=range] {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--pink);
+}
+.clock {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+button:focus-visible, input:focus-visible {
+  outline: 3px solid var(--pink);
+  outline-offset: 3px;
+}
+
+/* 四格章节跳转画框 */
+.chapters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.chapters button {
+  font: inherit;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.chapters button:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
+.chapters canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-bottom: 3px solid var(--ink);
+  background: var(--deep);
+}
+.chapters .lab {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 10px 5px;
+}
+.chapters .lab b { font-family: var(--chunk); font-weight: 400; font-size: 1.1rem; letter-spacing: 0.12em; }
+.chapters .lab small { font-family: var(--mono); font-size: 11px; font-weight: 500; }
+.chapters button[aria-current=true] .lab { background: var(--yellow); }
+.chapters button[aria-current=true] { box-shadow: 4px 4px 0 var(--pink); }
+
+/* 生体指令印章与滤镜控制栏 */
+.manga-control-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 12px 16px;
+}
+.mode-selector { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.mode-title {
+  font-family: var(--chunk);
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  background: var(--ink);
+  color: #fff;
+  padding: 2px 10px;
+  transform: skewX(-8deg);
+}
+.stamp-btn {
+  font-family: var(--chunk);
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 4px 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.stamp-btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); background: var(--yellow); }
+.stamp-btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
+.stamp-btn[aria-pressed=true] { background: var(--pink); color: #fff; box-shadow: 3px 3px 0 var(--ink); transform: translateY(1px); }
+
+.tone-filters { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.filter-tag { font-family: var(--chunk); font-size: 1.1rem; letter-spacing: 0.05em; }
+.filter-btn {
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 12px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.filter-btn.active { background: var(--ink); color: #fff; }
+
+/* 严格忠于文字版的物种百科档案 */
+.guide {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 20px 22px 18px;
+}
+.guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 8px;
+}
+.guide h2 {
+  margin: 0;
+  font-family: var(--chunk);
+  font-weight: 400;
+  font-size: 1.7rem;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+}
+.guide-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: #555;
+}
+dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 4.2em minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 2px dashed rgba(13, 21, 38, 0.3);
+  align-items: start;
+}
+dt {
+  justify-self: start;
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  padding: 0 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+dd {
+  margin: 0;
+  min-width: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.note {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #666;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 8px 12px;
+}
+
+/* 交互特性与架构说明卡片 */
+.tech-spec {
+  background: #f0f6ff;
+  border: 2.5px solid var(--ink);
+  padding: 14px 18px;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+.tech-spec b { color: var(--sea); }
+.tech-spec code {
+  font-family: var(--mono);
+  background: #fff;
+  border: 1px solid var(--ink);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.sfxload {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  font-family: var(--chunk);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .stage { aspect-ratio: 4/5; }
+  .chapters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  dl { grid-template-columns: 1fr; }
 }
 </style>
+</head>
+<body>
 
-<main class="wrap">
+<main class="wrap" id="mainWrap">
+  <!-- 卷首眉栏 -->
   <header class="head">
-    <p class="kicker">深水带生物图鉴 · 第 1 话 · 虚构物种</p>
+    <p class="kicker">
+      <span>深水带生物图鉴 · 第 1 话 · 虚构物种</span>
+      <span class="tech-tag">⚡ 原生 WebGL Shader 硬件加速 · 潜航探照灯交互</span>
+    </p>
     <h1>灯袖鳐</h1>
     <p class="latin">Velamenta lucerna</p>
   </header>
 
-  <section class="film" aria-label="灯袖鳐漫画短片">
-    <div class="stage">
-      <canvas class="main" id="c" role="img" aria-label="漫画风格动画：一只头顶提灯、拖着长袖般鳍膜的深海生物在水里游动"></canvas>
-      <div class="cap"><b id="capName">漂游</b><span id="capText"></span></div>
+  <!-- 动态漫画主画框 -->
+  <section class="film" aria-label="灯袖鳐动态漫画短片">
+    <div class="stage" id="stageFrame">
+      <canvas id="glCanvas" role="img" aria-label="灯袖鳐动画：暗流中借流滑行、长袖丝绢鳍膜流体起伏、发光诱饵提灯照亮深海、尾须织网捕食磷虾、下潜深渊"></canvas>
+      <div class="cap">
+        <b id="capName">漂游</b>
+        <span id="capText">暖流把它推进深水带，灯还没有亮。</span>
+      </div>
       <div class="depth" id="depth">水深 860 m</div>
+      <div class="hud-pill"><span class="dot"></span><span>科考潜标探照透镜已就绪 · 移动鼠标照亮水下</span></div>
     </div>
+
+    <!-- 播放控制器 -->
     <div class="ctl">
       <button id="play" type="button">暂停</button>
-      <input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="播放进度">
+      <input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="漫画播放进度">
       <span class="clock" id="clock">00:00 / 00:25</span>
     </div>
-    <nav class="chapters" id="chapters" aria-label="章节"></nav>
+
+    <!-- 四格章节直达按钮 -->
+    <nav class="chapters" id="chapters" aria-label="分镜章节"></nav>
   </section>
 
-  <section class="guide">
-    <h2>物种档案</h2>
+  <!-- 融合功能栏：生体指令印章 + GPU Shader 物理流体与印装滤镜 -->
+  <footer class="manga-control-bar">
+    <div class="mode-selector">
+      <span class="mode-title">生体指令印章</span>
+      <button class="stamp-btn" id="btnStamp0" aria-pressed="true">
+        <span>🏮</span> 暗流漂游
+      </button>
+      <button class="stamp-btn" id="btnStamp1" aria-pressed="false">
+        <span>💡</span> 提灯焕亮
+      </button>
+      <button class="stamp-btn" id="btnStamp2" aria-pressed="false">
+        <span>🦐</span> 织网掠食
+      </button>
+      <button class="stamp-btn" id="btnStamp3" aria-pressed="false">
+        <span>🌊</span> 敛翼渊潜
+      </button>
+    </div>
+
+    <div class="tone-filters">
+      <span class="filter-tag">GPU置换：</span>
+      <button class="filter-btn active" id="btnShaderDispNorm">微流折射</button>
+      <button class="filter-btn" id="btnShaderDispWild">强湍流流体</button>
+      <button class="filter-btn" id="btnShaderDispOff">纯净锐利</button>
+      <span class="filter-tag" style="margin-left:8px;">连载印装：</span>
+      <button class="filter-btn active" id="fltColor">卷首全彩</button>
+      <button class="filter-btn" id="fltMono">黑白网点</button>
+      <button class="filter-btn" id="fltBlue">原稿蓝图</button>
+    </div>
+  </footer>
+
+  <!-- 严格忠于文字版的物种百科档案 -->
+  <section class="guide" aria-label="物种百科档案">
+    <div class="guide-header">
+      <h2>物种档案</h2>
+      <span class="guide-num">档案编号：VELA-01-SPEC</span>
+    </div>
     <dl>
-      <div class="row"><dt>体长</dt><dd>2.4 米，连尾须 3.1 米</dd></div>
-      <div class="row"><dt>水深</dt><dd>800 至 1,200 米</dd></div>
-      <div class="row"><dt>栖息</dt><dd>暖流与冷流交汇的深水带，靠鳍膜借水流滑行，很少主动划水</dd></div>
-      <div class="row"><dt>食性</dt><dd>发光磷虾和桡足类，用尾须织成的网收集</dd></div>
-      <div class="row"><dt>发光</dt><dd>休息时灯呈暗红，觅食时变成亮黄色，每 2 秒闪动一次</dd></div>
-      <div class="row"><dt>作息</dt><dd>白天停在 1,000 米以下，入夜后上浮到 800 米附近，吃饱再下潜</dd></div>
+      <div class="row">
+        <dt>体长</dt>
+        <dd>2.4 米，连尾须 3.1 米</dd>
+      </div>
+      <div class="row">
+        <dt>水深</dt>
+        <dd>800 至 1,200 米</dd>
+      </div>
+      <div class="row">
+        <dt>栖息</dt>
+        <dd>暖流与冷流交汇的深水带，靠鳍膜借水流滑行，很少主动划水</dd>
+      </div>
+      <div class="row">
+        <dt>食性</dt>
+        <dd>发光磷虾和桡足类，用尾须织成的网收集</dd>
+      </div>
+      <div class="row">
+        <dt>发光</dt>
+        <dd>休息时灯呈暗红，觅食时变成亮黄色，每 2 秒闪动一次</dd>
+      </div>
+      <div class="row">
+        <dt>作息</dt>
+        <dd>白天停在 1,000 米以下，入夜后上浮到 800 米附近，吃饱再下潜</dd>
+      </div>
     </dl>
-    <p class="note">物种与拉丁名都是虚构的。点下面的小格可以跳到对应章节。</p>
+    <div class="tech-spec">
+      ✦ <b>全新的非跟随型深海探索交互：</b>
+      灵鳐不再生硬追逐鼠标，而是严格依照生态设定在暗流中悠然滑行。光标化为<b>深海潜航科考探照透镜（Searchlight Beam）</b>，移动时实时穿透暗夜照亮水体与半透明长袖鳍膜；鼠标滑过的剪切尾流会引起鳍膜的次级波动；点击可在深水激荡一道 <b>GPU 水下物理冲击波（Shockwave Lens）</b>，并在提灯附近激发出微电离脉冲闪烁。
+    </div>
+    <p class="note">物种与拉丁名都是虚构的。点上方章节格或印章按钮可跳到对应章节。</p>
   </section>
+
   <span class="sfxload" aria-hidden="true">悠啪咕噜啵唰～！—</span>
 </main>
 
 <script>
 (function(){
-  var DUR=25;
-  var INK='#0d1526';
-  var SFXFONT='"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif';
-  var scenes=[
-    {t:0,key:3,name:'漂游',text:'暖流把它推进深水带，灯还没有亮。'},
-    {t:6,key:7.4,name:'亮灯',text:'头顶的灯由暗红转成亮黄，身上的光点一个接一个亮起来。'},
-    {t:12,key:14.5,name:'觅食',text:'浮游生物循着光聚过来，被灯下的尾须一团团收走。'},
-    {t:19,key:21,name:'下潜',text:'吃饱以后，它收拢鳍膜，朝更深的水里滑去。'}
+  'use strict';
+
+  var DUR = 25;
+  var INK = '#0d1526';
+  var SFXFONT = '"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif';
+
+  // 4 个严格契合文字版的章节分镜设定
+  var scenes = [
+    { t: 0,  key: 3.0,  name: '漂游', text: '暖流把它推进深水带，灯还没有亮。' },
+    { t: 6,  key: 7.4,  name: '亮灯', text: '头顶的灯由暗红转成亮黄，身上的光点一个接一个亮起来。' },
+    { t: 12, key: 14.5, name: '觅食', text: '浮游生物循着光聚过来，被灯下的尾须一团团收走。' },
+    { t: 19, key: 21.0, name: '下潜', text: '吃饱以后，它收拢鳍膜，朝更深的水里滑去。' }
   ];
-  var cv=document.getElementById('c');
-  var mctx=cv.getContext('2d');
-  var ctx=mctx;
-  var W=800,H=500,dpr=1;
-  var playing=true,t=0,last=0,loops=0,sceneIdx=-1;
-  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){playing=false;t=7.6;}
 
-  var clamp=function(x,a,b){a=a===undefined?0:a;b=b===undefined?1:b;return Math.min(b,Math.max(a,x));};
-  var sm=function(a,b,x){x=clamp((x-a)/(b-a));return x*x*(3-2*x);};
-  var lerp=function(a,b,k){return a+(b-a)*k;};
-  var frac=function(v){return ((v%1)+1)%1;};
-  function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var q=Math.imul(seed^seed>>>15,1|seed);q=q+Math.imul(q^q>>>7,61|q)^q;return((q^q>>>14)>>>0)/4294967296;};}
+  // DOM 元素
+  var glCanvas = document.getElementById('glCanvas');
+  var stageFrame = document.getElementById('stageFrame');
+  var elPlay = document.getElementById('play');
+  var elSeek = document.getElementById('seek');
+  var elClock = document.getElementById('clock');
+  var elDepth = document.getElementById('depth');
+  var elName = document.getElementById('capName');
+  var elText = document.getElementById('capText');
+  var elCh = document.getElementById('chapters');
 
-  var R=rng(11);
-  var snow=[];for(var i=0;i<90;i++)snow.push({x:R(),y:R(),z:0.2+R()*0.8});
-  var plank=[];for(var j=0;j<24;j++)plank.push({sx:0.6+R()*0.37,sy:0.14+R()*0.68,ph:R()*6.28,ts:11.5+j*0.24,dir:R()<0.5?-1:1});
+  var W = 800, H = 500, dpr = 1;
+  var playing = true, t = 0, last = 0, loops = 0, sceneIdx = -1;
 
-  function pose(tt){
-    var dive=sm(19,23.5,tt);
-    var s=Math.min(W/540,H/300);
-    return {
-      cx:W*(0.57-0.04*sm(12,15,tt))+Math.sin(tt*0.45)*W*0.015,
-      cy:H*0.47+Math.sin(tt*0.8)*H*0.02,
-      a:0.04*Math.sin(tt*0.5)+dive*0.5,
-      s:s,dive:dive
+  // GPU 控制参数
+  var shaderDispScale = 1.0; // 0.0=关, 1.0=正常, 2.5=强湍流
+  var shaderFilterMode = 0;  // 0=全彩, 1=黑白网点, 2=原稿蓝图
+
+  // ================= 创新非跟随鼠标交互状态 =================
+  // 鼠标是“深海探照灯”，绝非指挥生物游动的牵引绳！
+  var mousePos = { x: -100, y: -100, active: 0 };
+  var mouseVel = { x: 0, y: 0, lastX: 0, lastY: 0, speed: 0 };
+  var shockwave = { x: 0, y: 0, progress: 1.0 }; // 0.0 -> 1.0 (1.0表示无)
+
+  stageFrame.addEventListener('pointerenter', function(e){
+    var r = glCanvas.getBoundingClientRect();
+    mousePos.x = e.clientX - r.left;
+    mousePos.y = e.clientY - r.top;
+    mouseVel.lastX = mousePos.x;
+    mouseVel.lastY = mousePos.y;
+  });
+
+  stageFrame.addEventListener('pointermove', function(e){
+    var r = glCanvas.getBoundingClientRect();
+    var curX = e.clientX - r.left;
+    var curY = e.clientY - r.top;
+    var vx = curX - mouseVel.lastX;
+    var vy = curY - mouseVel.lastY;
+    mouseVel.x = vx;
+    mouseVel.y = vy;
+    mouseVel.speed = Math.min(Math.sqrt(vx * vx + vy * vy), 40);
+    mouseVel.lastX = curX;
+    mouseVel.lastY = curY;
+
+    mousePos.x = curX;
+    mousePos.y = curY;
+    mousePos.active = 1.0;
+  });
+
+  stageFrame.addEventListener('pointerleave', function(){
+    mousePos.active = 0;
+  });
+
+  // 点击水面：激荡 GPU 物理冲击波透镜，并根据位置电离提灯
+  stageFrame.addEventListener('pointerdown', function(e){
+    var r = glCanvas.getBoundingClientRect();
+    var clickX = e.clientX - r.left;
+    var clickY = e.clientY - r.top;
+
+    // 触发 GPU 冲击波
+    shockwave.x = clickX / W;
+    shockwave.y = clickY / H;
+    shockwave.progress = 0.01;
+
+    // 如果点击在提灯周围，触发额外提灯闪烁电离爆发
+    var P = getPose(t);
+    var ll = getLanternLocal(t);
+    var lp = toScreen(P, ll.x, ll.y);
+    if(Math.hypot(clickX - lp.x, clickY - lp.y) < 80 * P.s){
+      extraLanternPulse = 1.8;
+    }
+  });
+
+  var extraLanternPulse = 0;
+
+  // 数学辅助函数
+  var clamp = function(x, a, b){ a = a === undefined ? 0 : a; b = b === undefined ? 1 : b; return Math.min(b, Math.max(a, x)); };
+  var sm = function(a, b, x){ x = clamp((x - a) / (b - a)); return x * x * (3 - 2 * x); };
+  var lerp = function(a, b, k){ return a + (b - a) * k; };
+  var frac = function(v){ return ((v % 1) + 1) % 1; };
+
+  // 伪随机生成器
+  function rng(seed){
+    return function(){
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      var q = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      q = q + Math.imul(q ^ q >>> 7, 61 | q) ^ q;
+      return ((q ^ q >>> 14) >>> 0) / 4294967296;
     };
   }
-  function lanternLocal(tt){return {x:122,y:-52+Math.sin(tt*2.1*0.5)*4};}
-  function toScreen(P,lx,ly){
-    var c=Math.cos(P.a),sn=Math.sin(P.a);
-    return {x:P.cx+(lx*c-ly*sn)*P.s,y:P.cy+(lx*sn+ly*c)*P.s};
-  }
-  function lantern(tt){
-    var base=0.3+0.7*sm(6,9.5,tt);
-    return clamp(base+0.1*Math.sin(tt*3.14)*sm(6,9,tt),0,1);
+  var R = rng(45);
+
+  // 90 颗深海雪与浮游生物粒子
+  var snow = [];
+  for(var i = 0; i < 90; i++){
+    snow.push({ x: R(), y: R(), z: 0.2 + R() * 0.8, r: 1.1 + R() * 2.2 });
   }
 
-  // ---- background: flat blue with halftone dots that thicken toward the bottom ----
-  function drawBG(c,w,h){
-    var sp=clamp(w/900,0.75,1.25)*11;
-    c.fillStyle='#2a62b0';c.fillRect(0,0,w,h);
-    c.fillStyle='#3a7bc8';c.fillRect(0,0,w,h*0.26);
-    c.fillStyle='#10305f';
-    c.beginPath();
-    var row=0;
-    for(var y=h*0.16;y<h+sp;y+=sp*0.866,row++){
-      var f=clamp((y/h-0.16)/0.78);
-      var r=sp*0.64*Math.pow(f,0.8);
-      if(r<0.5)continue;
-      for(var x=(row%2?sp/2:0);x<w+sp;x+=sp){c.moveTo(x+r,y);c.arc(x,y,r,0,6.283);}
-    }
-    c.fill();
-    c.fillRect(0,h*0.93,w,h*0.07+1);
-  }
-  var bgc=document.createElement('canvas');
-  function buildBG(){
-    bgc.width=Math.round(W*dpr);bgc.height=Math.round(H*dpr);
-    var c=bgc.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);drawBG(c,W,H);
+  // 24 只发光磷虾（第3幕觅食聚拢）
+  var krills = [];
+  for(var j = 0; j < 24; j++){
+    krills.push({
+      sx: 0.6 + R() * 0.35,
+      sy: 0.15 + R() * 0.65,
+      ph: R() * 6.28,
+      ts: 11.8 + j * 0.22,
+      dir: R() < 0.5 ? -1 : 1
+    });
   }
 
-  function burst(x,y,r1,r2,n,rot){
-    ctx.beginPath();
-    for(var i=0;i<n*2;i++){
-      var rr=i%2?r1:r2,a=rot+i*Math.PI/n;
-      if(i===0)ctx.moveTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);else ctx.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);
-    }
-    ctx.closePath();
-  }
+  // 2D 离屏高清画布（用于高性能细致绘制生物与水光图元）
+  var offCanvas = document.createElement('canvas');
+  var offCtx = offCanvas.getContext('2d');
 
-  function creature(tt,L,s){
-    var OL=Math.max(2,2.6*s)/s;
-    ctx.lineJoin='round';ctx.lineCap='round';
-    var p=tt*2.1,ty=Math.sin(p-1)*9;
-    var sides=[-1,1],si,side,i,u,x,w;
-    // veils
-    for(si=0;si<2;si++){
-      side=sides[si];
-      var ph=side<0?0:1.3,N=30,pts=[];
-      for(i=0;i<=N;i++){
-        u=i/N;x=56-u*246;
-        w=(8+46*Math.pow(u,1.1))*(0.55+0.45*Math.sin(p-u*5.2+ph));
-        pts.push([x,side*(20+w)+ty*0.5*u]);
+  // ================= 1. 原生 WebGL 着色器硬件加速管线 =================
+  var gl = glCanvas.getContext('webgl', { antialias: true, alpha: false, depth: false, stencil: false }) ||
+           glCanvas.getContext('experimental-webgl');
+  var glProgram = null, glTexture = null;
+  var uTimeLoc, uResLoc, uLanternLoc, uLanternBrightLoc, uLanternColLoc, uDiveLoc, uDispScaleLoc, uFilterModeLoc;
+  var uMouseLoc, uMouseActiveLoc, uShockwaveLoc;
+
+  var vsSource = [
+    'attribute vec2 a_pos;',
+    'varying vec2 v_uv;',
+    'void main(){',
+    '  v_uv = (a_pos + 1.0) * 0.5;',
+    '  v_uv.y = 1.0 - v_uv.y;', // 翻转 Y 轴匹配 Canvas 纹理
+    '  gl_Position = vec4(a_pos, 0.0, 1.0);',
+    '}'
+  ].join('\n');
+
+  // 片元着色器：深海探照透镜、GPU 冲击波、流体剪切与色散
+  var fsSource = [
+    'precision mediump float;',
+    'varying vec2 v_uv;',
+    'uniform sampler2D u_tex;',
+    'uniform vec2 u_res;',
+    'uniform float u_time;',
+    'uniform vec2 u_lantern;',
+    'uniform float u_lantern_bright;',
+    'uniform vec3 u_lantern_col;',
+    'uniform float u_dive;',
+    'uniform float u_disp_scale;',
+    'uniform int u_filter_mode;',
+    'uniform vec2 u_mouse;',
+    'uniform float u_mouse_active;',
+    'uniform vec3 u_shockwave;',
+    '',
+    '// GPU 高性能流动正弦波场',
+    'vec2 getFluidOffset(vec2 uv, float t){',
+    '  vec2 p = uv * 9.0;',
+    '  float w1 = sin(p.x * 1.5 + t * 1.8) * cos(p.y * 1.2 + t * 1.4);',
+    '  float w2 = cos(p.x * 2.1 - t * 1.2) * sin(p.y * 1.8 + t * 2.0);',
+    '  return vec2(w1, w2) * 0.007 * u_disp_scale;',
+    '}',
+    '',
+    'void main(){',
+    '  vec2 flow = getFluidOffset(v_uv, u_time);',
+    '  vec2 uv = v_uv;',
+    '',
+    '  // 1. GPU 水下物理冲击波透镜畸变 (点击水面激荡)',
+    '  if(u_shockwave.z > 0.001 && u_shockwave.z < 1.0){',
+    '    vec2 sw_diff = (uv - u_shockwave.xy) * vec2(u_res.x / u_res.y, 1.0);',
+    '    float sw_dist = length(sw_diff);',
+    '    float sw_radius = u_shockwave.z * 0.55;',
+    '    float waveStrength = exp(-pow(sw_dist - sw_radius, 2.0) * 220.0) * (1.0 - u_shockwave.z);',
+    '    if(sw_dist > 0.001){',
+    '      uv -= normalize(sw_diff) * waveStrength * 0.035;',
+    '    }',
+    '  }',
+    '',
+    '  vec2 distorted_uv = clamp(uv + flow, 0.0, 1.0);',
+    '',
+    '  // 2. 水下物理色散采样 (Chromatic Aberration)',
+    '  float r = texture2D(u_tex, clamp(distorted_uv + flow * 0.25, 0.0, 1.0)).r;',
+    '  float g = texture2D(u_tex, distorted_uv).g;',
+    '  float b = texture2D(u_tex, clamp(distorted_uv - flow * 0.25, 0.0, 1.0)).b;',
+    '  vec3 col = vec3(r, g, b);',
+    '',
+    '  // 3. 【深海科考探照透镜】(鼠标交互：照亮深水与半透明长袖鳍膜)',
+    '  if(u_mouse_active > 0.01){',
+    '    vec2 m_diff = (v_uv - u_mouse) * vec2(u_res.x / u_res.y, 1.0);',
+    '    float m_dist = length(m_diff);',
+    '    float searchGlow = exp(-m_dist * 3.6) * 0.52 * u_mouse_active;',
+    '    float searchBeam = exp(-m_dist * 12.0) * 0.38 * u_mouse_active;',
+    '    // 次表面透光：受探照灯照亮时呈现深海水蓝微光',
+    '    col += vec3(0.5, 0.78, 1.0) * (searchGlow + searchBeam);',
+    '  }',
+    '',
+    '  // 4. 提灯 GPU 径向 HDR 高动态辉光',
+    '  vec2 l_diff = (v_uv - u_lantern) * vec2(u_res.x / u_res.y, 1.0);',
+    '  float dist = length(l_diff);',
+    '  float glow = exp(-dist * 5.5) * u_lantern_bright * 0.65 + exp(-dist * 16.0) * u_lantern_bright * 0.45;',
+    '  col += u_lantern_col * glow;',
+    '',
+    '  // 5. 冲击波高光光环',
+    '  if(u_shockwave.z > 0.001 && u_shockwave.z < 1.0){',
+    '    vec2 sw_diff = (v_uv - u_shockwave.xy) * vec2(u_res.x / u_res.y, 1.0);',
+    '    float sw_dist = length(sw_diff);',
+    '    float ring = exp(-pow(sw_dist - u_shockwave.z * 0.55, 2.0) * 220.0);',
+    '    col += vec3(0.4, 0.8, 1.0) * ring * (1.0 - u_shockwave.z) * 0.6;',
+    '  }',
+    '',
+    '  // 水下焦散微光网纹',
+    '  float caust = (sin(v_uv.x * 35.0 + u_time * 2.2) * sin(v_uv.y * 28.0 + u_time * 1.8)) * 0.03 * (1.0 - u_dive * 0.8);',
+    '  col += vec3(0.15, 0.45, 0.85) * max(0.0, caust);',
+    '',
+    '  // 深渊暗角与深度衰减',
+    '  float vig = 1.0 - length(v_uv - 0.5) * 0.55;',
+    '  col *= clamp(vig, 0.0, 1.0);',
+    '  col = mix(col, vec3(0.01, 0.02, 0.06), u_dive * 0.45);',
+    '',
+    '  // 连载印装模式处理',
+    '  if(u_filter_mode == 1){',
+    '    float gray = dot(col, vec3(0.299, 0.587, 0.114));',
+    '    vec2 grid = floor(gl_FragCoord.xy / 6.0);',
+    '    float dotPat = sin(grid.x * 1.57) * sin(grid.y * 1.57);',
+    '    float dotThreshold = clamp((1.0 - gray) * 1.6 - 0.3, 0.0, 1.0);',
+    '    float finalGray = gray > dotThreshold ? 1.0 : 0.05;',
+    '    col = vec3(finalGray);',
+    '  } else if(u_filter_mode == 2){',
+    '    float gray = dot(col, vec3(0.299, 0.587, 0.114));',
+    '    col = vec3(0.05, 0.32, 0.68) * (1.1 - gray * 0.7);',
+    '  }',
+    '',
+    '  gl_FragColor = vec4(col, 1.0);',
+    '}'
+  ].join('\n');
+
+  function initWebGL(){
+    if(!gl) return false;
+    function compileShader(src, type){
+      var s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)){
+        console.error('Shader 编译失败:', gl.getShaderInfoLog(s));
+        gl.deleteShader(s);
+        return null;
       }
-      ctx.beginPath();ctx.moveTo(56,side*20);
-      for(i=0;i<pts.length;i++)ctx.lineTo(pts[i][0],pts[i][1]);
-      ctx.lineTo(-190,side*20+ty*0.5);ctx.closePath();
-      ctx.fillStyle=side<0?'#a9b8ff':'#8ea2f5';ctx.fill();
-      ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
-      ctx.strokeStyle='rgba(13,21,38,0.55)';ctx.lineWidth=OL*0.45;
-      ctx.beginPath();
-      for(i=4;i<N;i+=5){ctx.moveTo(pts[i][0],side*20+ty*0.5*(i/N));ctx.lineTo(pts[i][0],pts[i][1]);}
-      ctx.stroke();
+      return s;
     }
-    // tail filaments
-    var sweep=1+1.3*sm(12,14,tt)*(1-sm(18.5,19.5,tt));
-    for(var f=0;f<7;f++){
-      var fx=-126,fy=ty+(f-3)*3,ang=Math.PI+(f-3)*0.1,fp=[[fx,fy]];
-      for(var k=1;k<=16;k++){
-        ang+=Math.sin(p*0.9-k*0.45+f*0.7)*0.085*sweep*(0.3+k/16);
-        fx+=Math.cos(ang)*9;fy+=Math.sin(ang)*9;fp.push([fx,fy]);
-      }
-      ctx.beginPath();ctx.moveTo(fp[0][0],fp[0][1]);for(k=1;k<fp.length;k++)ctx.lineTo(fp[k][0],fp[k][1]);
-      ctx.strokeStyle=INK;ctx.lineWidth=OL*1.5;ctx.stroke();
-      ctx.strokeStyle='#ff9ab0';ctx.lineWidth=OL*0.55;ctx.stroke();
-      ctx.beginPath();ctx.arc(fx,fy,3.6,0,6.283);
-      ctx.fillStyle=sm(12,14,tt)>0.5?'#ffd23f':'#ff9ab0';ctx.fill();
-      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.6;ctx.stroke();
+    var vs = compileShader(vsSource, gl.VERTEX_SHADER);
+    var fs = compileShader(fsSource, gl.FRAGMENT_SHADER);
+    if(!vs || !fs) return false;
+
+    glProgram = gl.createProgram();
+    gl.attachShader(glProgram, vs);
+    gl.attachShader(glProgram, fs);
+    gl.linkProgram(glProgram);
+    if(!gl.getProgramParameter(glProgram, gl.LINK_STATUS)){
+      console.error('Program 链接失败:', gl.getProgramInfoLog(glProgram));
+      return false;
     }
-    // body
-    function bodyPath(){
-      ctx.beginPath();
-      ctx.moveTo(96,0);
-      ctx.bezierCurveTo(78,-30,30,-40,-20,-30);
-      ctx.bezierCurveTo(-60,-22,-95,-8+ty*0.3,-128,ty);
-      ctx.bezierCurveTo(-95,8+ty*0.3,-60,22,-20,30);
-      ctx.bezierCurveTo(30,40,78,30,96,0);
-      ctx.closePath();
-    }
-    ctx.save();
-    bodyPath();ctx.fillStyle='#ff7b91';ctx.fill();ctx.clip();
-    // violet tail tone
-    ctx.fillStyle='#8a78e0';
-    ctx.beginPath();ctx.moveTo(-58,-60);ctx.quadraticCurveTo(-74,0,-58,60);ctx.lineTo(-160,60);ctx.lineTo(-160,-60);ctx.closePath();ctx.fill();
-    // belly shade
-    ctx.fillStyle='#e04a73';
-    ctx.beginPath();ctx.moveTo(-58,10);ctx.quadraticCurveTo(0,2,110,10);ctx.lineTo(110,60);ctx.lineTo(-58,60);ctx.closePath();ctx.fill();
-    // halftone on belly
-    ctx.fillStyle='#a8305a';ctx.beginPath();
-    for(var yd=15,rw=0;yd<36;yd+=6,rw++){
-      var rd=2.3*(yd-9)/26;
-      for(var xd=(rw%2?-52:-56);xd<100;xd+=8){ctx.moveTo(xd+rd,yd);ctx.arc(xd,yd,rd,0,6.283);}
-    }
-    ctx.fill();
-    // highlight stripe
-    ctx.strokeStyle='#ffd0da';ctx.lineWidth=4.5;
-    ctx.beginPath();ctx.moveTo(84,-9);ctx.bezierCurveTo(66,-27,30,-33,-14,-24);ctx.stroke();
-    ctx.restore();
-    bodyPath();ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
-    // spots
-    var on=sm(7,11,tt)*9;
-    for(i=0;i<9;i++){
-      var a=clamp(on-i,0,1);
-      var sx=62-i*17,sy=(i%2?10:-12),tw=Math.sin(tt*3+i*1.3);
-      ctx.beginPath();ctx.arc(sx,sy,4.4,0,6.283);
-      ctx.fillStyle=a<0.5?'#b83c66':(tw<-0.45?'#fff0a6':'#ffd23f');ctx.fill();
-      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.55;ctx.stroke();
-    }
-    // eye
-    ctx.beginPath();ctx.ellipse(66,-6,6.2,6.8,0,0,6.283);ctx.fillStyle='#fbfcff';ctx.fill();
-    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.8;ctx.stroke();
-    ctx.beginPath();ctx.arc(68,-6,3.6,0,6.283);ctx.fillStyle=INK;ctx.fill();
-    ctx.beginPath();ctx.arc(69.3,-7.6,1.3,0,6.283);ctx.fillStyle='#fbfcff';ctx.fill();
-    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.7;
-    ctx.beginPath();ctx.moveTo(59,-16);ctx.lineTo(72,-14);ctx.stroke();
-    ctx.beginPath();ctx.moveTo(95,1);ctx.quadraticCurveTo(86,7,76,5);ctx.stroke();
-    // stalk
-    var lt=lanternLocal(tt);
-    ctx.beginPath();ctx.moveTo(80,-17);ctx.quadraticCurveTo(100,-50,lt.x,lt.y);
-    ctx.strokeStyle=INK;ctx.lineWidth=OL*1.6;ctx.stroke();
-    ctx.strokeStyle='#ffb3c0';ctx.lineWidth=OL*0.6;ctx.stroke();
-    // lantern with starburst
-    var rl=7+3*L;
-    if(L>0.42){
-      burst(lt.x,lt.y,rl*1.5,rl*(2.2+2.4*L),10,tt*0.4);
-      ctx.fillStyle='#fff2a8';ctx.fill();
-      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.7;ctx.stroke();
-    }
-    ctx.beginPath();ctx.arc(lt.x,lt.y,rl,0,6.283);
-    ctx.fillStyle=L>0.5?'#ffd23f':'#c2304a';ctx.fill();
-    ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
-    ctx.beginPath();ctx.arc(lt.x-rl*0.3,lt.y-rl*0.3,rl*0.28,0,6.283);
-    ctx.fillStyle=L>0.5?'#fffbe0':'#ff8fa0';ctx.fill();
+    gl.useProgram(glProgram);
+
+    var quadBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, quadBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      -1, -1,  1, -1, -1,  1,
+      -1,  1,  1, -1,  1,  1
+    ]), gl.STATIC_DRAW);
+
+    var aPos = gl.getAttribLocation(glProgram, 'a_pos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    uTimeLoc = gl.getUniformLocation(glProgram, 'u_time');
+    uResLoc = gl.getUniformLocation(glProgram, 'u_res');
+    uLanternLoc = gl.getUniformLocation(glProgram, 'u_lantern');
+    uLanternBrightLoc = gl.getUniformLocation(glProgram, 'u_lantern_bright');
+    uLanternColLoc = gl.getUniformLocation(glProgram, 'u_lantern_col');
+    uDiveLoc = gl.getUniformLocation(glProgram, 'u_dive');
+    uDispScaleLoc = gl.getUniformLocation(glProgram, 'u_disp_scale');
+    uFilterModeLoc = gl.getUniformLocation(glProgram, 'u_filter_mode');
+    uMouseLoc = gl.getUniformLocation(glProgram, 'u_mouse');
+    uMouseActiveLoc = gl.getUniformLocation(glProgram, 'u_mouse_active');
+    uShockwaveLoc = gl.getUniformLocation(glProgram, 'u_shockwave');
+
+    glTexture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, glTexture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+    return true;
+  }
+  var hasWebGL = initWebGL();
+
+  // ================= 2. 灯袖鳐生物物理位姿解算 =================
+  function getPose(tt){
+    var dive = sm(19, 23.5, tt); // 第4幕下潜
+    var s = Math.min(W / 560, H / 310);
+    return {
+      cx: W * (0.55 - 0.04 * sm(12, 15, tt)) + Math.sin(tt * 0.45) * W * 0.018,
+      cy: H * 0.47 + Math.sin(tt * 0.8) * H * 0.02 + dive * H * 0.22,
+      a: 0.04 * Math.sin(tt * 0.5) + dive * 0.46,
+      s: s,
+      dive: dive
+    };
   }
 
-  function popv(tt,a,b){
-    if(tt<a||tt>b)return 0;
-    var age=tt-a,v=1;
-    if(age<0.22){var x=age/0.22,c1=1.70158,c3=c1+1;v=1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);}
-    if(b-tt<0.2)v*=(b-tt)/0.2;
-    return Math.max(0,v);
-  }
-  function sfx(txt,x,y,size,rot,fill,pop){
-    if(pop<=0)return;
-    ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(pop,pop);
-    ctx.font='900 '+size+'px '+SFXFONT;ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.lineJoin='round';ctx.lineWidth=size*0.22;ctx.strokeStyle=INK;ctx.strokeText(txt,0,0);
-    ctx.fillStyle=fill;ctx.fillText(txt,0,0);
-    ctx.restore();
+  function getLanternLocal(tt){
+    return { x: 145, y: -60 + Math.sin(tt * 2.1 * 0.5) * 5 };
   }
 
-  function scene(tt,live){
-    var P=pose(tt),L=lantern(tt),s=P.s;
-    var ll=lanternLocal(tt),lp=toScreen(P,ll.x,ll.y);
-    var base=Math.min(W,H*1.4)*0.1;
-    if(live)ctx.drawImage(bgc,0,0,W,H);else drawBG(ctx,W,H);
-    // darker water as it dives
-    if(P.dive>0){ctx.fillStyle='rgba(6,12,30,'+(P.dive*0.5)+')';ctx.fillRect(0,0,W,H);}
-    // flat light shafts
-    ctx.fillStyle='rgba(255,255,255,'+(0.1*(1-P.dive))+')';
-    for(var i=0;i<3;i++){
-      var x0=W*(0.12+i*0.3)+Math.sin(tt*0.2+i*1.7)*W*0.03,w=W*0.06,sk=W*0.14;
-      ctx.beginPath();ctx.moveTo(x0,0);ctx.lineTo(x0+w,0);ctx.lineTo(x0+w+sk,H*0.8);ctx.lineTo(x0+sk*0.6,H*0.8);ctx.closePath();ctx.fill();
+  function toScreen(P, lx, ly){
+    var c = Math.cos(P.a), sn = Math.sin(P.a);
+    return { x: P.cx + (lx * c - ly * sn) * P.s, y: P.cy + (lx * sn + ly * c) * P.s };
+  }
+
+  function burst(ctxTarget, x, y, r1, r2, n, rot){
+    ctxTarget.beginPath();
+    for(var i = 0; i < n * 2; i++){
+      var rr = i % 2 ? r1 : r2, a = rot + i * Math.PI / n;
+      if(i === 0) ctxTarget.moveTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr);
+      else ctxTarget.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr);
     }
-    // flat halo around the lantern
-    if(L>0.42){
-      ctx.fillStyle='rgba(255,226,140,'+(0.13*L)+')';
-      ctx.beginPath();ctx.arc(lp.x,lp.y,150*s,0,6.283);ctx.fill();
-      ctx.beginPath();ctx.arc(lp.x,lp.y,95*s,0,6.283);ctx.fill();
+    ctxTarget.closePath();
+  }
+
+  function drawSFX(ctxTarget, txt, x, y, size, rot, fill, pop){
+    if(pop <= 0) return;
+    ctxTarget.save();
+    ctxTarget.translate(x, y);
+    ctxTarget.rotate(rot);
+    ctxTarget.scale(pop, pop);
+    ctxTarget.font = '900 ' + size + 'px ' + SFXFONT;
+    ctxTarget.textAlign = 'center';
+    ctxTarget.textBaseline = 'middle';
+    ctxTarget.lineJoin = 'round';
+    ctxTarget.lineWidth = size * 0.22;
+    ctxTarget.strokeStyle = INK;
+    ctxTarget.strokeText(txt, 0, 0);
+    ctxTarget.fillStyle = fill;
+    ctxTarget.fillText(txt, 0, 0);
+    ctxTarget.restore();
+  }
+
+  function popCurve(tt, a, b){
+    if(tt < a || tt > b) return 0;
+    var age = tt - a;
+    if(age < 0.22){
+      var x = age / 0.22, c1 = 1.70158, c3 = c1 + 1;
+      return Math.max(0, 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2));
     }
-    // marine snow
-    for(i=0;i<snow.length;i++){
-      var q=snow[i];
-      var px=frac(q.x-tt*0.018*q.z)*W,py=frac(q.y+tt*0.008*q.z-P.dive*0.9*q.z)*H;
-      var near=Math.hypot(px-lp.x,py-lp.y)<150*s&&L>0.42;
-      ctx.fillStyle=near?'#fff2a8':'#dcefff';
-      ctx.beginPath();ctx.arc(px,py,Math.max(1.2,(1+q.z*2.2)*Math.min(1.3,W/700)),0,6.283);ctx.fill();
+    if(b - tt < 0.2) return Math.max(0, (b - tt) / 0.2);
+    return 1;
+  }
+
+  // ================= 3. Canvas 生物与水光绘制 (结合暗流剪切微扰动) =================
+  function renderSceneToCanvas(tt, targetCtx, targetW, targetH){
+    var P = getPose(tt);
+    var ll = getLanternLocal(tt);
+    var lp = toScreen(P, ll.x, ll.y);
+
+    // 1. 深海分层渐变底色
+    var bgGrad = targetCtx.createLinearGradient(0, 0, 0, targetH);
+    bgGrad.addColorStop(0, P.dive > 0.5 ? '#040d1e' : '#143160');
+    bgGrad.addColorStop(0.4, P.dive > 0.5 ? '#020712' : '#0a1d3d');
+    bgGrad.addColorStop(1, '#01040a');
+    targetCtx.fillStyle = bgGrad;
+    targetCtx.fillRect(0, 0, targetW, targetH);
+
+    // 2. 80 颗深海雪与浮游生物粒子
+    targetCtx.save();
+    for(var i = 0; i < snow.length; i++){
+      var q = snow[i];
+      var px = frac(q.x - tt * 0.018 * q.z) * targetW;
+      var py = frac(q.y + tt * 0.008 * q.z - P.dive * 0.85 * q.z) * targetH;
+      var near = Math.hypot(px - lp.x, py - lp.y) < 150 * P.s && tt >= 6;
+      targetCtx.fillStyle = near ? '#ffd23f' : '#b0d6ff';
+      targetCtx.globalAlpha = near ? 0.9 : 0.35;
+      targetCtx.beginPath();
+      targetCtx.arc(px, py, Math.max(1.1, q.r * P.s), 0, 6.283);
+      targetCtx.fill();
     }
-    // speed lines while diving
-    if(P.dive>0.05){
-      ctx.strokeStyle='rgba(255,255,255,'+(0.6*P.dive)+')';ctx.lineCap='round';
-      for(i=0;i<16;i++){
-        var lx=frac(i*0.618034)*W,ly=frac(i*0.37-tt*(0.8+(i%3)*0.3))*H*1.3-H*0.15,ln=H*(0.1+(i%4)*0.05);
-        ctx.lineWidth=1.5+(i%3);
-        ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(lx+Math.sin(P.a)*ln*0.5,ly+ln);ctx.stroke();
-      }
-    }
-    // the creature
-    ctx.save();ctx.translate(P.cx,P.cy);ctx.rotate(P.a);ctx.scale(s,s);
-    creature(tt,L,s);
-    ctx.restore();
-    // plankton
-    var vis=sm(9.5,11.5,tt),rp=Math.max(2.6,3.2*s/1.2),ks=s/1.2;
-    if(vis>0){
-      for(i=0;i<plank.length;i++){
-        var pq=plank[i];
-        var u=(tt-pq.ts)/2.4,x,y;
-        var idle=function(time){return {x:pq.sx*W+Math.sin(time*0.6+pq.ph)*10,y:pq.sy*H+Math.cos(time*0.5+pq.ph)*8};};
-        if(u<=0){var a0=idle(tt);x=a0.x;y=a0.y;}
-        else if(u<1){
-          var a1=idle(pq.ts),e=u*u*(3-2*u);
-          x=lerp(a1.x,lp.x,e);y=lerp(a1.y,lp.y,e)+Math.sin(e*Math.PI)*34*pq.dir*ks;
-        }else{
-          if(u<1.3){
-            var bu=(u-1)/0.3;
-            burst(lp.x,lp.y,(5+bu*8)*ks,(11+bu*18)*ks,8,i);
-            ctx.fillStyle='#fff2a8';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.stroke();
-            if(i%6===0)sfx('啵！',lp.x+22*ks,lp.y-30*ks,Math.max(14,base*0.5),0.12,'#ffffff',1-bu*0.5);
+    targetCtx.restore();
+
+    // 3. 第 3 幕觅食：发光磷虾向提灯聚拢并被网收走
+    var krillVis = sm(10, 12, tt);
+    if(krillVis > 0 && tt < 19.5){
+      targetCtx.save();
+      for(var k = 0; k < krills.length; k++){
+        var kq = krills[k];
+        var u = (tt - kq.ts) / 2.4;
+        var kx, ky;
+        var idle = function(tm){ return { x: kq.sx * targetW + Math.sin(tm * 0.6 + kq.ph) * 10, y: kq.sy * targetH + Math.cos(tm * 0.5 + kq.ph) * 8 }; };
+        if(u <= 0){
+          var p0 = idle(tt); kx = p0.x; ky = p0.y;
+        } else if(u < 1){
+          var p1 = idle(kq.ts), e = u * u * (3 - 2 * u);
+          kx = lerp(p1.x, lp.x, e);
+          ky = lerp(p1.y, lp.y, e) + Math.sin(e * Math.PI) * 34 * kq.dir * P.s;
+        } else {
+          if(u < 1.3){
+            var bu = (u - 1) / 0.3;
+            burst(targetCtx, lp.x, lp.y, (5 + bu * 8) * P.s, (11 + bu * 18) * P.s, 8, k);
+            targetCtx.fillStyle = '#fff2a8'; targetCtx.fill();
+            targetCtx.strokeStyle = INK; targetCtx.lineWidth = 1.8; targetCtx.stroke();
+            if(k % 6 === 0) drawSFX(targetCtx, '啵！', lp.x + 24 * P.s, lp.y - 28 * P.s, 22 * P.s, 0.1, '#ffffff', 1 - bu * 0.5);
           }
           continue;
         }
-        ctx.globalAlpha=vis;
-        ctx.beginPath();ctx.arc(x,y,rp,0,6.283);ctx.fillStyle='#ffd23f';ctx.fill();
-        ctx.strokeStyle=INK;ctx.lineWidth=1.8;ctx.stroke();
-        ctx.globalAlpha=1;
+        targetCtx.globalAlpha = krillVis;
+        targetCtx.beginPath();
+        targetCtx.arc(kx, ky, 3.2 * P.s, 0, 6.283);
+        targetCtx.fillStyle = '#ffd23f'; targetCtx.fill();
+        targetCtx.strokeStyle = INK; targetCtx.lineWidth = 1.5; targetCtx.stroke();
+      }
+      targetCtx.restore();
+    }
+
+    // 4. 生物本体重绘
+    targetCtx.save();
+    targetCtx.translate(P.cx, P.cy);
+    targetCtx.rotate(P.a);
+    targetCtx.scale(P.s, P.s);
+
+    var s = P.s;
+    var OL = Math.max(2, 2.7 * s) / s;
+    targetCtx.lineJoin = 'round';
+    targetCtx.lineCap = 'round';
+
+    var p = tt * 2.1;
+    var ty = Math.sin(p - 1) * 9;
+    var sides = [-1, 1];
+
+    // 计算鼠标划水对长袖鳍膜的局部剪切物理扰动 (Water Shear Turbulence)
+    var shearDist = Math.hypot(mousePos.x - P.cx, mousePos.y - P.cy) / P.s;
+    var shearEffect = mousePos.active > 0.05 && shearDist < 260 ? (1.0 - shearDist / 260) * (mouseVel.speed * 0.25) : 0;
+
+    // -------------------------------------------------------------
+    // 【三层交错叠褶的长袖丝绢鳍膜 (Velamenta Sleeves)】
+    // -------------------------------------------------------------
+    var tuck = 1 - P.dive * 0.65;
+
+    for(var si = 0; si < 2; si++){
+      var side = sides[si];
+      var ph = side < 0 ? 0 : 1.35;
+      var N = 38;
+
+      // Layer A: 内层深色披风膜
+      targetCtx.save();
+      targetCtx.beginPath();
+      targetCtx.moveTo(70, side * 24);
+      for(var i = 0; i <= N; i++){
+        var u = i / N;
+        var x = 70 - u * 300;
+        var w = (10 + 45 * Math.pow(u, 1.1)) * (0.6 + 0.4 * Math.sin(p - u * 4.0 + ph)) * tuck;
+        targetCtx.lineTo(x, side * (24 + w) + ty * 0.4 * u);
+      }
+      targetCtx.lineTo(-230, side * 24 + ty * 0.4);
+      targetCtx.closePath();
+      targetCtx.fillStyle = side < 0 ? 'rgba(75, 60, 160, 0.65)' : 'rgba(55, 40, 140, 0.65)';
+      targetCtx.fill();
+      targetCtx.restore();
+
+      // Layer B: 外层主长袖流态薄绢膜 (粉紫到青蓝流光)
+      var pts = [];
+      for(var i = 0; i <= N; i++){
+        var u = i / N;
+        var x = 70 - u * 315;
+        // 叠加暗流波动与鼠标剪切扰动
+        var wave = (Math.sin(p * 1.8 - u * 5.2 + ph) * 22 * Math.pow(u, 0.85) + shearEffect * Math.sin(u * 8.0)) * tuck;
+        var w = (14 + 70 * Math.pow(u, 1.15)) * (0.65 + 0.35 * Math.sin(p - u * 4.4 + ph)) * tuck;
+        pts.push([x, side * (24 + w) + ty * 0.45 * u + wave]);
+      }
+
+      targetCtx.save();
+      targetCtx.beginPath();
+      targetCtx.moveTo(70, side * 24);
+      for(var k = 0; k < pts.length; k++) targetCtx.lineTo(pts[k][0], pts[k][1]);
+      targetCtx.lineTo(-245, side * 24 + ty * 0.4);
+      targetCtx.closePath();
+
+      var veilGrad = targetCtx.createLinearGradient(70, 0, -245, side * 60);
+      if(side < 0){
+        veilGrad.addColorStop(0, 'rgba(255, 123, 145, 0.95)');
+        veilGrad.addColorStop(0.35, 'rgba(169, 184, 255, 0.9)');
+        veilGrad.addColorStop(1, 'rgba(142, 162, 245, 0.25)');
+      } else {
+        veilGrad.addColorStop(0, 'rgba(224, 74, 115, 0.95)');
+        veilGrad.addColorStop(0.35, 'rgba(142, 162, 245, 0.85)');
+        veilGrad.addColorStop(1, 'rgba(255, 79, 120, 0.25)');
+      }
+      targetCtx.fillStyle = veilGrad;
+      targetCtx.fill();
+
+      targetCtx.strokeStyle = INK;
+      targetCtx.lineWidth = OL;
+      targetCtx.stroke();
+
+      targetCtx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
+      targetCtx.lineWidth = OL * 0.45;
+      targetCtx.beginPath();
+      for(var m = 4; m < N; m += 4){
+        targetCtx.moveTo(pts[m][0], side * 24 + ty * 0.45 * (m / N));
+        targetCtx.lineTo(pts[m][0], pts[m][1]);
+      }
+      targetCtx.stroke();
+      targetCtx.restore();
+    }
+
+    // -------------------------------------------------------------
+    // 【7 根捕食微光尾须与捕网 (Filaments & Feeding Web)】
+    // -------------------------------------------------------------
+    var sweep = 1 + 1.25 * sm(12, 14.5, tt) * (1 - sm(18.5, 19.5, tt));
+    var tailTips = [];
+
+    for(var f = 0; f < 7; f++){
+      var fx = -155, fy = ty + (f - 3) * 4.2;
+      var fAng = Math.PI + (f - 3) * 0.11;
+      var fpts = [[fx, fy]];
+
+      for(var k = 1; k <= 18; k++){
+        fAng += Math.sin(p * 0.9 - k * 0.42 + f * 0.68) * 0.088 * sweep * (0.3 + k / 18);
+        fx += Math.cos(fAng) * 10.5;
+        fy += Math.sin(fAng) * 10.5;
+        fpts.push([fx, fy]);
+      }
+      tailTips.push({ x: fx, y: fy });
+
+      targetCtx.save();
+      targetCtx.beginPath();
+      targetCtx.moveTo(fpts[0][0], fpts[0][1]);
+      for(var k = 1; k < fpts.length; k++) targetCtx.lineTo(fpts[k][0], fpts[k][1]);
+      targetCtx.strokeStyle = INK;
+      targetCtx.lineWidth = OL * 1.4;
+      targetCtx.stroke();
+
+      var isFeeding = sm(12, 15, tt) > 0.4;
+      targetCtx.strokeStyle = isFeeding ? '#ffd23f' : '#ff9ab0';
+      targetCtx.lineWidth = OL * 0.65;
+      targetCtx.stroke();
+
+      targetCtx.beginPath();
+      targetCtx.arc(fx, fy, 4.0, 0, 6.283);
+      targetCtx.fillStyle = isFeeding ? '#ffd23f' : '#ff9ab0';
+      targetCtx.fill();
+      targetCtx.strokeStyle = INK;
+      targetCtx.lineWidth = OL * 0.6;
+      targetCtx.stroke();
+      targetCtx.restore();
+    }
+
+    // 第3幕织网掠食时的金色捕食光网
+    if(sm(12, 15, tt) > 0.3 && tt < 19){
+      targetCtx.save();
+      targetCtx.strokeStyle = 'rgba(255, 210, 63, 0.45)';
+      targetCtx.lineWidth = 1.2;
+      targetCtx.beginPath();
+      for(var f = 0; f < tailTips.length - 1; f++){
+        targetCtx.moveTo(tailTips[f].x, tailTips[f].y);
+        targetCtx.lineTo(tailTips[f + 1].x, tailTips[f + 1].y);
+      }
+      targetCtx.stroke();
+      targetCtx.restore();
+    }
+
+    // -------------------------------------------------------------
+    // 【鳐鱼主身躯：蝠鲼流线型扁平躯体】
+    // -------------------------------------------------------------
+    function bodyPath(){
+      targetCtx.beginPath();
+      targetCtx.moveTo(115, 0);
+      targetCtx.bezierCurveTo(94, -36, 36, -46, -24, -36);
+      targetCtx.bezierCurveTo(-70, -26, -112, -10 + ty * 0.3, -155, ty);
+      targetCtx.bezierCurveTo(-112, 10 + ty * 0.3, -70, 26, -24, 36);
+      targetCtx.bezierCurveTo(36, 46, 94, 36, 115, 0);
+      targetCtx.closePath();
+    }
+
+    targetCtx.save();
+    bodyPath();
+    var bGrad = targetCtx.createLinearGradient(115, 0, -155, 0);
+    bGrad.addColorStop(0, '#ff8fa0');
+    bGrad.addColorStop(0.42, '#e04a73');
+    bGrad.addColorStop(0.8, '#8a78e0');
+    bGrad.addColorStop(1, '#5343a8');
+    targetCtx.fillStyle = bGrad;
+    targetCtx.fill();
+
+    targetCtx.clip();
+    targetCtx.fillStyle = 'rgba(255, 208, 218, 0.48)';
+    targetCtx.beginPath();
+    targetCtx.ellipse(32, -14, 75, 18, -0.1, 0, 6.283);
+    targetCtx.fill();
+
+    targetCtx.fillStyle = '#a8305a';
+    targetCtx.beginPath();
+    for(var yd = 14, rw = 0; yd < 38; yd += 6, rw++){
+      var rd = 2.4 * (yd - 8) / 28;
+      for(var xd = (rw % 2 ? -60 : -66); xd < 100; xd += 8){
+        targetCtx.moveTo(xd + rd, yd);
+        targetCtx.arc(xd, yd, rd, 0, 6.283);
       }
     }
-    // sound effects
-    var bob=Math.sin(tt*2)*4;
-    sfx('悠～',W*0.2,H*0.3+bob,base*0.85,-0.1,'#ffffff',popv(tt,0.6,5.6));
-    var bx=Math.min(W-base*1.3,lp.x+base*0.9),by=Math.max(base*1.2,lp.y-base*0.9);
-    sfx('啪！',bx,by,base*1.35,0.12,'#ffd23f',popv(tt,6.3,8.9));
-    sfx('咕噜咕噜',W*0.24,H*0.76+Math.sin(tt*5)*3,base*0.8,-0.06,'#ffffff',popv(tt,12.6,17.6));
-    sfx('唰——',W*0.26,H*0.5,base*1.6,-0.25,'#ffffff',popv(tt,19.3,22.7));
-    // fade at the loop point
-    if(live){
-      var fa=sm(24.2,25,tt);
-      if(loops>0)fa=Math.max(fa,1-sm(0,0.6,tt));
-      if(fa>0){ctx.fillStyle='rgba(13,21,38,'+fa+')';ctx.fillRect(0,0,W,H);}
+    targetCtx.fill();
+    targetCtx.restore();
+
+    bodyPath();
+    targetCtx.strokeStyle = INK;
+    targetCtx.lineWidth = OL * 1.15;
+    targetCtx.stroke();
+
+    // -------------------------------------------------------------
+    // 【9 颗背脊自发光晶斑 (Bioluminescent Nodes)】
+    // -------------------------------------------------------------
+    var nodesOn = sm(6.5, 11.5, tt) * 9;
+    for(var i = 0; i < 9; i++){
+      var aOn = clamp(nodesOn - i, 0, 1);
+      var sx = 76 - i * 22;
+      var sy = i % 2 ? 11 : -13;
+      var tw = Math.sin(tt * 3.5 + i * 1.25);
+
+      targetCtx.save();
+      targetCtx.beginPath();
+      targetCtx.arc(sx, sy, 4.6, 0, 6.283);
+      targetCtx.fillStyle = aOn < 0.5 ? '#b83c66' : (tw < -0.4 ? '#fff0a6' : '#ffd23f');
+      targetCtx.fill();
+      targetCtx.strokeStyle = INK;
+      targetCtx.lineWidth = OL * 0.55;
+      targetCtx.stroke();
+      targetCtx.restore();
+    }
+
+    // -------------------------------------------------------------
+    // 【灵动深海之眸】
+    // -------------------------------------------------------------
+    targetCtx.save();
+    targetCtx.beginPath();
+    targetCtx.ellipse(80, -7, 7.2, 7.8, 0, 0, 6.283);
+    targetCtx.fillStyle = '#fbfcff';
+    targetCtx.fill();
+    targetCtx.strokeStyle = INK;
+    targetCtx.lineWidth = OL * 0.85;
+    targetCtx.stroke();
+
+    targetCtx.beginPath();
+    targetCtx.arc(82.5, -7, 4.0, 0, 6.283);
+    targetCtx.fillStyle = INK;
+    targetCtx.fill();
+
+    targetCtx.beginPath();
+    targetCtx.arc(84, -9, 1.5, 0, 6.283);
+    targetCtx.fillStyle = '#fbfcff';
+    targetCtx.fill();
+    targetCtx.restore();
+
+    // -------------------------------------------------------------
+    // 【头顶发光诱饵提灯器官 (Stalk & Lantern)】
+    // -------------------------------------------------------------
+    var lt = getLanternLocal(tt);
+    targetCtx.save();
+    targetCtx.beginPath();
+    targetCtx.moveTo(96, -18);
+    targetCtx.quadraticCurveTo(120, -58, lt.x, lt.y);
+    targetCtx.strokeStyle = INK;
+    targetCtx.lineWidth = OL * 1.5;
+    targetCtx.stroke();
+    targetCtx.strokeStyle = '#ffb3c0';
+    targetCtx.lineWidth = OL * 0.6;
+    targetCtx.stroke();
+
+    var isBright = tt >= 6;
+    var flash = 0.85 + 0.25 * Math.sin(tt * 3.14) + extraLanternPulse;
+    var rl = 9;
+
+    if(isBright){
+      var brightAlpha = sm(6, 9.5, tt);
+      burst(targetCtx, lt.x, lt.y, rl * 1.5, rl * (2.4 + 2.0 * brightAlpha * flash), 10, tt * 0.4);
+      targetCtx.fillStyle = 'rgba(255, 245, 179, ' + (0.9 * brightAlpha).toFixed(2) + ')';
+      targetCtx.fill();
+      targetCtx.strokeStyle = INK;
+      targetCtx.lineWidth = OL * 0.6;
+      targetCtx.stroke();
+    }
+
+    targetCtx.beginPath();
+    targetCtx.arc(lt.x, lt.y, rl, 0, 6.283);
+    targetCtx.fillStyle = isBright ? '#ffd23f' : '#c2304a';
+    targetCtx.fill();
+    targetCtx.strokeStyle = INK;
+    targetCtx.lineWidth = OL;
+    targetCtx.stroke();
+
+    targetCtx.beginPath();
+    targetCtx.arc(lt.x - rl * 0.3, lt.y - rl * 0.3, rl * 0.28, 0, 6.283);
+    targetCtx.fillStyle = isBright ? '#fffbe0' : '#ff8fa0';
+    targetCtx.fill();
+    targetCtx.restore();
+
+    targetCtx.restore();
+
+    // 5. 下潜速度线
+    if(P.dive > 0.05){
+      targetCtx.save();
+      targetCtx.strokeStyle = 'rgba(255, 255, 255, ' + (0.55 * P.dive) + ')';
+      targetCtx.lineCap = 'round';
+      for(var i = 0; i < 16; i++){
+        var lx = frac(i * 0.618034) * targetW;
+        var ly = frac(i * 0.37 - tt * (0.8 + (i % 3) * 0.3)) * targetH * 1.3 - targetH * 0.15;
+        var ln = targetH * (0.1 + (i % 4) * 0.05);
+        targetCtx.lineWidth = 1.5 + (i % 3);
+        targetCtx.beginPath();
+        targetCtx.moveTo(lx, ly);
+        targetCtx.lineTo(lx + Math.sin(P.a) * ln * 0.5, ly + ln);
+        targetCtx.stroke();
+      }
+      targetCtx.restore();
+    }
+
+    // 6. 漫画拟声特效字 (SFX)
+    var baseS = Math.min(targetW, targetH * 1.4) * 0.1;
+    drawSFX(targetCtx, '悠～', targetW * 0.2, targetH * 0.32 + Math.sin(tt * 2) * 4, baseS * 0.85, -0.1, '#ffffff', popCurve(tt, 0.6, 5.6));
+    var bx = Math.min(targetW - baseS * 1.3, lp.x + baseS * 0.9), by = Math.max(baseS * 1.2, lp.y - baseS * 0.9);
+    drawSFX(targetCtx, '啪！', bx, by, baseS * 1.35, 0.12, '#ffd23f', popCurve(tt, 6.3, 8.9));
+    drawSFX(targetCtx, '咕噜咕噜', targetW * 0.24, targetH * 0.76 + Math.sin(tt * 5) * 3, baseS * 0.8, -0.06, '#ffffff', popCurve(tt, 12.6, 17.6));
+    drawSFX(targetCtx, '唰——', targetW * 0.26, targetH * 0.5, baseS * 1.6, -0.25, '#ffffff', popCurve(tt, 19.3, 22.7));
+  }
+
+  // ================= 4. WebGL 渲染管线提交 (60FPS 超清硬件加速) =================
+  function draw(tt){
+    renderSceneToCanvas(tt, offCtx, W, H);
+
+    if(hasWebGL){
+      gl.viewport(0, 0, glCanvas.width, glCanvas.height);
+      gl.useProgram(glProgram);
+
+      gl.bindTexture(gl.TEXTURE_2D, glTexture);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, offCanvas);
+
+      var P = getPose(tt);
+      var ll = getLanternLocal(tt);
+      var lp = toScreen(P, ll.x, ll.y);
+      var u_lx = lp.x / W;
+      var u_ly = lp.y / H;
+
+      var isBright = tt >= 6;
+      var flash = 0.85 + 0.25 * Math.sin(tt * 3.14) + extraLanternPulse;
+      var lanternBright = isBright ? (1.0 + sm(6, 9.5, tt) * 1.2) * flash : 0.25;
+
+      gl.uniform1f(uTimeLoc, tt);
+      gl.uniform2f(uResLoc, glCanvas.width, glCanvas.height);
+      gl.uniform2f(uLanternLoc, u_lx, u_ly);
+      gl.uniform1f(uLanternBrightLoc, lanternBright);
+      if(isBright){
+        gl.uniform3f(uLanternColLoc, 1.0, 0.82, 0.25);
+      } else {
+        gl.uniform3f(uLanternColLoc, 0.76, 0.19, 0.29);
+      }
+      gl.uniform1f(uDiveLoc, P.dive);
+      gl.uniform1f(uDispScaleLoc, shaderDispScale);
+      gl.uniform1i(uFilterModeLoc, shaderFilterMode);
+
+      // 探照灯坐标与交互参数传递
+      gl.uniform2f(uMouseLoc, mousePos.x / W, mousePos.y / H);
+      gl.uniform1f(uMouseActiveLoc, mousePos.active);
+
+      // 冲击波参数传递
+      gl.uniform3f(uShockwaveLoc, shockwave.x, shockwave.y, shockwave.progress);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+    } else {
+      var fallbackCtx = glCanvas.getContext('2d');
+      fallbackCtx.clearRect(0, 0, W, H);
+      fallbackCtx.drawImage(offCanvas, 0, 0);
     }
   }
 
-  function draw(tt){ctx=mctx;scene(tt,true);}
+  // ================= 5. UI 交互与章节管理 =================
+  var chBtns = [], thumbs = [];
+  function fmt(v){ var s = Math.floor(v); return '00:' + (s < 10 ? '0' : '') + s; }
 
-  // ---- UI ----
-  var elPlay=document.getElementById('play'),elSeek=document.getElementById('seek'),
-      elClock=document.getElementById('clock'),elDepth=document.getElementById('depth'),
-      elName=document.getElementById('capName'),elText=document.getElementById('capText'),
-      elCh=document.getElementById('chapters');
-  var chBtns=[],thumbs=[];
-  function fmt(v){var s=Math.floor(v);return '00:'+(s<10?'0':'')+s;}
-  scenes.forEach(function(sc,idx){
-    var b=document.createElement('button');b.type='button';
-    b.innerHTML='<canvas aria-hidden="true"></canvas><span class="lab"><b>'+sc.name+'</b><small>'+fmt(sc.t)+'</small></span>';
-    b.addEventListener('click',function(){t=sc.t;draw(t);ui();});
-    elCh.appendChild(b);chBtns.push(b);thumbs.push(b.querySelector('canvas'));
-  });
-  function renderThumbs(){
-    var sW=W,sH=H,sCtx=ctx;
-    thumbs.forEach(function(el,n){
-      var r=el.getBoundingClientRect();if(!r.width||!r.height)return;
-      var d=Math.min(window.devicePixelRatio||1,2);
-      el.width=Math.round(r.width*d);el.height=Math.round(r.height*d);
-      var c=el.getContext('2d');c.setTransform(d,0,0,d,0,0);
-      W=r.width;H=r.height;ctx=c;
-      scene(scenes[n].key,false);
+  scenes.forEach(function(sc, idx){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.innerHTML = '<canvas aria-hidden="true"></canvas><span class="lab"><b>'+sc.name+'</b><small>'+fmt(sc.t)+'</small></span>';
+    b.addEventListener('click', function(){
+      t = sc.t;
+      draw(t);
+      updateUI();
     });
-    W=sW;H=sH;ctx=sCtx;
-  }
-  function ui(){
-    var idx=0;for(var i=0;i<scenes.length;i++)if(t>=scenes[i].t)idx=i;
-    if(idx!==sceneIdx){
-      sceneIdx=idx;
-      elName.textContent=scenes[idx].name;elText.textContent=scenes[idx].text;
-      chBtns.forEach(function(b,n){b.setAttribute('aria-current',n===idx?'true':'false');});
-    }
-    elSeek.value=t;
-    elClock.textContent=fmt(t)+' / 00:25';
-    var dv=sm(19,23.5,t);
-    elDepth.textContent='水深 '+Math.round(860+t*2+320*dv).toLocaleString('en-US')+' m';
-    elPlay.textContent=playing?'暂停':'播放';
-  }
-  elPlay.addEventListener('click',function(){playing=!playing;last=performance.now();ui();});
-  elSeek.addEventListener('input',function(){t=parseFloat(elSeek.value);draw(t);ui();});
+    elCh.appendChild(b);
+    chBtns.push(b);
+    thumbs.push(b.querySelector('canvas'));
+  });
 
+  function renderThumbs(){
+    thumbs.forEach(function(el, n){
+      var r = el.getBoundingClientRect();
+      if(!r.width || !r.height) return;
+      var d = Math.min(window.devicePixelRatio || 1, 2);
+      el.width = Math.round(r.width * d);
+      el.height = Math.round(r.height * d);
+      var c = el.getContext('2d');
+      c.setTransform(d, 0, 0, d, 0, 0);
+      renderSceneToCanvas(scenes[n].key, c, r.width, r.height);
+    });
+  }
+
+  function updateUI(){
+    var idx = 0;
+    for(var i = 0; i < scenes.length; i++){
+      if(t >= scenes[i].t) idx = i;
+    }
+    if(idx !== sceneIdx){
+      sceneIdx = idx;
+      elName.textContent = scenes[idx].name;
+      elText.textContent = scenes[idx].text;
+      chBtns.forEach(function(b, n){ b.setAttribute('aria-current', n === idx ? 'true' : 'false'); });
+      for(var s = 0; s < 4; s++){
+        var sBtn = document.getElementById('btnStamp' + s);
+        if(sBtn) sBtn.setAttribute('aria-pressed', s === idx ? 'true' : 'false');
+      }
+    }
+    elSeek.value = t;
+    elClock.textContent = fmt(t) + ' / 00:25';
+    var dv = sm(19, 23.5, t);
+    var curDepth = Math.round(860 + t * 2.2 + 310 * dv);
+    elDepth.textContent = '水深 ' + curDepth.toLocaleString('en-US') + ' m';
+    elPlay.textContent = playing ? '暂停' : '播放';
+  }
+
+  elPlay.addEventListener('click', function(){
+    playing = !playing;
+    last = performance.now();
+    updateUI();
+  });
+  elSeek.addEventListener('input', function(){
+    t = parseFloat(elSeek.value);
+    draw(t);
+    updateUI();
+  });
+
+  // 生体印章跳转
+  document.getElementById('btnStamp0').addEventListener('click', function(){ t = scenes[0].t; draw(t); updateUI(); });
+  document.getElementById('btnStamp1').addEventListener('click', function(){ t = scenes[1].t; draw(t); updateUI(); });
+  document.getElementById('btnStamp2').addEventListener('click', function(){ t = scenes[2].t; draw(t); updateUI(); });
+  document.getElementById('btnStamp3').addEventListener('click', function(){ t = scenes[3].t; draw(t); updateUI(); });
+
+  // GPU 置换控制
+  document.getElementById('btnShaderDispNorm').addEventListener('click', function(){
+    shaderDispScale = 1.0;
+    document.querySelectorAll('.tone-filters button:nth-child(-n+4)').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+  document.getElementById('btnShaderDispWild').addEventListener('click', function(){
+    shaderDispScale = 2.5;
+    document.querySelectorAll('.tone-filters button:nth-child(-n+4)').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+  document.getElementById('btnShaderDispOff').addEventListener('click', function(){
+    shaderDispScale = 0.0;
+    document.querySelectorAll('.tone-filters button:nth-child(-n+4)').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+
+  // 连载印装模式切换
+  document.getElementById('fltColor').addEventListener('click', function(){
+    shaderFilterMode = 0;
+    document.querySelectorAll('.tone-filters button:nth-child(n+6)').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+  document.getElementById('fltMono').addEventListener('click', function(){
+    shaderFilterMode = 1;
+    document.querySelectorAll('.tone-filters button:nth-child(n+6)').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+  document.getElementById('fltBlue').addEventListener('click', function(){
+    shaderFilterMode = 2;
+    document.querySelectorAll('.tone-filters button:nth-child(n+6)').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+
+  // 视口与分辨率适配
   function fit(){
-    var r=cv.getBoundingClientRect();
-    if(!r.width||!r.height)return;
-    dpr=Math.min(window.devicePixelRatio||1,2);
-    cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);
-    W=r.width;H=r.height;ctx=mctx;
-    mctx.setTransform(dpr,0,0,dpr,0,0);
-    buildBG();
+    var r = glCanvas.getBoundingClientRect();
+    if(!r.width || !r.height) return;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = r.width; H = r.height;
+
+    glCanvas.width = Math.round(W * dpr);
+    glCanvas.height = Math.round(H * dpr);
+
+    offCanvas.width = W;
+    offCanvas.height = H;
+
     draw(t);
     renderThumbs();
   }
-  if(window.ResizeObserver)new ResizeObserver(fit).observe(cv);
-  window.addEventListener('resize',fit);
-  if(document.fonts&&document.fonts.load){
-    document.fonts.load('900 40px "ZCOOL QingKe HuangYou"','悠啪咕噜啵唰～！—').then(function(){fit();ui();}).catch(function(){});
+  if(window.ResizeObserver) new ResizeObserver(fit).observe(glCanvas);
+  window.addEventListener('resize', fit);
+  if(document.fonts && document.fonts.load){
+    document.fonts.load('900 40px "ZCOOL QingKe HuangYou"', '悠啪咕噜啵唰～！—').then(function(){ fit(); updateUI(); }).catch(function(){});
   }
 
+  // 60FPS 极速动画循环
   function frame(now){
-    var dt=Math.min(0.1,Math.max(0,(now-last)/1000));last=now;
+    var dt = Math.min(0.1, Math.max(0, (now - last) / 1000));
+    last = now;
+
+    // 冲击波自然向外扩散衰减
+    if(shockwave.progress < 1.0){
+      shockwave.progress += dt * 1.5;
+      if(shockwave.progress >= 1.0) shockwave.progress = 1.0;
+    }
+
+    // 提灯额外脉冲自然衰减
+    if(extraLanternPulse > 0){
+      extraLanternPulse -= dt * 2.5;
+      if(extraLanternPulse < 0) extraLanternPulse = 0;
+    }
+
+    // 鼠标速度阻尼
+    mouseVel.speed *= 0.92;
+
     if(playing){
-      t+=dt;
-      if(t>=DUR){t-=DUR;loops++;}
-      draw(t);ui();
+      t += dt;
+      if(t >= DUR){ t -= DUR; loops++; }
+      draw(t);
+      updateUI();
+    } else {
+      // 暂停时依然允许鼠标探照灯与冲击波即时响应
+      draw(t);
     }
     requestAnimationFrame(frame);
   }
-  fit();ui();
-  last=performance.now();
+
+  fit();
+  updateUI();
+  last = performance.now();
   requestAnimationFrame(frame);
 })();
 </script>
-
-</body></html>
+</body>
+</html>

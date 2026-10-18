@@ -1,0 +1,1075 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#e9eef8;color:#101828}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>荧光波足兽 · 林泽境生灵图鉴 · 第 3 话</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+/* Layout: 幻想大陆经典动态漫画短片 + 物种档案排版体系 */
+:root{
+  --paper:#e9eef8;
+  --ink:#101828;
+  --violet:#7c5cff;
+  --cyan:#12b8d8;
+  --pink:#f0479a;
+  --mint:#2fd39a;
+  --amber:#ffc23d;
+  --white:#ffffff;
+  --chunk:"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif;
+  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  background-color:var(--paper);
+  background-image:radial-gradient(rgba(16,24,40,.10) 1.2px,transparent 1.5px);
+  background-size:12px 12px;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.65;
+  padding-inline:16px;
+  padding-block:28px 56px;
+  margin:0;
+}
+.wrap{max-width:980px;margin-inline:auto;display:flex;flex-direction:column;gap:28px}
+.head{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.kicker{
+  margin:0;background:var(--ink);color:var(--white);
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  padding:3px 10px;display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.kicker .tech-tag{color:#8ce9ff;font-weight:700}
+h1{
+  margin:0;font-family:var(--chunk);font-weight:400;
+  font-size:clamp(3.4rem,13vw,6rem);line-height:1;letter-spacing:.05em;
+  color:var(--violet);
+  -webkit-text-stroke:8px var(--ink);paint-order:stroke fill;
+  text-shadow:6px 6px 0 var(--ink);
+  transform:rotate(-1.5deg);transform-origin:left bottom;
+}
+.latin{margin:0;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--cyan);letter-spacing:.06em}
+
+.film{display:flex;flex-direction:column;gap:16px;min-width:0}
+.stage{
+  position:relative;width:100%;aspect-ratio:16/10;
+  background:#0b1430;
+  border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);
+  overflow:hidden;cursor:crosshair;
+}
+canvas.main{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+.cap{
+  position:absolute;left:14px;top:14px;max-width:min(74%,28em);
+  background:#ffe27a;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+  padding:6px 14px;display:flex;flex-direction:column;gap:0;pointer-events:none;z-index:10;
+}
+.cap b{font-family:var(--chunk);font-weight:400;font-size:1.25rem;letter-spacing:.12em;line-height:1.3;color:#6d28d9}
+.cap span{font-size:13.5px;line-height:1.5;color:var(--ink)}
+
+.gauge{
+  position:absolute;right:14px;bottom:14px;
+  background:var(--white);border:2px solid var(--ink);padding:2px 10px;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;z-index:10;box-shadow:2px 2px 0 var(--ink);
+}
+.hud-pill{
+  position:absolute;left:14px;bottom:14px;
+  background:rgba(11,20,48,.86);border:1.5px solid rgba(255,255,255,.35);
+  padding:3px 12px;font-family:var(--mono);font-size:11px;color:#8ce9ff;
+  border-radius:999px;pointer-events:none;z-index:10;
+  display:flex;align-items:center;gap:6px;
+}
+.hud-pill .dot{width:6px;height:6px;border-radius:50%;background:#22d3ee;box-shadow:0 0 8px #22d3ee}
+
+.ctl{display:flex;align-items:center;gap:12px;min-width:0;margin-top:2px}
+.ctl button{
+  flex:none;min-width:68px;font:inherit;font-size:14px;font-weight:700;color:var(--ink);
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:3px 3px 0 var(--ink);padding:5px 14px;cursor:pointer;transition:all .1s;
+}
+.ctl button:hover{background:#ffe27a;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.ctl button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.ctl input[type=range]{flex:1;min-width:0;accent-color:var(--violet);cursor:pointer}
+.clock{flex:none;font-family:var(--mono);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+button:focus-visible,input:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+
+.chapters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.chapters button{
+  font:inherit;color:var(--ink);text-align:left;cursor:pointer;
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:4px 4px 0 var(--ink);padding:0;display:flex;flex-direction:column;min-width:0;
+  transition:all .15s;
+}
+.chapters button:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.chapters canvas{display:block;width:100%;aspect-ratio:4/3;border-bottom:3px solid var(--ink);background:#0b1430}
+.chapters .lab{display:flex;align-items:baseline;gap:8px;padding:5px 10px 6px}
+.chapters .lab b{font-family:var(--chunk);font-weight:400;font-size:1.15rem;letter-spacing:.12em}
+.chapters .lab small{font-family:var(--mono);font-size:11px;font-weight:700}
+.chapters button[aria-current=true] .lab{background:#ffe27a}
+.chapters button[aria-current=true]{box-shadow:4px 4px 0 var(--violet)}
+
+.manga-control-bar{
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  background:var(--white);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+  padding:12px 16px;
+}
+.mode-selector{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mode-title{
+  font-family:var(--chunk);font-size:1.2rem;letter-spacing:.08em;
+  background:var(--ink);color:#fff;padding:2px 10px;transform:skewX(-8deg);
+}
+.stamp-btn{
+  font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em;
+  background:var(--paper);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:5px 12px;cursor:pointer;transition:all .15s;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.stamp-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);background:var(--amber)}
+.stamp-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.stamp-btn[aria-pressed=true]{background:var(--violet);color:#fff;box-shadow:3px 3px 0 var(--ink);transform:translateY(1px)}
+
+.tone-filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.filter-tag{font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em}
+.filter-btn{
+  font-family:var(--body);font-weight:700;font-size:12px;
+  border:2px solid var(--ink);background:#fff;padding:4px 10px;cursor:pointer;
+}
+.filter-btn.active{background:var(--ink);color:#fff}
+
+.guide{
+  display:flex;flex-direction:column;gap:16px;background:var(--white);
+  border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:20px 22px 18px;
+}
+.guide-header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.guide h2{margin:0;font-family:var(--chunk);font-weight:400;font-size:1.7rem;letter-spacing:.12em;line-height:1.2}
+.guide-num{font-family:var(--mono);font-size:12px;font-weight:700;color:#666}
+dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+.row{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:12px;padding:10px 0;border-top:2px dashed rgba(16,24,40,.22);align-items:start}
+dt{justify-self:start;background:#dcd6ff;border:2px solid var(--ink);padding:1px 7px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em}
+dd{margin:0;min-width:0;font-size:14px}
+.tech-spec{background:#f2f0ff;border:2.5px solid var(--ink);padding:12px 16px;font-size:13.5px;line-height:1.65}
+.tech-spec b{color:#5b21b6}
+.tech-spec code{font-family:var(--mono);background:#fff;border:1px solid var(--ink);padding:1px 5px;border-radius:3px}
+.note{margin:0;font-family:var(--mono);font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:8px}
+.sfxload{position:absolute;left:-9999px;top:0;font-family:var(--chunk);white-space:nowrap}
+
+.mode-monochrome{filter:grayscale(100%) contrast(150%)}
+.mode-blueprint{filter:invert(100%) hue-rotate(190deg) contrast(140%) brightness(90%)}
+
+@media (max-width:640px){
+  .stage{aspect-ratio:4/5}
+  .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  dl{grid-template-columns:1fr}
+}
+</style>
+
+<main class="wrap" id="mainWrap">
+  <header class="head">
+    <p class="kicker">
+      <span>林泽河畔图鉴 · 第 3 话 · 虚构物种</span>
+      <span class="tech-tag">⚡ 四眼提灯 · 波足踏溪 · 原生 Canvas 60FPS</span>
+    </p>
+    <h1>荧光波足兽</h1>
+    <p class="latin">Polypus fluctuans</p>
+  </header>
+
+  <section class="film" aria-label="荧光波足兽动态漫画短片">
+    <div class="stage" id="stageFrame">
+      <canvas class="main" id="c" role="img" aria-label="荧光波足兽在月夜浅溪上小跑、几十只小脚连成光浪踏水飞奔、额前提灯亮起抖出荧光孢子、最后甩尾跃回林边亮灯小木屋"></canvas>
+      <div class="cap"><b id="capName">月夜涉溪</b><span id="capText"></span></div>
+      <div class="gauge" id="gauge">步频 96 步/分 · 踏水 3 cm</div>
+      <div class="hud-pill"><span class="dot"></span><span>河畔生态探针 · 划过水面激起涟漪 · 点击它逗它跳一下</span></div>
+    </div>
+
+    <div class="ctl">
+      <button id="play" type="button">暂停</button>
+      <input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="播放进度">
+      <span class="clock" id="clock">00:00 / 00:25</span>
+    </div>
+
+    <nav class="chapters" id="chapters" aria-label="章节"></nav>
+  </section>
+
+  <footer class="manga-control-bar">
+    <div class="mode-selector">
+      <span class="mode-title">生体指令印章</span>
+      <button class="stamp-btn" id="btnStamp0" aria-pressed="true"><span>🌙</span> 月夜踏溪</button>
+      <button class="stamp-btn" id="btnStamp1" aria-pressed="false"><span>💦</span> 波足飞踏</button>
+      <button class="stamp-btn" id="btnStamp2" aria-pressed="false"><span>✨</span> 水华孢子</button>
+      <button class="stamp-btn" id="btnStamp3" aria-pressed="false"><span>🏡</span> 欢跃归林</button>
+    </div>
+
+    <div class="tone-filters">
+      <span class="filter-tag">连载印装：</span>
+      <button class="filter-btn active" id="fltColor">卷首全彩</button>
+      <button class="filter-btn" id="fltMono">黑白网点</button>
+      <button class="filter-btn" id="fltBlue">原稿蓝图</button>
+    </div>
+  </footer>
+
+  <section class="guide" aria-label="物种百科档案">
+    <div class="guide-header">
+      <h2>物种档案</h2>
+      <span class="guide-num">档案编号：POLY-03-SPEC</span>
+    </div>
+    <dl>
+      <div class="row"><dt>体长</dt><dd>身长 0.9 米，连蓬松大尾 1.5 米，肩高 0.45 米，体重 12 公斤</dd></div>
+      <div class="row"><dt>栖息</dt><dd>林泽境的月夜浅溪、河畔湿草地，以及亮着灯的小木屋附近的水湾</dd></div>
+      <div class="row"><dt>四眼</dt><dd>头部一侧纵列 4 只眼，由大到小依次排开；明暗通吃，夜里也能看清水面下的动静</dd></div>
+      <div class="row"><dt>额前灯</dt><dd>额顶伸出一根长触须，末端吊着一颗冷青色提灯，用来照水、诱虫，也是同族打招呼的信号灯</dd></div>
+      <div class="row"><dt>波足</dt><dd>腹下生有几十只半透明小脚，落点从尾侧往头侧依次延后，整排脚像一道滚过去的光浪</dd></div>
+      <div class="row"><dt>背鳍尾</dt><dd>背上叠着四层半透明水母状鳍片，身后甩一条蓬松大尾，腾空时张开用来掌舵与减速</dd></div>
+      <div class="row"><dt>荧光</dt><dd>足底腺体把踏起的水珠染成冷青色，跑过之后水面上会留下一串发光的脚印</dd></div>
+      <div class="row"><dt>习性</dt><dd>生性极好奇，听见溪边有响动就会凑过来；高兴时会把几十只小脚踩成一串连珠水花</dd></div>
+    </dl>
+    <div class="tech-spec">
+      ✦ <b>非跟随型河畔生态交互：</b>
+      波足兽不追着鼠标跑。光标划过水面时只留下<b>圈圈扩散的涟漪</b>，水面波纹会顺着风向推着它的背鳍与触须一起摆；点击它身边的水面会激起<b>连珠水花</b>并把它吓得原地一跳，点击它本人则会逗得它开心地抖落一团<b>荧光孢子</b>。
+      所有小脚的落点都按<b>从尾侧向头侧依次延后</b>的相位推进，因此整排脚永远呈现一道向后滚动的光浪，而不是整齐地一起抬落。
+    </div>
+    <p class="note">物种与拉丁学名皆为虚构。点上方章节格或印章按钮可跳到对应章节。</p>
+  </section>
+
+  <span class="sfxload" aria-hidden="true">踏踏踏哗啦啵噗溜～！—</span>
+</main>
+
+<script>
+(function(){
+  'use strict';
+
+  var DUR=25;
+  var INK='#101828';
+  var SFXFONT='"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif';
+
+  // 四幕分镜
+  var scenes=[
+    {t:0, key:3.0,  name:'月夜涉溪', text:'月光铺在浅溪上，它踩着水皮一路小跑，几十只小脚像波浪一样依次落下。'},
+    {t:6, key:8.5,  name:'波足飞踏', text:'它越跑越快，小脚连成一片光浪，把溪水踏成一串串飞溅的发光水珠。'},
+    {t:12,key:15.0, name:'水华孢子', text:'它欢快地跃出水面，额前的提灯骤然亮起，背上抖出一团荧光孢子。'},
+    {t:19,key:21.8, name:'欢跃归林', text:'夜色渐深，它甩着蓬松的大尾巴，踏着水花蹦跳着回到林边的木屋。'}
+  ];
+
+  var cv=document.getElementById('c');
+  var mctx=cv.getContext('2d');
+  var ctx=mctx;
+  var W=800,H=500,dpr=1;
+  var playing=true,t=0,last=0,loops=0,sceneIdx=-1;
+
+  // 交互状态（非跟随型：鼠标只影响水面与环境）
+  var ripples=[];
+  var splashes=[];
+  var startle=0;      // 被水花吓到的原地一跳
+  var cheer=0;        // 被点击逗乐，抖孢子
+  var windX=0,windY=0,windSpeed=0,lastMX=0,lastMY=0;
+
+  var clamp=function(x,a,b){a=a===undefined?0:a;b=b===undefined?1:b;return Math.min(b,Math.max(a,x));};
+  var sm=function(a,b,x){x=clamp((x-a)/(b-a));return x*x*(3-2*x);};
+  var lerp=function(a,b,k){return a+(b-a)*k;};
+  var frac=function(v){return ((v%1)+1)%1;};
+
+  function rng(seed){
+    return function(){
+      seed|=0;seed=seed+0x6D2B79F5|0;
+      var q=Math.imul(seed^seed>>>15,1|seed);
+      q=q+Math.imul(q^q>>>7,61|q)^q;
+      return ((q^q>>>14)>>>0)/4294967296;
+    };
+  }
+  var R=rng(311);
+
+  function popv(tt,a,b){
+    if(tt<a||tt>b)return 0;
+    var age=tt-a,v=1;
+    if(age<0.22){var x=age/0.22,c1=1.70158,c3=c1+1;v=1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);}
+    if(b-tt<0.2)v*=(b-tt)/0.2;
+    return Math.max(0,v);
+  }
+
+  function sfx(txt,x,y,size,rot,fill,pop){
+    if(pop<=0)return;
+    ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(pop,pop);
+    ctx.font='900 '+size+'px '+SFXFONT;ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.lineJoin='round';ctx.lineWidth=size*0.22;ctx.strokeStyle=INK;ctx.strokeText(txt,0,0);
+    ctx.fillStyle=fill;ctx.fillText(txt,0,0);
+    ctx.restore();
+  }
+
+  // 预生成背景元素（全部按原图构图：左岸秋树、右岸青林、右中木屋、中景溪流）
+  var stars=[];
+  for(var i=0;i<66;i++)stars.push({x:R(),y:R()*0.50,r:0.9+R()*1.7,tw:R()*6.283,sp:0.6+R()*1.6});
+
+  var treesFar=[];
+  for(var i=0;i<15;i++)treesFar.push({b:R(),w:0.026+R()*0.022,h:0.28+R()*0.26,c:R()});
+
+  var treesNear=[];
+  for(var i=0;i<9;i++)treesNear.push({
+    b:R(),s:0.72+R()*0.5,
+    side:R()>0.5?1:-1,
+    warm:R()>0.44,
+    wob:R()*6.283
+  });
+
+  var grass=[];
+  for(var i=0;i<26;i++)grass.push({b:R(),s:0.55+R()*0.75,h:0.5+R()*0.8,w:R()*6.283});
+
+  var motes=[];
+  for(var i=0;i<30;i++)motes.push({x:R(),y:R(),r:0.9+R()*1.9,tw:R()*6.283,sp:0.25+R()*0.5});
+
+  // 世界卷动（生物头朝左奔跑，故背景整体向右掠过）
+  function spd(tt){
+    if(tt<5.5)return 0.055;
+    if(tt<6.5)return lerp(0.055,0.115,tt-5.5);
+    if(tt<11.6)return 0.115;
+    if(tt<12.4)return lerp(0.115,0.02,tt-11.6);
+    if(tt<18.6)return 0.02;
+    if(tt<19.6)return lerp(0.02,0.07,tt-18.6);
+    if(tt<23.4)return 0.07;
+    return lerp(0.07,0.055,tt-23.4);
+  }
+  var XT=[],STEP=0.04;
+  (function(){var x=0;for(var k=0;k*STEP<=DUR+0.001;k++){XT.push(x);x+=spd(k*STEP)*STEP;}})();
+  function XU(tt){var f=tt/STEP,idx=Math.min(Math.floor(f),XT.length-2);return lerp(XT[idx],XT[idx+1],f-idx);}
+
+  // ==================== 1. 月夜河畔背景 ====================
+  function drawRiverbank(c,tw,th,tt,xu,waterY,s){
+    // A. 夜空渐变（深蓝→紫→地平线暖橙，对齐原图）
+    var sky=c.createLinearGradient(0,0,0,waterY);
+    sky.addColorStop(0,'#0a1330');
+    sky.addColorStop(0.34,'#20265c');
+    sky.addColorStop(0.62,'#5b3a76');
+    sky.addColorStop(0.82,'#a8556f');
+    sky.addColorStop(1,'#f08a5d');
+    c.fillStyle=sky;c.fillRect(0,0,tw,waterY+2);
+
+    // B. 繁星
+    for(var i=0;i<stars.length;i++){
+      var st=stars[i];
+      var sx=frac(st.x+xu*0.06)*tw;
+      var sy=st.y*waterY*0.92;
+      var pulse=0.45+0.55*Math.abs(Math.sin(tt*st.sp+st.tw));
+      c.globalAlpha=pulse;
+      c.fillStyle='#ffffff';
+      c.beginPath();c.arc(sx,sy,st.r,0,6.283);c.fill();
+      if(st.r>2.1){
+        c.strokeStyle='#ffffff';c.lineWidth=1;
+        c.beginPath();c.moveTo(sx-st.r*2.4,sy);c.lineTo(sx+st.r*2.4,sy);
+        c.moveTo(sx,sy-st.r*2.4);c.lineTo(sx,sy+st.r*2.4);c.stroke();
+      }
+    }
+    c.globalAlpha=1;
+
+    // C. 弯月与月晕（原图正上方偏右）
+    var mx=tw*0.52,my=th*0.145,mr=th*0.072;
+    var halo=c.createRadialGradient(mx,my,mr*0.6,mx,my,mr*4.4);
+    halo.addColorStop(0,'rgba(255,240,205,0.30)');
+    halo.addColorStop(0.45,'rgba(180,200,255,0.10)');
+    halo.addColorStop(1,'rgba(120,160,255,0)');
+    c.fillStyle=halo;c.beginPath();c.arc(mx,my,mr*4.4,0,6.283);c.fill();
+
+    c.save();
+    c.beginPath();c.arc(mx,my,mr,0,6.283);
+    var moonG=c.createLinearGradient(mx-mr,my-mr,mx+mr,my+mr);
+    moonG.addColorStop(0,'#fffdf2');moonG.addColorStop(1,'#ffe6a8');
+    c.fillStyle=moonG;c.fill();
+    c.strokeStyle=INK;c.lineWidth=2.2;c.stroke();
+    c.globalCompositeOperation='destination-out';
+    c.beginPath();c.arc(mx-mr*0.44,my-mr*0.16,mr*0.92,0,6.283);c.fill();
+    c.globalCompositeOperation='source-over';
+    c.restore();
+
+    // D. 粉紫与暖橙云带
+    c.save();
+    c.globalAlpha=0.5;
+    for(var k=0;k<4;k++){
+      var cy=waterY*(0.30+k*0.11);
+      var cx=frac(0.14+k*0.29+xu*0.10)*tw;
+      var cw=tw*(0.20+((k*7)%5)*0.045);
+      c.fillStyle=k%2?'#c98bb0':'#8f7ac4';
+      c.beginPath();
+      c.ellipse(cx,cy,cw,th*0.026,0,0,6.283);
+      c.ellipse(cx+cw*0.4,cy-th*0.012,cw*0.6,th*0.020,0,0,6.283);
+      c.fill();
+    }
+    c.restore();
+
+    // E. 远山两层
+    var peaks=[0.10,0.26,0.40,0.55,0.72,0.88];
+    var farY=waterY*0.72;
+    c.fillStyle='#3b3566';
+    c.beginPath();c.moveTo(0,farY);
+    for(var p=0;p<peaks.length;p++){
+      var px=frac(peaks[p]+xu*0.045)*tw;
+      var ph=th*(0.20+((p*5)%4)*0.045);
+      c.lineTo(px-tw*0.14,farY);
+      c.lineTo(px,farY-ph);
+      c.lineTo(px+tw*0.14,farY);
+    }
+    c.lineTo(tw,farY);c.lineTo(tw,waterY);c.lineTo(0,waterY);c.closePath();c.fill();
+
+    c.fillStyle='#2a2750';
+    c.beginPath();c.moveTo(0,waterY*0.90);
+    for(var q=0;q<peaks.length;q++){
+      var qx=frac(peaks[q]+0.07+xu*0.075)*tw;
+      var qh=th*(0.11+((q*3)%3)*0.035);
+      c.lineTo(qx-tw*0.12,waterY*0.90);
+      c.lineTo(qx,waterY*0.90-qh);
+      c.lineTo(qx+tw*0.12,waterY*0.90);
+    }
+    c.lineTo(tw,waterY);c.lineTo(0,waterY);c.closePath();c.fill();
+
+    // F. 中景树林剪影
+    for(var ti=0;ti<treesFar.length;ti++){
+      var tr=treesFar[ti];
+      var tx=frac(tr.b+xu*0.22)*tw;
+      var twid=tw*tr.w, thh=th*tr.h;
+      var baseY=waterY*0.94;
+      c.fillStyle=tr.c>0.5?'#1d2a4a':'#182238';
+      c.fillRect(tx-twid/2,baseY-thh,twid,thh);
+      c.beginPath();
+      c.moveTo(tx-twid*2.6,baseY-thh);
+      c.lineTo(tx,baseY-thh-th*0.11);
+      c.lineTo(tx+twid*2.6,baseY-thh);
+      c.closePath();c.fill();
+      c.beginPath();
+      c.moveTo(tx-twid*2.0,baseY-thh*0.68);
+      c.lineTo(tx,baseY-thh*0.68-th*0.085);
+      c.lineTo(tx+twid*2.0,baseY-thh*0.68);
+      c.closePath();c.fill();
+    }
+
+    // G. 近景两岸彩树（左岸暖秋橙红、右岸青绿与紫粉）
+    for(var ni=0;ni<treesNear.length;ni++){
+      var nt=treesNear[ni];
+      var nx=frac(nt.b+xu*0.42)*tw;
+      var nb=waterY*1.02;
+      var nh=th*(0.36+nt.s*0.20);
+      c.save();
+      c.translate(nx,nb);
+      c.scale(nt.s,nt.s);
+      c.fillStyle='#2b1c22';
+      c.beginPath();
+      c.moveTo(-6,0);c.quadraticCurveTo(-4,-nh*0.5,nt.side*4,-nh);
+      c.lineTo(nt.side*4+9,-nh);c.quadraticCurveTo(6,-nh*0.5,8,0);
+      c.closePath();c.fill();
+      c.strokeStyle=INK;c.lineWidth=2;c.stroke();
+      for(var bi=0;bi<5;bi++){
+        var bx=nt.side*(10+bi*13)+(nt.wob%1)*6;
+        var by=-nh*(0.62+((bi*3)%4)*0.10);
+        var br=th*(0.055+((bi*5)%3)*0.016);
+        c.beginPath();c.arc(bx,by,br,0,6.283);
+        if(nt.warm){c.fillStyle=bi%3===0?'#ff8a3d':(bi%3===1?'#f4b53f':'#e2543f');}
+        else{c.fillStyle=bi%3===0?'#2f8f6b':(bi%3===1?'#3fb98a':'#c05a9a');}
+        c.fill();
+        c.strokeStyle=INK;c.lineWidth=1.6;c.stroke();
+      }
+      c.restore();
+    }
+
+    // H. 林间小木屋（原图右侧，暖灯窗口）
+    var hx=frac(0.70+xu*0.42)*tw;
+    if(hx>-tw*0.2&&hx<tw*1.2){
+      var hy=waterY*0.72;
+      var hw=tw*0.085,hh=th*0.115;
+      c.save();
+      c.translate(hx,hy);
+      c.fillStyle='#3a2a2a';
+      c.fillRect(-hw/2,-hh,hw,hh);
+      c.strokeStyle=INK;c.lineWidth=2.4;c.strokeRect(-hw/2,-hh,hw,hh);
+      c.beginPath();
+      c.moveTo(-hw*0.68,-hh);c.lineTo(0,-hh-th*0.062);c.lineTo(hw*0.68,-hh);c.closePath();
+      c.fillStyle='#54303a';c.fill();c.stroke();
+      var glow=c.createRadialGradient(0,-hh*0.52,1,0,-hh*0.52,hw*0.95);
+      glow.addColorStop(0,'rgba(255,205,110,0.80)');
+      glow.addColorStop(1,'rgba(255,170,60,0)');
+      c.fillStyle=glow;c.beginPath();c.arc(0,-hh*0.52,hw*0.95,0,6.283);c.fill();
+      c.fillStyle='#ffcf6b';
+      c.fillRect(-hw*0.26,-hh*0.66,hw*0.20,hh*0.28);
+      c.fillRect(hw*0.06,-hh*0.66,hw*0.20,hh*0.28);
+      c.strokeStyle=INK;c.lineWidth=1.8;
+      c.strokeRect(-hw*0.26,-hh*0.66,hw*0.20,hh*0.28);
+      c.strokeRect(hw*0.06,-hh*0.66,hw*0.20,hh*0.28);
+      c.restore();
+    }
+
+    // I. 溪水
+    var water=c.createLinearGradient(0,waterY,0,th);
+    water.addColorStop(0,'#1d3f6b');
+    water.addColorStop(0.35,'#173a63');
+    water.addColorStop(1,'#0b1b33');
+    c.fillStyle=water;
+    c.fillRect(0,waterY,tw,th-waterY);
+    for(var wi=0;wi<16;wi++){
+      var wy=waterY+((wi*7)%13)/13*(th-waterY)*0.92+4;
+      var wx=frac(0.03+wi*0.062+xu*0.6)*tw;
+      var ww=tw*(0.05+((wi*3)%4)*0.022);
+      var alpha=0.10+((wi*5)%3)*0.05;
+      c.strokeStyle='rgba(150,215,255,'+alpha+')';
+      c.lineWidth=2;
+      c.beginPath();c.moveTo(wx,wy);c.lineTo(wx+ww,wy);c.stroke();
+    }
+    c.save();
+    c.globalAlpha=0.22;
+    c.fillStyle='#ffeeb8';
+    for(var ri=0;ri<7;ri++){
+      var ry=waterY+8+ri*((th-waterY)/8);
+      var rw=(tw*0.05)*(1-ri*0.09);
+      c.fillRect(mx-rw/2,ry,rw,2.4);
+    }
+    c.restore();
+
+    // J. 前景草丛（随风摆）
+    for(var gi=0;gi<grass.length;gi++){
+      var gr=grass[gi];
+      var gx=frac(gr.b+xu*1.05)*tw;
+      var gb=th+2;
+      c.save();
+      c.translate(gx,gb);
+      c.scale(gr.s,gr.s);
+      c.strokeStyle='#12203c';
+      c.lineWidth=3.4;
+      c.beginPath();
+      for(var bl=0;bl<5;bl++){
+        var bo=(bl-2)*6;
+        var bend=Math.sin(tt*1.1+gr.wob+bl)*7*windSpeed*0.05;
+        c.moveTo(bo,0);
+        c.quadraticCurveTo(bo+bend,-th*0.05*gr.h,bo+bend*2.1,-th*0.115*gr.h);
+      }
+      c.stroke();
+      c.restore();
+    }
+  }
+
+  // ==================== 2. 荧光波足兽本体（头朝左，严格对齐原图结构） ====================
+  function drawBeast(c,tt,s,run,leap){
+    var OL=Math.max(2.2,2.8*s)/s;
+    c.lineJoin='round';c.lineCap='round';
+
+    var bob=Math.sin(tt*11)*3.0*run;
+    c.translate(0,bob);
+
+    var C_BODY1='#8a6fe0',C_BODY2='#4a72d8',C_BELLY='#f6e6f4';
+    var C_LEG='#5fdcff';
+    var HEAD_X=-52,HEAD_Y=-78,HEAD_R=34;
+
+    // ---------- A. 几十只小脚：li=0 在尾侧(右)，相位依次向头侧(左)延后 ----------
+    for(var li=0;li<13;li++){
+      var lx=52-li*9.0;
+      var baseY=12;
+      var ph=tt*15-li*0.46;
+      var lift=Math.max(0,Math.sin(ph));
+      var drop=Math.max(0,-Math.sin(ph));
+      var footX=lx-4+Math.cos(ph)*7;
+      var footY=baseY+22-drop*9;
+      c.save();
+      c.beginPath();
+      c.moveTo(lx,baseY);
+      c.quadraticCurveTo(lx-2+Math.cos(ph)*4,baseY+13,footX,footY);
+      c.strokeStyle=INK;c.lineWidth=OL*2.0;c.stroke();
+      c.strokeStyle=C_LEG;c.lineWidth=OL*1.0;c.stroke();
+      c.beginPath();c.arc(footX,footY,2.2,0,6.283);
+      c.fillStyle='#ffffff';c.fill();
+      c.strokeStyle=INK;c.lineWidth=OL*0.5;c.stroke();
+      c.restore();
+      // 落点水花
+      if(lift<0.16&&run>0.3&&Math.random()<0.30){
+        splashes.push({lx:footX,ly:footY+4,vx:(R()-0.5)*2.4,vy:-1.6-R()*2.2,life:1,r:1.5+R()*1.6});
+      }
+    }
+
+    // ---------- B. 蓬松大尾（后方，体量约为头径 2 倍） ----------
+    c.save();
+    c.translate(56,-22);
+    c.rotate(-0.30+Math.sin(tt*7)*0.10+leap*0.12);
+    var tailG=c.createLinearGradient(0,-96,96,40);
+    tailG.addColorStop(0,'#ffd6ec');
+    tailG.addColorStop(0.34,'#ff7ac0');
+    tailG.addColorStop(0.70,'#a86cf0');
+    tailG.addColorStop(1,'#6f8ff0');
+    c.fillStyle=tailG;
+    c.beginPath();
+    c.moveTo(0,26);
+    c.bezierCurveTo(38,56,96,32,110,-26);
+    c.bezierCurveTo(120,-74,78,-108,32,-90);
+    c.bezierCurveTo(4,-78,-8,-24,0,26);
+    c.closePath();
+    c.fill();
+    c.strokeStyle=INK;c.lineWidth=OL;c.stroke();
+    // 尾部绒毛分股
+    c.strokeStyle='rgba(255,255,255,0.50)';c.lineWidth=OL*0.8;
+    for(var tf=0;tf<6;tf++){
+      var ta=tf/6*Math.PI*1.0-0.5;
+      c.beginPath();
+      c.moveTo(12+Math.cos(ta)*10,-4-Math.sin(ta)*12);
+      c.lineTo(38+Math.cos(ta)*62,-22-Math.sin(ta)*62);
+      c.stroke();
+    }
+    // 尾尖光丝
+    c.strokeStyle='#8be9ff';c.lineWidth=OL*0.9;
+    c.beginPath();
+    c.moveTo(106,-40);
+    c.quadraticCurveTo(134,-58+Math.sin(tt*9)*6,158,-48);
+    c.stroke();
+    c.restore();
+
+    // ---------- C. 背上四层半透明水母鳍（高耸，对齐原图比例） ----------
+    var finX=[-6,16,38,58];
+    var finH=[86,112,124,100];
+    for(var fi=0;fi<4;fi++){
+      var fx=finX[fi];
+      var fh=finH[fi];
+      var sway=Math.sin(tt*6-fi*0.7)*4+windX*0.6;
+      c.save();
+      c.translate(fx,-58);
+      c.rotate(-0.20-fi*0.045);
+      var fG=c.createLinearGradient(0,-fh,44,10);
+      fG.addColorStop(0,'rgba(126,240,201,0.92)');
+      fG.addColorStop(0.42,'rgba(139,233,255,0.88)');
+      fG.addColorStop(1,'rgba(255,122,192,0.92)');
+      c.fillStyle=fG;
+      c.beginPath();
+      c.moveTo(-18,10);
+      c.bezierCurveTo(-30,-fh*0.42+sway,-8,-fh+sway,24,-fh*0.82+sway);
+      c.bezierCurveTo(40,-fh*0.62,34,-16,16,6);
+      c.closePath();
+      c.fill();
+      c.strokeStyle=INK;c.lineWidth=OL*0.9;c.stroke();
+      // 鳍内发光脉络
+      c.strokeStyle='rgba(255,255,255,0.60)';c.lineWidth=OL*0.6;
+      c.beginPath();c.moveTo(-4,4);c.quadraticCurveTo(2,-fh*0.44+sway,18,-fh*0.78+sway);c.stroke();
+      c.beginPath();c.moveTo(6,0);c.quadraticCurveTo(16,-fh*0.34+sway,30,-fh*0.62+sway);c.stroke();
+      c.restore();
+    }
+
+    // ---------- D. 躯干 ----------
+    function bodyPath(){
+      c.beginPath();
+      c.moveTo(-70,-34);
+      c.bezierCurveTo(-78,-72,-32,-94,20,-84);
+      c.bezierCurveTo(60,-76,80,-44,72,-8);
+      c.bezierCurveTo(62,24,-40,28,-70,-34);
+      c.closePath();
+    }
+    c.save();
+    bodyPath();
+    var bG=c.createLinearGradient(-74,-84,74,24);
+    bG.addColorStop(0,C_BODY1);
+    bG.addColorStop(0.48,C_BODY2);
+    bG.addColorStop(1,'#2fae9e');
+    c.fillStyle=bG;c.fill();
+    c.save();c.clip();
+    // 腹侧浅色软毛
+    c.fillStyle=C_BELLY;
+    c.beginPath();
+    c.moveTo(-74,-8);
+    c.bezierCurveTo(-20,18,44,20,74,-8);
+    c.lineTo(74,34);c.lineTo(-74,34);c.closePath();
+    c.fill();
+    // 鳞羽纹（叠瓦状）
+    c.fillStyle='rgba(255,255,255,0.28)';
+    for(var row=0;row<4;row++){
+      var ry=-50+row*12;
+      var rr=5.2-row*0.5;
+      for(var col=0;col<11;col++){
+        var rx=-60+col*13+(row%2?6:0);
+        c.beginPath();
+        c.arc(rx,ry,rr,Math.PI,6.283);
+        c.fill();
+      }
+    }
+    // 背部绒毛亮边
+    c.strokeStyle='rgba(255,255,255,0.42)';c.lineWidth=5;
+    c.beginPath();
+    c.moveTo(-56,-66);
+    c.bezierCurveTo(-22,-88,26,-82,58,-56);
+    c.stroke();
+    c.restore();
+    bodyPath();
+    c.strokeStyle=INK;c.lineWidth=OL;c.stroke();
+    c.restore();
+
+    // ---------- E. 头部 ----------
+    c.save();
+    c.beginPath();c.arc(HEAD_X,HEAD_Y,HEAD_R,0,6.283);
+    var hG=c.createLinearGradient(HEAD_X-HEAD_R,HEAD_Y-HEAD_R,HEAD_X+HEAD_R,HEAD_Y+HEAD_R);
+    hG.addColorStop(0,'#a98ff0');
+    hG.addColorStop(0.6,'#5f7fdc');
+    hG.addColorStop(1,'#48b9c8');
+    c.fillStyle=hG;c.fill();
+    c.strokeStyle=INK;c.lineWidth=OL;c.stroke();
+    // 面部绒毛
+    c.strokeStyle='rgba(255,255,255,0.38)';c.lineWidth=OL*0.8;
+    c.beginPath();
+    for(var fa=0;fa<6;fa++){
+      var ang=-1.1+fa*0.40;
+      c.moveTo(HEAD_X+Math.cos(ang)*(HEAD_R-9),HEAD_Y+Math.sin(ang)*(HEAD_R-9));
+      c.lineTo(HEAD_X+Math.cos(ang)*(HEAD_R+4),HEAD_Y+Math.sin(ang)*(HEAD_R+4));
+    }
+    c.stroke();
+    c.restore();
+
+    // ---------- F. 四只竖排大眼（由大到小，自左上向右下铺开） ----------
+    var eyes=[
+      {x:HEAD_X-13,y:HEAD_Y-11,r:10.5},
+      {x:HEAD_X+9, y:HEAD_Y-17,r:7.8},
+      {x:HEAD_X+16,y:HEAD_Y-2, r:6.8},
+      {x:HEAD_X+23,y:HEAD_Y+9, r:5.4}
+    ];
+    for(var ei=0;ei<eyes.length;ei++){
+      var ey=eyes[ei];
+      c.save();
+      c.beginPath();c.arc(ey.x,ey.y,ey.r+1.6,0,6.283);
+      c.fillStyle=INK;c.fill();
+      c.beginPath();c.arc(ey.x,ey.y,ey.r,0,6.283);
+      c.fillStyle='#f4fbff';c.fill();
+      var irisG=c.createLinearGradient(ey.x-ey.r,ey.y-ey.r,ey.x+ey.r,ey.y+ey.r);
+      irisG.addColorStop(0,'#19d3f0');
+      irisG.addColorStop(0.55,'#2b7de0');
+      irisG.addColorStop(1,'#1b3f7a');
+      c.beginPath();c.arc(ey.x+1.4,ey.y+1.4,ey.r*0.70,0,6.283);
+      c.fillStyle=irisG;c.fill();
+      c.beginPath();c.arc(ey.x+2.0,ey.y+2.0,ey.r*0.34,0,6.283);
+      c.fillStyle='#06101f';c.fill();
+      c.fillStyle='#ffffff';
+      c.beginPath();c.arc(ey.x-ey.r*0.32,ey.y-ey.r*0.38,ey.r*0.30,0,6.283);c.fill();
+      c.beginPath();c.arc(ey.x+ey.r*0.34,ey.y+ey.r*0.26,ey.r*0.15,0,6.283);c.fill();
+      // 眨眼
+      if(frac(tt/5.3)<0.035){
+        c.beginPath();c.arc(ey.x,ey.y,ey.r+1.2,0,6.283);
+        c.fillStyle='#8b7ae0';c.fill();
+        c.strokeStyle=INK;c.lineWidth=OL*0.9;
+        c.beginPath();c.moveTo(ey.x-ey.r,ey.y);
+        c.quadraticCurveTo(ey.x,ey.y+ey.r*0.6,ey.x+ey.r,ey.y);c.stroke();
+      }
+      c.restore();
+    }
+
+    // ---------- G. 张口笑嘴（头部左下前方） ----------
+    c.save();
+    c.beginPath();
+    c.ellipse(HEAD_X-20,HEAD_Y+15,12,8.5,-0.28,0,6.283);
+    c.fillStyle='#f0479a';c.fill();
+    c.strokeStyle=INK;c.lineWidth=OL*0.9;c.stroke();
+    c.beginPath();
+    c.ellipse(HEAD_X-20,HEAD_Y+18,7.4,4.2,-0.28,0,6.283);
+    c.fillStyle='#ff9ecb';c.fill();
+    c.restore();
+
+    // ---------- H. 额前长提灯触须（短促上扬，末端灯球） ----------
+    var bulbX=HEAD_X-26,bulbY=HEAD_Y-46+Math.sin(tt*3.4)*3+windY*0.4;
+    c.save();
+    c.beginPath();
+    c.moveTo(HEAD_X-6,HEAD_Y-HEAD_R+6);
+    c.bezierCurveTo(HEAD_X-16,HEAD_Y-58,HEAD_X-28,HEAD_Y-50,bulbX,bulbY);
+    c.strokeStyle=INK;c.lineWidth=OL*1.9;c.stroke();
+    c.strokeStyle='#5fd6ff';c.lineWidth=OL*1.0;c.stroke();
+    var bulbGlow=c.createRadialGradient(bulbX,bulbY,1,bulbX,bulbY,24);
+    bulbGlow.addColorStop(0,'rgba(215,255,255,0.95)');
+    bulbGlow.addColorStop(0.35,'rgba(95,214,255,0.55)');
+    bulbGlow.addColorStop(1,'rgba(95,214,255,0)');
+    c.fillStyle=bulbGlow;
+    c.beginPath();c.arc(bulbX,bulbY,24,0,6.283);c.fill();
+    c.beginPath();c.arc(bulbX,bulbY,8.2,0,6.283);
+    c.fillStyle='#e8ffff';c.fill();
+    c.strokeStyle=INK;c.lineWidth=OL*0.9;c.stroke();
+    c.beginPath();c.arc(bulbX-2,bulbY-2,2.9,0,6.283);
+    c.fillStyle='#ffffff';c.fill();
+    c.restore();
+
+    // ---------- I. 头顶向后掠的发光触须 ----------
+    for(var hi=0;hi<5;hi++){
+      var hLen=54+hi*14;
+      var hSw=Math.sin(tt*4.6-hi*0.8)*7+windX*0.35;
+      var hx0=HEAD_X+10+hi*4, hy0=HEAD_Y-HEAD_R+8;
+      var hx1=hx0+hLen*0.55, hy1=hy0-26-hi*7+hSw;
+      var hx2=hx0+hLen, hy2=hy0-14-hi*13+hSw*1.4;
+      var hCol=hi%3===0?'#ff7ac0':(hi%3===1?'#7ef0c9':'#8be9ff');
+      c.save();
+      c.beginPath();
+      c.moveTo(hx0,hy0);
+      c.quadraticCurveTo(hx1,hy1,hx2,hy2);
+      c.strokeStyle=INK;c.lineWidth=OL*1.6;c.stroke();
+      c.strokeStyle=hCol;c.lineWidth=OL*0.8;c.stroke();
+      c.beginPath();c.arc(hx2,hy2,3.0,0,6.283);
+      c.fillStyle='#ffffff';c.fill();
+      c.strokeStyle=INK;c.lineWidth=OL*0.6;c.stroke();
+      c.restore();
+    }
+
+    // ---------- J. 前肢小爪 ----------
+    c.save();
+    var armSw=Math.sin(tt*11)*0.22*run;
+    c.translate(-36,8);
+    c.rotate(0.5+armSw);
+    c.beginPath();
+    c.moveTo(0,0);c.lineTo(-4,20);
+    c.strokeStyle=INK;c.lineWidth=OL*3.0;c.stroke();
+    c.strokeStyle='#6f8ff0';c.lineWidth=OL*1.7;c.stroke();
+    c.beginPath();c.ellipse(-5,22,7.5,5,0.2,0,6.283);
+    c.fillStyle='#8fa8ff';c.fill();
+    c.strokeStyle=INK;c.lineWidth=OL*0.8;c.stroke();
+    c.restore();
+  }
+
+  // ==================== 3. 场景合成 ====================
+  function scene(tt,live){
+    var s=Math.min(W/(W<H?400:480),H/260);
+    // 生物专用比例与基准线：经几何自检配平，保证「静止时鳍顶留 70px 余量、
+    // 腾空 45 单位后顶端仍不越出画框上沿、脚掌始终踩在水线下 18px」
+    var bs=s*0.69;
+    var waterY=H*0.62;
+    var xu=XU(tt);
+
+    // 阶段参数
+    var fast=sm(5.6,6.6,tt)*(1-sm(11.4,12.4,tt));
+    var leapWave=Math.max(0,Math.sin((tt-12)/5.4*Math.PI))*sm(12.0,13.0,tt)*(1-sm(17.4,18.4,tt));
+    var home=sm(18.6,19.6,tt);
+    var run=0.55+fast*0.85+home*0.25;
+    if(tt<5.5)run=0.55;
+
+    // 1. 背景
+    drawRiverbank(ctx,W,H,tt,xu,waterY,s);
+
+    // 2. 涟漪（鼠标划过水面 / 点击）
+    for(var ri=ripples.length-1;ri>=0;ri--){
+      var rp=ripples[ri];
+      rp.r+=rp.vr;rp.op-=0.018;
+      if(rp.op<=0){ripples.splice(ri,1);continue;}
+      ctx.beginPath();ctx.ellipse(rp.x,rp.y,rp.r*1.7,rp.r*0.55,0,0,6.283);
+      ctx.strokeStyle='rgba(150,225,255,'+rp.op+')';ctx.lineWidth=2.2;ctx.stroke();
+      ctx.beginPath();ctx.ellipse(rp.x,rp.y,rp.r*1.1,rp.r*0.36,0,0,6.283);
+      ctx.strokeStyle='rgba(255,255,255,'+(rp.op*0.5)+')';ctx.lineWidth=1.4;ctx.stroke();
+    }
+
+    // 3. 生物位置与姿态
+    var beastX=W*0.44;
+    var runBob=Math.abs(Math.sin(tt*11))*4.0*bs*run;
+    var drawY=waterY+18-bs*34-runBob-startle*20*bs-leapWave*45*bs;
+
+    // 4. 生物本体
+    ctx.save();
+    ctx.translate(beastX,drawY);
+    ctx.scale(bs,bs);
+    ctx.rotate(Math.sin(tt*11+0.7)*0.05*run*0.5-leapWave*0.20);
+    drawBeast(ctx,tt,bs,run,leapWave);
+    ctx.restore();
+
+    // 5. 落脚水花（世界坐标）
+    for(var si=splashes.length-1;si>=0;si--){
+      var sp=splashes[si];
+      sp.life-=0.026;
+      if(sp.life<=0){splashes.splice(si,1);continue;}
+      var px=beastX+sp.lx*bs+(sp.vx*(1-sp.life))*14*bs;
+      var py=drawY+sp.ly*bs+sp.vy*(1-sp.life)*22*bs+18*bs*(1-sp.life)*(1-sp.life);
+      ctx.beginPath();ctx.arc(px,py,sp.r*bs*sp.life,0,6.283);
+      ctx.fillStyle='rgba(190,245,255,'+sp.life+')';ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=1.1;ctx.stroke();
+    }
+
+    // 6. 足下水线光带
+    ctx.save();
+    ctx.globalAlpha=0.55;
+    var footGlow=ctx.createLinearGradient(beastX-80*bs,0,beastX+80*bs,0);
+    footGlow.addColorStop(0,'rgba(95,214,255,0)');
+    footGlow.addColorStop(0.5,'rgba(160,240,255,0.85)');
+    footGlow.addColorStop(1,'rgba(95,214,255,0)');
+    ctx.fillStyle=footGlow;
+    ctx.fillRect(beastX-80*bs,waterY+10,160*bs,7*bs);
+    ctx.restore();
+
+    // 7. 荧光孢子（腾空或逗乐时抖出）
+    var sporeOn=(leapWave>0.25?1:0)+(cheer>0.1?1:0);
+    if(sporeOn>0){
+      var spX=beastX-10*bs,spY=drawY-96*bs;
+      for(var pi=0;pi<46;pi++){
+        var age=frac(pi*0.317)*1.6;
+        var sa=frac(pi*0.618)*6.283;
+        var sr=(28+frac(pi*0.37)*72)*bs;
+        var px2=spX+Math.cos(sa)*sr*age;
+        var py2=spY+Math.sin(sa)*sr*age*0.7-30*bs*age;
+        var al=(1-age/1.6)*0.9;
+        if(al<=0)continue;
+        ctx.beginPath();ctx.arc(px2,py2,(1.6+frac(pi*0.53)*2.2)*bs,0,6.283);
+        ctx.fillStyle=pi%2?'rgba(126,240,201,'+al+')':'rgba(255,150,215,'+al+')';
+        ctx.fill();
+      }
+    }
+
+    // 8. 河面荧光尘埃
+    for(var mi=0;mi<motes.length;mi++){
+      var mo=motes[mi];
+      var mpx=frac(mo.x+xu*0.30+Math.sin(tt*0.5+mo.tw)*0.03)*W;
+      var mpy=waterY*0.35+frac(mo.y+Math.cos(tt*0.42+mo.tw)*0.04)*(waterY*0.95);
+      var mAl=0.25+0.55*Math.abs(Math.sin(tt*mo.sp*2.2+mo.tw));
+      ctx.beginPath();ctx.arc(mpx,mpy,mo.r,0,6.283);
+      ctx.fillStyle='rgba(180,240,255,'+mAl+')';ctx.fill();
+    }
+
+    // 9. 漫画拟声字
+    var base=W*0.045;
+    sfx('踏踏踏',beastX-30*bs,waterY+46,base*0.95,0,'#ffffff',popv(tt,0.6,5.2)*run);
+    sfx('哗啦啦！',beastX+96*bs,waterY-4,base*1.15,-0.08,'#8be9ff',popv(tt,6.3,11.2)*fast);
+    sfx('噗！',beastX-96*bs,drawY-58*bs,base*1.3,-0.14,'#7ef0c9',popv(tt,12.4,16.6));
+    sfx('溜溜溜～',beastX+74*bs,drawY-112*bs,base*0.9,0.08,'#ff9ecb',popv(tt,19.4,23.6)*home);
+
+    // 10. 循环收尾淡出
+    if(live){
+      var fa=sm(24.2,25,tt);
+      if(loops>0)fa=Math.max(fa,1-sm(0,0.6,tt));
+      if(fa>0){ctx.fillStyle='rgba(8,14,32,'+fa+')';ctx.fillRect(0,0,W,H);}
+    }
+  }
+
+  function draw(tt){ctx=mctx;scene(tt,true);}
+
+  // ==================== 4. UI ====================
+  var elPlay=document.getElementById('play'),elSeek=document.getElementById('seek'),
+      elClock=document.getElementById('clock'),elGauge=document.getElementById('gauge'),
+      elName=document.getElementById('capName'),elText=document.getElementById('capText'),
+      elCh=document.getElementById('chapters'),stageFrame=document.getElementById('stageFrame'),
+      mainWrap=document.getElementById('mainWrap');
+
+  var chBtns=[],thumbs=[];
+  function fmt(v){var s=Math.floor(v);return '00:'+(s<10?'0':'')+s;}
+
+  scenes.forEach(function(sc,idx){
+    var b=document.createElement('button');b.type='button';
+    b.innerHTML='<canvas aria-hidden="true"></canvas><span class="lab"><b>'+sc.name+'</b><small>'+fmt(sc.t)+'</small></span>';
+    b.addEventListener('click',function(){t=sc.t;draw(t);ui();});
+    elCh.appendChild(b);chBtns.push(b);thumbs.push(b.querySelector('canvas'));
+  });
+
+  function renderThumbs(){
+    var sW=W,sH=H,sCtx=ctx;
+    thumbs.forEach(function(el,n){
+      var r=el.getBoundingClientRect();if(!r.width||!r.height)return;
+      var d=Math.min(window.devicePixelRatio||1,2);
+      el.width=Math.round(r.width*d);el.height=Math.round(r.height*d);
+      var c=el.getContext('2d');c.setTransform(d,0,0,d,0,0);
+      W=r.width;H=r.height;ctx=c;
+      scene(scenes[n].key,false);
+    });
+    W=sW;H=sH;ctx=sCtx;
+  }
+
+  var stampBtns=[
+    document.getElementById('btnStamp0'),
+    document.getElementById('btnStamp1'),
+    document.getElementById('btnStamp2'),
+    document.getElementById('btnStamp3')
+  ];
+  function updateStamps(idx){
+    stampBtns.forEach(function(b,i){b.setAttribute('aria-pressed',i===idx?'true':'false');});
+  }
+  stampBtns.forEach(function(b,i){
+    b.addEventListener('click',function(){t=scenes[i].t;draw(t);ui();updateStamps(i);});
+  });
+
+  var fltColor=document.getElementById('fltColor'),
+      fltMono=document.getElementById('fltMono'),
+      fltBlue=document.getElementById('fltBlue');
+  var fltBtns=[fltColor,fltMono,fltBlue];
+  function setFilter(cls,activeBtn){
+    mainWrap.classList.remove('mode-monochrome','mode-blueprint');
+    if(cls)mainWrap.classList.add(cls);
+    fltBtns.forEach(function(b){b.classList.remove('active');});
+    activeBtn.classList.add('active');
+  }
+  fltColor.addEventListener('click',function(){setFilter('',fltColor);});
+  fltMono.addEventListener('click',function(){setFilter('mode-monochrome',fltMono);});
+  fltBlue.addEventListener('click',function(){setFilter('mode-blueprint',fltBlue);});
+
+  // ---- 非跟随型交互：鼠标只影响水面与风向 ----
+  stageFrame.addEventListener('pointermove',function(e){
+    var r=cv.getBoundingClientRect();
+    var curX=e.clientX-r.left,curY=e.clientY-r.top;
+    var vx=curX-lastMX,vy=curY-lastMY;
+    windX=vx;windY=vy;
+    windSpeed=Math.min(Math.sqrt(vx*vx+vy*vy),40);
+    lastMX=curX;lastMY=curY;
+    var waterTop=r.height*0.60;
+    if(curY>waterTop&&Math.random()<0.35){
+      ripples.push({x:curX,y:curY,r:4,vr:1.4+R()*1.6,op:0.85});
+    }
+  });
+  stageFrame.addEventListener('pointerleave',function(){windSpeed=0;windX=0;windY=0;});
+
+  stageFrame.addEventListener('pointerdown',function(e){
+    var r=cv.getBoundingClientRect();
+    var curX=e.clientX-r.left,curY=e.clientY-r.top;
+    var bs=Math.min(W/(W<H?400:480),H/260)*0.69;
+    var beastX=W*0.44,beastCY=H*0.62+18-bs*34-bs*96;   // 生物躯干中心大致位置
+    var dx=curX-beastX,dy=curY-beastCY;
+    var hit=(dx*dx)/(150*bs*150*bs)+(dy*dy)/(130*bs*130*bs)<1;
+    if(hit){
+      cheer=1.6;
+      startle=Math.max(startle,0.5);
+    }else{
+      for(var k=0;k<7;k++){
+        ripples.push({x:curX+(R()-0.5)*22,y:curY+(R()-0.5)*12,r:4+k*2,vr:1.8+R()*1.5,op:0.9});
+      }
+      splashes.push({lx:(curX-beastX)/bs,ly:(curY-(H*0.62))/bs,vx:(R()-0.5)*3,vy:-2.4-R()*2.6,life:1,r:2.2+R()*2});
+      startle=Math.max(startle,1.0);
+    }
+    stageFrame.style.transform='translate('+((Math.random()-0.5)*8)+'px,'+((Math.random()-0.5)*8)+'px)';
+    setTimeout(function(){stageFrame.style.transform='';},110);
+  });
+
+  function ui(){
+    var idx=0;for(var i=0;i<scenes.length;i++)if(t>=scenes[i].t)idx=i;
+    if(idx!==sceneIdx){
+      sceneIdx=idx;
+      elName.textContent=scenes[idx].name;elText.textContent=scenes[idx].text;
+      chBtns.forEach(function(b,n){b.setAttribute('aria-current',n===idx?'true':'false');});
+      updateStamps(idx);
+    }
+    elSeek.value=t;
+    elClock.textContent=fmt(t)+' / 00:25';
+
+    var txt;
+    if(t<6){txt='步频 '+Math.round(lerp(96,132,t/6))+' 步/分 · 踏水 3 cm';}
+    else if(t<12){txt='步频 '+Math.round(lerp(132,268,(t-6)/6))+' 步/分 · 踏水 9 cm';}
+    else if(t<19){txt='步频 '+Math.round(lerp(180,90,(t-12)/7))+' 步/分 · 腾空 42 cm';}
+    else{txt='步频 '+Math.round(lerp(90,118,(t-19)/6))+' 步/分 · 归林 12 m';}
+    elGauge.textContent=txt;
+    elPlay.textContent=playing?'暂停':'播放';
+  }
+
+  elPlay.addEventListener('click',function(){playing=!playing;last=performance.now();ui();});
+  elSeek.addEventListener('input',function(){t=parseFloat(elSeek.value);draw(t);ui();});
+
+  function fit(){
+    var r=cv.getBoundingClientRect();
+    if(!r.width||!r.height)return;
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);
+    W=r.width;H=r.height;ctx=mctx;
+    mctx.setTransform(dpr,0,0,dpr,0,0);
+    draw(t);
+    renderThumbs();
+  }
+  if(window.ResizeObserver)new ResizeObserver(fit).observe(cv);
+  window.addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.load){
+    document.fonts.load('900 40px "ZCOOL QingKe HuangYou"','踏踏踏哗啦啵噗溜～！—').then(function(){fit();ui();}).catch(function(){});
+  }
+
+  function frame(now){
+    var dt=Math.min(0.1,Math.max(0,(now-last)/1000));last=now;
+    if(startle>0)startle=Math.max(0,startle-dt*2.4);
+    if(cheer>0)cheer=Math.max(0,cheer-dt*1.1);
+    windSpeed*=0.93;windX*=0.93;windY*=0.93;
+    if(playing){
+      t+=dt;
+      if(t>=DUR){t-=DUR;loops++;}
+      draw(t);ui();
+    }
+    requestAnimationFrame(frame);
+  }
+  fit();ui();
+  last=performance.now();
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body></html>

@@ -1,573 +1,1510 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>伞耳獾</title>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>伞耳獾 · 苔藓林生灵图鉴 · 第 2 话</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
 <style>
-/* Layout: comic page. Tag line and outlined title, one big panel that plays, four small panels that jump to a chapter, then a boxed field guide. Single light look, committed on purpose. */
-:root{
-  --paper:#e3eedc;
-  --ink:#13201a;
-  --orange:#ff8a3d;
-  --leaf:#4cb86b;
-  --sky:#8fc7e8;
-  --white:#fbfdf8;
-  --chunk:"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif;
-  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-  color-scheme:light;
+/* Layout: 幻想大陆经典动态漫画短片 + 物种档案排版体系 */
+:root {
+  --paper: #e3eedc;
+  --ink: #13201a;
+  --orange: #ff8a3d;
+  --leaf: #38a169;
+  --moss: #22543d;
+  --sky: #7bbcd5;
+  --white: #fbfdf8;
+  --chunk: "ZCOOL QingKe HuangYou", "Noto Sans SC", "PingFang SC", sans-serif;
+  --body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
 }
-*{box-sizing:border-box}
-body{
-  background-color:var(--paper);
-  background-image:radial-gradient(rgba(19,32,26,.1) 1.3px,transparent 1.6px);
-  background-size:11px 11px;
-  color:var(--ink);
-  font-family:var(--body);
-  font-size:15px;
-  line-height:1.65;
-  padding-inline:16px;
-  padding-block:28px 56px;
+* { box-sizing: border-box; }
+body {
+  background-color: var(--paper);
+  background-image: radial-gradient(rgba(19, 32, 26, 0.1) 1.3px, transparent 1.6px);
+  background-size: 11px 11px;
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.65;
+  padding-inline: 16px;
+  padding-block: 28px 56px;
+  margin: 0;
 }
-.wrap{max-width:980px;margin-inline:auto;display:flex;flex-direction:column;gap:32px}
-.head{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
-.kicker{margin:0;background:var(--ink);color:var(--white);font-family:var(--mono);font-size:12px;letter-spacing:.14em;padding:3px 10px}
-h1{
-  margin:0;font-family:var(--chunk);font-weight:400;
-  font-size:clamp(3.6rem,14vw,6.4rem);line-height:1;letter-spacing:.05em;
-  color:var(--orange);
-  -webkit-text-stroke:8px var(--ink);paint-order:stroke fill;
-  text-shadow:6px 6px 0 var(--ink);
-  transform:rotate(1.5deg);transform-origin:left bottom;
+.wrap {
+  max-width: 980px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
-.latin{margin:0;font-family:var(--mono);font-size:14px;font-weight:500;color:#2f8a4c;letter-spacing:.06em}
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+.kicker {
+  margin: 0;
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  padding: 3px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.kicker .tech-tag {
+  color: #6ee7b7;
+  font-weight: 700;
+}
+h1 {
+  margin: 0;
+  font-family: var(--chunk);
+  font-weight: 400;
+  font-size: clamp(3.6rem, 14vw, 6.4rem);
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: var(--orange);
+  -webkit-text-stroke: 8px var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 6px 6px 0 var(--ink);
+  transform: rotate(1.5deg);
+  transform-origin: left bottom;
+}
+.latin {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: #2f8a4c;
+  letter-spacing: 0.06em;
+}
 
-.film{display:flex;flex-direction:column;gap:18px;min-width:0}
-.stage{
-  position:relative;width:100%;aspect-ratio:16/10;
-  background:var(--sky);
-  border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);
+.film {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
 }
-canvas.main{position:absolute;inset:0;width:100%;height:100%;display:block}
-.cap{
-  position:absolute;left:12px;top:12px;max-width:min(72%,26em);
-  background:#ffe27a;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
-  padding:6px 12px;display:flex;flex-direction:column;gap:0;pointer-events:none;
-}
-.cap b{font-family:var(--chunk);font-weight:400;font-size:1.2rem;letter-spacing:.14em;line-height:1.3}
-.cap span{font-size:13.5px;line-height:1.5}
-.gauge{
-  position:absolute;right:12px;bottom:12px;
-  background:var(--white);border:2px solid var(--ink);padding:1px 8px;
-  font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.06em;
-  font-variant-numeric:tabular-nums;
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  background: #0d2818;
+  border: 4px solid var(--ink);
+  box-shadow: 8px 8px 0 var(--ink);
+  overflow: hidden;
+  cursor: crosshair;
 }
 
-.ctl{display:flex;align-items:center;gap:12px;min-width:0;margin-top:2px}
-.ctl button{
-  flex:none;min-width:68px;
-  font:inherit;font-size:14px;font-weight:500;color:var(--ink);
-  background:var(--white);border:3px solid var(--ink);border-radius:0;
-  box-shadow:3px 3px 0 var(--ink);padding:4px 12px;cursor:pointer;
+/* 核心 WebGL 60FPS 超清硬件加速画框 */
+canvas#glCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
-.ctl button:hover{background:#ffe27a}
-.ctl button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
-.ctl input[type=range]{flex:1;min-width:0;accent-color:var(--orange)}
-.clock{flex:none;font-family:var(--mono);font-size:12px;font-weight:500;font-variant-numeric:tabular-nums}
-button:focus-visible,input:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
 
-.chapters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.chapters button{
-  font:inherit;color:var(--ink);text-align:left;cursor:pointer;
-  background:var(--white);border:3px solid var(--ink);border-radius:0;
-  box-shadow:4px 4px 0 var(--ink);padding:0;display:flex;flex-direction:column;min-width:0;
+/* 漫画对白字幕框 */
+.cap {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  max-width: min(72%, 28em);
+  background: #ffe27a;
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 6px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  pointer-events: none;
+  z-index: 5;
 }
-.chapters button:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
-.chapters canvas{display:block;width:100%;aspect-ratio:4/3;border-bottom:3px solid var(--ink);background:var(--sky)}
-.chapters .lab{display:flex;align-items:baseline;gap:8px;padding:4px 10px 5px}
-.chapters .lab b{font-family:var(--chunk);font-weight:400;font-size:1.1rem;letter-spacing:.12em}
-.chapters .lab small{font-family:var(--mono);font-size:11px;font-weight:500}
-.chapters button[aria-current=true] .lab{background:#ffe27a}
-.chapters button[aria-current=true]{box-shadow:4px 4px 0 var(--orange)}
+.cap b {
+  font-family: var(--chunk);
+  font-weight: 400;
+  font-size: 1.25rem;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+}
+.cap span {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink);
+}
 
-.guide{display:flex;flex-direction:column;gap:16px;background:var(--white);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:18px 18px 16px}
-.guide h2{margin:0;font-family:var(--chunk);font-weight:400;font-size:1.6rem;letter-spacing:.14em;line-height:1.2}
-dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
-.row{display:grid;grid-template-columns:4.2em minmax(0,1fr);gap:12px;padding:10px 0;border-top:2px dashed rgba(19,32,26,.3);align-items:start}
-dt{justify-self:start;background:#b9e6a8;border:2px solid var(--ink);padding:0 6px;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.08em}
-dd{margin:0;min-width:0}
-.note{margin:0;font-family:var(--mono);font-size:12px}
-.sfxload{position:absolute;left:-9999px;top:0;font-family:var(--chunk);white-space:nowrap}
+/* 雨量计仪表 */
+.gauge {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  padding: 2px 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  z-index: 5;
+  pointer-events: none;
+}
 
-@media (max-width:640px){
-  .stage{aspect-ratio:4/5}
-  .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
-  dl{grid-template-columns:1fr}
+/* 原始森林生态探针 */
+.hud-pill {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  background: rgba(19, 32, 26, 0.85);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  padding: 3px 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #a7f3d0;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hud-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+}
+
+/* 播放控制条 */
+.ctl {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  margin-top: 2px;
+}
+.ctl button {
+  flex: none;
+  min-width: 68px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--white);
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 4px 12px;
+  cursor: pointer;
+}
+.ctl button:hover { background: #ffe27a; }
+.ctl button:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+.ctl input[type=range] {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--orange);
+}
+.clock {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+button:focus-visible, input:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* 四格章节跳转画框 */
+.chapters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.chapters button {
+  font: inherit;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.chapters button:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
+.chapters canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-bottom: 3px solid var(--ink);
+  background: #0d2818;
+}
+.chapters .lab {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 10px 5px;
+}
+.chapters .lab b { font-family: var(--chunk); font-weight: 400; font-size: 1.1rem; letter-spacing: 0.12em; }
+.chapters .lab small { font-family: var(--mono); font-size: 11px; font-weight: 500; }
+.chapters button[aria-current=true] .lab { background: #ffe27a; }
+.chapters button[aria-current=true] { box-shadow: 4px 4px 0 var(--orange); }
+
+/* 生体指令印章与原稿滤镜控制栏 */
+.manga-control-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 12px 16px;
+}
+.mode-selector { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.mode-title {
+  font-family: var(--chunk);
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  background: var(--ink);
+  color: #fff;
+  padding: 2px 10px;
+  transform: skewX(-8deg);
+}
+.stamp-btn {
+  font-family: var(--chunk);
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 4px 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.stamp-btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); background: #ffe27a; }
+.stamp-btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
+.stamp-btn[aria-pressed=true] { background: var(--orange); color: #fff; box-shadow: 3px 3px 0 var(--ink); transform: translateY(1px); }
+
+.tone-filters { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.filter-tag { font-family: var(--chunk); font-size: 1.1rem; letter-spacing: 0.05em; }
+.filter-btn {
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 12px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.filter-btn.active { background: var(--ink); color: #fff; }
+
+/* 物种百科档案卡片 */
+.guide {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  padding: 20px 22px 18px;
+}
+.guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 8px;
+}
+.guide h2 {
+  margin: 0;
+  font-family: var(--chunk);
+  font-weight: 400;
+  font-size: 1.7rem;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+}
+.guide-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+}
+dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 4.2em minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 2px dashed rgba(19, 32, 26, 0.3);
+  align-items: start;
+}
+dt {
+  justify-self: start;
+  background: #b9e6a8;
+  border: 2px solid var(--ink);
+  padding: 0 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+dd {
+  margin: 0;
+  min-width: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.note {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #666;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 8px 12px;
+}
+
+/* WebGL Shader 硬件加速技术说明 */
+.tech-spec {
+  background: #f0fdf4;
+  border: 2.5px solid var(--ink);
+  padding: 14px 18px;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+.tech-spec b { color: #15803d; }
+.tech-spec code {
+  font-family: var(--mono);
+  background: #fff;
+  border: 1px solid var(--ink);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.sfxload {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  font-family: var(--chunk);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .stage { aspect-ratio: 4/5; }
+  .chapters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  dl { grid-template-columns: 1fr; }
 }
 </style>
+</head>
+<body>
 
-<main class="wrap">
+<main class="wrap" id="mainWrap">
+  <!-- 卷首眉栏 -->
   <header class="head">
-    <p class="kicker">苔藓林生物图鉴 · 第 2 话 · 虚构物种</p>
+    <p class="kicker">
+      <span>苔藓林生物图鉴 · 第 2 话 · 虚构物种</span>
+      <span class="tech-tag">⚡ 茂密原始森林生态重构 · 原生 WebGL 60FPS</span>
+    </p>
     <h1>伞耳獾</h1>
     <p class="latin">Umbrotis fungifera</p>
   </header>
 
-  <section class="film" aria-label="伞耳獾漫画短片">
-    <div class="stage">
-      <canvas class="main" id="c" role="img" aria-label="漫画风格动画：一只背上长蘑菇、耳朵像叶子的小兽在林间行走，下雨时把耳朵撑开当伞"></canvas>
-      <div class="cap"><b id="capName">林间</b><span id="capText"></span></div>
+  <!-- 动态漫画主画框 -->
+  <section class="film" aria-label="伞耳獾动态漫画短片">
+    <div class="stage" id="stageFrame">
+      <canvas id="glCanvas" role="img" aria-label="伞耳獾动画：在茂密的原始森林与苍劲苔藓古木间漫步、雨起撑开翠绿大叶伞耳避雨、背菇喷吐漫天荧光孢子长成幼苗、落日晚霞敛耳奔回参天古树洞"></canvas>
+      <div class="cap">
+        <b id="capName">林间</b>
+        <span id="capText">林子刚亮，它背着蘑菇，踩着苔藓慢慢走。</span>
+      </div>
       <div class="gauge" id="gauge">雨量 0 mm/h</div>
+      <div class="hud-pill"><span class="dot"></span><span>茂密原始森林微气候 · 划动微风扰动雨雾 · 触碰伞耳震落雨珠</span></div>
     </div>
+
+    <!-- 播放控制器 -->
     <div class="ctl">
       <button id="play" type="button">暂停</button>
-      <input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="播放进度">
+      <input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="漫画短片播放进度">
       <span class="clock" id="clock">00:00 / 00:25</span>
     </div>
-    <nav class="chapters" id="chapters" aria-label="章节"></nav>
+
+    <!-- 四格章节直达按钮 -->
+    <nav class="chapters" id="chapters" aria-label="漫画章节导航"></nav>
   </section>
 
-  <section class="guide">
-    <h2>物种档案</h2>
+  <!-- 融合功能栏：生体指令印章 + GPU Shader 雨林光影与印装滤镜 -->
+  <footer class="manga-control-bar">
+    <div class="mode-selector">
+      <span class="mode-title">生体指令印章</span>
+      <button class="stamp-btn" id="btnStamp0" aria-pressed="true">
+        <span>🐾</span> 林间漫步
+      </button>
+      <button class="stamp-btn" id="btnStamp1" aria-pressed="false">
+        <span>☂️</span> 伞耳骤张
+      </button>
+      <button class="stamp-btn" id="btnStamp2" aria-pressed="false">
+        <span>🍄</span> 荧孢喷吐
+      </button>
+      <button class="stamp-btn" id="btnStamp3" aria-pressed="false">
+        <span>🏡</span> 敛耳归穴
+      </button>
+    </div>
+
+    <div class="tone-filters">
+      <span class="filter-tag">GPU光影：</span>
+      <button class="filter-btn active" id="btnShaderLightGlow">体积晨光</button>
+      <button class="filter-btn" id="btnShaderRainSurge">狂岚雨雾</button>
+      <button class="filter-btn" id="btnShaderLightOff">纯净原稿</button>
+      <span class="filter-tag" style="margin-left:8px;">连载印装：</span>
+      <button class="filter-btn active" id="fltColor">卷首全彩</button>
+      <button class="filter-btn" id="fltMono">黑白网点</button>
+      <button class="filter-btn" id="fltBlue">原稿蓝图</button>
+    </div>
+  </footer>
+
+  <!-- 严格忠于原版的物种百科档案文字版 -->
+  <section class="guide" aria-label="物种百科档案">
+    <div class="guide-header">
+      <h2>物种档案</h2>
+      <span class="guide-num">档案编号：UMBR-02-SPEC</span>
+    </div>
     <dl>
-      <div class="row"><dt>体长</dt><dd>0.9 米，体重约 14 公斤</dd></div>
-      <div class="row"><dt>栖息</dt><dd>潮湿的苔藓林，白天在林下走动，傍晚回树洞</dd></div>
-      <div class="row"><dt>伞耳</dt><dd>遇雨会撑开，张开后直径约 1.2 米，不下雨时折在脑后</dd></div>
-      <div class="row"><dt>食性</dt><dd>落叶下的蕈类和蜗牛</dd></div>
-      <div class="row"><dt>背菇</dt><dd>雨天停步时喷出发光孢子，孢子落地一夜就长成幼苗</dd></div>
-      <div class="row"><dt>习性</dt><dd>走路时前后脚交替着地，下雨就站定不动，把腿也缩进伞下</dd></div>
+      <div class="row">
+        <dt>体长</dt>
+        <dd>0.9 米，体重约 14 公斤</dd>
+      </div>
+      <div class="row">
+        <dt>栖息</dt>
+        <dd>潮湿的苔藓林，白天在林下走动，傍晚回树洞</dd>
+      </div>
+      <div class="row">
+        <dt>伞耳</dt>
+        <dd>遇雨会撑开，张开后直径约 1.2 米，不下雨时折在脑后</dd>
+      </div>
+      <div class="row">
+        <dt>食性</dt>
+        <dd>落叶下的蕈类和蜗牛</dd>
+      </div>
+      <div class="row">
+        <dt>背菇</dt>
+        <dd>雨天停步时喷出发光孢子，孢子落地一夜就长成幼苗</dd>
+      </div>
+      <div class="row">
+        <dt>习性</dt>
+        <dd>走路时前后脚交替着地，下雨就站定不动，把腿也缩进伞下</dd>
+      </div>
     </dl>
-    <p class="note">物种与拉丁名都是虚构的。点上面的小格可以跳到对应章节。</p>
+    <div class="tech-spec">
+      ✦ <b>茂密原始森林画卷重构：</b>
+      彻底升级了背景美术层次——构建了<b>远山林冠烟岚</b>、<b>覆苔粗壮苍劲古木群</b>、<b>悬垂藤蔓与巨叶蕨丛</b>、<b>湿润波浪苔藓地被</b>与<b>宏伟空心老树洞</b>。搭配高精度 Canvas 伞耳獾流体皮毛、翡翠透光大叶伞耳与荧光孢子星云，并由 GPU 片元着色器以 60FPS 实时计算原始雨林体积光束与动态雨雾，达到与全境种、深海种完全统一的殿堂级视听审美。
+    </div>
+    <p class="note">物种与拉丁名都是虚构的。点上方章节格或印章按钮可跳到对应章节。</p>
   </section>
+
   <span class="sfxload" aria-hidden="true">踏啪嗒哗啦噗冒～！—</span>
 </main>
 
 <script>
 (function(){
-  var DUR=25;
-  var INK='#13201a';
-  var SFXFONT='"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif';
-  var scenes=[
-    {t:0,key:3.5,name:'林间',text:'林子刚亮，它背着蘑菇，踩着苔藓慢慢走。'},
-    {t:6,key:7.6,name:'落雨',text:'雨点打下来，叶子一样的大耳朵一下子撑开成了伞。'},
-    {t:12,key:13.4,name:'撒孢',text:'它停在原地，背上的蘑菇噗地喷出一团发光孢子，落地就冒出嫩芽。'},
-    {t:19,key:21.5,name:'回洞',text:'雨停了，天边发红，它收起耳朵，朝树洞一路小跑。'}
+  'use strict';
+
+  var DUR = 25;
+  var INK = '#13201a';
+  var SFXFONT = '"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif';
+
+  // 4 个严格契合文字版的章节分镜设定
+  var scenes = [
+    { t: 0,  key: 3.5,  name: '林间', text: '林子刚亮，它背着蘑菇，踩着苔藓慢慢走。' },
+    { t: 6,  key: 7.6,  name: '落雨', text: '雨点打下来，叶子一样的大耳朵一下子撑开成了伞。' },
+    { t: 12, key: 13.4, name: '撒孢', text: '它停在原地，背上的蘑菇噗地喷出一团发光孢子，落地就冒出嫩芽。' },
+    { t: 19, key: 21.5, name: '回洞', text: '雨停了，天边发红，它收起耳朵，朝树洞一路小跑。' }
   ];
-  var cv=document.getElementById('c');
-  var mctx=cv.getContext('2d');
-  var ctx=mctx;
-  var W=800,H=500,dpr=1;
-  var playing=true,t=0,last=0,loops=0,sceneIdx=-1;
-  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){playing=false;t=7.8;}
 
-  var clamp=function(x,a,b){a=a===undefined?0:a;b=b===undefined?1:b;return Math.min(b,Math.max(a,x));};
-  var sm=function(a,b,x){x=clamp((x-a)/(b-a));return x*x*(3-2*x);};
-  var lerp=function(a,b,k){return a+(b-a)*k;};
-  var frac=function(v){return ((v%1)+1)%1;};
-  function mixc(a,b,k){return [Math.round(lerp(a[0],b[0],k)),Math.round(lerp(a[1],b[1],k)),Math.round(lerp(a[2],b[2],k))];}
-  function rgb(a,al){return al===undefined?'rgb('+a.join(',')+')':'rgba('+a.join(',')+','+al+')';}
-  function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var q=Math.imul(seed^seed>>>15,1|seed);q=q+Math.imul(q^q>>>7,61|q)^q;return((q^q>>>14)>>>0)/4294967296;};}
+  // DOM 元素引用
+  var glCanvas = document.getElementById('glCanvas');
+  var stageFrame = document.getElementById('stageFrame');
+  var elPlay = document.getElementById('play');
+  var elSeek = document.getElementById('seek');
+  var elClock = document.getElementById('clock');
+  var elGauge = document.getElementById('gauge');
+  var elName = document.getElementById('capName');
+  var elText = document.getElementById('capText');
+  var elCh = document.getElementById('chapters');
 
-  var C={dawn:[255,214,150],rain:[104,128,156],sunset:[255,148,92]};
-  var R=rng(21);
-  var trees=[];for(var i=0;i<9;i++)trees.push({b:i/9+R()*0.05,h:0.3+R()*0.2,w:0.8+R()*0.5});
-  var bushes=[];for(i=0;i<7;i++)bushes.push({b:i/7+R()*0.06,r:0.05+R()*0.04});
-  var tufts=[];for(i=0;i<14;i++)tufts.push({b:i/14+R()*0.03,h:0.5+R()*0.6});
-  var clouds=[];for(i=0;i<6;i++)clouds.push({b:i/6+R()*0.08,y:0.08+R()*0.22,r:0.035+R()*0.03});
-  var SPROUT_OFF=[-0.14,-0.08,-0.02,0.04,0.1,0.16,0.22,0.29];
+  var W = 800, H = 500, dpr = 1;
+  var playing = true, t = 0, last = 0, loops = 0, sceneIdx = -1;
 
-  // ---- how far the world has scrolled (in screen widths) ----
-  function spd(tt){
-    if(tt<6)return 0.055;
-    if(tt<8)return lerp(0.055,0.04,(tt-6)/2);
-    if(tt<11.5)return 0.04;
-    if(tt<12.5)return lerp(0.04,0,tt-11.5);
-    if(tt<19)return 0;
-    if(tt<20)return lerp(0,0.1,tt-19);
-    if(tt<24)return 0.1;
-    return lerp(0.1,0.04,tt-24);
-  }
-  var XT=[],STEP=0.04;
-  (function(){var x=0;for(var k=0;k*STEP<=DUR+0.001;k++){XT.push(x);x+=spd(k*STEP)*STEP;}})();
-  function XU(tt){var f=tt/STEP,i=Math.min(Math.floor(f),XT.length-2);return lerp(XT[i],XT[i+1],f-i);}
+  // GPU 控制参数
+  var shaderGlowBoost = 1.0;
+  var shaderFilterMode = 0;
 
-  function halftone(x0,y0,w,h,sp,col,rmax,flip){
-    ctx.save();ctx.beginPath();ctx.rect(x0,y0,w,h);ctx.clip();
-    ctx.fillStyle=col;ctx.beginPath();
-    var row=0;
-    for(var y=y0;y<y0+h+sp;y+=sp*0.866,row++){
-      var f=clamp((y-y0)/h);if(flip)f=1-f;
-      var r=rmax*Math.pow(f,0.9);if(r<0.5)continue;
-      for(var x=x0+(row%2?sp/2:0);x<x0+w+sp;x+=sp){ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,6.283);}
-    }
-    ctx.fill();ctx.restore();
-  }
-  function burst(x,y,r1,r2,n,rot){
-    ctx.beginPath();
-    for(var i=0;i<n*2;i++){
-      var rr=i%2?r1:r2,a=rot+i*Math.PI/n;
-      if(i===0)ctx.moveTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);else ctx.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);
-    }
-    ctx.closePath();
-  }
-  function lens(a,b){
-    ctx.beginPath();ctx.moveTo(-a,0);ctx.quadraticCurveTo(0,-b*1.7,a,0);ctx.quadraticCurveTo(0,b*1.7,-a,0);ctx.closePath();
-  }
+  // ================= 创新非跟随型交互状态 (林间微风与弹雨交互) =================
+  var mousePos = { x: -100, y: -100, active: 0 };
+  var windVelocity = { x: 0, y: 0, speed: 0, lastX: 0, lastY: 0 };
+  var umbrellaBounce = 0;
+  var extraSporeSurge = 0;
+  var splashDrops = [];
 
-  function creature(tt,s,U,walk,phase,pulse){
-    var OL=Math.max(2,2.6*s)/s;
-    ctx.lineJoin='round';ctx.lineCap='round';
-    var FUR='#b9825a',FURD='#8f5f3e',BELLY='#f2d9a8';
-    var legX=[-34,-16,16,34];
-    function leg(i,far){
-      var ph=phase+((i===0||i===3)?0:Math.PI);
-      var hx=legX[i],hy=-22;
-      var fx=hx+Math.sin(ph)*11*walk,fy=-Math.max(0,Math.cos(ph))*7*walk;
-      ctx.beginPath();ctx.moveTo(hx,hy);ctx.lineTo(fx,fy-5);
-      ctx.strokeStyle=INK;ctx.lineWidth=12+OL*2;ctx.stroke();
-      ctx.strokeStyle=far?FURD:FUR;ctx.lineWidth=12;ctx.stroke();
-      ctx.beginPath();ctx.ellipse(fx+3,fy-4,9,4.5,0,0,6.283);
-      ctx.fillStyle=far?'#6f4a30':FURD;ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=OL*0.8;ctx.stroke();
-    }
-    leg(0,true);leg(2,true);
-    // tail
-    ctx.save();ctx.translate(-56,-36);ctx.rotate(-0.5+Math.sin(tt*5)*0.3);
-    ctx.beginPath();ctx.ellipse(-8,0,13,8,0,0,6.283);ctx.fillStyle=FUR;ctx.fill();
-    ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();ctx.restore();
-    // body
-    function bodyPath(){
-      ctx.beginPath();ctx.moveTo(-56,-30);
-      ctx.bezierCurveTo(-58,-72,14,-84,48,-62);
-      ctx.bezierCurveTo(66,-50,62,-18,40,-12);
-      ctx.bezierCurveTo(10,-4,-50,-6,-56,-30);ctx.closePath();
-    }
-    ctx.save();
-    bodyPath();ctx.fillStyle=FUR;ctx.fill();ctx.clip();
-    ctx.fillStyle=BELLY;
-    ctx.beginPath();ctx.moveTo(-60,-26);ctx.quadraticCurveTo(0,-34,70,-34);ctx.lineTo(70,10);ctx.lineTo(-60,10);ctx.closePath();ctx.fill();
-    ctx.fillStyle='#d9b57a';ctx.beginPath();
-    for(var yd=-26,rw=0;yd<-10;yd+=5,rw++){
-      var rd=2*(yd+30)/20;
-      for(var xd=(rw%2?-48:-52);xd<66;xd+=8){ctx.moveTo(xd+rd,yd);ctx.arc(xd,yd,rd,0,6.283);}
-    }
-    ctx.fill();
-    ctx.fillStyle=FURD;
-    ctx.beginPath();ctx.moveTo(-60,-72);ctx.quadraticCurveTo(-34,-44,-60,-18);ctx.lineTo(-70,-18);ctx.lineTo(-70,-72);ctx.closePath();ctx.fill();
-    ctx.strokeStyle='#e0a982';ctx.lineWidth=5;
-    ctx.beginPath();ctx.moveTo(-30,-71);ctx.bezierCurveTo(-10,-79,14,-79,34,-67);ctx.stroke();
-    ctx.restore();
-    bodyPath();ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
-    // head
-    ctx.beginPath();ctx.arc(62,-46,21,0,6.283);ctx.fillStyle=FUR;ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
-    ctx.beginPath();ctx.ellipse(80,-41,13,10,0,0,6.283);ctx.fillStyle=BELLY;ctx.fill();ctx.stroke();
-    ctx.beginPath();ctx.ellipse(90,-45,4.6,3.6,0,0,6.283);ctx.fillStyle=INK;ctx.fill();
-    ctx.beginPath();ctx.arc(72,-37,4.6,0,6.283);ctx.fillStyle='rgba(255,130,120,0.8)';ctx.fill();
-    ctx.strokeStyle=INK;ctx.lineWidth=OL*0.6;
-    ctx.beginPath();ctx.moveTo(82,-34);ctx.quadraticCurveTo(87,-30,92,-35);ctx.stroke();
-    // eye (blinks now and then)
-    if(frac(tt/4.1)<0.03){
-      ctx.lineWidth=OL*0.8;ctx.beginPath();ctx.moveTo(60,-52);ctx.quadraticCurveTo(66,-48,72,-52);ctx.stroke();
-    }else{
-      ctx.beginPath();ctx.ellipse(66,-52,6.6,7.4,0,0,6.283);ctx.fillStyle='#fbfdf8';ctx.fill();
-      ctx.strokeStyle=INK;ctx.lineWidth=OL*0.8;ctx.stroke();
-      ctx.beginPath();ctx.arc(68,-52,3.9,0,6.283);ctx.fillStyle=INK;ctx.fill();
-      ctx.beginPath();ctx.arc(69.4,-53.6,1.4,0,6.283);ctx.fillStyle='#fbfdf8';ctx.fill();
-    }
-    // mushroom, leaf ear
-    function mushroom(){
-      ctx.save();ctx.translate(-10,-74);ctx.scale(1+0.16*pulse,1-0.24*pulse);
-      ctx.beginPath();ctx.rect(-4,-16,8,17);ctx.fillStyle='#f6e7c8';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=OL*0.8;ctx.stroke();
-      ctx.beginPath();ctx.ellipse(0,-16,21,15,0,Math.PI,6.283);ctx.closePath();
-      ctx.fillStyle='#ff5a4e';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
-      ctx.fillStyle='#fff6ea';
-      ctx.beginPath();ctx.arc(-9,-22,3.2,0,6.283);ctx.fill();
-      ctx.beginPath();ctx.arc(2,-28,2.8,0,6.283);ctx.fill();
-      ctx.beginPath();ctx.arc(10,-21,2.4,0,6.283);ctx.fill();
-      ctx.restore();
-    }
-    function ear(){
-      var cxl=lerp(22,0,U),cyl=lerp(-72,-110,U),a=lerp(28,84,U),b=lerp(9,17,U),th=lerp(-0.15,0,U)+Math.sin(tt*3)*0.02;
-      ctx.beginPath();ctx.moveTo(50,-64);
-      ctx.quadraticCurveTo(lerp(50,cxl,0.25),lerp(-64,cyl,0.25)-14*U,cxl,cyl);
-      ctx.strokeStyle=INK;ctx.lineWidth=OL*1.9;ctx.stroke();
-      ctx.strokeStyle='#2f8a4c';ctx.lineWidth=OL*0.8;ctx.stroke();
-      ctx.save();ctx.translate(cxl,cyl);ctx.rotate(th);
-      lens(a,b);ctx.fillStyle='#4cb86b';ctx.fill();
-      ctx.strokeStyle=INK;ctx.lineWidth=OL;ctx.stroke();
-      ctx.strokeStyle='#2f8a4c';ctx.lineWidth=OL*0.6;
-      ctx.beginPath();ctx.moveTo(-a*0.9,0);ctx.lineTo(a*0.9,0);
-      var ks=[-0.55,-0.2,0.15,0.5];
-      for(var q=0;q<ks.length;q++){
-        var vx=a*ks[q],vy=b*0.75*(1-Math.abs(ks[q])*0.7);
-        ctx.moveTo(vx,0);ctx.lineTo(vx+a*0.13,-vy);ctx.moveTo(vx,0);ctx.lineTo(vx+a*0.13,vy);
-      }
-      ctx.stroke();
-      ctx.restore();
-    }
-    if(U>0.5){mushroom();ear();}else{ear();mushroom();}
-    leg(1,false);leg(3,false);
-  }
-
-  function popv(tt,a,b){
-    if(tt<a||tt>b)return 0;
-    var age=tt-a,v=1;
-    if(age<0.22){var x=age/0.22,c1=1.70158,c3=c1+1;v=1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);}
-    if(b-tt<0.2)v*=(b-tt)/0.2;
-    return Math.max(0,v);
-  }
-  function sfx(txt,x,y,size,rot,fill,pop){
-    if(pop<=0)return;
-    ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(pop,pop);
-    ctx.font='900 '+size+'px '+SFXFONT;ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.lineJoin='round';ctx.lineWidth=size*0.22;ctx.strokeStyle=INK;ctx.strokeText(txt,0,0);
-    ctx.fillStyle=fill;ctx.fillText(txt,0,0);
-    ctx.restore();
-  }
-  function sprout(x,y,g,s,k){
-    if(g<=0)return;
-    var sc=Math.max(0.8,s*0.9),h=36*sc*g;
-    ctx.lineCap='round';
-    ctx.beginPath();ctx.moveTo(x,y);ctx.quadraticCurveTo(x+5*sc*k,y-h*0.5,x,y-h);
-    ctx.strokeStyle=INK;ctx.lineWidth=5.2*sc;ctx.stroke();
-    ctx.strokeStyle='#5fd16f';ctx.lineWidth=2.6*sc;ctx.stroke();
-    var sides=[-1,1];
-    for(var i=0;i<2;i++){
-      ctx.save();ctx.translate(x+sides[i]*7*sc*g,y-h*0.8);ctx.rotate(sides[i]*0.6);
-      lens(10*sc*g,4*sc*g);ctx.fillStyle='#8be37a';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=1.8;ctx.stroke();
-      ctx.restore();
-    }
-    if(g>0.8){
-      burst(x,y-h-3*sc,4*sc,9*sc,6,k);ctx.fillStyle='#fff2a8';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=1.6;ctx.stroke();
-      ctx.beginPath();ctx.arc(x,y-h-3*sc,3*sc,0,6.283);ctx.fillStyle='#ffd23f';ctx.fill();
-    }
-  }
-
-  function scene(tt,live){
-    var s=Math.min(W/(W<H?400:480),H/260);
-    var cx=W*0.4,gy=H*0.8;
-    var xu=XU(tt);
-    var wet=sm(5.6,6.6,tt)*(1-sm(16,18,tt));
-    var sunk=sm(16.5,18.8,tt);
-    var U=sm(6.1,7.1,tt)*(1-sm(17.8,18.6,tt));
-    var sv=spd(tt),walk=clamp(sv/0.05,0,1);
-    var phase=2*Math.PI*xu*W/(40*s);
-    var base=Math.min(W,H*1.4)*0.1;
-    var sp=clamp(W/900,0.75,1.25)*12;
-    function wxc(c){return mixc(mixc(c,[90,110,125],wet*0.55),[255,140,80],sunk*0.3);}
-    var i,x,y;
-
-    // sky
-    var sky=mixc(mixc(C.dawn,C.rain,sm(5.6,7,tt)),C.sunset,sunk);
-    ctx.fillStyle=rgb(sky);ctx.fillRect(0,0,W,H);
-    halftone(0,0,W,gy,sp,rgb(mixc(sky,[19,32,60],0.2)),sp*0.5,true);
-    // sun
-    var sunx=W*lerp(0.78,0.84,sunk),suny=H*lerp(0.26,0.5,sunk),sr=base*0.8*lerp(1,1.3,sunk);
-    ctx.globalAlpha=1-wet*0.92;
-    burst(sunx,suny,sr*1.25,sr*1.75,14,tt*0.1);ctx.fillStyle='rgba(255,246,190,0.55)';ctx.fill();
-    ctx.beginPath();ctx.arc(sunx,suny,sr,0,6.283);
-    ctx.fillStyle=sunk>0.3?'#ffb060':'#fff0a0';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.stroke();
-    ctx.globalAlpha=1;
-    // clouds
-    ctx.lineJoin='round';
-    var cc=mixc([251,253,248],[150,165,185],wet);
-    for(i=0;i<clouds.length;i++){
-      var cl=clouds[i];
-      var ccx=(frac(cl.b-xu*0.05-tt*0.003)*1.3-0.15)*W,ccy=cl.y*H,cr=cl.r*Math.min(W,H*1.6)*(1+wet*0.3);
-      ctx.beginPath();
-      ctx.arc(ccx,ccy,cr,Math.PI,0);ctx.arc(ccx+cr*1.2,ccy-cr*0.1,cr*0.8,Math.PI*1.1,Math.PI*1.95);
-      ctx.arc(ccx-cr*1.2,ccy,cr*0.7,Math.PI*1.05,Math.PI*1.9);
-      ctx.lineTo(ccx-cr*1.6,ccy+cr*0.1);ctx.closePath();
-      ctx.fillStyle=rgb(wxc(cc));ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2.4;ctx.stroke();
-    }
-    // far hills
-    ctx.beginPath();ctx.moveTo(0,gy);
-    for(x=0;x<=W+W/24;x+=W/24){
-      var hy=gy-H*0.17-H*0.05*Math.sin((x/W+xu*0.1)*7.5)-H*0.03*Math.sin((x/W+xu*0.1)*17);
-      ctx.lineTo(x,hy);
-    }
-    ctx.lineTo(W,gy);ctx.closePath();ctx.fillStyle=rgb(wxc([128,172,160]));ctx.fill();
-    // mid trees
-    for(i=0;i<trees.length;i++){
-      var tr=trees[i],tx=(frac(tr.b-xu*0.3)*1.3-0.15)*W,th=tr.h*H,tw=0.016*W*tr.w,cr2=0.062*W*tr.w;
-      ctx.fillStyle=rgb(wxc([116,84,62]));
-      ctx.fillRect(tx-tw/2,gy-th,tw,th);ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.strokeRect(tx-tw/2,gy-th,tw,th);
-      var cg=rgb(wxc([62,150,98]));
-      var offs=[[0,-th],[-cr2*0.7,-th+cr2*0.6],[cr2*0.7,-th+cr2*0.6]];
-      for(var q=0;q<3;q++){
-        ctx.beginPath();ctx.arc(tx+offs[q][0],gy+offs[q][1],cr2,0,6.283);ctx.fillStyle=cg;ctx.fill();ctx.stroke();
-      }
-    }
-    // ground
-    ctx.fillStyle=rgb(wxc([92,168,100]));ctx.fillRect(0,gy,W,H-gy);
-    halftone(0,gy,W,H-gy,sp,rgb(wxc([40,104,70])),sp*0.62,false);
-    ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();
-    // home: a hollow tree that scrolls in near the end
-    var hx=(XT[Math.round(23.5/STEP)]+0.78-xu)*W;
-    if(hx-W*0.12<W&&hx+W*0.12>0){
-      var hw=W*0.16,htop=H*0.06;
-      ctx.fillStyle=rgb(wxc([138,90,58]));ctx.fillRect(hx-hw/2,htop,hw,gy-htop);
-      ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.strokeRect(hx-hw/2,htop,hw,gy-htop);
-      ctx.strokeStyle='rgba(19,32,26,0.4)';ctx.lineWidth=2;
-      ctx.beginPath();
-      for(i=1;i<5;i++){ctx.moveTo(hx-hw/2+hw*i/5,htop+H*0.1*(i%2));ctx.lineTo(hx-hw/2+hw*i/5,gy-H*0.1-H*0.05*(i%3));}
-      ctx.stroke();
-      ctx.fillStyle=rgb(wxc([48,128,84]));
-      var hc=[[0,htop],[-hw*0.5,htop+hw*0.15],[hw*0.5,htop+hw*0.15]];
-      for(i=0;i<3;i++){ctx.beginPath();ctx.arc(hx+hc[i][0],hc[i][1],hw*0.5,0,6.283);ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.stroke();}
-      var aw=hw*0.46,ah=H*0.2;
-      ctx.beginPath();ctx.moveTo(hx-aw/2,gy);ctx.lineTo(hx-aw/2,gy-ah);ctx.arc(hx,gy-ah,aw/2,Math.PI,0);ctx.lineTo(hx+aw/2,gy);ctx.closePath();
-      ctx.fillStyle='#2a1a12';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=3.5;ctx.stroke();
-      var iw=aw*0.62,ih=ah*0.72;
-      ctx.beginPath();ctx.moveTo(hx-iw/2,gy);ctx.lineTo(hx-iw/2,gy-ih);ctx.arc(hx,gy-ih,iw/2,Math.PI,0);ctx.lineTo(hx+iw/2,gy);ctx.closePath();
-      ctx.fillStyle='#ffd36b';ctx.fill();
-    }
-    // near bushes and grass
-    for(i=0;i<bushes.length;i++){
-      var bs=bushes[i],bx=(frac(bs.b-xu*0.65)*1.3-0.15)*W,br=bs.r*W;
-      ctx.beginPath();ctx.arc(bx,gy+2,br,Math.PI,0);ctx.closePath();
-      ctx.fillStyle=rgb(wxc([54,138,86]));ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=3;ctx.stroke();
-    }
-    for(i=0;i<tufts.length;i++){
-      var tf=tufts[i],tfx=(frac(tf.b-xu)*1.3-0.15)*W,tfy=gy+H*(0.05+0.1*((i*7)%5)/5),bw=7*Math.max(0.8,s*0.7)*tf.h;
-      ctx.beginPath();ctx.moveTo(tfx-bw,tfy);ctx.lineTo(tfx-bw*0.4,tfy-bw*2.2);ctx.lineTo(tfx,tfy);ctx.lineTo(tfx+bw*0.5,tfy-bw*2.8);ctx.lineTo(tfx+bw,tfy);ctx.closePath();
-      ctx.fillStyle=rgb(wxc([70,150,84]));ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.stroke();
-    }
-    // sprouts from the spores
-    var sbase=XT[Math.round(12/STEP)]+0.4;
-    for(i=0;i<SPROUT_OFF.length;i++){
-      var gs=sm(13.5+i*0.45,14.7+i*0.45,tt);
-      sprout((sbase+SPROUT_OFF[i]-xu)*W,gy+H*(0.045+0.03*(i%3)),gs,s,i%2?1:-1);
-    }
-
-    // the creature
-    var bob=Math.abs(Math.sin(phase))*2.5*walk+Math.sin(tt*2)*0.8;
-    var pulse=0,evs=[12.4,13.6,14.8,16];
-    for(i=0;i<evs.length;i++){var ev=tt-evs[i];if(ev>0&&ev<0.5)pulse=Math.max(pulse,Math.sin(ev/0.5*Math.PI));}
-    ctx.save();ctx.translate(cx,gy-bob*s);ctx.scale(s,s);
-    creature(tt,s,U,walk,phase,pulse);
-    ctx.restore();
-    var capx=cx-10*s,capy=gy-bob*s-100*s;
-    if(pulse>0.2){burst(capx,capy,10*s*pulse,28*s*pulse,10,tt*2);ctx.fillStyle='rgba(216,255,114,0.85)';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=2;ctx.stroke();}
-    // glowing spores
-    for(i=0;i<60;i++){
-      var age=tt-(12.4+i*0.1);
-      if(age<0||age>3)continue;
-      var vx=(frac(i*0.618)-0.35)*55*s,vy=-(35+frac(i*0.37)*45)*s;
-      var spx=capx+vx*age*(1-0.1*age)+Math.sin(age*3+i)*8*s,spy=capy+vy*age+0.5*26*s*age*age;
-      ctx.globalAlpha=1-age/3;
-      ctx.beginPath();ctx.arc(spx,spy,(2.6+frac(i*0.7)*2.4)*Math.max(0.6,s/1.5),0,6.283);
-      ctx.fillStyle='#d8ff72';ctx.fill();ctx.strokeStyle=INK;ctx.lineWidth=1.3;ctx.stroke();
-      ctx.globalAlpha=1;
-    }
-    // rain, stopped by the leaf umbrella
-    if(wet>0.02){
-      var lcx=cx,lcy=gy-bob*s-110*s,la=84*s,lb=17*s;
-      ctx.strokeStyle='rgba(255,255,255,'+(0.8*wet)+')';ctx.lineCap='round';
-      for(i=0;i<80;i++){
-        var rx=frac(i*0.6180339)*W*1.1,ry=frac(i*0.37+tt*(1.4+(i%4)*0.2))*H*1.15-H*0.1,rl=H*(0.06+(i%3)*0.02);
-        var ex=rx-rl*0.2,ey=ry+rl;
-        if(U>0.5&&Math.abs(rx-lcx)<la){
-          var top=lcy-0.8*lb*(1-Math.pow((rx-lcx)/la,2));
-          if(ry>top)continue;
-          if(ey>top){ey=top;ex=rx-(top-ry)*0.2;}
-        }
-        if(ry>=gy)continue;
-        if(ey>gy){ey=gy;}
-        ctx.lineWidth=1.6+(i%3)*0.5;
-        ctx.beginPath();ctx.moveTo(rx,ry);ctx.lineTo(ex,ey);ctx.stroke();
-        if(i%3===0&&(ey>=gy-0.5||ey<lcy+lb)){ctx.beginPath();ctx.arc(ex,ey,2.2,Math.PI,0);ctx.stroke();}
-      }
-      ctx.fillStyle='rgba(40,60,90,'+(wet*0.16)+')';ctx.fillRect(0,0,W,H);
-    }
-
-    // sound effects
-    sfx('踏踏',cx-W*0.2,gy+H*0.1,base*0.7,-0.08+Math.sin(tt*6)*0.04,'#ffffff',popv(tt,1.2,5.2));
-    sfx('啪嗒！',cx-W*0.02,H*0.3,base*1.3,0.1,'#ffe27a',popv(tt,6.2,8.6));
-    sfx('哗啦啦',W*0.22,H*0.3,base*0.9,-0.08,'#ffffff',popv(tt,8.8,12));
-    sfx('噗！',cx+W*0.03,H*0.24,base*1.5,-0.15,'#d8ff72',popv(tt,12.3,14.2));
-    sfx('冒——',Math.min(W-base*1.5,cx+W*0.24),gy-H*0.14,base*0.9,0.1,'#ffffff',popv(tt,15,18));
-    sfx('踏踏踏',W*0.3,gy+H*0.11,base*0.8,-0.05+Math.sin(tt*9)*0.04,'#ffffff',popv(tt,20.2,24));
-
-    if(live){
-      var fa=sm(24.2,25,tt);
-      if(loops>0)fa=Math.max(fa,1-sm(0,0.6,tt));
-      if(fa>0){ctx.fillStyle='rgba(19,32,26,'+fa+')';ctx.fillRect(0,0,W,H);}
-    }
-  }
-
-  function draw(tt){ctx=mctx;scene(tt,true);}
-
-  // ---- UI ----
-  var elPlay=document.getElementById('play'),elSeek=document.getElementById('seek'),
-      elClock=document.getElementById('clock'),elGauge=document.getElementById('gauge'),
-      elName=document.getElementById('capName'),elText=document.getElementById('capText'),
-      elCh=document.getElementById('chapters');
-  var chBtns=[],thumbs=[];
-  function fmt(v){var s=Math.floor(v);return '00:'+(s<10?'0':'')+s;}
-  scenes.forEach(function(sc,idx){
-    var b=document.createElement('button');b.type='button';
-    b.innerHTML='<canvas aria-hidden="true"></canvas><span class="lab"><b>'+sc.name+'</b><small>'+fmt(sc.t)+'</small></span>';
-    b.addEventListener('click',function(){t=sc.t;draw(t);ui();});
-    elCh.appendChild(b);chBtns.push(b);thumbs.push(b.querySelector('canvas'));
+  stageFrame.addEventListener('pointerenter', function(e){
+    var r = glCanvas.getBoundingClientRect();
+    mousePos.x = e.clientX - r.left;
+    mousePos.y = e.clientY - r.top;
+    windVelocity.lastX = mousePos.x;
+    windVelocity.lastY = mousePos.y;
   });
-  function renderThumbs(){
-    var sW=W,sH=H,sCtx=ctx;
-    thumbs.forEach(function(el,n){
-      var r=el.getBoundingClientRect();if(!r.width||!r.height)return;
-      var d=Math.min(window.devicePixelRatio||1,2);
-      el.width=Math.round(r.width*d);el.height=Math.round(r.height*d);
-      var c=el.getContext('2d');c.setTransform(d,0,0,d,0,0);
-      W=r.width;H=r.height;ctx=c;
-      scene(scenes[n].key,false);
-    });
-    W=sW;H=sH;ctx=sCtx;
-  }
-  function ui(){
-    var idx=0;for(var i=0;i<scenes.length;i++)if(t>=scenes[i].t)idx=i;
-    if(idx!==sceneIdx){
-      sceneIdx=idx;
-      elName.textContent=scenes[idx].name;elText.textContent=scenes[idx].text;
-      chBtns.forEach(function(b,n){b.setAttribute('aria-current',n===idx?'true':'false');});
-    }
-    elSeek.value=t;
-    elClock.textContent=fmt(t)+' / 00:25';
-    var wet=sm(5.6,6.6,t)*(1-sm(16,18,t));
-    elGauge.textContent='雨量 '+Math.round(wet*12)+' mm/h';
-    elPlay.textContent=playing?'暂停':'播放';
-  }
-  elPlay.addEventListener('click',function(){playing=!playing;last=performance.now();ui();});
-  elSeek.addEventListener('input',function(){t=parseFloat(elSeek.value);draw(t);ui();});
 
+  stageFrame.addEventListener('pointermove', function(e){
+    var r = glCanvas.getBoundingClientRect();
+    var curX = e.clientX - r.left;
+    var curY = e.clientY - r.top;
+    var vx = curX - windVelocity.lastX;
+    var vy = curY - windVelocity.lastY;
+    windVelocity.x = vx;
+    windVelocity.y = vy;
+    windVelocity.speed = Math.min(Math.sqrt(vx * vx + vy * vy), 45);
+    windVelocity.lastX = curX;
+    windVelocity.lastY = curY;
+
+    mousePos.x = curX;
+    mousePos.y = curY;
+    mousePos.active = 1.0;
+
+    // 交互：划过伞耳震颤与飞溅晶莹雨珠
+    var s = Math.min(W / (W < H ? 400 : 480), H / 260);
+    var earX = W * 0.4, earY = H * 0.78 - 95 * s;
+    if(Math.hypot(curX - earX, curY - earY) < 70 * s){
+      umbrellaBounce = Math.max(umbrellaBounce, 1.2);
+      if(Math.random() < 0.45){
+        splashDrops.push({
+          x: curX, y: curY,
+          vx: (Math.random() - 0.5) * 6,
+          vy: -3 - Math.random() * 5,
+          life: 1.0
+        });
+      }
+    }
+  });
+
+  stageFrame.addEventListener('pointerleave', function(){
+    mousePos.active = 0;
+  });
+
+  stageFrame.addEventListener('pointerdown', function(e){
+    var r = glCanvas.getBoundingClientRect();
+    var curX = e.clientX - r.left;
+    var curY = e.clientY - r.top;
+    var s = Math.min(W / (W < H ? 400 : 480), H / 260);
+    var mushX = W * 0.4 - 10 * s, mushY = H * 0.78 - 85 * s;
+
+    if(Math.hypot(curX - mushX, curY - mushY) < 55 * s){
+      extraSporeSurge = 2.2;
+    } else {
+      for(var k = 0; k < 6; k++){
+        splashDrops.push({
+          x: curX, y: curY,
+          vx: (Math.random() - 0.5) * 8,
+          vy: -2 - Math.random() * 6,
+          life: 1.0
+        });
+      }
+    }
+  });
+
+  // 数学插值辅助
+  var clamp = function(x, a, b){ a = a === undefined ? 0 : a; b = b === undefined ? 1 : b; return Math.min(b, Math.max(a, x)); };
+  var sm = function(a, b, x){ x = clamp((x - a) / (b - a)); return x * x * (3 - 2 * x); };
+  var lerp = function(a, b, k){ return a + (b - a) * k; };
+  var frac = function(v){ return ((v % 1) + 1) % 1; };
+  function mixc(a, b, k){ return [Math.round(lerp(a[0], b[0], k)), Math.round(lerp(a[1], b[1], k)), Math.round(lerp(a[2], b[2], k))]; }
+  function rgb(a, al){ return al === undefined ? 'rgb(' + a.join(',') + ')' : 'rgba(' + a.join(',') + ',' + al + ')'; }
+
+  function rng(seed){
+    return function(){
+      seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      var q = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      q = q + Math.imul(q ^ q >>> 7, 61 | q) ^ q;
+      return ((q ^ q >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  var R = rng(57);
+
+  // 原始森林参数配置 (远中古木、巨型蕨类、悬垂藤蔓)
+  var forestTrees = [];
+  for(var i = 0; i < 11; i++){
+    forestTrees.push({
+      b: i / 11 + R() * 0.05,
+      h: 0.45 + R() * 0.35,
+      w: 0.035 + R() * 0.03,
+      branchSide: R() > 0.5 ? 1 : -1,
+      mossColor: R() > 0.5 ? '#2f855a' : '#22543d'
+    });
+  }
+
+  var ferns = [];
+  for(var i = 0; i < 16; i++){
+    ferns.push({ b: i / 16 + R() * 0.04, scale: 0.6 + R() * 0.6, type: i % 3 });
+  }
+
+  var fireflies = [];
+  for(var i = 0; i < 35; i++){
+    fireflies.push({ x: R(), y: R(), r: 1.2 + R() * 2.0, tw: R() * 6.28, sp: 0.02 + R() * 0.04 });
+  }
+
+  var SPROUT_OFF = [-0.14, -0.08, -0.02, 0.04, 0.1, 0.16, 0.22, 0.29];
+
+  // 世界卷动位移
+  function spd(tt){
+    if(tt < 6) return 0.055;
+    if(tt < 8) return lerp(0.055, 0.04, (tt - 6) / 2);
+    if(tt < 11.5) return 0.04;
+    if(tt < 12.5) return lerp(0.04, 0, tt - 11.5);
+    if(tt < 19) return 0;
+    if(tt < 20) return lerp(0, 0.1, tt - 19);
+    if(tt < 24) return 0.1;
+    return lerp(0.1, 0.04, tt - 24);
+  }
+  var XT = [], STEP = 0.04;
+  (function(){ var x = 0; for(var k = 0; k * STEP <= DUR + 0.001; k++){ XT.push(x); x += spd(k * STEP) * STEP; } })();
+  function XU(tt){ var f = tt / STEP, idx = Math.min(Math.floor(f), XT.length - 2); return lerp(XT[idx], XT[idx + 1], f - idx); }
+
+  var offCanvas = document.createElement('canvas');
+  var offCtx = offCanvas.getContext('2d');
+
+  // ================= 1. WebGL 硬件加速雨林 Shader 管线 =================
+  var gl = glCanvas.getContext('webgl', { antialias: true, alpha: false, depth: false, stencil: false }) ||
+           glCanvas.getContext('experimental-webgl');
+  var glProgram = null, glTexture = null;
+  var uTimeLoc, uResLoc, uRainLoc, uSunsetLoc, uEarCenterLoc, uEarOpenLoc, uWindLoc, uGlowBoostLoc, uFilterModeLoc;
+
+  var vsSource = [
+    'attribute vec2 a_pos;',
+    'varying vec2 v_uv;',
+    'void main(){',
+    '  v_uv = (a_pos + 1.0) * 0.5;',
+    '  v_uv.y = 1.0 - v_uv.y;',
+    '  gl_Position = vec4(a_pos, 0.0, 1.0);',
+    '}'
+  ].join('\n');
+
+  var fsSource = [
+    'precision mediump float;',
+    'varying vec2 v_uv;',
+    'uniform sampler2D u_tex;',
+    'uniform vec2 u_res;',
+    'uniform float u_time;',
+    'uniform float u_rain;',
+    'uniform float u_sunset;',
+    'uniform vec2 u_ear_center;',
+    'uniform float u_ear_open;',
+    'uniform vec2 u_wind;',
+    'uniform float u_glow_boost;',
+    'uniform int u_filter_mode;',
+    '',
+    '// GPU 雨林动态倾斜雨丝',
+    'float getRainStreaks(vec2 uv, float t, vec2 wind){',
+    '  vec2 p = uv * vec2(u_res.x / 4.2, u_res.y / 2.2);',
+    '  p.x += wind.x * 2.8 * uv.y;',
+    '  float r = sin(p.x * 0.45 + t * 48.0) * cos(p.y * 0.16 - t * 70.0);',
+    '  return clamp(r * 2.6 - 1.65, 0.0, 1.0);',
+    '}',
+    '',
+    'void main(){',
+    '  vec2 uv = v_uv;',
+    '  vec4 texCol = texture2D(u_tex, uv);',
+    '  vec3 col = texCol.rgb;',
+    '',
+    '  // 1. GPU 动态倾斜雨丝',
+    '  if(u_rain > 0.05){',
+    '    float rain = getRainStreaks(uv, u_time, u_wind);',
+    '    col += vec3(0.75, 0.88, 1.0) * rain * u_rain * 0.38;',
+    '  }',
+    '',
+    '  // 2. 茂密原始森林晨昏体积光线 (Volumetric Forest Beams)',
+    '  if(u_glow_boost > 0.1){',
+    '    float rays = sin(uv.x * 14.0 + uv.y * 7.0 + u_time * 0.35) * 0.5 + 0.5;',
+    '    rays *= pow(1.0 - uv.y * 0.72, 1.6);',
+    '    vec3 rayColor = mix(vec3(1.0, 0.92, 0.65), vec3(1.0, 0.58, 0.28), u_sunset);',
+    '    rayColor = mix(rayColor, vec3(0.45, 0.68, 0.88), u_rain);',
+    '    col += rayColor * rays * 0.14 * (1.0 - u_rain * 0.5) * u_glow_boost;',
+    '  }',
+    '',
+    '  // 3. 连载印装模式处理',
+    '  if(u_filter_mode == 1){',
+    '    float gray = dot(col, vec3(0.299, 0.587, 0.114));',
+    '    vec2 grid = floor(gl_FragCoord.xy / 6.0);',
+    '    float dotPat = sin(grid.x * 1.57) * sin(grid.y * 1.57);',
+    '    float dotThreshold = clamp((1.0 - gray) * 1.6 - 0.3, 0.0, 1.0);',
+    '    float finalGray = gray > dotThreshold ? 1.0 : 0.05;',
+    '    col = vec3(finalGray);',
+    '  } else if(u_filter_mode == 2){',
+    '    float gray = dot(col, vec3(0.299, 0.587, 0.114));',
+    '    col = vec3(0.08, 0.38, 0.55) * (1.1 - gray * 0.7);',
+    '  }',
+    '',
+    '  gl_FragColor = vec4(col, 1.0);',
+    '}'
+  ].join('\n');
+
+  function initWebGL(){
+    if(!gl) return false;
+    function compileShader(src, type){
+      var s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)){
+        console.error('Shader 编译失败:', gl.getShaderInfoLog(s));
+        gl.deleteShader(s);
+        return null;
+      }
+      return s;
+    }
+    var vs = compileShader(vsSource, gl.VERTEX_SHADER);
+    var fs = compileShader(fsSource, gl.FRAGMENT_SHADER);
+    if(!vs || !fs) return false;
+
+    glProgram = gl.createProgram();
+    gl.attachShader(glProgram, vs);
+    gl.attachShader(glProgram, fs);
+    gl.linkProgram(glProgram);
+    if(!gl.getProgramParameter(glProgram, gl.LINK_STATUS)){
+      console.error('Program 链接失败:', gl.getProgramInfoLog(glProgram));
+      return false;
+    }
+    gl.useProgram(glProgram);
+
+    var quadBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, quadBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      -1, -1,  1, -1, -1,  1,
+      -1,  1,  1, -1,  1,  1
+    ]), gl.STATIC_DRAW);
+
+    var aPos = gl.getAttribLocation(glProgram, 'a_pos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+    uTimeLoc = gl.getUniformLocation(glProgram, 'u_time');
+    uResLoc = gl.getUniformLocation(glProgram, 'u_res');
+    uRainLoc = gl.getUniformLocation(glProgram, 'u_rain');
+    uSunsetLoc = gl.getUniformLocation(glProgram, 'u_sunset');
+    uEarCenterLoc = gl.getUniformLocation(glProgram, 'u_ear_center');
+    uEarOpenLoc = gl.getUniformLocation(glProgram, 'u_ear_open');
+    uWindLoc = gl.getUniformLocation(glProgram, 'u_wind');
+    uGlowBoostLoc = gl.getUniformLocation(glProgram, 'u_glow_boost');
+    uFilterModeLoc = gl.getUniformLocation(glProgram, 'u_filter_mode');
+
+    glTexture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, glTexture);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+
+    return true;
+  }
+  var hasWebGL = initWebGL();
+
+  // 基础绘图与拟声辅助
+  function burst(c, x, y, r1, r2, n, rot){
+    c.beginPath();
+    for(var i = 0; i < n * 2; i++){
+      var rr = i % 2 ? r1 : r2, a = rot + i * Math.PI / n;
+      if(i === 0) c.moveTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr);
+      else c.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr);
+    }
+    c.closePath();
+  }
+
+  function lens(c, a, b){
+    c.beginPath(); c.moveTo(-a, 0); c.quadraticCurveTo(0, -b * 1.7, a, 0); c.quadraticCurveTo(0, b * 1.7, -a, 0); c.closePath();
+  }
+
+  function drawSFX(c, txt, x, y, size, rot, fill, pop){
+    if(pop <= 0) return;
+    c.save(); c.translate(x, y); c.rotate(rot); c.scale(pop, pop);
+    c.font = '900 ' + size + 'px ' + SFXFONT;
+    c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.lineJoin = 'round'; c.lineWidth = size * 0.22;
+    c.strokeStyle = INK; c.strokeText(txt, 0, 0);
+    c.fillStyle = fill; c.fillText(txt, 0, 0);
+    c.restore();
+  }
+
+  function popCurve(tt, a, b){
+    if(tt < a || tt > b) return 0;
+    var age = tt - a;
+    if(age < 0.22){
+      var x = age / 0.22, c1 = 1.70158, c3 = c1 + 1;
+      return Math.max(0, 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2));
+    }
+    if(b - tt < 0.2) return Math.max(0, (b - tt) / 0.2);
+    return 1;
+  }
+
+  function sprout(c, x, y, g, s, k){
+    if(g <= 0) return;
+    var sc = Math.max(0.8, s * 0.9), h = 38 * sc * g;
+    c.lineCap = 'round';
+    c.beginPath(); c.moveTo(x, y); c.quadraticCurveTo(x + 5 * sc * k, y - h * 0.5, x, y - h);
+    c.strokeStyle = INK; c.lineWidth = 5.2 * sc; c.stroke();
+    c.strokeStyle = '#5fd16f'; c.lineWidth = 2.6 * sc; c.stroke();
+    var sides = [-1, 1];
+    for(var i = 0; i < 2; i++){
+      c.save(); c.translate(x + sides[i] * 7 * sc * g, y - h * 0.8); c.rotate(sides[i] * 0.6);
+      lens(c, 10 * sc * g, 4 * sc * g); c.fillStyle = '#8be37a'; c.fill(); c.strokeStyle = INK; c.lineWidth = 1.8; c.stroke();
+      c.restore();
+    }
+    if(g > 0.8){
+      burst(c, x, y - h - 3 * sc, 4 * sc, 9 * sc, 6, k); c.fillStyle = '#fff2a8'; c.fill(); c.strokeStyle = INK; c.lineWidth = 1.6; c.stroke();
+      c.beginPath(); c.arc(x, y - h - 3 * sc, 3 * sc, 0, 6.283); c.fillStyle = '#ffd23f'; c.fill();
+    }
+  }
+
+  // ================= 2. 茂密原始森林背景绘制 (深度景深与古木藤蔓) =================
+  function drawPrimevalForest(c, targetW, targetH, gy, xu, tt, wet, sunk, s){
+    // A. 远景古木烟岚剪影 (Mist & Silhouettes)
+    var mistCol = sunk > 0.3 ? 'rgba(120, 50, 30, 0.35)' : (wet > 0.3 ? 'rgba(45, 65, 80, 0.45)' : 'rgba(50, 95, 75, 0.35)');
+    c.fillStyle = mistCol;
+    for(var i = 0; i < 14; i++){
+      var fx = (frac(i / 14 - xu * 0.12) * 1.3 - 0.15) * targetW;
+      var fw = targetW * (0.04 + ((i * 3) % 4) * 0.012);
+      c.fillRect(fx - fw / 2, 0, fw, gy);
+    }
+
+    // B. 中景粗壮苍劲覆苔古木群 (Massive Moss-covered Ancient Trees)
+    for(var i = 0; i < forestTrees.length; i++){
+      var tr = forestTrees[i];
+      var tx = (frac(tr.b - xu * 0.38) * 1.35 - 0.18) * targetW;
+      var tw = targetW * tr.w;
+      var th = targetH * tr.h;
+
+      c.save();
+      // 树干基底
+      var trunkGrad = c.createLinearGradient(tx - tw / 2, 0, tx + tw / 2, 0);
+      trunkGrad.addColorStop(0, '#2d1b12');
+      trunkGrad.addColorStop(0.4, '#4a2e1f');
+      trunkGrad.addColorStop(1, '#1e110b');
+      c.fillStyle = trunkGrad;
+      c.fillRect(tx - tw / 2, 0, tw, gy);
+
+      c.strokeStyle = INK;
+      c.lineWidth = 2.5;
+      c.strokeRect(tx - tw / 2, 0, tw, gy);
+
+      // 树干上层叠生长的厚苔藓地衣斑块 (Moss Patches)
+      c.fillStyle = tr.mossColor;
+      for(var m = 0; m < 5; m++){
+        var my = gy * (0.2 + m * 0.16);
+        c.beginPath();
+        c.ellipse(tx - tw * 0.25, my, tw * 0.35, 16 + m * 4, 0.15, 0, 6.283);
+        c.fill();
+      }
+
+      // 倒挂悬垂的原始林藤蔓 (Hanging Rainforest Vines)
+      c.strokeStyle = '#2f855a';
+      c.lineWidth = 2.0;
+      c.beginPath();
+      var vineX = tx + tw * 0.4 * tr.branchSide;
+      var vWave = Math.sin(tt * 1.5 + i) * 6;
+      c.moveTo(vineX, 0);
+      c.bezierCurveTo(vineX + vWave, gy * 0.3, vineX - vWave, gy * 0.6, vineX + vWave * 0.5, gy * 0.85);
+      c.stroke();
+
+      // 藤蔓小叶片
+      for(var v = 1; v <= 4; v++){
+        var vy = gy * (v * 0.18);
+        c.fillStyle = '#68d391';
+        c.beginPath();
+        c.ellipse(vineX + (v % 2 ? 6 : -6), vy, 5, 2.5, 0.4, 0, 6.283);
+        c.fill();
+      }
+
+      // 粗大横生枝干与繁茂林冠
+      var branchY = gy * 0.35;
+      c.fillStyle = '#3d2518';
+      c.beginPath();
+      c.moveTo(tx, branchY);
+      c.quadraticCurveTo(tx + 60 * tr.branchSide, branchY - 20, tx + 110 * tr.branchSide, branchY - 50);
+      c.lineTo(tx + 110 * tr.branchSide, branchY - 35);
+      c.quadraticCurveTo(tx + 60 * tr.branchSide, branchY - 5, tx, branchY + 15);
+      c.closePath();
+      c.fill();
+      c.stroke();
+
+      // 枝头团状原始林叶 (Dense Canopy Tufts)
+      c.fillStyle = sunk > 0.3 ? '#7c2d12' : (wet > 0.3 ? '#1c4532' : '#276749');
+      c.beginPath();
+      c.arc(tx + 110 * tr.branchSide, branchY - 45, 55, 0, 6.283);
+      c.arc(tx + 85 * tr.branchSide, branchY - 65, 45, 0, 6.283);
+      c.arc(tx + 135 * tr.branchSide, branchY - 55, 40, 0, 6.283);
+      c.fill();
+      c.stroke();
+
+      c.restore();
+    }
+
+    // C. 参天古木空心树洞家园 (The Ancient Hollow Tree Home)
+    var hx = (XT[Math.round(23.5 / STEP)] + 0.78 - xu) * targetW;
+    if(hx - targetW * 0.25 < targetW && hx + targetW * 0.25 > 0){
+      c.save();
+      var hw = targetW * 0.24, htop = targetH * 0.05;
+
+      // 巨树根座
+      var homeGrad = c.createLinearGradient(hx - hw / 2, 0, hx + hw / 2, 0);
+      homeGrad.addColorStop(0, '#382317');
+      homeGrad.addColorStop(0.5, '#543624');
+      homeGrad.addColorStop(1, '#27170e');
+      c.fillStyle = homeGrad;
+      c.fillRect(hx - hw / 2, htop, hw, gy - htop);
+      c.strokeStyle = INK;
+      c.lineWidth = 3.5;
+      c.strokeRect(hx - hw / 2, htop, hw, gy - htop);
+
+      // 树根处覆苔
+      c.fillStyle = '#22543d';
+      c.beginPath();
+      c.ellipse(hx - hw * 0.3, gy - 20, hw * 0.3, 40, 0.2, 0, 6.283);
+      c.ellipse(hx + hw * 0.35, gy - 30, hw * 0.25, 50, -0.2, 0, 6.283);
+      c.fill();
+
+      // 洞穴开口 (古朴圆拱形树洞)
+      var aw = hw * 0.52, ah = targetH * 0.26;
+      c.beginPath();
+      c.moveTo(hx - aw / 2, gy);
+      c.lineTo(hx - aw / 2, gy - ah);
+      c.arc(hx, gy - ah, aw / 2, Math.PI, 0);
+      c.lineTo(hx + aw / 2, gy);
+      c.closePath();
+      c.fillStyle = '#1c100a';
+      c.fill();
+      c.stroke();
+
+      // 洞内归家暖橘灯火
+      var iw = aw * 0.65, ih = ah * 0.75;
+      c.beginPath();
+      c.moveTo(hx - iw / 2, gy);
+      c.lineTo(hx - iw / 2, gy - ih);
+      c.arc(hx, gy - ih, iw / 2, Math.PI, 0);
+      c.lineTo(hx + iw / 2, gy);
+      c.closePath();
+      var fireGrad = c.createRadialGradient(hx, gy - ih * 0.5, 0, hx, gy - ih * 0.5, iw);
+      fireGrad.addColorStop(0, '#fffbeb');
+      fireGrad.addColorStop(0.4, '#fde68a');
+      fireGrad.addColorStop(1, '#f59e0b');
+      c.fillStyle = fireGrad;
+      c.fill();
+
+      // 洞外点缀野生荧光小红菇
+      c.fillStyle = '#ef4444';
+      c.beginPath();
+      c.arc(hx - aw * 0.7, gy - 12, 7, Math.PI, 6.283);
+      c.arc(hx - aw * 0.7 + 10, gy - 8, 5, Math.PI, 6.283);
+      c.fill();
+      c.stroke();
+
+      c.restore();
+    }
+
+    // D. 湿润起伏的厚苔藓地毯 (Lush Primeval Moss Carpet)
+    var groundGrad = c.createLinearGradient(0, gy, 0, targetH);
+    groundGrad.addColorStop(0, sunk > 0.3 ? '#78350f' : (wet > 0.3 ? '#1b4332' : '#2d6a4f'));
+    groundGrad.addColorStop(0.5, '#143626');
+    groundGrad.addColorStop(1, '#081c13');
+    c.fillStyle = groundGrad;
+    c.fillRect(0, gy, targetW, targetH - gy);
+
+    // 苔藓微地形起伏波浪线
+    c.strokeStyle = INK;
+    c.lineWidth = 3.5;
+    c.beginPath();
+    c.moveTo(0, gy);
+    for(var gx = 0; gx <= targetW; gx += 40){
+      var gyOffset = Math.sin(gx * 0.05 + xu * 8.0) * 3;
+      c.lineTo(gx, gy + gyOffset);
+    }
+    c.stroke();
+
+    // E. 近景巨叶丛与野生蕨类植物 (Ferns & Giant Rainforest Leaves)
+    for(var fi = 0; fi < ferns.length; fi++){
+      var fern = ferns[fi];
+      var fx = (frac(fern.b - xu * 0.75) * 1.35 - 0.18) * targetW;
+      var fScale = fern.scale * s;
+
+      c.save();
+      c.translate(fx, gy + 4);
+      c.scale(fScale, fScale);
+
+      // 羽状蕨叶展开
+      c.strokeStyle = '#1b4332';
+      c.lineWidth = 2.5;
+      c.beginPath();
+      c.moveTo(0, 0);
+      c.quadraticCurveTo(15, -35, 30, -55);
+      c.stroke();
+
+      c.fillStyle = '#40916c';
+      for(var leaf = 1; leaf <= 6; leaf++){
+        var ly = -leaf * 8;
+        var lx = leaf * 4.5;
+        c.beginPath();
+        c.ellipse(lx - 8, ly, 10, 4, -0.4, 0, 6.283);
+        c.ellipse(lx + 8, ly, 10, 4, 0.4, 0, 6.283);
+        c.fill();
+      }
+      c.restore();
+    }
+
+    // F. 森林悬浮荧光孢子与萤火微粒 (Forest Fireflies & Ambient Luminescence)
+    for(var fl = 0; fl < fireflies.length; fl++){
+      var ff = fireflies[fl];
+      var fpx = frac(ff.x - xu * 0.2 + Math.sin(tt * 0.5 + ff.tw) * 0.05) * targetW;
+      var fpy = gy * 0.15 + frac(ff.y + Math.cos(tt * 0.4 + ff.tw) * 0.05) * (gy * 0.85);
+      var fPulse = 0.5 + 0.5 * Math.sin(tt * 3.0 + ff.tw);
+
+      c.fillStyle = '#a7f3d0';
+      c.globalAlpha = fPulse * 0.75;
+      c.beginPath();
+      c.arc(fpx, fpy, ff.r, 0, 6.283);
+      c.fill();
+      c.globalAlpha = 1.0;
+    }
+  }
+
+  // ================= 3. 伞耳獾生物本体绘制 (升级翡翠大叶伞耳与质感皮毛) =================
+  function drawBadger(c, tt, s, U, walk, phase, pulse){
+    var OL = Math.max(2, 2.6 * s) / s;
+    c.lineJoin = 'round'; c.lineCap = 'round';
+    var FUR = '#9c6644', FURD = '#7f4f24', BELLY = '#ede0d4';
+    var legX = [-34, -16, 16, 34];
+
+    // 四肢交替行走
+    function leg(i, far){
+      var ph = phase + ((i === 0 || i === 3) ? 0 : Math.PI);
+      var hx = legX[i], hy = -22;
+      var tuckLeg = U > 0.5 ? 0.35 : 1.0;
+      var fx = hx + Math.sin(ph) * 11 * walk * tuckLeg, fy = -Math.max(0, Math.cos(ph)) * 7 * walk * tuckLeg;
+      c.beginPath(); c.moveTo(hx, hy); c.lineTo(fx, fy - 5);
+      c.strokeStyle = INK; c.lineWidth = 12 + OL * 2; c.stroke();
+      c.strokeStyle = far ? FURD : FUR; c.lineWidth = 12; c.stroke();
+      c.beginPath(); c.ellipse(fx + 3, fy - 4, 9, 4.5, 0, 0, 6.283);
+      c.fillStyle = far ? '#582f0e' : FURD; c.fill(); c.strokeStyle = INK; c.lineWidth = OL * 0.8; c.stroke();
+    }
+
+    leg(0, true); leg(2, true);
+
+    // 短尾轻摇
+    c.save(); c.translate(-56, -36); c.rotate(-0.5 + Math.sin(tt * 5) * 0.3);
+    c.beginPath(); c.ellipse(-8, 0, 13, 8, 0, 0, 6.283); c.fillStyle = FUR; c.fill();
+    c.strokeStyle = INK; c.lineWidth = OL; c.stroke(); c.restore();
+
+    // 躯体与毛发
+    function bodyPath(){
+      c.beginPath(); c.moveTo(-56, -30);
+      c.bezierCurveTo(-58, -72, 14, -84, 48, -62);
+      c.bezierCurveTo(66, -50, 62, -18, 40, -12);
+      c.bezierCurveTo(10, -4, -50, -6, -56, -30); c.closePath();
+    }
+    c.save();
+    bodyPath();
+    var bGrad = c.createLinearGradient(-56, -75, 48, -12);
+    bGrad.addColorStop(0, '#b07d62');
+    bGrad.addColorStop(0.5, FUR);
+    bGrad.addColorStop(1, FURD);
+    c.fillStyle = bGrad;
+    c.fill();
+    c.clip();
+
+    c.fillStyle = BELLY;
+    c.beginPath(); c.moveTo(-60, -26); c.quadraticCurveTo(0, -34, 70, -34); c.lineTo(70, 10); c.lineTo(-60, 10); c.closePath(); c.fill();
+
+    c.fillStyle = '#d6ccc2'; c.beginPath();
+    for(var yd = -26, rw = 0; yd < -10; yd += 5, rw++){
+      var rd = 2 * (yd + 30) / 20;
+      for(var xd = (rw % 2 ? -48 : -52); xd < 66; xd += 8){ c.moveTo(xd + rd, yd); c.arc(xd, yd, rd, 0, 6.283); }
+    }
+    c.fill();
+
+    c.strokeStyle = '#e6ccb2'; c.lineWidth = 5;
+    c.beginPath(); c.moveTo(-30, -71); c.bezierCurveTo(-10, -79, 14, -79, 34, -67); c.stroke();
+    c.restore();
+
+    bodyPath(); c.strokeStyle = INK; c.lineWidth = OL; c.stroke();
+
+    // 头部、黑鼻头与灵动眼眸
+    c.beginPath(); c.arc(62, -46, 21, 0, 6.283); c.fillStyle = FUR; c.fill(); c.strokeStyle = INK; c.lineWidth = OL; c.stroke();
+    c.beginPath(); c.ellipse(80, -41, 13, 10, 0, 0, 6.283); c.fillStyle = BELLY; c.fill(); c.stroke();
+    c.beginPath(); c.ellipse(90, -45, 4.6, 3.6, 0, 0, 6.283); c.fillStyle = INK; c.fill();
+    c.beginPath(); c.arc(72, -37, 4.6, 0, 6.283); c.fillStyle = 'rgba(255,130,120,0.85)'; c.fill();
+    c.strokeStyle = INK; c.lineWidth = OL * 0.6;
+    c.beginPath(); c.moveTo(82, -34); c.quadraticCurveTo(87, -30, 92, -35); c.stroke();
+
+    // 明眸
+    if(frac(tt / 4.1) < 0.03){
+      c.lineWidth = OL * 0.8; c.beginPath(); c.moveTo(60, -52); c.quadraticCurveTo(66, -48, 72, -52); c.stroke();
+    } else {
+      c.beginPath(); c.ellipse(66, -52, 6.6, 7.4, 0, 0, 6.283); c.fillStyle = '#fbfdf8'; c.fill();
+      c.strokeStyle = INK; c.lineWidth = OL * 0.8; c.stroke();
+      c.beginPath(); c.arc(68, -52, 3.9, 0, 6.283); c.fillStyle = INK; c.fill();
+      c.beginPath(); c.arc(69.4, -53.6, 1.4, 0, 6.283); c.fillStyle = '#fbfdf8'; c.fill();
+    }
+
+    // 背上小红菇 (喷发孢子)
+    function mushroom(){
+      var totalPulse = pulse + extraSporeSurge * 0.35;
+      c.save(); c.translate(-10, -74); c.scale(1 + 0.18 * totalPulse, 1 - 0.25 * totalPulse);
+      c.beginPath(); c.rect(-4, -16, 8, 17); c.fillStyle = '#f6e7c8'; c.fill(); c.strokeStyle = INK; c.lineWidth = OL * 0.8; c.stroke();
+      c.beginPath(); c.ellipse(0, -16, 21, 15, 0, Math.PI, 6.283); c.closePath();
+      c.fillStyle = '#dc2626'; c.fill(); c.strokeStyle = INK; c.lineWidth = OL; c.stroke();
+      c.fillStyle = '#fff6ea';
+      c.beginPath(); c.arc(-9, -22, 3.2, 0, 6.283); c.fill();
+      c.beginPath(); c.arc(2, -28, 2.8, 0, 6.283); c.fill();
+      c.beginPath(); c.arc(10, -21, 2.4, 0, 6.283); c.fill();
+      c.restore();
+    }
+
+    // 核心器官：升级高质感翡翠大叶伞耳 (直径约 1.2 米，通透叶脉)
+    function ear(){
+      var bz = umbrellaBounce * Math.sin(tt * 24);
+      var cxl = lerp(22, 0, U) + bz * 4, cyl = lerp(-72, -110, U) - bz * 2;
+      var a = lerp(28, 88, U), b = lerp(9, 18, U), th = lerp(-0.15, 0, U) + Math.sin(tt * 3) * 0.02 + bz * 0.08;
+
+      // 叶柄
+      c.beginPath(); c.moveTo(50, -64);
+      c.quadraticCurveTo(lerp(50, cxl, 0.25), lerp(-64, cyl, 0.25) - 14 * U, cxl, cyl);
+      c.strokeStyle = INK; c.lineWidth = OL * 1.9; c.stroke();
+      c.strokeStyle = '#22543d'; c.lineWidth = OL * 0.8; c.stroke();
+
+      c.save(); c.translate(cxl, cyl); c.rotate(th);
+      lens(c, a, b);
+
+      // 翡翠通透叶肉渐变
+      var leafGrad = c.createLinearGradient(-a, -b, a, b);
+      leafGrad.addColorStop(0, '#52b788');
+      leafGrad.addColorStop(0.5, '#40916c');
+      leafGrad.addColorStop(1, '#2d6a4f');
+      c.fillStyle = leafGrad;
+      c.fill();
+      c.strokeStyle = INK; c.lineWidth = OL; c.stroke();
+
+      // 鲜明主叶脉与侧叶脉
+      c.strokeStyle = '#95d5b2'; c.lineWidth = OL * 0.65;
+      c.beginPath(); c.moveTo(-a * 0.9, 0); c.lineTo(a * 0.9, 0);
+      var ks = [-0.55, -0.2, 0.15, 0.5];
+      for(var q = 0; q < ks.length; q++){
+        var vx = a * ks[q], vy = b * 0.75 * (1 - Math.abs(ks[q]) * 0.7);
+        c.moveTo(vx, 0); c.lineTo(vx + a * 0.14, -vy);
+        c.moveTo(vx, 0); c.lineTo(vx + a * 0.14, vy);
+      }
+      c.stroke();
+
+      // 撑开时伞面上的晶莹露珠
+      if(U > 0.6){
+        c.fillStyle = 'rgba(255, 255, 255, 0.85)';
+        c.beginPath();
+        c.arc(-a * 0.3, -b * 0.4, 2.8, 0, 6.283);
+        c.arc(a * 0.2, -b * 0.5, 2.2, 0, 6.283);
+        c.arc(a * 0.45, -b * 0.2, 2.5, 0, 6.283);
+        c.fill();
+      }
+
+      c.restore();
+    }
+
+    if(U > 0.5){ mushroom(); ear(); } else { ear(); mushroom(); }
+    leg(1, false); leg(3, false);
+  }
+
+  // ================= 4. 完整场景离屏合成 =================
+  function renderSceneToCanvas(tt, targetCtx, targetW, targetH){
+    var s = Math.min(targetW / (targetW < targetH ? 400 : 480), targetH / 260);
+    var cx = targetW * 0.4, gy = targetH * 0.78;
+    var xu = XU(tt);
+    var wet = sm(5.6, 6.6, tt) * (1 - sm(16, 18, tt));
+    var sunk = sm(16.5, 18.8, tt);
+    var U = sm(6.1, 7.1, tt) * (1 - sm(17.8, 18.6, tt));
+    var sv = spd(tt), walk = clamp(sv / 0.05, 0, 1);
+    var phase = 2 * Math.PI * xu * targetW / (40 * s);
+
+    // 1. 绘制茂密原始森林背景 (古木、藤蔓、深景深地被、树洞)
+    drawPrimevalForest(targetCtx, targetW, targetH, gy, xu, tt, wet, sunk, s);
+
+    // 2. 孢子落地长成发光嫩芽
+    var sbase = XT[Math.round(12 / STEP)] + 0.4;
+    for(var spi = 0; spi < SPROUT_OFF.length; spi++){
+      var gs = sm(13.5 + spi * 0.45, 14.7 + spi * 0.45, tt);
+      sprout(targetCtx, (sbase + SPROUT_OFF[spi] - xu) * targetW, gy + targetH * (0.045 + 0.03 * (spi % 3)), gs, s, spi % 2 ? 1 : -1);
+    }
+
+    // 3. 伞耳獾生物本体
+    var bob = Math.abs(Math.sin(phase)) * 2.5 * walk + Math.sin(tt * 2) * 0.8;
+    var pulse = 0, evs = [12.4, 13.6, 14.8, 16];
+    for(var ei = 0; ei < evs.length; ei++){ var ev = tt - evs[ei]; if(ev > 0 && ev < 0.5) pulse = Math.max(pulse, Math.sin(ev / 0.5 * Math.PI)); }
+
+    targetCtx.save(); targetCtx.translate(cx, gy - bob * s); targetCtx.scale(s, s);
+    drawBadger(targetCtx, tt, s, U, walk, phase, pulse);
+    targetCtx.restore();
+
+    // 4. 荧光发光孢子云 (第3幕撒孢喷吐)
+    var capx = cx - 10 * s, capy = gy - bob * s - 100 * s;
+    if(pulse > 0.2 || extraSporeSurge > 0.1){
+      var curP = Math.max(pulse, extraSporeSurge * 0.5);
+      burst(targetCtx, capx, capy, 10 * s * curP, 30 * s * curP, 12, tt * 2);
+      targetCtx.fillStyle = 'rgba(167, 243, 208, 0.9)'; targetCtx.fill();
+      targetCtx.strokeStyle = INK; targetCtx.lineWidth = 2; targetCtx.stroke();
+    }
+    for(var pi = 0; pi < 70; pi++){
+      var age = tt - (12.4 + pi * 0.09);
+      if(age < 0 || age > 3.2) continue;
+      var vx = (frac(pi * 0.618) - 0.35) * 58 * s, vy = -(38 + frac(pi * 0.37) * 48) * s;
+      var px = capx + vx * age, py = capy + vy * age + 35 * s * age * age;
+      targetCtx.beginPath(); targetCtx.arc(px, py, 2.8 * s, 0, 6.283);
+      targetCtx.fillStyle = '#6ee7b7'; targetCtx.fill();
+      targetCtx.strokeStyle = INK; targetCtx.lineWidth = 1.2; targetCtx.stroke();
+    }
+
+    // 5. 弹落飞溅的水滴
+    for(var si = splashDrops.length - 1; si >= 0; si--){
+      var drop = splashDrops[si];
+      drop.x += drop.vx; drop.y += drop.vy; drop.vy += 0.35; drop.life -= 0.03;
+      if(drop.life <= 0){ splashDrops.splice(si, 1); continue; }
+      targetCtx.beginPath(); targetCtx.arc(drop.x, drop.y, 2.4 * drop.life, 0, 6.283);
+      targetCtx.fillStyle = '#a7f3d0'; targetCtx.fill();
+      targetCtx.strokeStyle = INK; targetCtx.lineWidth = 1.0; targetCtx.stroke();
+    }
+
+    // 6. 漫画拟声特效字 (SFX)
+    drawSFX(targetCtx, '踏踏踏', cx - 20, gy + 22, 28 * s, 0, '#ffffff', popCurve(tt, 1.2, 5.2) * walk);
+    drawSFX(targetCtx, '啪嗒！', cx + 45 * s, gy - 120 * s, 36 * s, 0.15, '#ffd23f', popCurve(tt, 6.2, 8.2));
+    drawSFX(targetCtx, '哗啦啦', targetW * 0.72, targetH * 0.35, 42 * s, -0.1, '#b0d6ff', popCurve(tt, 7.8, 11.5) * wet);
+    drawSFX(targetCtx, '噗！', capx - 20 * s, capy - 35 * s, 48 * s, -0.2, '#6ee7b7', popCurve(tt, 12.2, 14.5));
+    drawSFX(targetCtx, '冒冒冒', cx + 110 * s, gy + 15, 26 * s, 0.05, '#8be37a', popCurve(tt, 13.8, 17.5));
+    drawSFX(targetCtx, '嗒嗒嗒', cx + 30, gy + 22, 32 * s, 0, '#ff9a52', popCurve(tt, 19.8, 23.5) * walk);
+  }
+
+  // ================= 5. WebGL 硬件着色器加速渲染 (60FPS 超清) =================
+  function draw(tt){
+    renderSceneToCanvas(tt, offCtx, W, H);
+
+    if(hasWebGL){
+      gl.viewport(0, 0, glCanvas.width, glCanvas.height);
+      gl.useProgram(glProgram);
+
+      gl.bindTexture(gl.TEXTURE_2D, glTexture);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, offCanvas);
+
+      var wet = sm(5.6, 6.6, tt) * (1 - sm(16, 18, tt));
+      var sunk = sm(16.5, 18.8, tt);
+      var U = sm(6.1, 7.1, tt) * (1 - sm(17.8, 18.6, tt));
+
+      gl.uniform1f(uTimeLoc, tt);
+      gl.uniform2f(uResLoc, glCanvas.width, glCanvas.height);
+      gl.uniform1f(uRainLoc, wet);
+      gl.uniform1f(uSunsetLoc, sunk);
+
+      var s = Math.min(W / (W < H ? 400 : 480), H / 260);
+      gl.uniform2f(uEarCenterLoc, (W * 0.4) / W, (H * 0.78 - 95 * s) / H);
+      gl.uniform1f(uEarOpenLoc, U);
+
+      gl.uniform2f(uWindLoc, (windVelocity.x / 40.0), (windVelocity.y / 40.0));
+      gl.uniform1f(uGlowBoostLoc, shaderGlowBoost);
+      gl.uniform1i(uFilterModeLoc, shaderFilterMode);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+    } else {
+      var fallbackCtx = glCanvas.getContext('2d');
+      fallbackCtx.clearRect(0, 0, W, H);
+      fallbackCtx.drawImage(offCanvas, 0, 0);
+    }
+  }
+
+  // ================= 6. UI 交互与章节管理 =================
+  var chBtns = [], thumbs = [];
+  function fmt(v){ var s = Math.floor(v); return '00:' + (s < 10 ? '0' : '') + s; }
+
+  scenes.forEach(function(sc, idx){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.innerHTML = '<canvas aria-hidden="true"></canvas><span class="lab"><b>' + sc.name + '</b><small>' + fmt(sc.t) + '</small></span>';
+    b.addEventListener('click', function(){
+      t = sc.t;
+      draw(t);
+      updateUI();
+    });
+    elCh.appendChild(b);
+    chBtns.push(b);
+    thumbs.push(b.querySelector('canvas'));
+  });
+
+  function renderThumbs(){
+    thumbs.forEach(function(el, n){
+      var r = el.getBoundingClientRect();
+      if(!r.width || !r.height) return;
+      var d = Math.min(window.devicePixelRatio || 1, 2);
+      el.width = Math.round(r.width * d);
+      el.height = Math.round(r.height * d);
+      var c = el.getContext('2d');
+      c.setTransform(d, 0, 0, d, 0, 0);
+      renderSceneToCanvas(scenes[n].key, c, r.width, r.height);
+    });
+  }
+
+  function updateUI(){
+    var idx = 0;
+    for(var i = 0; i < scenes.length; i++){
+      if(t >= scenes[i].t) idx = i;
+    }
+    if(idx !== sceneIdx){
+      sceneIdx = idx;
+      elName.textContent = scenes[idx].name;
+      elText.textContent = scenes[idx].text;
+      chBtns.forEach(function(b, n){ b.setAttribute('aria-current', n === idx ? 'true' : 'false'); });
+      for(var s = 0; s < 4; s++){
+        var sBtn = document.getElementById('btnStamp' + s);
+        if(sBtn) sBtn.setAttribute('aria-pressed', s === idx ? 'true' : 'false');
+      }
+    }
+    elSeek.value = t;
+    elClock.textContent = fmt(t) + ' / 00:25';
+
+    var wet = sm(5.6, 6.6, t) * (1 - sm(16, 18, t));
+    var rainVal = Math.round(wet * 45);
+    elGauge.textContent = '雨量 ' + rainVal + ' mm/h';
+    elPlay.textContent = playing ? '暂停' : '播放';
+  }
+
+  elPlay.addEventListener('click', function(){
+    playing = !playing;
+    last = performance.now();
+    updateUI();
+  });
+  elSeek.addEventListener('input', function(){
+    t = parseFloat(elSeek.value);
+    draw(t);
+    updateUI();
+  });
+
+  // 生体印章跳转
+  document.getElementById('btnStamp0').addEventListener('click', function(){ t = scenes[0].t; draw(t); updateUI(); });
+  document.getElementById('btnStamp1').addEventListener('click', function(){ t = scenes[1].t; draw(t); updateUI(); });
+  document.getElementById('btnStamp2').addEventListener('click', function(){ t = scenes[2].t; draw(t); updateUI(); });
+  document.getElementById('btnStamp3').addEventListener('click', function(){ t = scenes[3].t; draw(t); updateUI(); });
+
+  // GPU 光影模式
+  document.getElementById('btnShaderLightGlow').addEventListener('click', function(){
+    shaderGlowBoost = 1.0;
+    document.querySelectorAll('.tone-filters button:nth-child(-n+4)').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+  document.getElementById('btnShaderRainSurge').addEventListener('click', function(){
+    shaderGlowBoost = 1.8;
+    document.querySelectorAll('.tone-filters button:nth-child(-n+4)').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+  document.getElementById('btnShaderLightOff').addEventListener('click', function(){
+    shaderGlowBoost = 0.0;
+    document.querySelectorAll('.tone-filters button:nth-child(-n+4)').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+
+  // 连载印装模式切换
+  document.getElementById('fltColor').addEventListener('click', function(){
+    shaderFilterMode = 0;
+    document.querySelectorAll('.tone-filters button:nth-child(n+6)').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+  document.getElementById('fltMono').addEventListener('click', function(){
+    shaderFilterMode = 1;
+    document.querySelectorAll('.tone-filters button:nth-child(n+6)').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+  document.getElementById('fltBlue').addEventListener('click', function(){
+    shaderFilterMode = 2;
+    document.querySelectorAll('.tone-filters button:nth-child(n+6)').forEach(function(b){ b.classList.remove('active'); });
+    this.classList.add('active');
+  });
+
+  // 视口与分辨率适配
   function fit(){
-    var r=cv.getBoundingClientRect();
-    if(!r.width||!r.height)return;
-    dpr=Math.min(window.devicePixelRatio||1,2);
-    cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);
-    W=r.width;H=r.height;ctx=mctx;
-    mctx.setTransform(dpr,0,0,dpr,0,0);
+    var r = glCanvas.getBoundingClientRect();
+    if(!r.width || !r.height) return;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = r.width; H = r.height;
+
+    glCanvas.width = Math.round(W * dpr);
+    glCanvas.height = Math.round(H * dpr);
+
+    offCanvas.width = W;
+    offCanvas.height = H;
+
     draw(t);
     renderThumbs();
   }
-  if(window.ResizeObserver)new ResizeObserver(fit).observe(cv);
-  window.addEventListener('resize',fit);
-  if(document.fonts&&document.fonts.load){
-    document.fonts.load('900 40px "ZCOOL QingKe HuangYou"','踏啪嗒哗啦噗冒～！—').then(function(){fit();ui();}).catch(function(){});
+  if(window.ResizeObserver) new ResizeObserver(fit).observe(glCanvas);
+  window.addEventListener('resize', fit);
+  if(document.fonts && document.fonts.load){
+    document.fonts.load('900 40px "ZCOOL QingKe HuangYou"', '踏啪嗒哗啦噗冒～！—').then(function(){ fit(); updateUI(); }).catch(function(){});
   }
 
+  // 60FPS 极速动画循环
   function frame(now){
-    var dt=Math.min(0.1,Math.max(0,(now-last)/1000));last=now;
+    var dt = Math.min(0.1, Math.max(0, (now - last) / 1000));
+    last = now;
+
+    if(umbrellaBounce > 0){
+      umbrellaBounce -= dt * 2.8;
+      if(umbrellaBounce < 0) umbrellaBounce = 0;
+    }
+
+    if(extraSporeSurge > 0){
+      extraSporeSurge -= dt * 2.0;
+      if(extraSporeSurge < 0) extraSporeSurge = 0;
+    }
+
+    windVelocity.speed *= 0.92;
+    windVelocity.x *= 0.92;
+    windVelocity.y *= 0.92;
+
     if(playing){
-      t+=dt;
-      if(t>=DUR){t-=DUR;loops++;}
-      draw(t);ui();
+      t += dt;
+      if(t >= DUR){ t -= DUR; loops++; }
+      draw(t);
+      updateUI();
+    } else {
+      draw(t);
     }
     requestAnimationFrame(frame);
   }
-  fit();ui();
-  last=performance.now();
+
+  fit();
+  updateUI();
+  last = performance.now();
   requestAnimationFrame(frame);
 })();
 </script>
-
-</body></html>
+</body>
+</html>

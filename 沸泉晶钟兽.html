@@ -1,0 +1,959 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#f4f1f7;color:#171227}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>沸泉晶钟兽 · 幽域晶洞图鉴 · 第 18 话</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+/* Layout: 幻想大陆经典动态漫画短片 + 物种档案排版体系 */
+:root{
+  --paper:#f4f1f7;
+  --ink:#171227;
+  --violet:#7c4dff;
+  --crystal:#b388ff;
+  --amber:#ff8a1f;
+  --teal:#12c2c2;
+  --white:#ffffff;
+  --chunk:"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif;
+  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{
+  background-color:var(--paper);
+  background-image:radial-gradient(rgba(23,18,39,.10) 1.2px,transparent 1.5px);
+  background-size:12px 12px;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:15px;
+  line-height:1.65;
+  padding-inline:16px;
+  padding-block:28px 56px;
+  margin:0;
+}
+.wrap{max-width:980px;margin-inline:auto;display:flex;flex-direction:column;gap:28px}
+.head{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.kicker{
+  margin:0;background:var(--ink);color:var(--white);
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  padding:3px 10px;display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.kicker .tech-tag{color:#ffc98a;font-weight:700}
+h1{
+  margin:0;font-family:var(--chunk);font-weight:400;
+  font-size:clamp(3.4rem,13vw,6rem);line-height:1;letter-spacing:.05em;
+  color:var(--violet);
+  -webkit-text-stroke:8px var(--ink);paint-order:stroke fill;
+  text-shadow:6px 6px 0 var(--ink);
+  transform:rotate(1.5deg);transform-origin:left bottom;
+}
+.latin{margin:0;font-family:var(--mono);font-size:14px;font-weight:700;color:var(--amber);letter-spacing:.06em}
+
+.film{display:flex;flex-direction:column;gap:16px;min-width:0}
+.stage{
+  position:relative;width:100%;aspect-ratio:16/10;
+  background:#0a0714;
+  border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);
+  overflow:hidden;cursor:crosshair;
+}
+canvas.main{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+.cap{
+  position:absolute;left:14px;top:14px;max-width:min(74%,28em);
+  background:#ffe27a;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+  padding:6px 14px;display:flex;flex-direction:column;gap:0;pointer-events:none;z-index:10;
+}
+.cap b{font-family:var(--chunk);font-weight:400;font-size:1.25rem;letter-spacing:.12em;line-height:1.3;color:#6d28d9}
+.cap span{font-size:13.5px;line-height:1.5;color:var(--ink)}
+
+.gauge{
+  position:absolute;right:14px;bottom:14px;
+  background:var(--white);border:2px solid var(--ink);padding:2px 10px;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;z-index:10;box-shadow:2px 2px 0 var(--ink);
+}
+.hud-pill{
+  position:absolute;left:14px;bottom:14px;
+  background:rgba(10,7,20,.86);border:1.5px solid rgba(255,255,255,.32);
+  padding:3px 12px;font-family:var(--mono);font-size:11px;color:#ffc98a;
+  border-radius:999px;pointer-events:none;z-index:10;
+  display:flex;align-items:center;gap:6px;
+}
+.hud-pill .dot{width:6px;height:6px;border-radius:50%;background:#ff8a1f;box-shadow:0 0 8px #ff8a1f}
+
+.ctl{display:flex;align-items:center;gap:12px;min-width:0;margin-top:2px}
+.ctl button{
+  flex:none;min-width:68px;font:inherit;font-size:14px;font-weight:700;color:var(--ink);
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:3px 3px 0 var(--ink);padding:5px 14px;cursor:pointer;transition:all .1s;
+}
+.ctl button:hover{background:#ffe27a;transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.ctl button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.ctl input[type=range]{flex:1;min-width:0;accent-color:var(--violet);cursor:pointer}
+.clock{flex:none;font-family:var(--mono);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+button:focus-visible,input:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+.chapters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.chapters button{
+  font:inherit;color:var(--ink);text-align:left;cursor:pointer;
+  background:var(--white);border:3px solid var(--ink);border-radius:0;
+  box-shadow:4px 4px 0 var(--ink);padding:0;display:flex;flex-direction:column;min-width:0;
+  transition:all .15s;
+}
+.chapters button:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.chapters canvas{display:block;width:100%;aspect-ratio:4/3;border-bottom:3px solid var(--ink);background:#0a0714}
+.chapters .lab{display:flex;align-items:baseline;gap:8px;padding:5px 10px 6px}
+.chapters .lab b{font-family:var(--chunk);font-weight:400;font-size:1.15rem;letter-spacing:.12em}
+.chapters .lab small{font-family:var(--mono);font-size:11px;font-weight:700}
+.chapters button[aria-current=true] .lab{background:#ffe27a}
+.chapters button[aria-current=true]{box-shadow:4px 4px 0 var(--violet)}
+
+.manga-control-bar{
+  display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  background:var(--white);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+  padding:12px 16px;
+}
+.mode-selector{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mode-title{
+  font-family:var(--chunk);font-size:1.2rem;letter-spacing:.08em;
+  background:var(--ink);color:#fff;padding:2px 10px;transform:skewX(-8deg);
+}
+.stamp-btn{
+  font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em;
+  background:var(--paper);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:5px 12px;cursor:pointer;transition:all .15s;
+  display:inline-flex;align-items:center;gap:5px;
+}
+.stamp-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink);background:#ffe27a}
+.stamp-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.stamp-btn[aria-pressed=true]{background:var(--violet);color:#fff;box-shadow:3px 3px 0 var(--ink);transform:translateY(1px)}
+
+.tone-filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.filter-tag{font-family:var(--chunk);font-size:1.1rem;letter-spacing:.05em}
+.filter-btn{
+  font-family:var(--body);font-weight:700;font-size:12px;
+  border:2px solid var(--ink);background:#fff;padding:4px 10px;cursor:pointer;
+}
+.filter-btn.active{background:var(--ink);color:#fff}
+
+.guide{
+  display:flex;flex-direction:column;gap:16px;background:var(--white);
+  border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:20px 22px 18px;
+}
+.guide-header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.guide h2{margin:0;font-family:var(--chunk);font-weight:400;font-size:1.7rem;letter-spacing:.12em;line-height:1.2}
+.guide-num{font-family:var(--mono);font-size:12px;font-weight:700;color:#666}
+dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+.row{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:12px;padding:10px 0;border-top:2px dashed rgba(23,18,39,.22);align-items:start}
+dt{justify-self:start;background:#ded0ff;border:2px solid var(--ink);padding:1px 7px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.08em}
+dd{margin:0;min-width:0;font-size:14px}
+.tech-spec{background:#f3f0ff;border:2.5px solid var(--ink);padding:12px 16px;font-size:13.5px;line-height:1.65}
+.tech-spec b{color:#5b21b6}
+.tech-spec code{font-family:var(--mono);background:#fff;border:1px solid var(--ink);padding:1px 5px;border-radius:3px}
+.note{margin:0;font-family:var(--mono);font-size:12px;color:#666;border-top:1px solid #ddd;padding-top:8px}
+.sfxload{position:absolute;left:-9999px;top:0;font-family:var(--chunk);white-space:nowrap}
+
+.mode-monochrome{filter:grayscale(100%) contrast(150%)}
+.mode-blueprint{filter:invert(100%) hue-rotate(190deg) contrast(140%) brightness(90%)}
+
+@media (max-width:640px){
+  .stage{aspect-ratio:4/5}
+  .chapters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  dl{grid-template-columns:1fr}
+}
+</style>
+
+<main class="wrap" id="mainWrap">
+  <header class="head">
+    <p class="kicker">
+      <span>幽域晶洞图鉴 · 第 18 话 · 虚构物种</span>
+      <span class="tech-tag">⚡ 地脉热泉 · 晶钟共鸣 · 原生 Canvas 60FPS</span>
+    </p>
+    <h1>沸泉晶钟兽</h1>
+    <p class="latin">Geocampana fervida</p>
+  </header>
+
+  <section class="film" aria-label="沸泉晶钟兽动态漫画短片">
+    <div class="stage" id="stageFrame">
+      <canvas class="main" id="c" role="img" aria-label="沸泉晶钟兽顶着晶钟在漆黑晶洞中潜行、甩尾击钟传出共鸣波纹、踏进热泉让钟内泉水沸腾冒汽、最终以共振震落洞顶晶簇进食"></canvas>
+      <div class="cap"><b id="capName">洞窟潜行</b><span id="capText"></span></div>
+      <div class="gauge" id="gauge">洞温 41°C · 钟声 0 dB</div>
+      <div class="hud-pill"><span class="dot"></span><span>幽域生态探针 · 划过晶壁激起共鸣波纹 · 点击它逗它敲钟</span></div>
+    </div>
+
+    <div class="ctl">
+      <button id="play" type="button">暂停</button>
+      <input id="seek" type="range" min="0" max="25" step="0.01" value="0" aria-label="播放进度">
+      <span class="clock" id="clock">00:00 / 00:25</span>
+    </div>
+
+    <nav class="chapters" id="chapters" aria-label="章节"></nav>
+  </section>
+
+  <footer class="manga-control-bar">
+    <div class="mode-selector">
+      <span class="mode-title">生体指令印章</span>
+      <button class="stamp-btn" id="btnStamp0" aria-pressed="true"><span>🌑</span> 洞窟潜行</button>
+      <button class="stamp-btn" id="btnStamp1" aria-pressed="false"><span>🔔</span> 甩尾击钟</button>
+      <button class="stamp-btn" id="btnStamp2" aria-pressed="false"><span>♨️</span> 热泉沸涌</button>
+      <button class="stamp-btn" id="btnStamp3" aria-pressed="false"><span>💎</span> 共鸣碎晶</button>
+    </div>
+
+    <div class="tone-filters">
+      <span class="filter-tag">连载印装：</span>
+      <button class="filter-btn active" id="fltColor">卷首全彩</button>
+      <button class="filter-btn" id="fltMono">黑白网点</button>
+      <button class="filter-btn" id="fltBlue">原稿蓝图</button>
+    </div>
+  </footer>
+
+  <section class="guide" aria-label="物种百科档案">
+    <div class="guide-header">
+      <h2>物种档案</h2>
+      <span class="guide-num">档案编号：GEOC-18-SPEC</span>
+    </div>
+    <dl>
+      <div class="row"><dt>体长</dt><dd>身长 1.6 米，晶钟穹顶高 0.75 米，连晶锤尾 2.3 米，体重 210 公斤</dd></div>
+      <div class="row"><dt>栖息</dt><dd>幽域境的地脉晶洞、热泉裂谷与硫气裂隙，常年不见天光，靠地热维持体温</dd></div>
+      <div class="row"><dt>晶钟</dt><dd>背上一整块中空水晶穹顶，钟壁厚约 3 厘米，内腔能蓄 40 升热泉水，钟口朝后便于灌泉</dd></div>
+      <div class="row"><dt>击钟</dt><dd>尾端生有一枚晶锤，敲在钟壁上发出 186 Hz 低频声，最远可传出 3 公里</dd></div>
+      <div class="row"><dt>沸泉</dt><dd>踏进热泉时主动灌水，借地脉热量把钟内泉水烧到 92°C，白汽从钟口持续外溢</dd></div>
+      <div class="row"><dt>共鸣</dt><dd>钟声与洞顶晶簇同频时引发共振，把晶簇整片震落，碎晶就是它的主食</dd></div>
+      <div class="row"><dt>食性</dt><dd>被震落的晶簇碎块、热泉里析出的硫晶与矿物盐壳，偶尔舔食洞壁盐霜</dd></div>
+      <div class="row"><dt>习性</dt><dd>独居且行动迟缓，靠回声定位在漆黑晶洞里摸索前进；不主动攻击，被惊扰时只会缩腿护住钟口</dd></div>
+    </dl>
+    <div class="tech-spec">
+      ✦ <b>非跟随型幽域生态交互：</b>
+      晶钟兽不追着鼠标跑。光标划过晶壁时只会激起<b>一圈圈共鸣波纹</b>，波纹扫过时洞顶晶簇会跟着一起亮；点击它身边的地面会震得它<b>缩腿护钟</b>，点击它本人则会逗得它开心地<b>甩尾敲钟</b>，钟声所过之处晶簇逐次点亮。
+      钟声波纹不是装饰：它按<b>由内向外的行波</b>推进，途经的每一簇晶体都会延迟点亮再缓慢熄灭，因此看上去像一圈光沿着洞壁跑了一圈，而不是整片同时闪烁。
+    </div>
+    <p class="note">物种与拉丁学名皆为虚构。点上方章节格或印章按钮可跳到对应章节。</p>
+  </section>
+
+  <span class="sfxload" aria-hidden="true">咚咚当啷啵滋呼～！—</span>
+</main>
+
+<script>
+(function(){
+  'use strict';
+
+  var DUR=25;
+  var INK='#171227';
+  var SFXFONT='"ZCOOL QingKe HuangYou","Noto Sans SC","PingFang SC",sans-serif';
+
+  // 四幕分镜
+  var scenes=[
+    {t:0, key:3.0,  name:'洞窟潜行', text:'晶洞深处一片漆黑，它顶着半透明的晶钟，踩着六条短腿慢慢摸进热泉裂谷。'},
+    {t:6, key:8.5,  name:'甩尾击钟', text:'它甩起尾端的晶锤，当的一声敲在自己背上的晶钟上，一圈共鸣波纹顺着洞壁传了出去。'},
+    {t:12,key:15.0, name:'热泉沸涌', text:'它整只踏进热泉，滚烫的泉水灌满晶钟开始沸腾，白汽从钟口一缕缕地冒出来。'},
+    {t:19,key:21.8, name:'共鸣碎晶', text:'钟声与地脉共振到极点，洞顶晶簇被震得簌簌剥落，它低头捡起碎晶慢慢嚼。'}
+  ];
+
+  var cv=document.getElementById('c');
+  var mctx=cv.getContext('2d');
+  var ctx=mctx;
+  var W=800,H=500,dpr=1;
+  var playing=true,t=0,last=0,loops=0,sceneIdx=-1;
+
+  // 交互状态（非跟随型：鼠标只影响晶壁与共鸣）
+  var rings=[];        // 共鸣波纹
+  var shards=[];       // 被震落的碎晶
+  var startle=0;       // 被吓到缩腿护钟
+  var cheer=0;         // 被点击逗乐，甩尾敲钟
+  var strikeEnv=0;     // 敲钟余韵 0..1
+  var windX=0,windY=0,windSpeed=0,lastMX=0,lastMY=0;
+
+  var clamp=function(x,a,b){a=a===undefined?0:a;b=b===undefined?1:b;return Math.min(b,Math.max(a,x));};
+  var sm=function(a,b,x){x=clamp((x-a)/(b-a));return x*x*(3-2*x);};
+  var lerp=function(a,b,k){return a+(b-a)*k;};
+  var frac=function(v){return ((v%1)+1)%1;};
+
+  function rng(seed){
+    return function(){
+      seed|=0;seed=seed+0x6D2B79F5|0;
+      var q=Math.imul(seed^seed>>>15,1|seed);
+      q=q+Math.imul(q^q>>>7,61|q)^q;
+      return ((q^q>>>14)>>>0)/4294967296;
+    };
+  }
+  var R=rng(1818);
+
+  function popv(tt,a,b){
+    if(tt<a||tt>b)return 0;
+    var age=tt-a,v=1;
+    if(age<0.22){var x=age/0.22,c1=1.70158,c3=c1+1;v=1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);}
+    if(b-tt<0.2)v*=(b-tt)/0.2;
+    return Math.max(0,v);
+  }
+
+  function sfx(txt,x,y,size,rot,fill,pop){
+    if(pop<=0)return;
+    ctx.save();ctx.translate(x,y);ctx.rotate(rot);ctx.scale(pop,pop);
+    ctx.font='900 '+size+'px '+SFXFONT;ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.lineJoin='round';ctx.lineWidth=size*0.22;ctx.strokeStyle=INK;ctx.strokeText(txt,0,0);
+    ctx.fillStyle=fill;ctx.fillText(txt,0,0);
+    ctx.restore();
+  }
+
+  // 预生成洞窟元素
+  var stalactites=[];   // 洞顶钟乳
+  for(var i=0;i<13;i++)stalactites.push({b:R(),w:0.020+R()*0.030,h:0.14+R()*0.26,c:R()});
+  var stalagmites=[];   // 地面石笋
+  for(var i=0;i<10;i++)stalagmites.push({b:R(),w:0.024+R()*0.034,h:0.10+R()*0.20,c:R()});
+  var clusters=[];      // 可发光的晶簇（共鸣时逐次点亮）
+  for(var i=0;i<22;i++)clusters.push({b:R(),y:R(),s:0.6+R()*0.9,ph:R()*6.283,kind:R()});
+  var motes=[];         // 洞中荧光尘埃
+  for(var i=0;i<34;i++)motes.push({x:R(),y:R(),r:0.9+R()*1.9,tw:R()*6.283,sp:0.25+R()*0.5});
+  var veins=[];         // 洞壁地脉裂纹
+  for(var i=0;i<7;i++)veins.push({b:R(),y:0.30+R()*0.42,w:0.10+R()*0.20,ph:R()*6.283});
+
+  // 世界卷动（头朝左行进，背景整体向右掠过）
+  function spd(tt){
+    if(tt<5.5)return 0.045;
+    if(tt<6.5)return 0.045;
+    if(tt<11.6)return 0.030;
+    if(tt<12.4)return lerp(0.030,0.018,tt-11.6);
+    if(tt<18.6)return 0.018;
+    if(tt<19.6)return lerp(0.018,0.052,tt-18.6);
+    if(tt<23.4)return 0.052;
+    return lerp(0.052,0.045,tt-23.4);
+  }
+  var XT=[],STEP=0.04;
+  (function(){var x=0;for(var k=0;k*STEP<=DUR+0.001;k++){XT.push(x);x+=spd(k*STEP)*STEP;}})();
+  function XU(tt){var f=tt/STEP,idx=Math.min(Math.floor(tt/STEP),XT.length-2);return lerp(XT[idx],XT[idx+1],f-idx);}
+
+  // ==================== 1. 地脉晶洞背景 ====================
+  function drawCavern(c,tw,th,tt,xu,floorY,s,ringPhase){
+    // A. 洞窟基调
+    var bg=c.createLinearGradient(0,0,0,th);
+    bg.addColorStop(0,'#08050f');
+    bg.addColorStop(0.40,'#130d24');
+    bg.addColorStop(0.74,'#221436');
+    bg.addColorStop(1,'#0b0716');
+    c.fillStyle=bg;c.fillRect(0,0,tw,th);
+
+    // B. 地脉橙红辉光（随共鸣脉动）
+    var pulse=0.20+0.30*ringPhase;
+    var veinGlow=c.createRadialGradient(tw*0.60,floorY*0.90,8,tw*0.60,floorY*0.90,tw*0.46);
+    veinGlow.addColorStop(0,'rgba(255,120,40,'+pulse.toFixed(3)+')');
+    veinGlow.addColorStop(0.5,'rgba(255,90,30,'+(pulse*0.35).toFixed(3)+')');
+    veinGlow.addColorStop(1,'rgba(255,90,30,0)');
+    c.fillStyle=veinGlow;c.fillRect(0,0,tw,th);
+
+    // C. 洞壁地脉裂纹（发光细线）
+    for(var vi=0;vi<veins.length;vi++){
+      var vn=veins[vi];
+      var vx=frac(vn.b+xu*0.10)*tw;
+      var vy=th*vn.y;
+      var vw=tw*vn.w;
+      var vA=0.20+0.45*Math.abs(Math.sin(tt*0.9+vn.ph))+0.35*ringPhase;
+      c.strokeStyle='rgba(255,140,60,'+clamp(vA,0,0.95).toFixed(3)+')';
+      c.lineWidth=2.2;
+      c.beginPath();
+      c.moveTo(vx,vy);
+      c.lineTo(vx+vw*0.34,vy-th*0.035);
+      c.lineTo(vx+vw*0.62,vy+th*0.020);
+      c.lineTo(vx+vw,vy-th*0.014);
+      c.stroke();
+      c.strokeStyle='rgba(255,210,150,'+(clamp(vA,0,0.95)*0.5).toFixed(3)+')';
+      c.lineWidth=0.9;
+      c.stroke();
+    }
+
+    // D. 远景晶柱剪影（深景深）
+    for(var si=0;si<stalagmites.length;si++){
+      var sm2=stalagmites[si];
+      var sx=frac(sm2.b+xu*0.16)*tw;
+      var sw=tw*sm2.w, sh=th*sm2.h;
+      c.fillStyle=sm2.c>0.5?'#1d1533':'#171029';
+      c.beginPath();
+      c.moveTo(sx-sw/2,floorY);
+      c.lineTo(sx-sw*0.18,floorY-sh);
+      c.lineTo(sx+sw*0.18,floorY-sh);
+      c.lineTo(sx+sw/2,floorY);
+      c.closePath();c.fill();
+    }
+
+    // E. 洞顶钟乳石
+    for(var ti=0;ti<stalactites.length;ti++){
+      var st=stalactites[ti];
+      var tx=frac(st.b+xu*0.20)*tw;
+      var twid=tw*st.w, thh=th*st.h;
+      c.fillStyle=st.c>0.5?'#241a3d':'#1a122c';
+      c.beginPath();
+      c.moveTo(tx-twid/2,0);
+      c.lineTo(tx,thh);
+      c.lineTo(tx+twid/2,0);
+      c.closePath();c.fill();
+      // 尖端微光
+      c.fillStyle='rgba(179,136,255,0.30)';
+      c.beginPath();c.arc(tx,thh,2.2,0,6.283);c.fill();
+    }
+
+    // F. 地面晶簇（共鸣时按行波逐次点亮）
+    for(var ci=0;ci<clusters.length;ci++){
+      var cl=clusters[ci];
+      var cx=frac(cl.b+xu*0.44)*tw;
+      var cy=floorY+cl.y*(th-floorY)*0.62+6;
+      var cs=cl.s*s*0.9;
+      // 行波延迟点亮：越靠外圈越晚
+      var dist=Math.abs(cx-tw*0.44)/tw;
+      var lit=clamp(ringPhase*1.5-dist*1.6,0,1);
+      c.save();
+      c.translate(cx,cy);
+      c.scale(cs,cs);
+      var baseCol=cl.kind>0.55?'#5b3fa8':(cl.kind>0.28?'#7c4dff':'#3f7fa8');
+      c.fillStyle=baseCol;
+      c.beginPath();
+      c.moveTo(-7,0);c.lineTo(-3,-19);c.lineTo(0,-27);c.lineTo(3,-17);c.lineTo(8,0);
+      c.closePath();c.fill();
+      c.strokeStyle=INK;c.lineWidth=1.4;c.stroke();
+      // 点亮高光
+      if(lit>0.02){
+        c.fillStyle='rgba(226,200,255,'+(lit*0.85).toFixed(3)+')';
+        c.beginPath();
+        c.moveTo(-4,0);c.lineTo(-1.6,-18);c.lineTo(0,-25);c.lineTo(1.6,-16);c.lineTo(4,0);
+        c.closePath();c.fill();
+        // 辉光
+        var cg=c.createRadialGradient(0,-14,1,0,-14,26*lit);
+        cg.addColorStop(0,'rgba(200,160,255,'+(lit*0.45).toFixed(3)+')');
+        cg.addColorStop(1,'rgba(200,160,255,0)');
+        c.fillStyle=cg;
+        c.beginPath();c.arc(0,-14,26*lit,0,6.283);c.fill();
+      }
+      c.restore();
+    }
+
+    // G. 热泉池
+    var poolTop=floorY+ (th-floorY)*0.30;
+    var pool=c.createLinearGradient(0,poolTop,0,th);
+    pool.addColorStop(0,'rgba(255,150,60,0.30)');
+    pool.addColorStop(0.35,'rgba(120,70,140,0.45)');
+    pool.addColorStop(1,'rgba(20,12,36,0.92)');
+    c.fillStyle=pool;
+    c.fillRect(0,poolTop,tw,th-poolTop);
+    // 泉面波纹
+    for(var wi=0;wi<12;wi++){
+      var wy=poolTop+((wi*5)%11)/11*(th-poolTop)*0.86+3;
+      var wx=frac(0.05+wi*0.081+xu*0.7)*tw;
+      var ww=tw*(0.06+((wi*3)%4)*0.026);
+      var wA=0.10+((wi*5)%3)*0.05+ringPhase*0.10;
+      c.strokeStyle='rgba(255,190,120,'+clamp(wA,0,0.6).toFixed(3)+')';
+      c.lineWidth=2;
+      c.beginPath();c.moveTo(wx,wy);c.lineTo(wx+ww,wy);c.stroke();
+    }
+    // 泉面地脉倒影
+    c.save();
+    c.globalAlpha=0.18+ringPhase*0.14;
+    c.fillStyle='#ffb066';
+    for(var ri=0;ri<6;ri++){
+      var ry=poolTop+6+ri*((th-poolTop)/7);
+      var rw=(tw*0.06)*(1-ri*0.10);
+      c.fillRect(tw*0.60-rw/2,ry,rw,2.2);
+    }
+    c.restore();
+  }
+
+  // ==================== 2. 沸泉晶钟兽本体 ====================
+  // 局部坐标：原点在足底着地线，头朝左，尾朝右
+  function drawBeast(c,tt,s,run,strike,boil){
+    var OL=Math.max(2.2,2.8*s)/s;
+    c.lineJoin='round';c.lineCap='round';
+
+    var C_BODY1='#3b3260',C_BODY2='#221b3c';
+    var C_CRY1='#c9a7ff',C_CRY2='#7c4dff';
+    var C_WATER='#ff9f43';
+
+    var bob=Math.sin(tt*7)*2.2*run;
+    c.translate(0,bob);
+
+    var BELL_X=6,BELL_Y=-118,BELL_R=66;
+    var HEAD_X=-92,HEAD_Y=-62,HEAD_R=30;
+
+    // ---------- A. 六条短腿 ----------
+    var legX=[-62,-38,-14,12,36,58];
+    for(var li=0;li<6;li++){
+      var lx=legX[li];
+      var ph=tt*7.4+li*1.05;
+      var lift=Math.max(0,Math.sin(ph));
+      var fx=lx+Math.cos(ph)*5*run;
+      var fy=-Math.max(0,Math.cos(ph))*7*run;
+      c.save();
+      c.beginPath();
+      c.moveTo(lx,-30);
+      c.quadraticCurveTo(lx+(fx-lx)*0.4,-16,lx+(fx-lx)*0.8,fy-8);
+      c.strokeStyle=INK;c.lineWidth=OL*3.6;c.stroke();
+      c.strokeStyle=C_BODY1;c.lineWidth=OL*2.1;c.stroke();
+      // 晶爪
+      c.beginPath();
+      c.moveTo(fx-8,fy);c.lineTo(fx-2,fy-7);c.lineTo(fx+4,fy-6);c.lineTo(fx+9,fy);
+      c.closePath();
+      c.fillStyle=C_CRY1;c.fill();
+      c.strokeStyle=INK;c.lineWidth=OL*0.8;c.stroke();
+      c.restore();
+    }
+
+    // ---------- B. 晶锤尾（右侧，敲钟时甩起） ----------
+    var tailSwing=strike*1.5+Math.sin(tt*3.2)*0.06;
+    c.save();
+    c.translate(70,-64);
+    c.rotate(-0.30+tailSwing*0.42);
+    // 尾干
+    c.beginPath();
+    c.moveTo(0,0);
+    c.bezierCurveTo(34,-6,62,-30,84,-58);
+    c.strokeStyle=INK;c.lineWidth=OL*4.4;c.stroke();
+    c.strokeStyle=C_BODY1;c.lineWidth=OL*2.6;c.stroke();
+    // 尾端晶锤
+    c.save();
+    c.translate(88,-62);
+    c.rotate(-0.5+tailSwing*0.5);
+    c.beginPath();
+    c.moveTo(-12,-14);c.lineTo(14,-18);c.lineTo(20,2);c.lineTo(0,16);c.lineTo(-16,4);
+    c.closePath();
+    var hamG=c.createLinearGradient(-16,-18,20,16);
+    hamG.addColorStop(0,'#e2ccff');
+    hamG.addColorStop(0.5,C_CRY1);
+    hamG.addColorStop(1,C_CRY2);
+    c.fillStyle=hamG;c.fill();
+    c.strokeStyle=INK;c.lineWidth=OL*1.2;c.stroke();
+    // 锤面棱线
+    c.strokeStyle='rgba(255,255,255,0.55)';c.lineWidth=OL*0.7;
+    c.beginPath();c.moveTo(-8,-8);c.lineTo(10,-11);c.moveTo(-4,6);c.lineTo(14,-1);c.stroke();
+    c.restore();
+    c.restore();
+
+    // ---------- C. 躯干（矮壮圆顶） ----------
+    function bodyPath(){
+      c.beginPath();
+      c.moveTo(-88,-42);
+      c.bezierCurveTo(-96,-88,-40,-104,14,-98);
+      c.bezierCurveTo(68,-92,96,-62,88,-24);
+      c.bezierCurveTo(80,4,-46,8,-88,-42);
+      c.closePath();
+    }
+    c.save();
+    bodyPath();
+    var bG=c.createLinearGradient(-92,-100,92,4);
+    bG.addColorStop(0,'#4a3f74');
+    bG.addColorStop(0.45,C_BODY1);
+    bG.addColorStop(1,C_BODY2);
+    c.fillStyle=bG;c.fill();
+    c.save();c.clip();
+    // 腹侧浅色矿壳
+    c.fillStyle='#6d5f9a';
+    c.beginPath();
+    c.moveTo(-92,-22);
+    c.bezierCurveTo(-30,4,44,6,92,-22);
+    c.lineTo(92,12);c.lineTo(-92,12);c.closePath();
+    c.fill();
+    // 背部晶甲板（叠瓦状）
+    for(var row=0;row<3;row++){
+      var ry=-72+row*20;
+      for(var col=0;col<8;col++){
+        var rx=-72+col*20+(row%2?10:0);
+        c.beginPath();
+        c.moveTo(rx-9,ry);
+        c.lineTo(rx,ry-13);
+        c.lineTo(rx+9,ry);
+        c.lineTo(rx,ry+5);
+        c.closePath();
+        c.fillStyle=row===0?'#54467f':(row===1?'#463a6c':'#3a3059');
+        c.fill();
+        c.strokeStyle=INK;c.lineWidth=OL*0.6;c.stroke();
+      }
+    }
+    c.restore();
+    bodyPath();
+    c.strokeStyle=INK;c.lineWidth=OL;c.stroke();
+    c.restore();
+
+    // ---------- D. 头部（低垂，热感颊窝） ----------
+    c.save();
+    c.beginPath();c.arc(HEAD_X,HEAD_Y,HEAD_R,0,6.283);
+    var hG=c.createLinearGradient(HEAD_X-HEAD_R,HEAD_Y-HEAD_R,HEAD_X+HEAD_R,HEAD_Y+HEAD_R);
+    hG.addColorStop(0,'#5b4d8a');
+    hG.addColorStop(0.65,'#443869');
+    hG.addColorStop(1,'#332a52');
+    c.fillStyle=hG;c.fill();
+    c.strokeStyle=INK;c.lineWidth=OL;c.stroke();
+    // 吻部
+    c.beginPath();
+    c.ellipse(HEAD_X-16,HEAD_Y+13,17,12,-0.18,0,6.283);
+    c.fillStyle='#6d5f9a';c.fill();
+    c.strokeStyle=INK;c.lineWidth=OL*0.9;c.stroke();
+    c.restore();
+
+    // ---------- E. 热感颊窝（三对红外感应孔） ----------
+    var pits=[
+      {x:HEAD_X-20,y:HEAD_Y-14,r:3.4},
+      {x:HEAD_X-8, y:HEAD_Y-20,r:2.8},
+      {x:HEAD_X-22,y:HEAD_Y+2, r:2.6},
+      {x:HEAD_X-2, y:HEAD_Y-6, r:2.2}
+    ];
+    for(var pi=0;pi<pits.length;pi++){
+      var pt=pits[pi];
+      c.beginPath();c.arc(pt.x,pt.y,pt.r+1,0,6.283);
+      c.fillStyle=INK;c.fill();
+      var pitG=c.createRadialGradient(pt.x,pt.y,0.4,pt.x,pt.y,pt.r);
+      pitG.addColorStop(0,'#ff9f43');
+      pitG.addColorStop(1,'#8a3d10');
+      c.beginPath();c.arc(pt.x,pt.y,pt.r,0,6.283);
+      c.fillStyle=pitG;c.fill();
+    }
+
+    // ---------- F. 嘴（低垂的喙状口，进食时张开） ----------
+    var mouthOpen=boil*4;
+    c.save();
+    c.beginPath();
+    c.moveTo(HEAD_X-30,HEAD_Y+18);
+    c.quadraticCurveTo(HEAD_X-18,HEAD_Y+26+mouthOpen,HEAD_X-2,HEAD_Y+19);
+    c.quadraticCurveTo(HEAD_X-16,HEAD_Y+22,HEAD_X-30,HEAD_Y+18);
+    c.closePath();
+    c.fillStyle='#2a1f45';c.fill();
+    c.strokeStyle=INK;c.lineWidth=OL*0.9;c.stroke();
+    c.restore();
+
+    // ---------- G. 晶钟（背上中空穹顶 + 内部沸泉） ----------
+    c.save();
+    // 钟体半透明穹顶
+    c.beginPath();
+    c.arc(BELL_X,BELL_Y,BELL_R,Math.PI,0);
+    c.closePath();
+    var bellG=c.createRadialGradient(BELL_X-BELL_R*0.35,BELL_Y-BELL_R*0.45,6,BELL_X,BELL_Y,BELL_R*1.25);
+    bellG.addColorStop(0,'rgba(232,214,255,0.80)');
+    bellG.addColorStop(0.55,'rgba(150,110,235,0.52)');
+    bellG.addColorStop(1,'rgba(88,58,168,0.72)');
+    c.fillStyle=bellG;c.fill();
+    c.strokeStyle=INK;c.lineWidth=OL*1.7;c.stroke();
+
+    // 钟内沸泉
+    c.save();
+    c.beginPath();
+    c.arc(BELL_X,BELL_Y,BELL_R-4,Math.PI,0);
+    c.closePath();c.clip();
+    var wLvl=BELL_Y+BELL_R*(0.30-boil*0.42);
+    c.fillStyle=C_WATER;
+    c.fillRect(BELL_X-BELL_R,wLvl,BELL_R*2,BELL_R);
+    c.fillStyle='rgba(255,214,140,0.85)';
+    c.fillRect(BELL_X-BELL_R,wLvl,BELL_R*2,4);
+    // 沸腾气泡
+    for(var bi=0;bi<9;bi++){
+      var bp=frac(tt*0.75+bi*0.271);
+      var bx=BELL_X-BELL_R*0.72+frac(bi*0.618)*BELL_R*1.44;
+      var by=BELL_Y+BELL_R*0.5-bp*BELL_R*0.95;
+      c.beginPath();
+      c.arc(bx,by,1.6+frac(bi*0.37)*2.6,0,6.283);
+      c.fillStyle='rgba(255,240,200,0.78)';c.fill();
+    }
+    c.restore();
+
+    // 钟壁水晶棱线
+    c.strokeStyle='rgba(255,255,255,0.42)';c.lineWidth=OL*0.7;
+    c.beginPath();
+    c.moveTo(BELL_X-BELL_R*0.86,BELL_Y+2);c.lineTo(BELL_X-BELL_R*0.30,BELL_Y-BELL_R*0.92);
+    c.moveTo(BELL_X+BELL_R*0.86,BELL_Y+2);c.lineTo(BELL_X+BELL_R*0.30,BELL_Y-BELL_R*0.92);
+    c.moveTo(BELL_X,BELL_Y+2);c.lineTo(BELL_X,BELL_Y-BELL_R*0.98);
+    c.stroke();
+
+    // 钟口晶齿（一圈尖晶）
+    for(var gi=0;gi<11;gi++){
+      var ga=Math.PI+gi*(Math.PI/10);
+      var gx=BELL_X+Math.cos(ga)*BELL_R;
+      var gy=BELL_Y+Math.sin(ga)*BELL_R;
+      c.beginPath();
+      c.moveTo(gx,gy-4);c.lineTo(gx+2,gy-13);c.lineTo(gx+5,gy-3);
+      c.closePath();
+      c.fillStyle=C_CRY1;c.fill();
+      c.strokeStyle=INK;c.lineWidth=OL*0.6;c.stroke();
+    }
+
+    // 共鸣辉光（敲钟/沸腾时最亮）
+    var glowAmt=Math.max(strike*0.9,boil*0.6);
+    if(glowAmt>0.02){
+      var bg2=c.createRadialGradient(BELL_X,BELL_Y,BELL_R*0.5,BELL_X,BELL_Y,BELL_R*2.2);
+      bg2.addColorStop(0,'rgba(200,160,255,'+(glowAmt*0.45).toFixed(3)+')');
+      bg2.addColorStop(0.5,'rgba(255,170,90,'+(glowAmt*0.22).toFixed(3)+')');
+      bg2.addColorStop(1,'rgba(200,160,255,0)');
+      c.fillStyle=bg2;
+      c.beginPath();c.arc(BELL_X,BELL_Y,BELL_R*2.2,0,6.283);c.fill();
+    }
+    c.restore();
+
+    // ---------- H. 钟口冒出的白汽 ----------
+    var steamAmt=Math.max(boil,strike*0.4);
+    if(steamAmt>0.05){
+      for(var si2=0;si2<7;si2++){
+        var sp2=frac(tt*0.45+si2*0.29);
+        var sx2=BELL_X-BELL_R*0.5+frac(si2*0.618)*BELL_R;
+        var sy2=BELL_Y-BELL_R*0.55-sp2*70*steamAmt;
+        var sal=(1-sp2)*0.42*steamAmt;
+        if(sal<=0.01)continue;
+        c.beginPath();
+        c.arc(sx2+Math.sin(tt*1.4+si2)*6,sy2,5+sp2*13,0,6.283);
+        c.fillStyle='rgba(255,238,214,'+sal.toFixed(3)+')';
+        c.fill();
+      }
+    }
+  }
+
+  // ==================== 3. 场景合成 ====================
+  function scene(tt,live){
+    var s=Math.min(W/(W<H?400:480),H/260);
+    // 生物专用比例与基准线：经几何自检配平，
+    // 保证「背钟顶端留余量、六条短腿稳稳踩在池岸线上、第3幕沸腾时仍不越框」
+    var bs=s*0.62;
+    var floorY=H*0.60;
+    var xu=XU(tt);
+
+    // 阶段参数
+    var strikePhase=(tt>=6&&tt<12)?((tt-6)%1.7):-1;
+    var strikeNow=(strikePhase>=0&&strikePhase<0.35)?(1-strikePhase/0.35):0;
+    var boil=sm(12.0,13.4,tt)*(1-sm(17.6,18.8,tt));
+    var ringPhase=Math.max(strikeNow,cheer*0.8,sm(19.0,19.8,tt)*(1-sm(23.4,24.6,tt)));
+    var run=0.5+sm(18.6,19.6,tt)*0.3;
+    if(tt<5.5)run=0.5;
+
+    // 1. 背景
+    drawCavern(ctx,W,H,tt,xu,floorY,s,ringPhase);
+
+    // 2. 共鸣波纹（敲钟 / 鼠标划过晶壁 / 点击）
+    for(var ri=rings.length-1;ri>=0;ri--){
+      var rg=rings[ri];
+      rg.r+=rg.vr;rg.op-=0.014;
+      if(rg.op<=0){rings.splice(ri,1);continue;}
+      ctx.beginPath();ctx.ellipse(rg.x,rg.y,rg.r*1.8,rg.r*0.62,0,0,6.283);
+      ctx.strokeStyle='rgba(200,160,255,'+rg.op.toFixed(3)+')';ctx.lineWidth=2.4;ctx.stroke();
+      ctx.beginPath();ctx.ellipse(rg.x,rg.y,rg.r*1.15,rg.r*0.40,0,0,6.283);
+      ctx.strokeStyle='rgba(255,214,160,'+(rg.op*0.6).toFixed(3)+')';ctx.lineWidth=1.5;ctx.stroke();
+    }
+
+    // 3. 生物位置与姿态（六足着地线 = 池岸线）
+    var beastX=W*0.46;
+    var runBob=Math.abs(Math.sin(tt*7.4))*3.0*bs*run;
+    var sink=boil*8*bs;                                   // 踏入热泉时下沉
+    var drawY=floorY+6-runBob+sink-startle*14*bs;
+
+    // 4. 生物本体
+    ctx.save();
+    ctx.translate(beastX,drawY);
+    ctx.scale(bs,bs);
+    ctx.rotate(Math.sin(tt*7.4+0.6)*0.03*run-strikeNow*0.05+boil*0.04);
+    drawBeast(ctx,tt,bs,run,strikeNow,boil);
+    ctx.restore();
+
+    // 5. 敲钟时在钟体位置发出共鸣波纹
+    if(strikeNow>0.75&&Math.random()<0.55){
+      rings.push({x:beastX+6*bs,y:drawY-118*bs,r:10,vr:3.2+R()*1.6,op:0.85});
+    }
+    if(cheer>0.5&&Math.random()<0.35){
+      rings.push({x:beastX+6*bs,y:drawY-118*bs,r:10,vr:2.6+R()*1.4,op:0.7});
+    }
+
+    // 6. 被震落的碎晶（共鸣后从洞顶剥落）
+    var shardOn=sm(19.2,20.0,tt)*(1-sm(23.0,24.2,tt));
+    if(shardOn>0.05&&Math.random()<0.30){
+      shards.push({x:R()*W,y:-10,vy:1.4+R()*2.2,vx:(R()-0.5)*0.8,rot:R()*6.283,vr:(R()-0.5)*0.16,life:1,r:2.4+R()*3.4});
+    }
+    for(var si=shards.length-1;si>=0;si--){
+      var sh=shards[si];
+      sh.x+=sh.vx;sh.y+=sh.vy;sh.vy+=0.05;sh.rot+=sh.vr;
+      if(sh.y>floorY+40){shards.splice(si,1);continue;}
+      ctx.save();
+      ctx.translate(sh.x,sh.y);ctx.rotate(sh.rot);
+      ctx.beginPath();
+      ctx.moveTo(0,-sh.r);ctx.lineTo(sh.r*0.7,0);ctx.lineTo(0,sh.r);ctx.lineTo(-sh.r*0.6,0);
+      ctx.closePath();
+      ctx.fillStyle='#c9a7ff';ctx.fill();
+      ctx.strokeStyle=INK;ctx.lineWidth=1;ctx.stroke();
+      ctx.restore();
+    }
+
+    // 7. 池岸发光水线
+    ctx.save();
+    ctx.globalAlpha=0.50;
+    var footGlow=ctx.createLinearGradient(beastX-90*bs,0,beastX+90*bs,0);
+    footGlow.addColorStop(0,'rgba(255,150,60,0)');
+    footGlow.addColorStop(0.5,'rgba(255,190,120,0.85)');
+    footGlow.addColorStop(1,'rgba(255,150,60,0)');
+    ctx.fillStyle=footGlow;
+    ctx.fillRect(beastX-90*bs,floorY+10,180*bs,6*bs);
+    ctx.restore();
+
+    // 8. 洞中荧光尘埃
+    for(var mi=0;mi<motes.length;mi++){
+      var mo=motes[mi];
+      var mpx=frac(mo.x+xu*0.28+Math.sin(tt*0.5+mo.tw)*0.03)*W;
+      var mpy=frac(mo.y+Math.cos(tt*0.42+mo.tw)*0.04)*(floorY*0.95);
+      var mAl=(0.20+0.50*Math.abs(Math.sin(tt*mo.sp*2.2+mo.tw)))*(1+ringPhase*0.5);
+      ctx.beginPath();ctx.arc(mpx,mpy,mo.r,0,6.283);
+      ctx.fillStyle='rgba(226,200,255,'+clamp(mAl,0,0.9).toFixed(3)+')';ctx.fill();
+    }
+
+    // 9. 漫画拟声字
+    var base=W*0.045;
+    sfx('喀、喀',beastX-40*bs,floorY+46,base*0.90,0,'#ffffff',popv(tt,0.6,5.2)*run);
+    sfx('当——！',beastX+40*bs,drawY-186*bs,base*1.25,-0.10,'#c9a7ff',popv(tt,6.4,11.0));
+    sfx('呼——',beastX-70*bs,drawY-176*bs,base*1.05,0.08,'#ffd0a0',popv(tt,12.6,16.8));
+    sfx('叮铃铃！',beastX+90*bs,floorY-10,base*1.00,0.06,'#ffb066',popv(tt,19.4,23.4)*shardOn);
+
+    // 10. 循环收尾淡出
+    if(live){
+      var fa=sm(24.2,25,tt);
+      if(loops>0)fa=Math.max(fa,1-sm(0,0.6,tt));
+      if(fa>0){ctx.fillStyle='rgba(6,4,14,'+fa+')';ctx.fillRect(0,0,W,H);}
+    }
+  }
+
+  function draw(tt){ctx=mctx;scene(tt,true);}
+
+  // ==================== 4. UI ====================
+  var elPlay=document.getElementById('play'),elSeek=document.getElementById('seek'),
+      elClock=document.getElementById('clock'),elGauge=document.getElementById('gauge'),
+      elName=document.getElementById('capName'),elText=document.getElementById('capText'),
+      elCh=document.getElementById('chapters'),stageFrame=document.getElementById('stageFrame'),
+      mainWrap=document.getElementById('mainWrap');
+
+  var chBtns=[],thumbs=[];
+  function fmt(v){var s=Math.floor(v);return '00:'+(s<10?'0':'')+s;}
+
+  scenes.forEach(function(sc,idx){
+    var b=document.createElement('button');b.type='button';
+    b.innerHTML='<canvas aria-hidden="true"></canvas><span class="lab"><b>'+sc.name+'</b><small>'+fmt(sc.t)+'</small></span>';
+    b.addEventListener('click',function(){t=sc.t;draw(t);ui();});
+    elCh.appendChild(b);chBtns.push(b);thumbs.push(b.querySelector('canvas'));
+  });
+
+  function renderThumbs(){
+    var sW=W,sH=H,sCtx=ctx;
+    thumbs.forEach(function(el,n){
+      var r=el.getBoundingClientRect();if(!r.width||!r.height)return;
+      var d=Math.min(window.devicePixelRatio||1,2);
+      el.width=Math.round(r.width*d);el.height=Math.round(r.height*d);
+      var c=el.getContext('2d');c.setTransform(d,0,0,d,0,0);
+      W=r.width;H=r.height;ctx=c;
+      scene(scenes[n].key,false);
+    });
+    W=sW;H=sH;ctx=sCtx;
+  }
+
+  var stampBtns=[
+    document.getElementById('btnStamp0'),
+    document.getElementById('btnStamp1'),
+    document.getElementById('btnStamp2'),
+    document.getElementById('btnStamp3')
+  ];
+  function updateStamps(idx){
+    stampBtns.forEach(function(b,i){b.setAttribute('aria-pressed',i===idx?'true':'false');});
+  }
+  stampBtns.forEach(function(b,i){
+    b.addEventListener('click',function(){t=scenes[i].t;draw(t);ui();updateStamps(i);});
+  });
+
+  var fltColor=document.getElementById('fltColor'),
+      fltMono=document.getElementById('fltMono'),
+      fltBlue=document.getElementById('fltBlue');
+  var fltBtns=[fltColor,fltMono,fltBlue];
+  function setFilter(cls,activeBtn){
+    mainWrap.classList.remove('mode-monochrome','mode-blueprint');
+    if(cls)mainWrap.classList.add(cls);
+    fltBtns.forEach(function(b){b.classList.remove('active');});
+    activeBtn.classList.add('active');
+  }
+  fltColor.addEventListener('click',function(){setFilter('',fltColor);});
+  fltMono.addEventListener('click',function(){setFilter('mode-monochrome',fltMono);});
+  fltBlue.addEventListener('click',function(){setFilter('mode-blueprint',fltBlue);});
+
+  // ---- 非跟随型交互：鼠标只影响晶壁与共鸣 ----
+  stageFrame.addEventListener('pointermove',function(e){
+    var r=cv.getBoundingClientRect();
+    var curX=e.clientX-r.left,curY=e.clientY-r.top;
+    var vx=curX-lastMX,vy=curY-lastMY;
+    windX=vx;windY=vy;
+    windSpeed=Math.min(Math.sqrt(vx*vx+vy*vy),40);
+    lastMX=curX;lastMY=curY;
+    if(Math.random()<0.28){
+      rings.push({x:curX,y:curY,r:4,vr:1.2+R()*1.4,op:0.55});
+    }
+  });
+  stageFrame.addEventListener('pointerleave',function(){windSpeed=0;windX=0;windY=0;});
+
+  stageFrame.addEventListener('pointerdown',function(e){
+    var r=cv.getBoundingClientRect();
+    var curX=e.clientX-r.left,curY=e.clientY-r.top;
+    var bs=Math.min(W/(W<H?400:480),H/260)*0.62;
+    var beastX=W*0.46,beastCY=H*0.60+6-bs*90;   // 躯干中心大致位置
+    var dx=curX-beastX,dy=curY-beastCY;
+    var hit=(dx*dx)/(160*bs*160*bs)+(dy*dy)/(140*bs*140*bs)<1;
+    if(hit){
+      cheer=1.6;                       // 逗它甩尾敲钟
+      strikeEnv=Math.max(strikeEnv,0.9);
+    }else{
+      for(var k=0;k<6;k++){
+        rings.push({x:curX+(R()-0.5)*20,y:curY+(R()-0.5)*10,r:4+k*2,vr:1.6+R()*1.4,op:0.7});
+      }
+      startle=Math.max(startle,1.0);   // 缩腿护钟
+    }
+    stageFrame.style.transform='translate('+((Math.random()-0.5)*7)+'px,'+((Math.random()-0.5)*7)+'px)';
+    setTimeout(function(){stageFrame.style.transform='';},110);
+  });
+
+  function ui(){
+    var idx=0;for(var i=0;i<scenes.length;i++)if(t>=scenes[i].t)idx=i;
+    if(idx!==sceneIdx){
+      sceneIdx=idx;
+      elName.textContent=scenes[idx].name;elText.textContent=scenes[idx].text;
+      chBtns.forEach(function(b,n){b.setAttribute('aria-current',n===idx?'true':'false');});
+      updateStamps(idx);
+    }
+    elSeek.value=t;
+    elClock.textContent=fmt(t)+' / 00:25';
+
+    var txt;
+    if(t<6){txt='洞温 '+Math.round(lerp(38,45,t/6))+'°C · 钟声 0 dB';}
+    else if(t<12){txt='洞温 '+Math.round(lerp(45,52,(t-6)/6))+'°C · 钟声 186 Hz / 128 dB';}
+    else if(t<19){txt='泉温 '+Math.round(lerp(70,92,(t-12)/7))+'°C · 钟内沸腾';}
+    else{txt='共振 186 Hz · 落晶 '+Math.round(lerp(0,3.4,(t-19)/6)*10)/10+' kg';}
+    elGauge.textContent=txt;
+    elPlay.textContent=playing?'暂停':'播放';
+  }
+
+  elPlay.addEventListener('click',function(){playing=!playing;last=performance.now();ui();});
+  elSeek.addEventListener('input',function(){t=parseFloat(elSeek.value);draw(t);ui();});
+
+  function fit(){
+    var r=cv.getBoundingClientRect();
+    if(!r.width||!r.height)return;
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);
+    W=r.width;H=r.height;ctx=mctx;
+    mctx.setTransform(dpr,0,0,dpr,0,0);
+    draw(t);
+    renderThumbs();
+  }
+  if(window.ResizeObserver)new ResizeObserver(fit).observe(cv);
+  window.addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.load){
+    document.fonts.load('900 40px "ZCOOL QingKe HuangYou"','咚咚当啷啵滋呼～！—').then(function(){fit();ui();}).catch(function(){});
+  }
+
+  function frame(now){
+    var dt=Math.min(0.1,Math.max(0,(now-last)/1000));last=now;
+    if(startle>0)startle=Math.max(0,startle-dt*2.4);
+    if(cheer>0)cheer=Math.max(0,cheer-dt*1.1);
+    if(strikeEnv>0)strikeEnv=Math.max(0,strikeEnv-dt*1.6);
+    windSpeed*=0.93;windX*=0.93;windY*=0.93;
+    if(playing){
+      t+=dt;
+      if(t>=DUR){t-=DUR;loops++;}
+      draw(t);ui();
+    }
+    requestAnimationFrame(frame);
+  }
+  fit();ui();
+  last=performance.now();
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body></html>

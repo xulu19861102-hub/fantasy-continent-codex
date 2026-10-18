@@ -6,8 +6,8 @@ import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 const OUT = '幻想大陆生灵图鉴-单文件版.html';
 
 const shell = readFileSync('index.html', 'utf8');
-const names = readdirSync('.').filter(f => f.endsWith('.html') && f !== 'index.html' && f !== OUT);
-if (names.length !== 18) console.warn('注意：生物页数量为 ' + names.length + '（此前为 18），如新增话页请同步更新首页卡片。');
+const names = readdirSync('.').filter(f => f.endsWith('.html') && f !== 'index.html' && f !== OUT && f !== 'canvas-creature-demo.html');
+if (names.length !== 20) console.warn('注意：生物页数量为 ' + names.length + '（预期 20），如新增话页请同步更新首页卡片与本阈值。');
 
 // 读取全部话页原文
 const pages = {};
@@ -120,7 +120,7 @@ for (const n of names) {
   if (restored[n] !== readFileSync(n, 'utf8')) { identical = false; console.error('内嵌不一致: ' + n); }
 }
 
-// B) 链接转换完整：18 个 data-page，无残留 .html 链接
+// B) 链接转换完整：20 个 data-page，无残留 .html 链接
 const linked = (built.match(/data-page="/g) || []).length;
 const leftover = /href="[^"]*\.html"/.test(built);
 

@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>幻想大陆 · Canvas 动态绘卷演示 · 浮光天海鲵</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;600;900&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #070d18;
+  --ink: #0d1526;
+  --gold: #ffe77d;
+  --cyan: #48b5ff;
+  --coral: #ff597b;
+  --white: #f8fafc;
+  --chunk: "ZCOOL QingKe HuangYou", "Noto Sans SC", sans-serif;
+  --body: "Noto Sans SC", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg-dark);
+  color: var(--white);
+  font-family: var(--body);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  user-select: none;
+}
+canvas#artboard {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+}
+
+/* 顶部与侧边浮动控制面板 */
+.ui-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 28px;
+}
+.header-box {
+  pointer-events: auto;
+  background: rgba(13, 21, 38, 0.75);
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(72, 181, 255, 0.4);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(72, 181, 255, 0.2);
+  border-radius: 12px;
+  padding: 14px 22px;
+  max-width: 480px;
+}
+.badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  background: rgba(255, 231, 125, 0.15);
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-bottom: 6px;
+}
+h1 {
+  font-family: var(--chunk);
+  font-size: 2.2rem;
+  letter-spacing: 0.08em;
+  color: #fff;
+  line-height: 1.1;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+h1 span.latin {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--cyan);
+  font-weight: 400;
+}
+p.desc {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-top: 6px;
+}
+
+/* 底部交互操作条 */
+.toolbar {
+  pointer-events: auto;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(13, 21, 38, 0.82);
+  backdrop-filter: blur(14px);
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 8px 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tool-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.tool-label {
+  font-family: var(--chunk);
+  font-size: 1.05rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  margin-right: 2px;
+}
+.btn {
+  font-family: var(--body);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn:hover {
+  background: rgba(72, 181, 255, 0.25);
+  border-color: var(--cyan);
+  transform: translateY(-2px);
+}
+.btn.active {
+  background: linear-gradient(135deg, var(--cyan), var(--coral));
+  border-color: #fff;
+  color: #fff;
+  box-shadow: 0 0 14px rgba(72, 181, 255, 0.5);
+}
+.tips {
+  position: absolute;
+  right: 28px;
+  bottom: 24px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: right;
+  line-height: 1.5;
+  background: rgba(13, 21, 38, 0.5);
+  padding: 6px 12px;
+  border-radius: 6px;
+  backdrop-filter: blur(6px);
+}
+
+/* 滤镜增强 */
+body.mode-blueprint {
+  filter: invert(95%) hue-rotate(190deg) contrast(140%) brightness(95%);
+}
+body.mode-manga {
+  filter: grayscale(100%) contrast(160%);
+}
+</style>
+</head>
+<body>
+
+<canvas id="artboard"></canvas>
+
+<div class="ui-layer">
+  <!-- 顶部信息 -->
+  <div class="header-box">
+    <div class="badge">PURE HTML5 CANVAS RENDERING · 60 FPS</div>
+    <h1>浮光天海鲵 <span class="latin">Caelomaris splendida</span></h1>
+    <p class="desc">
+      全境旅者生灵：利用三阶贝塞尔曲线构建解剖骨骼、动力学柔体摆动算法、半透明水光折射、动态微光粒子尾迹与水波交互系统。
+    </p>
+  </div>
+
+  <!-- 底部交互控制 -->
+  <div class="toolbar">
+    <div class="tool-group">
+      <span class="tool-label">生境漫游：</span>
+      <button class="btn active" id="envOcean">🌊 碧海深澜</button>
+      <button class="btn" id="envSky">🌌 极光霄云</button>
+      <button class="btn" id="envCave">💎 地脉晶渊</button>
+    </div>
+    <div style="width: 1px; height: 18px; background: rgba(255,255,255,0.2);"></div>
+    <div class="tool-group">
+      <span class="tool-label">绘卷风格：</span>
+      <button class="btn active" id="fltColor">卷首全彩</button>
+      <button class="btn" id="fltManga">黑白网点</button>
+      <button class="btn" id="fltBlue">原稿蓝图</button>
+    </div>
+    <div style="width: 1px; height: 18px; background: rgba(255,255,255,0.2);"></div>
+    <button class="btn" id="btnBurst">✨ 激发晶光爆发</button>
+  </div>
+
+  <div class="tips">
+    🖱️ 移动鼠标：灵鲵将优雅跟随巡航<br>
+    👆 点击画面：激荡水波与净化晶粉
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  const canvas = document.getElementById('artboard');
+  const ctx = canvas.getContext('2d');
+  let W = window.innerWidth, H = window.innerHeight, dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resize(){
+    W = window.innerWidth;
+    H = window.innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // 生境主题设置
+  const ENVS = {
+    ocean: {
+      bgTop: '#04101e',
+      bgBottom: '#01050b',
+      glow: '#38bdf8',
+      accent: '#ff597b',
+      lightBeams: true,
+      causticColor: 'rgba(56, 189, 248, 0.08)'
+    },
+    sky: {
+      bgTop: '#101530',
+      bgBottom: '#2d1840',
+      glow: '#ffe77d',
+      accent: '#a78bfa',
+      lightBeams: false,
+      causticColor: 'rgba(255, 231, 125, 0.07)'
+    },
+    cave: {
+      bgTop: '#11091f',
+      bgBottom: '#07030c',
+      glow: '#00f0ff',
+      accent: '#d946ef',
+      lightBeams: true,
+      causticColor: 'rgba(217, 70, 239, 0.09)'
+    }
+  };
+  let currentEnv = ENVS.ocean;
+
+  // 鼠标与交互状态
+  const mouse = { x: W * 0.5, y: H * 0.45, active: false, clickTime: 0 };
+  window.addEventListener('pointermove', function(e){
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    mouse.active = true;
+  });
+  window.addEventListener('pointerdown', function(e){
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    triggerBurst(e.clientX, e.clientY, 35);
+  });
+
+  // 波纹与冲击系统
+  const ripples = [];
+  function addRipple(x, y, power = 1){
+    ripples.push({ x, y, r: 10, maxR: 160 * power, alpha: 0.9, speed: 3.2 * power });
+  }
+
+  // 微光晶粉粒子系统
+  const dusts = [];
+  const MAX_DUST = 180;
+  function emitDust(x, y, vx, vy, color, size = 3){
+    if(dusts.length >= MAX_DUST) dusts.shift();
+    dusts.push({
+      x, y,
+      vx: vx + (Math.random() - 0.5) * 1.5,
+      vy: vy + (Math.random() - 0.5) * 1.5,
+      r: size * (0.6 + Math.random() * 0.8),
+      color: color || currentEnv.glow,
+      alpha: 1.0,
+      life: 0.01 + Math.random() * 0.015
+    });
+  }
+
+  function triggerBurst(x, y, count = 30){
+    addRipple(x, y, 1.4);
+    for(let i = 0; i < count; i++){
+      const ang = Math.random() * Math.PI * 2;
+      const spd = 2 + Math.random() * 6.5;
+      const col = Math.random() > 0.4 ? currentEnv.glow : currentEnv.accent;
+      emitDust(x, y, Math.cos(ang) * spd, Math.sin(ang) * spd, col, 4.5);
+    }
+  }
+
+  // 生物动力学实体：浮光天海鲵
+  const creature = {
+    x: W * 0.4,
+    y: H * 0.5,
+    vx: 0,
+    vy: 0,
+    angle: 0,
+    speed: 2.2,
+    size: 1.0,
+    // 脊椎骨骼分节链（用于平滑柔体摆动跟随）
+    segments: [],
+    segCount: 16,
+    segDist: 15,
+    finPhase: 0
+  };
+
+  for(let i = 0; i < creature.segCount; i++){
+    creature.segments.push({
+      x: creature.x - i * creature.segDist,
+      y: creature.y,
+      angle: 0
+    });
+  }
+
+  // 焦散光斑（洋流水纹网格）
+  const caustics = [];
+  for(let i = 0; i < 40; i++){
+    caustics.push({
+      x: Math.random() * 2000,
+      y: Math.random() * 1200,
+      r: 60 + Math.random() * 120,
+      phase: Math.random() * Math.PI * 2,
+      speed: 0.015 + Math.random() * 0.02
+    });
+  }
+
+  // 背景绘制
+  function drawBackground(t){
+    const grad = ctx.createLinearGradient(0, 0, 0, H);
+    grad.addColorStop(0, currentEnv.bgTop);
+    grad.addColorStop(1, currentEnv.bgBottom);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // 水下/天空丁达尔光束 (God Rays)
+    if(currentEnv.lightBeams){
+      ctx.save();
+      for(let b = 0; b < 5; b++){
+        const bx = W * (0.15 + b * 0.2) + Math.sin(t * 0.3 + b) * 50;
+        const beamGrad = ctx.createLinearGradient(bx, 0, bx + 120, H);
+        beamGrad.addColorStop(0, 'rgba(255, 255, 255, 0.07)');
+        beamGrad.addColorStop(0.6, 'rgba(56, 189, 248, 0.02)');
+        beamGrad.addColorStop(1, 'transparent');
+        ctx.fillStyle = beamGrad;
+        ctx.beginPath();
+        ctx.moveTo(bx - 30, 0);
+        ctx.lineTo(bx + 160, 0);
+        ctx.lineTo(bx + 340, H);
+        ctx.lineTo(bx - 60, H);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    // 焦散折射水纹
+    ctx.save();
+    ctx.fillStyle = currentEnv.causticColor;
+    for(const c of caustics){
+      c.phase += c.speed;
+      const waveX = c.x + Math.sin(c.phase) * 35;
+      const waveY = c.y + Math.cos(c.phase * 0.8) * 25;
+      ctx.beginPath();
+      ctx.arc(waveX % (W + 200) - 100, waveY % (H + 200) - 100, c.r * (0.8 + 0.2 * Math.sin(c.phase)), 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // 绘制水波涟漪
+  function drawRipples(){
+    for(let i = ripples.length - 1; i >= 0; i--){
+      const rip = ripples[i];
+      rip.r += rip.speed;
+      rip.alpha -= 0.015;
+      if(rip.alpha <= 0){
+        ripples.splice(i, 1);
+        continue;
+      }
+      ctx.save();
+      ctx.strokeStyle = `rgba(125, 211, 252, ${rip.alpha * 0.8})`;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.arc(rip.x, rip.y, rip.r, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // 内环波纹
+      ctx.strokeStyle = `rgba(255, 255, 255, ${rip.alpha * 0.4})`;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.arc(rip.x, rip.y, rip.r * 0.65, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  // 绘制伴生发光粒子
+  function drawDusts(){
+    ctx.save();
+    for(let i = dusts.length - 1; i >= 0; i--){
+      const p = dusts[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.98;
+      p.vy *= 0.98;
+      p.alpha -= p.life;
+      if(p.alpha <= 0){
+        dusts.splice(i, 1);
+        continue;
+      }
+      ctx.globalAlpha = p.alpha;
+      ctx.fillStyle = p.color;
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur = 8;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // 绘制晶羽翼片（一对带流光折射的多阶贝塞尔曲线羽翼）
+  function drawCrystalWing(ctx, len, spread, wave, colorA, colorB){
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    // 上翼弧线
+    ctx.bezierCurveTo(
+      len * 0.35, -spread * 0.6 + wave * 15,
+      len * 0.8, -spread * 1.1 - wave * 10,
+      len, -spread * 0.4 + wave * 5
+    );
+    // 翼尖收束
+    ctx.bezierCurveTo(
+      len * 0.75, spread * 0.1 - wave * 5,
+      len * 0.35, spread * 0.25,
+      0, 0
+    );
+    ctx.closePath();
+
+    // 渐变与晶质半透明填充
+    const wingGrad = ctx.createLinearGradient(0, 0, len, -spread * 0.5);
+    wingGrad.addColorStop(0, colorA);
+    wingGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.7)');
+    wingGrad.addColorStop(1, colorB);
+    ctx.fillStyle = wingGrad;
+    ctx.globalAlpha = 0.82;
+    ctx.shadowColor = colorB;
+    ctx.shadowBlur = 12;
+    ctx.fill();
+
+    // 晶羽骨脉纹路
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.quadraticCurveTo(len * 0.5, -spread * 0.4 + wave * 8, len, -spread * 0.4 + wave * 5);
+    ctx.stroke();
+
+    // 细羽分支
+    for(let f = 1; f <= 4; f++){
+      const k = f / 5;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+      ctx.lineWidth = 1.0;
+      ctx.beginPath();
+      ctx.moveTo(len * k * 0.8, (-spread * 0.4 + wave * 8) * k);
+      ctx.lineTo(len * (k + 0.15), (-spread * 0.8) * k);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // 核心生物绘制主函数
+  function drawCreature(t){
+    const segs = creature.segments;
+    const head = segs[0];
+    creature.finPhase += 0.08;
+
+    // 1. 绘制后部鳍膜与长尾游带（深层，置于身躯之下）
+    ctx.save();
+    const tailEnd = segs[segs.length - 1];
+    ctx.translate(tailEnd.x, tailEnd.y);
+    ctx.rotate(tailEnd.angle);
+
+    // 飘逸丝带尾鳍
+    for(let side = -1; side <= 1; side += 2){
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      const tLen = 95;
+      const tWave = Math.sin(t * 3.5 + side) * 18;
+      ctx.bezierCurveTo(
+        -tLen * 0.4, side * 15 + tWave,
+        -tLen * 0.8, side * 28 - tWave,
+        -tLen * 1.3, side * 8 + tWave * 1.5
+      );
+      ctx.bezierCurveTo(
+        -tLen * 0.8, side * 5,
+        -tLen * 0.3, 0,
+        0, 0
+      );
+      const tailGrad = ctx.createLinearGradient(0, 0, -tLen, side * 15);
+      tailGrad.addColorStop(0, 'rgba(72, 181, 255, 0.8)');
+      tailGrad.addColorStop(1, 'rgba(255, 89, 123, 0)');
+      ctx.fillStyle = tailGrad;
+      ctx.fill();
+      ctx.restore();
+    }
+    ctx.restore();
+
+    // 2. 绘制三对晶羽（前大羽、中侧羽、后小羽）
+    // 前主羽（附着在第 2 节）
+    const segWing1 = segs[2];
+    ctx.save();
+    ctx.translate(segWing1.x, segWing1.y);
+    ctx.rotate(segWing1.angle);
+    const wave1 = Math.sin(creature.finPhase);
+    // 左前羽
+    ctx.save();
+    ctx.scale(1, 1);
+    drawCrystalWing(ctx, 110, 85, wave1, 'rgba(72, 181, 255, 0.85)', 'rgba(255, 231, 125, 0.9)');
+    ctx.restore();
+    // 右前羽
+    ctx.save();
+    ctx.scale(1, -1);
+    drawCrystalWing(ctx, 110, 85, wave1, 'rgba(72, 181, 255, 0.85)', 'rgba(255, 231, 125, 0.9)');
+    ctx.restore();
+    ctx.restore();
+
+    // 中侧羽（附着在第 6 节）
+    const segWing2 = segs[6];
+    ctx.save();
+    ctx.translate(segWing2.x, segWing2.y);
+    ctx.rotate(segWing2.angle);
+    const wave2 = Math.sin(creature.finPhase - 0.9);
+    // 左中羽
+    ctx.save();
+    ctx.scale(0.75, 0.75);
+    drawCrystalWing(ctx, 95, 70, wave2, 'rgba(255, 89, 123, 0.85)', 'rgba(72, 181, 255, 0.9)');
+    ctx.restore();
+    // 右中羽
+    ctx.save();
+    ctx.scale(0.75, -0.75);
+    drawCrystalWing(ctx, 95, 70, wave2, 'rgba(255, 89, 123, 0.85)', 'rgba(72, 181, 255, 0.9)');
+    ctx.restore();
+    ctx.restore();
+
+    // 后翼裙（附着在第 10 节）
+    const segWing3 = segs[10];
+    ctx.save();
+    ctx.translate(segWing3.x, segWing3.y);
+    ctx.rotate(segWing3.angle);
+    const wave3 = Math.sin(creature.finPhase - 1.8);
+    ctx.save();
+    ctx.scale(0.5, 0.5);
+    drawCrystalWing(ctx, 75, 55, wave3, 'rgba(255, 231, 125, 0.85)', 'rgba(72, 181, 255, 0.9)');
+    ctx.restore();
+    ctx.save();
+    ctx.scale(0.5, -0.5);
+    drawCrystalWing(ctx, 75, 55, wave3, 'rgba(255, 231, 125, 0.85)', 'rgba(72, 181, 255, 0.9)');
+    ctx.restore();
+    ctx.restore();
+
+    // 3. 绘制平滑流畅的身体轮廓（双侧多段轮廓样条封闭曲线）
+    // 从头部沿右侧走到尾部，再从尾部沿左侧回到头部
+    const rightPts = [];
+    const leftPts = [];
+    const bodyRadii = [
+      26, 30, 32, 31, 28, 25, 22, 19, 16, 13, 11, 9, 7, 5, 4, 3
+    ];
+
+    for(let i = 0; i < segs.length; i++){
+      const s = segs[i];
+      const r = bodyRadii[i] || 3;
+      const normal = s.angle + Math.PI / 2;
+      rightPts.push({
+        x: s.x + Math.cos(normal) * r,
+        y: s.y + Math.sin(normal) * r
+      });
+      leftPts.push({
+        x: s.x - Math.cos(normal) * r,
+        y: s.y - Math.sin(normal) * r
+      });
+    }
+
+    ctx.save();
+    ctx.beginPath();
+    // 头部圆润钝弧
+    ctx.arc(head.x, head.y, bodyRadii[0], head.angle - Math.PI / 2, head.angle + Math.PI / 2, false);
+    // 右侧流线
+    for(let i = 0; i < rightPts.length - 1; i++){
+      const xc = (rightPts[i].x + rightPts[i + 1].x) / 2;
+      const yc = (rightPts[i].y + rightPts[i + 1].y) / 2;
+      ctx.quadraticCurveTo(rightPts[i].x, rightPts[i].y, xc, yc);
+    }
+    // 尾部收束
+    ctx.lineTo(tailEnd.x, tailEnd.y);
+    // 左侧流线往回
+    for(let i = leftPts.length - 1; i > 0; i--){
+      const xc = (leftPts[i].x + leftPts[i - 1].x) / 2;
+      const yc = (leftPts[i].y + leftPts[i - 1].y) / 2;
+      ctx.quadraticCurveTo(leftPts[i].x, leftPts[i].y, xc, yc);
+    }
+    ctx.closePath();
+
+    // 通透渐变填充与微晶质光感
+    const bodyGrad = ctx.createLinearGradient(head.x, head.y, tailEnd.x, tailEnd.y);
+    bodyGrad.addColorStop(0, '#f8fafc');
+    bodyGrad.addColorStop(0.2, '#bae6fd');
+    bodyGrad.addColorStop(0.55, '#38bdf8');
+    bodyGrad.addColorStop(0.85, '#818cf8');
+    bodyGrad.addColorStop(1, '#ff597b');
+
+    ctx.fillStyle = bodyGrad;
+    ctx.shadowColor = currentEnv.glow;
+    ctx.shadowBlur = 18;
+    ctx.fill();
+
+    // 边缘精细描边（漫画风与精致感的核心）
+    ctx.strokeStyle = '#0d1526';
+    ctx.lineWidth = 3.5;
+    ctx.shadowBlur = 0;
+    ctx.stroke();
+
+    // 4. 腹部半透明透光高光带与晶斑
+    ctx.save();
+    ctx.clip(); // 限制在身体内
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+    ctx.beginPath();
+    ctx.ellipse(head.x, head.y - 4, 30, 14, head.angle, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 背脊自发光晶核点
+    for(let i = 1; i < segs.length - 2; i += 2){
+      const seg = segs[i];
+      ctx.fillStyle = '#ffe77d';
+      ctx.shadowColor = '#ffe77d';
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(seg.x, seg.y, 3.8 - i * 0.15, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // 5. 头部细节：灵动双眸与发光触角
+    ctx.save();
+    ctx.translate(head.x, head.y);
+    ctx.rotate(head.angle);
+
+    // 触角 (左右微光触须)
+    for(let side = -1; side <= 1; side += 2){
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(12, side * 14);
+      const antWave = Math.sin(t * 4 + side) * 8;
+      ctx.bezierCurveTo(28, side * 22, 42, side * 30 + antWave, 56, side * 26 + antWave * 1.2);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+      // 触须端部微晶球
+      ctx.fillStyle = '#ffe77d';
+      ctx.shadowColor = '#ffe77d';
+      ctx.shadowBlur = 8;
+      ctx.beginPath();
+      ctx.arc(56, side * 26 + antWave * 1.2, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // 眼睛绘制（深邃黑瞳 + 荧光虹膜 + 明亮高光）
+    for(let side = -1; side <= 1; side += 2){
+      const eyeX = 8, eyeY = side * 18;
+      ctx.save();
+      // 浅色眼眶底
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#0d1526';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(eyeX, eyeY, 6.5, 5, 0.2 * side, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // 彩色虹膜
+      ctx.fillStyle = '#0284c7';
+      ctx.beginPath();
+      ctx.arc(eyeX + 1, eyeY, 4, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 瞳孔与高光
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(eyeX + 1.5, eyeY, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(eyeX + 2.5, eyeY - 1.5, 1.4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    ctx.restore();
+
+    ctx.restore();
+
+    // 尾随脱落微光晶粉 (净化光尘伴生特性)
+    if(Math.random() < 0.65){
+      const trailSeg = segs[Math.floor(Math.random() * 4) + 6];
+      emitDust(
+        trailSeg.x + (Math.random() - 0.5) * 16,
+        trailSeg.y + (Math.random() - 0.5) * 16,
+        -Math.cos(trailSeg.angle) * 1.2,
+        -Math.sin(trailSeg.angle) * 1.2,
+        Math.random() > 0.5 ? '#ffe77d' : '#38bdf8',
+        2.8
+      );
+    }
+  }
+
+  // 物理与运动更新逻辑
+  function updateCreature(t){
+    // 目标点（鼠标跟随或自主巡游）
+    let targetX = mouse.x, targetY = mouse.y;
+    if(!mouse.active){
+      // 优美的正弦波八字巡游轨道
+      targetX = W * 0.5 + Math.cos(t * 0.55) * (W * 0.32);
+      targetY = H * 0.5 + Math.sin(t * 1.1) * (H * 0.22);
+    }
+
+    const head = creature.segments[0];
+    const dx = targetX - head.x;
+    const dy = targetY - head.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    // 平滑转向角计算
+    let targetAngle = Math.atan2(dy, dx);
+    let diffAngle = targetAngle - head.angle;
+    while(diffAngle > Math.PI) diffAngle -= Math.PI * 2;
+    while(diffAngle < -Math.PI) diffAngle += Math.PI * 2;
+    head.angle += diffAngle * 0.045;
+
+    // 巡航速度阻尼
+    const speed = Math.min(dist * 0.04 + 1.2, 5.2);
+    head.x += Math.cos(head.angle) * speed;
+    head.y += Math.sin(head.angle) * speed;
+
+    // 脊椎骨骼链条级联传递（逆向动力学反向约束）
+    for(let i = 1; i < creature.segCount; i++){
+      const prev = creature.segments[i - 1];
+      const cur = creature.segments[i];
+      const sDx = prev.x - cur.x;
+      const sDy = prev.y - cur.y;
+      cur.angle = Math.atan2(sDy, sDx);
+      cur.x = prev.x - Math.cos(cur.angle) * creature.segDist;
+      cur.y = prev.y - Math.sin(cur.angle) * creature.segDist;
+    }
+  }
+
+  // 主渲染循环 (60 FPS)
+  let lastTime = performance.now();
+  function loop(now){
+    const dt = (now - lastTime) / 1000;
+    lastTime = now;
+    const t = now * 0.001;
+
+    ctx.save();
+    ctx.scale(dpr, dpr);
+
+    // 1. 绘制动态背景
+    drawBackground(t);
+
+    // 2. 更新生物动力学
+    updateCreature(t);
+
+    // 3. 绘制发光水波涟漪
+    drawRipples();
+
+    // 4. 绘制生物本体
+    drawCreature(t);
+
+    // 5. 绘制净化微光粒子
+    drawDusts();
+
+    ctx.restore();
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  // UI 事件交互
+  document.getElementById('envOcean').addEventListener('click', function(){
+    currentEnv = ENVS.ocean;
+    document.querySelectorAll('.tool-group:first-child .btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+  document.getElementById('envSky').addEventListener('click', function(){
+    currentEnv = ENVS.sky;
+    document.querySelectorAll('.tool-group:first-child .btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+  document.getElementById('envCave').addEventListener('click', function(){
+    currentEnv = ENVS.cave;
+    document.querySelectorAll('.tool-group:first-child .btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+
+  // 风格滤镜
+  const body = document.body;
+  document.getElementById('fltColor').addEventListener('click', function(){
+    body.className = '';
+    document.querySelectorAll('.tool-group:nth-child(3) .btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+  document.getElementById('fltManga').addEventListener('click', function(){
+    body.className = 'mode-manga';
+    document.querySelectorAll('.tool-group:nth-child(3) .btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+  document.getElementById('fltBlue').addEventListener('click', function(){
+    body.className = 'mode-blueprint';
+    document.querySelectorAll('.tool-group:nth-child(3) .btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+
+  document.getElementById('btnBurst').addEventListener('click', function(){
+    const head = creature.segments[0];
+    triggerBurst(head.x, head.y, 60);
+  });
+
+})();
+</script>
+</body>
+</html>
