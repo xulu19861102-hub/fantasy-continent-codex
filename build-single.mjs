@@ -4,10 +4,13 @@
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 
 const OUT = '幻想大陆生灵图鉴-单文件版.html';
+const INTRO = '幻想大陆-序章.html';
 
 const shell = readFileSync('index.html', 'utf8');
-const names = readdirSync('.').filter(f => f.endsWith('.html') && f !== 'index.html' && f !== OUT && f !== 'canvas-creature-demo.html');
-if (names.length !== 20) console.warn('注意：生物页数量为 ' + names.length + '（预期 20），如新增话页请同步更新首页卡片与本阈值。');
+const bios = readdirSync('.').filter(f => f.endsWith('.html') && f !== 'index.html' && f !== OUT && f !== 'canvas-creature-demo.html' && f !== INTRO);
+if (bios.length !== 20) console.warn('注意：生物页数量为 ' + bios.length + '（预期 20），如新增话页请同步更新首页卡片与本阈值。');
+/* 序章也内嵌，但不算生物页，不计入上面的阈值 */
+const names = bios.concat([INTRO]);
 
 // 读取全部话页原文
 const pages = {};
@@ -68,9 +71,9 @@ function cleanup(){
   frame.srcdoc = '';
   document.body.classList.remove('viewing');
 }
-function show(name){
+function show(name, title){
   frame.srcdoc = PAGES[name] || '';
-  vt.textContent = name.replace(/\\.html$/,'');
+  vt.textContent = title || name.replace(/\\.html$/,'');
   v.classList.add('open');
   v.setAttribute('aria-hidden','false');
   document.body.classList.add('viewing');
@@ -97,7 +100,15 @@ window.addEventListener('popstate', function(){
   pushed = false;
 });
 Array.prototype.forEach.call(document.querySelectorAll('[data-page]'), function(a){
-  a.addEventListener('click', function(e){ e.preventDefault(); show(a.getAttribute('data-page')); });
+  a.addEventListener('click', function(e){
+    e.preventDefault();
+    show(a.getAttribute('data-page'), a.getAttribute('data-page-title'));
+  });
+});
+/* 内嵌的序章页请求返回图鉴时，关闭查看器而不是在 iframe 里跳转 */
+window.addEventListener('message', function(e){
+  if(e.source !== frame.contentWindow) return;
+  if(e.data && e.data.type === 'fantasia:close') closeViewer();
 });
 vb.addEventListener('click', closeViewer);
 document.addEventListener('keydown', function(e){
@@ -120,7 +131,7 @@ for (const n of names) {
   if (restored[n] !== readFileSync(n, 'utf8')) { identical = false; console.error('内嵌不一致: ' + n); }
 }
 
-// B) 链接转换完整：20 个 data-page，无残留 .html 链接
+// B) 链接转换完整：20 张生物卡片 + 1 个序章入口 = 21 个 data-page，无残留 .html 链接
 const linked = (built.match(/data-page="/g) || []).length;
 const leftover = /href="[^"]*\.html"/.test(built);
 
@@ -129,7 +140,7 @@ const bodies = [...built.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1
 let syntaxOk = true;
 for (const b of bodies) { try { new Function(b); } catch (e) { syntaxOk = false; console.error('脚本语法错误: ' + e.message); } }
 
-console.log('生物页内嵌: ' + Object.keys(restored).length + ' / 与原文件一致: ' + identical);
-console.log('卡片 data-page: ' + linked + ' / 残留文件链接: ' + leftover);
+console.log('内嵌页数: ' + Object.keys(restored).length + '（生物页 ' + bios.length + ' + 序章） / 与原文件一致: ' + identical);
+console.log('入口 data-page: ' + linked + ' / 残留文件链接: ' + leftover);
 console.log('内联脚本语法: ' + (syntaxOk ? 'OK (' + bodies.length + ' 段)' : 'FAIL'));
 console.log('输出: ' + OUT + ' (' + (statSync(OUT).size / 1024).toFixed(1) + ' KB)');

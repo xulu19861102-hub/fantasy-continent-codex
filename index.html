@@ -82,7 +82,7 @@ section{position:relative;z-index:1}
 .btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px -8px rgba(255,234,120,.6)}
 
 /* ---------- 卷首 ---------- */
-.hero{min-height:92svh;display:flex;flex-direction:column;justify-content:center;padding-block:14vh 10vh;text-align:center}
+.hero{min-height:92svh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-block:14vh 10vh;text-align:center}
 .hero .kicker{letter-spacing:.3em}
 .hero h1{
   margin:.35em 0 .1em;font-family:var(--chunk);font-weight:400;color:#fdfbe8;
@@ -97,7 +97,8 @@ section{position:relative;z-index:1}
 .hero .stats{display:flex;justify-content:center;gap:10px 26px;flex-wrap:wrap;margin-top:1.8em;
   font-family:var(--mono);font-size:12.5px;color:var(--faint);letter-spacing:.1em}
 .hero .stats b{color:var(--gold);font-size:15px;margin-right:4px}
-.scrolldn{margin-top:7vh;color:var(--cyan);font-family:var(--mono);font-size:12px;letter-spacing:.3em;opacity:.8;animation:dip 2.4s ease-in-out infinite}
+.hero-cta{margin-top:2.1em;font-family:var(--mono);font-size:13px;letter-spacing:.12em}
+.scrolldn{margin-top:6vh;color:var(--cyan);font-family:var(--mono);font-size:12px;letter-spacing:.3em;opacity:.8;animation:dip 2.4s ease-in-out infinite}
 @keyframes dip{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(8px);opacity:1}}
 
 /* ---------- 大陆介绍 ---------- */
@@ -266,6 +267,7 @@ footer a:hover{text-decoration:underline}
       <span><b>20</b>种已记录生灵</span>
       <span><b>20</b>页动态图鉴</span>
     </div>
+    <a class="btn hero-cta" href="幻想大陆-序章.html" data-page-title="序章 · 幻想大陆">▶ 观看序章动画 · 54 秒</a>
     <div class="scrolldn">▼ 向下滚动 · 进入大陆 ▼</div>
   </header>
 
