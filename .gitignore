@@ -1,0 +1,5 @@
+# Local agent workspaces, screenshots, and generated QA reports.
+/.codex-work/
+/argon-check-result.json
+/qa/*-report.json
+/qa/*.png

@@ -1,0 +1,297 @@
+{
+  "functions": {
+    "travel": "c7ca43c35a38896775c06beec7eca28c3ee78d29b2c302a6f632579c322e3f9b",
+    "goGate": "d196e445504aa262b4e15c191b5c861de8c1ab1b40ccd100506702ad8d5efa92",
+    "start": "45ead62db8abfdf805636caaaa2b9bd0d135ece21d3aa5fee80b4af448c27b3b",
+    "goTitle": "2ceb9b5c71b155aeeca2ea678df6edfb04a288ccbf87b82ed40573d4b73f182b",
+    "say": "2435a36845116cd7697da724567f48f74d86957599c26ffa101fd6ef7dc1b361",
+    "closeDialog": "d558bcdb2c949a554b4a3afec1fbd25062bc68688b3cd99ec10839d5755d885a",
+    "advance": "9c89a91c8e8860f850216df3f8f52a53ab463b88ce38b336cdfd34df790bf050",
+    "makePet": "1fc3935e85f57e896f432858453dd321bed3111838e10c130c8e6433b31fddcc",
+    "startBattle": "2ba26f59597ba62280b25751e47ffa3dbda29a25f994db33463ac1f2dd0874f5",
+    "damage": "3d6cb846922cc1d5d1e4bfd7632860be93138dcdf1dd2b910fc6787cacbd62e3",
+    "heal": "1349af41165b4c573afc8cd3c8f33d107cfc1b33fcb905e12ccfc6e089a6b1a9"
+  },
+  "species": {
+    "porc": {
+      "id": "porc",
+      "name": "铜铃刺刺豚",
+      "nick": "叮当",
+      "latin": "Campanula ericius",
+      "realm": "旷野境",
+      "element": "风",
+      "colors": {
+        "body": "#e9a15f",
+        "dark": "#7b4b38",
+        "light": "#ffd8a6",
+        "accent": "#f6c948",
+        "glow": "#ffd166"
+      },
+      "base": {
+        "hp": 38,
+        "atk": 10,
+        "def": 8,
+        "spd": 9,
+        "sp": 20
+      },
+      "grow": {
+        "hp": 9,
+        "atk": 2.2,
+        "def": 1.4,
+        "spd": 1,
+        "sp": 2
+      },
+      "skills": [
+        "roll",
+        "curl"
+      ],
+      "desc": "尾端悬着一枚铜铃的刺球。遇险会收爪成轮，沿红土坡道叮当飞滚。",
+      "lore": "第 9 话 · PORC-09-SPEC"
+    },
+    "snail": {
+      "id": "snail",
+      "name": "星屑留声机蜗牛",
+      "nick": "留声",
+      "latin": "Cochlea phonographica",
+      "realm": "旷野境",
+      "element": "星",
+      "colors": {
+        "body": "#8fd8b8",
+        "dark": "#4a7a6b",
+        "light": "#d9ffe9",
+        "accent": "#d8a84f",
+        "glow": "#ffe5a0"
+      },
+      "base": {
+        "hp": 36,
+        "atk": 8,
+        "def": 8,
+        "spd": 7,
+        "sp": 24
+      },
+      "grow": {
+        "hp": 8,
+        "atk": 1.8,
+        "def": 1.4,
+        "spd": 0.8,
+        "sp": 2
+      },
+      "skills": [
+        "echo",
+        "lullaby"
+      ],
+      "desc": "螺壳是一台小小的留声机，壳口铜喇叭会呼出带星光的音符泡。",
+      "lore": "第 16 话 · GAST-16-SPEC"
+    },
+    "lizard": {
+      "id": "lizard",
+      "name": "苔鳞潜沼蜥",
+      "nick": "苔苔",
+      "latin": "Lophisuchus muscosus",
+      "realm": "林泽境",
+      "element": "苔",
+      "colors": {
+        "body": "#6f9b58",
+        "dark": "#3b5e3b",
+        "light": "#d8e5a8",
+        "accent": "#e9c46a",
+        "glow": "#c6ff9a"
+      },
+      "base": {
+        "hp": 44,
+        "atk": 9,
+        "def": 10,
+        "spd": 7,
+        "sp": 20
+      },
+      "grow": {
+        "hp": 10,
+        "atk": 1.5,
+        "def": 1.8,
+        "spd": 0.8,
+        "sp": 2
+      },
+      "skills": [
+        "breath",
+        "mossarmor"
+      ],
+      "desc": "背部蜂窝鳞与地衣共生，能瞬间弹开伞状菌膜喉囊。蹲着不动时，像一小片苔丘。",
+      "lore": "第 10 话 · REPT-10-SPEC"
+    },
+    "bell": {
+      "id": "bell",
+      "name": "沸泉晶钟兽",
+      "nick": "钟伯",
+      "latin": "Geocampana fervida",
+      "realm": "幽域境",
+      "element": "地",
+      "colors": {
+        "body": "#6f7ea8",
+        "dark": "#3e466c",
+        "light": "#dfe8ff",
+        "accent": "#67d5df",
+        "glow": "#8be9ff"
+      },
+      "base": {
+        "hp": 84,
+        "atk": 9,
+        "def": 11,
+        "spd": 8,
+        "sp": 26
+      },
+      "grow": {
+        "hp": 9,
+        "atk": 1.5,
+        "def": 1.2,
+        "spd": 0.6,
+        "sp": 2
+      },
+      "skills": [
+        "bellring",
+        "geyser"
+      ],
+      "desc": "背负中空水晶钟，能蓄 40 升热泉水。尾端晶锤每敲一下，洞顶就会落下碎晶。",
+      "lore": "第 18 话 · GEOC-18-SPEC"
+    },
+    "badger": {
+      "id": "badger",
+      "name": "伞耳獾",
+      "nick": "伞伞",
+      "latin": "Umbrotis fungifera",
+      "realm": "林泽境",
+      "element": "苔",
+      "colors": {
+        "body": "#a8a0a0",
+        "dark": "#4d4a4c",
+        "light": "#f0e8da",
+        "accent": "#e07a5f",
+        "glow": "#ffd9b0"
+      },
+      "base": {
+        "hp": 38,
+        "atk": 9,
+        "def": 8,
+        "spd": 7,
+        "sp": 18
+      },
+      "grow": {
+        "hp": 8,
+        "atk": 2,
+        "def": 1.5,
+        "spd": 0.8,
+        "sp": 2
+      },
+      "skills": [
+        "umbrella",
+        "spore"
+      ],
+      "desc": "脑后伞耳遇雨撑开，直径可达 1.2 米；背上的菇帽一夜就能长出幼苗。",
+      "lore": "第 2 话 · UMBR-02-SPEC"
+    },
+    "centi": {
+      "id": "centi",
+      "name": "荧光波足兽",
+      "nick": "波波",
+      "latin": "Polypus fluctuans",
+      "realm": "林泽境",
+      "element": "光",
+      "colors": {
+        "body": "#6f7ea8",
+        "dark": "#3c3f68",
+        "light": "#d6efff",
+        "accent": "#7ef0c9",
+        "glow": "#b8ffe8"
+      },
+      "base": {
+        "hp": 30,
+        "atk": 9,
+        "def": 6,
+        "spd": 10,
+        "sp": 20
+      },
+      "grow": {
+        "hp": 7,
+        "atk": 2.2,
+        "def": 1.2,
+        "spd": 1.2,
+        "sp": 2
+      },
+      "skills": [
+        "wave",
+        "dazzle"
+      ],
+      "desc": "腹下几十只半透明小脚，从尾侧向头侧依次落点，像一道滚过去的光浪。",
+      "lore": "第 3 话 · POLY-03-SPEC"
+    }
+  },
+  "mapRows": {
+    "camp": [
+      "######################",
+      "#....................#",
+      "#..T.....f......T....#",
+      "#....t...........,,..#",
+      "#....t...........,,..#",
+      "#........o...........#",
+      "#.......ppp..........#",
+      "#..f....p.p......f...#",
+      "#.......p.p..........#",
+      "#....,,,p.p,,,.......#",
+      "#....,,,p.p,,,.......#",
+      "#.......p.p..........#",
+      "#..f....ppppppppppg..#",
+      "#.......p............#",
+      "######################"
+    ],
+    "redhill": [
+      "######################",
+      "#....................#",
+      "#..T....f.....R...g..#",
+      "#...........,,.......#",
+      "#....R......,,....T..#",
+      "#...........,,.......#",
+      "#..,,,......ppp......#",
+      "#..,,,.....p...p.....#",
+      "#....f....p.....,,,..#",
+      "#........p......,,,..#",
+      "#....R...p...........#",
+      "#.p......ppppppppppp.#",
+      "#.p..................#",
+      "#.p..................#",
+      "######################"
+    ],
+    "moss": [
+      "######################",
+      "#....................#",
+      "#..T.....m......c..g.#",
+      "#....m...........c...#",
+      "#..T.....wwwbw.......#",
+      "#.......wwwwbww..L...#",
+      "#..m....wwwwbww......#",
+      "#.......wwwwbww......#",
+      "#....T......b........#",
+      "#...........b........#",
+      "#..m........b.....m..#",
+      "#...........b........#",
+      "#.p................T.#",
+      "#.p..................#",
+      "######################"
+    ],
+    "geode": [
+      "######################",
+      "#..c...............c.#",
+      "#....R.........R.....#",
+      "#..c....ppppp....c...#",
+      "#......p.....p.......#",
+      "#.....p..B....p......#",
+      "#.....p.......p......#",
+      "#..c..p.......p...c..#",
+      "#.....ppppppppp......#",
+      "#..c.................#",
+      "#.....p..............#",
+      "#..c..p...p..........#",
+      "#.p...p...p......c...#",
+      "#.ppppppppp..........#",
+      "######################"
+    ]
+  }
+}
